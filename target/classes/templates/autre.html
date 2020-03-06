@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Autre Information</title>
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/main.css}"/>
+
+</head>
+<body>
+    <div th:insert="~{menu :: fragment }"></div>
+    <div class="container">
+        <h2>Informations complémentaires sur les joueurs de l'équipe</h2>
+        <a th:href="@{edition}" class="btn btn-dark" role="button">Modifier un joueur</a>
+        <table class="table table-bordered col-lg-10" >
+            <thead>
+            <tr>
+                <th class="col-lg-1">N° maillot</th>
+                <th class="col-lg-2">Nom des joueurs</th>
+                <th class="col-lg-2">Prénom</th>
+                <th class="col-lg-1">Age</th>
+                <th class="col-lg-2">nationalité</th>
+                <th class="col-lg-2">Position</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:action="@{/autre}" th:object="${joueurTrouve}" >
+                <td th:text="${joueurTrouve.numeroMaillot}"></td>
+                <td th:text="*{nom}"></td>
+                <td th:text="*{prenom}"></td>
+                <td th:text="*{age}"></td>
+                <td th:text="*{nationalite}"></td>
+                <td th:text="*{position}"></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

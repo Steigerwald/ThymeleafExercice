@@ -1,0 +1,41 @@
+body {
+  padding-top: 2rem;
+}
+.starter-template {
+  padding: 1rem 1rem;
+  text-align: center;
+}
+
+h1{
+	color:blue;
+}
+
+h2{
+	color:black;
+}
+.menu {
+    margin-top: 5px !important;
+    color:red !important;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+table tr:nth-child(even) {
+    background-color: #eee;
+}
+table tr:nth-child(odd) {
+    background-color: #fff;
+}
+table th {
+    background-color: black;
+    color: white;
+}
+img {
+    width: 25%;
+    height: 25%;
+}

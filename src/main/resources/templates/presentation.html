@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Présentation</title>
+        <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+
+    </head>
+
+    <body>
+        <main role="main" class="container">
+            <div class="starter-template">
+                <h1>Bienvenue chez les footeux !!! </h1>
+                <h1>
+                <img th:alt="imagePres" th:src="@{/images/pres.jpg}" />
+                </h1>
+                <h2>
+                    <span>Bonjour, comment vous appelez-vous?</span>
+                </h2>
+            </div>
+            <form th:action="@{/}" th:object="${user}" method="post" class="col-lg-10 border">
+                <div class="row">
+                    <div class="form-group col-5">
+                        <label>Nom</label>
+                        <input class="form-control" placeholder="Nom" th:field="*{nomUser}" type="text">
+                    </div>
+                    <div class="form-group col-lg-5">
+                        <label>Prénom</label>
+                        <input class="form-control" placeholder="Prénom"  th:field="*{prenomUser}" type="text" >
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </main>
+    </body>
+</html>
