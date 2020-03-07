@@ -44,9 +44,13 @@
                             </div>
 
                             <div class="form-group col-md-2">
-                                <label for="position" class="col-form-label">Position</label>
-                                <input type="text" th:field="*{position}" class="form-control"
-                                       id="position" placeholder="position Id" />
+                                <label for="position"class="col-form-label">Position</label>
+                                <select type="text" th:field="*{position}" class="form-control" id="position">
+                                    <option value="Goal" >Goal</option>
+                                    <option value="Défenseur">Défenseur</option>
+                                    <option value="Milieu">Milieu</option>
+                                    <option value="Attaquant">Attaquant</option>
+                                </select>
                             </div>
 
                             <div class="form-group col-md-1">

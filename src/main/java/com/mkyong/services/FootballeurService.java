@@ -57,7 +57,7 @@ public class FootballeurService {
                 newEntity.setAge(entity.getAge());
                 newEntity.setNationalite(entity.getNationalite());
                 newEntity.setPosition(entity.getPosition());
-                newEntity.setNumeroMaillot(entity.getNumeroMaillot());
+                newEntity.setClub(entity.getClub());
 
                 newEntity = repository.save(newEntity);
 
