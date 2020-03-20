@@ -36,6 +36,19 @@ public class Footballeur {
     public Footballeur(){
     }
 
+    @Override
+    public String toString() {
+        return "Footballeur{" +
+                "id=" + getId() +
+                ", nom='" + getNom() + '\'' +
+                ", prenom='" + getPrenom() + '\'' +
+                ", age='" + getAge() + '\'' +
+                ", nationalite='" + getNationalite() + '\'' +
+                ", position='" + getPosition() + '\'' +
+                ", numeroMaillot='" + getNumeroMaillot() + '\'' +
+                ", club=" + getClub() +
+                '}';
+    }
 
     // getters
 

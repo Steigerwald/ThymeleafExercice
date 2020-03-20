@@ -1,12 +1,13 @@
 package com.mkyong.services;
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 import com.mkyong.entity.Club;
 import com.mkyong.entity.Footballeur;
 import com.mkyong.exception.RecordNotFoundException;
-import com.mkyong.repository.ClubRepository;
 import com.mkyong.repository.FootballeurRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.System.*;
+
 @Service
 public class FootballeurService {
 
     @Autowired
     FootballeurRepository repository;
-
-    @Autowired
-    ClubRepository clubRepository;
 
     Logger logger = (Logger) LoggerFactory.getLogger(FootballeurService.class);
 
@@ -80,7 +80,32 @@ public class FootballeurService {
         }
     }
 
-    public Footballeur transfereFootballeur(Footballeur entityWithNewClub, Club newClub) {
+
+    public Footballeur transfereFootballeur(Footballeur entityWithNewClub) {
+
+        logger.info("transfereFootballeur " + entityWithNewClub.toString());
+
+
+        Optional<Footballeur> footballeur = repository.findById(entityWithNewClub.getId());
+
+
+        if(footballeur.isPresent()) {
+            Footballeur newEntity = footballeur.get();
+
+            System.out.println(newEntity.toString());
+
+            newEntity.setClub(entityWithNewClub.getClub());
+
+            newEntity = repository.save(newEntity);
+
+            return newEntity;
+        } else{
+            return entityWithNewClub;
+        }
+    }
+
+
+    /* public Footballeur transfereFootballeur(Footballeur entityWithNewClub, Club newClub) {
 
         if (entityWithNewClub.getId() == null) {
 
@@ -96,6 +121,11 @@ public class FootballeurService {
                 Footballeur newEntity = footballeur.get();
 
                 logger.debug("A DEBUG Message footballeur est présent");
+                logger.trace("A TRACE Message");
+                logger.debug("A DEBUG Message");
+                logger.info("An INFO Message");
+                logger.warn("A WARN Message");
+                logger.error("An ERROR Message");
 
                     newEntity.setClub(newClub);
 
@@ -111,7 +141,7 @@ public class FootballeurService {
                 return entityWithNewClub;
             }
         }
-    }
+    } */
 
     public void deleteFootballeurById(Long id) throws RecordNotFoundException
     {

@@ -8,6 +8,8 @@ import com.mkyong.entity.Footballeur;
 import com.mkyong.entity.Club;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.LeagueService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,7 @@ public class ControllerFootballeurDataBase {
     @Autowired
     LeagueService leagueService;
 
+    Logger logger = (Logger) LoggerFactory.getLogger(FootballeurService.class);
 
     private String message1;
     private String message2;
@@ -90,9 +93,6 @@ public class ControllerFootballeurDataBase {
             Footballeur entity = footballeurService.getFootballeurById(id.get());
             model.addAttribute("footballeur", entity);
 
-        } else{
-            model.addAttribute("footballeur", new Footballeur());
-
         }
         List<Club> listClubs = clubService.getAllClubs();
         model.addAttribute("clubs", listClubs);
@@ -101,12 +101,11 @@ public class ControllerFootballeurDataBase {
     }
 
     @RequestMapping(path = "/footballeurs/footballeurTransfere", method = RequestMethod.POST)
-    public String UpdateEntity(Footballeur footballeur) throws RecordNotFoundException {
+    public String UpdateEntity(Footballeur footballeur) {
 
-        Club newClub=clubService.getClubById(footballeur.getClub().getId());
+        logger.info("methode post " + footballeur.toString());
 
-
-        footballeurService.transfereFootballeur(footballeur,newClub);
+        footballeurService.transfereFootballeur(footballeur);
 
         return "redirect:/footballeurs";
     }

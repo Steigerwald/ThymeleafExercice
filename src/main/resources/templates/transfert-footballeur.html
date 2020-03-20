@@ -19,6 +19,8 @@
                         <th class="col-lg-2">Nom des joueurs</th>
                         <th class="col-lg-2">Prénom</th>
                         <th class="col-lg-2">Club actuel</th>
+                        <th class="col-lg-2">Ligue</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -26,10 +28,11 @@
                         <td th:text="${footballeur.nom}"></td>
                         <td th:text="${footballeur.prenom}"></td>
                         <td th:text="${footballeur.getClub().getNomClub()}"></td>
+                        <td th:text="${footballeur.getClub().getLeague().getNomLeague()}"></td>
                     </tr>
                     </tbody>
                 </table>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-2">
                     <label for="Club" class="col-form-label">Changement de Club</label>
                     <select th:field="*{club}" class="form-control" id="Club">
                         <option th:each="club : ${clubs}" th:value="${club.getId()}" th:text="${club.getNomClub()}">
@@ -46,6 +49,8 @@
                         <div class="col-md-12">
                             <input type="submit" class="btn btn-primary" value=" Transfert ">
                         </div>
+                        <input type="hidden" id="id" th:field="*{id}">
+
                     </div>
                 </div>
             </div>

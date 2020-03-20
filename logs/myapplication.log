@@ -4920,3 +4920,88 @@ org.springframework.beans.NotReadablePropertyException: Invalid property 'getClu
 2020-03-20 02:19:25,856 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-7] Mapped to public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
 2020-03-20 02:19:25,860 DEBUG org.springframework.web.servlet.view.ContentNegotiatingViewResolver [http-nio-8080-exec-7] Selected 'text/html' given [text/html, text/html;q=0.8]
 2020-03-20 02:19:25,861 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-7] Exiting from "ERROR" dispatch, status 404
+2020-03-20 12:01:30,616 DEBUG org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2020-03-20 12:01:30,617 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1302 ms
+2020-03-20 12:01:32,088 DEBUG org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [restartedMain] Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2020-03-20 12:01:32,199 DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [restartedMain] ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2020-03-20 12:01:32,260 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMethodMapping [restartedMain] 13 mappings in 'requestMappingHandlerMapping'
+2020-03-20 12:01:32,268 DEBUG org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [restartedMain] Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2020-03-20 12:01:32,277 DEBUG org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver [restartedMain] ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2020-03-20 12:03:02,687 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2020-03-20 12:03:02,688 DEBUG org.springframework.web.servlet.DispatcherServlet [http-nio-8080-exec-1] Detected StandardServletMultipartResolver
+2020-03-20 12:03:02,696 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2020-03-20 12:03:02,697 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 9 ms
+2020-03-20 12:03:02,703 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-1] GET "/", parameters={}
+2020-03-20 12:03:02,707 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-1] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.main(org.springframework.ui.Model)
+2020-03-20 12:03:02,733 DEBUG org.springframework.web.servlet.view.ContentNegotiatingViewResolver [http-nio-8080-exec-1] Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, application/xml;q=0.9, */*;q=0.8]
+2020-03-20 12:03:03,011 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed 200 OK
+2020-03-20 12:03:03,037 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-2] GET "/webjars/bootstrap/4.2.1/css/bootstrap.min.css", parameters={}
+2020-03-20 12:03:03,038 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-3] GET "/css/main.css", parameters={}
+2020-03-20 12:03:03,040 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-2] Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2020-03-20 12:03:03,040 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-3] Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-03-20 12:03:03,051 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-3] Completed 200 OK
+2020-03-20 12:03:03,053 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Completed 200 OK
+2020-03-20 12:03:03,054 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-4] GET "/images/pres.jpg", parameters={}
+2020-03-20 12:03:03,055 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-4] Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-03-20 12:03:03,075 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-4] Completed 200 OK
+2020-03-20 12:03:03,098 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-5] GET "/favicon.ico", parameters={}
+2020-03-20 12:03:03,098 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-5] Mapped to ResourceHttpRequestHandler [class path resource [META-INF/resources/], class path resource [resources/], class path resource [static/], class path resource [public/], ServletContext resource [/], class path resource []]
+2020-03-20 12:03:03,109 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-5] Completed 200 OK
+2020-03-20 12:03:17,344 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-6] POST "/", parameters={masked}
+2020-03-20 12:03:17,344 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-6] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.formUser(com.mkyong.entity.Users,org.springframework.ui.Model)
+2020-03-20 12:03:17,354 DEBUG org.springframework.web.servlet.view.ContentNegotiatingViewResolver [http-nio-8080-exec-6] Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, application/xml;q=0.9, */*;q=0.8]
+2020-03-20 12:03:17,373 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-6] Completed 200 OK
+2020-03-20 12:03:17,392 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-7] GET "/webjars/bootstrap/4.2.1/js/bootstrap.min.js", parameters={}
+2020-03-20 12:03:17,393 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-7] Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2020-03-20 12:03:17,397 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-7] Completed 200 OK
+2020-03-20 12:03:21,543 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-8] GET "/footballeurs", parameters={}
+2020-03-20 12:03:21,544 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-8] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.getAllFootballeurs(org.springframework.ui.Model)
+2020-03-20 12:03:21,661 DEBUG org.springframework.web.servlet.view.ContentNegotiatingViewResolver [http-nio-8080-exec-8] Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, application/xml;q=0.9, */*;q=0.8]
+2020-03-20 12:03:21,680 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-8] Completed 200 OK
+2020-03-20 12:03:27,475 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-9] GET "/footballeurs/transfert/1", parameters={}
+2020-03-20 12:03:27,476 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-9] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.transfertEntityById(org.springframework.ui.Model,java.util.Optional<java.lang.Long>) throws com.mkyong.exception.RecordNotFoundException
+2020-03-20 12:03:27,490 DEBUG org.springframework.web.servlet.view.ContentNegotiatingViewResolver [http-nio-8080-exec-9] Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, application/xml;q=0.9, */*;q=0.8]
+2020-03-20 12:03:27,518 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-9] Completed 200 OK
+2020-03-20 12:03:41,254 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-10] POST "/footballeurs/footballeurTransfere", parameters={masked}
+2020-03-20 12:03:41,254 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-10] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.UpdateEntity(com.mkyong.entity.Footballeur) throws com.mkyong.exception.RecordNotFoundException
+2020-03-20 12:03:41,262 DEBUG org.springframework.web.servlet.view.AbstractView [http-nio-8080-exec-10] View name 'redirect:/footballeurs', model {}
+2020-03-20 12:03:41,263 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-10] Completed 302 FOUND
+2020-03-20 12:03:41,266 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-1] GET "/footballeurs", parameters={}
+2020-03-20 12:03:41,266 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-1] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.getAllFootballeurs(org.springframework.ui.Model)
+2020-03-20 12:03:41,273 DEBUG org.springframework.web.servlet.view.ContentNegotiatingViewResolver [http-nio-8080-exec-1] Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, application/xml;q=0.9, */*;q=0.8]
+2020-03-20 12:03:41,282 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed 200 OK
+2020-03-20 12:07:36,216 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-4] GET "/", parameters={}
+2020-03-20 12:07:36,217 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-4] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.main(org.springframework.ui.Model)
+2020-03-20 12:07:36,218 DEBUG org.springframework.web.servlet.view.ContentNegotiatingViewResolver [http-nio-8080-exec-4] Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, application/xml;q=0.9, */*;q=0.8]
+2020-03-20 12:07:36,221 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-4] Completed 200 OK
+2020-03-20 12:07:36,226 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-5] GET "/webjars/bootstrap/4.2.1/css/bootstrap.min.css", parameters={}
+2020-03-20 12:07:36,226 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-6] GET "/css/main.css", parameters={}
+2020-03-20 12:07:36,227 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-5] Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/webjars/"]
+2020-03-20 12:07:36,227 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-6] Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-03-20 12:07:36,228 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-6] Completed 200 OK
+2020-03-20 12:07:36,229 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-5] Completed 200 OK
+2020-03-20 12:07:36,230 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-7] GET "/images/pres.jpg", parameters={}
+2020-03-20 12:07:36,231 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-7] Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-03-20 12:07:36,242 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-7] Completed 200 OK
+2020-03-20 12:07:36,244 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-8] GET "/favicon.ico", parameters={}
+2020-03-20 12:07:36,245 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-8] Mapped to ResourceHttpRequestHandler [class path resource [META-INF/resources/], class path resource [resources/], class path resource [static/], class path resource [public/], ServletContext resource [/], class path resource []]
+2020-03-20 12:07:36,247 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-8] Completed 200 OK
+2020-03-20 12:25:00,793 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-3] GET "/footballeurs", parameters={}
+2020-03-20 12:25:00,793 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-3] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.getAllFootballeurs(org.springframework.ui.Model)
+2020-03-20 12:25:00,800 DEBUG org.springframework.web.servlet.view.ContentNegotiatingViewResolver [http-nio-8080-exec-3] Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, application/xml;q=0.9, */*;q=0.8]
+2020-03-20 12:25:00,808 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-3] Completed 200 OK
+2020-03-20 12:25:00,826 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-2] GET "/css/main.css", parameters={}
+2020-03-20 12:25:00,827 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-2] Mapped to ResourceHttpRequestHandler ["classpath:/META-INF/resources/", "classpath:/resources/", "classpath:/static/", "classpath:/public/", "/"]
+2020-03-20 12:25:00,830 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-2] Completed 304 NOT_MODIFIED
+2020-03-20 12:25:02,998 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-4] GET "/footballeurs/transfert/1", parameters={}
+2020-03-20 12:25:02,999 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-4] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.transfertEntityById(org.springframework.ui.Model,java.util.Optional<java.lang.Long>) throws com.mkyong.exception.RecordNotFoundException
+2020-03-20 12:25:03,008 DEBUG org.springframework.web.servlet.view.ContentNegotiatingViewResolver [http-nio-8080-exec-4] Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, application/xml;q=0.9, */*;q=0.8]
+2020-03-20 12:25:03,020 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-4] Completed 200 OK
+2020-03-20 12:25:07,999 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-6] POST "/footballeurs/footballeurTransfere", parameters={masked}
+2020-03-20 12:25:08,000 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-6] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.UpdateEntity(com.mkyong.entity.Footballeur) throws com.mkyong.exception.RecordNotFoundException
+2020-03-20 12:25:08,004 DEBUG org.springframework.web.servlet.view.AbstractView [http-nio-8080-exec-6] View name 'redirect:/footballeurs', model {}
+2020-03-20 12:25:08,005 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-6] Completed 302 FOUND
+2020-03-20 12:25:08,007 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-5] GET "/footballeurs", parameters={}
+2020-03-20 12:25:08,008 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-5] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.getAllFootballeurs(org.springframework.ui.Model)
+2020-03-20 12:25:08,015 DEBUG org.springframework.web.servlet.view.ContentNegotiatingViewResolver [http-nio-8080-exec-5] Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, application/xml;q=0.9, */*;q=0.8]
+2020-03-20 12:25:08,023 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-5] Completed 200 OK
