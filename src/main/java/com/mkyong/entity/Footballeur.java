@@ -27,28 +27,15 @@ public class Footballeur {
     @Column (name="NUMERO_MAILLOT")
     private String numeroMaillot;
 
+
     @ManyToOne
     private Club club;
 
     //constructeurs
-    public Footballeur(String nom, String prenom, String age, String nationalite, String position, String numeroMaillot,Club club) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.age = age;
-        this.nationalite=nationalite;
-        this.position = position;
-        this.numeroMaillot=numeroMaillot;
-        this.club=club;
-    }
 
     public Footballeur(){
     }
 
-    @Override
-    public String toString() {
-        return "FootballeurEntity [id=" + id + ", nom= " + nom +
-                ", prénom= " + prenom + ", age= " + age + ", nationalité= " + nationalite + ", position= " + position + ", numéro= " + numeroMaillot + "]";
-    }
 
     // getters
 
@@ -80,9 +67,7 @@ public class Footballeur {
         return numeroMaillot;
     }
 
-    public Club getClub() {
-        return club;
-    }
+    public Club getClub() { return club; }
 
     //setters
 
@@ -115,7 +100,5 @@ public class Footballeur {
         this.numeroMaillot = numeroMaillot;
     }
 
-    public void setClub(Club club) {
-        this.club = club;
-    }
+    public void setClub(Club club) { this.club = club; }
 }

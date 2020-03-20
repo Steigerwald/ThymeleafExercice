@@ -1,7 +1,11 @@
 package com.mkyong.services;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import com.mkyong.entity.Club;
 import com.mkyong.entity.Footballeur;
 import com.mkyong.exception.RecordNotFoundException;
+import com.mkyong.repository.ClubRepository;
 import com.mkyong.repository.FootballeurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +19,11 @@ public class FootballeurService {
 
     @Autowired
     FootballeurRepository repository;
+
+    @Autowired
+    ClubRepository clubRepository;
+
+    Logger logger = (Logger) LoggerFactory.getLogger(FootballeurService.class);
 
     public List<Footballeur> getAllFootballeurs()
     {
@@ -70,6 +79,40 @@ public class FootballeurService {
             }
         }
     }
+
+    public Footballeur transfereFootballeur(Footballeur entityWithNewClub, Club newClub) {
+
+        if (entityWithNewClub.getId() == null) {
+
+            logger.debug("A DEBUG Message l'entité est nulle");
+
+            return entityWithNewClub;
+
+        } else {
+
+            Optional<Footballeur> footballeur = repository.findById(entityWithNewClub.getId());
+
+            if (footballeur.isPresent()) {
+                Footballeur newEntity = footballeur.get();
+
+                logger.debug("A DEBUG Message footballeur est présent");
+
+                    newEntity.setClub(newClub);
+
+                    logger.debug("A DEBUG Message club est initialisé dans footballeur");
+
+                    newEntity = repository.save(newEntity);
+
+                    logger.debug("A DEBUG Message club est sauvegardé");
+
+                return newEntity;
+            } else {
+                logger.debug("A DEBUG Message footballeur n'est pas présent");
+                return entityWithNewClub;
+            }
+        }
+    }
+
     public void deleteFootballeurById(Long id) throws RecordNotFoundException
     {
         Optional<Footballeur> footballeur = repository.findById(id);

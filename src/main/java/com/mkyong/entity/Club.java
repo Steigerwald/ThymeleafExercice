@@ -53,9 +53,7 @@ public class Club {
         return footballeurs;
     }
 
-    public League getLeague() {
-        return league;
-    }
+    public League getLeague() { return league; }
 
     //setters
 
@@ -80,7 +78,5 @@ public class Club {
         this.footballeurs = footballeurs;
     }
 
-    public void setLeague(League league) {
-        this.league = league;
-    }
+    public void setLeague(League league) { this.league = league; }
 }

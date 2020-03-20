@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Transfert footballeur</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+</head>
+<body>
+    <div class="col-md-12">
+        <form action="#" th:action="@{/footballeurs/footballeurTransfere}" th:object="${footballeur}" method="post">
+            <div class="row">
+                <table class="table table-bordered col-lg-6" >
+                    <thead>
+                    <tr>
+                        <th class="col-lg-2">Nom des joueurs</th>
+                        <th class="col-lg-2">Prénom</th>
+                        <th class="col-lg-2">Club actuel</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td th:text="${footballeur.nom}"></td>
+                        <td th:text="${footballeur.prenom}"></td>
+                        <td th:text="${footballeur.getClub().getNomClub()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="form-group col-md-4">
+                    <label for="Club" class="col-form-label">Changement de Club</label>
+                    <select th:field="*{club}" class="form-control" id="Club">
+                        <option th:each="club : ${clubs}" th:value="${club.getId()}" th:text="${club.getNomClub()}">
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Appuyer sur le bouton</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="submit" class="btn btn-primary" value=" Transfert ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

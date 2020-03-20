@@ -50,7 +50,7 @@ public class ControllerFootballeurDataBase {
     }
 
     @RequestMapping(path = {"/footballeurs/edit", "footballeurs/edit/{id}"})
-    public String editEntityById(Model model, @PathVariable("id") Optional<Long> id)
+    public String editEntityById(Model model, @PathVariable("id") Optional <Long> id)
             throws RecordNotFoundException
     {
         if (id.isPresent()) {
@@ -59,14 +59,18 @@ public class ControllerFootballeurDataBase {
         } else {
             model.addAttribute("footballeur", new Footballeur());
         }
+
+        List<Club> listC = clubService.getAllClubs();
+        model.addAttribute("clubs", listC);
+
         return "add-edit-footballeur";
     }
 
     @RequestMapping(path = "/footballeurs/delete/{id}")
-    public String deleteEntityById(Model model, @PathVariable("id") Long id)
+    public String deleteEntityById(Model model, @PathVariable("id") Optional<Long> id)
             throws RecordNotFoundException
     {
-        footballeurService.deleteFootballeurById(id);
+        footballeurService.deleteFootballeurById(id.get());
         return "redirect:/footballeurs";
     }
 
@@ -74,6 +78,35 @@ public class ControllerFootballeurDataBase {
     public String createOrUpdateEntity(Footballeur footballeur)
     {
         footballeurService.createOrUpdateFootballeur(footballeur);
+
+        return "redirect:/footballeurs";
+    }
+
+    @RequestMapping(path = {"footballeurs/transfert/{id}"})
+    public String transfertEntityById(Model model, @PathVariable("id") Optional<Long> id)
+            throws RecordNotFoundException
+    {
+        if (id.isPresent()) {
+            Footballeur entity = footballeurService.getFootballeurById(id.get());
+            model.addAttribute("footballeur", entity);
+
+        } else{
+            model.addAttribute("footballeur", new Footballeur());
+
+        }
+        List<Club> listClubs = clubService.getAllClubs();
+        model.addAttribute("clubs", listClubs);
+
+        return "transfert-footballeur";
+    }
+
+    @RequestMapping(path = "/footballeurs/footballeurTransfere", method = RequestMethod.POST)
+    public String UpdateEntity(Footballeur footballeur) throws RecordNotFoundException {
+
+        Club newClub=clubService.getClubById(footballeur.getClub().getId());
+
+
+        footballeurService.transfereFootballeur(footballeur,newClub);
 
         return "redirect:/footballeurs";
     }
@@ -90,7 +123,7 @@ public class ControllerFootballeurDataBase {
     public String getAllLeagues(Model model) {
 
         List<League> listL = leagueService.getAllLeagues();
-        model.addAttribute("Leagues", listL);
+        model.addAttribute("leagues", listL);
         return "list-leagues"; //view
     }
 
@@ -100,6 +133,7 @@ public class ControllerFootballeurDataBase {
         model.addAttribute("message2", message2);
         return "welcome"; //view
     }
+
     // récupération de l'objet user avec ses attributs et récupération des attributs et revoi des attributs à la page welcome
     @PostMapping("/")
     public String formUser(@ModelAttribute("user") Users nouveauUser,Model model){

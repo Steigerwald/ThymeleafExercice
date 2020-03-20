@@ -3,6 +3,8 @@ package com.mkyong.services;
 import com.mkyong.entity.Club;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.ClubRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ public class ClubService {
 
     @Autowired
     ClubRepository clubRepository;
+
+    Logger logger = (Logger) LoggerFactory.getLogger(ClubService.class);
 
     public List<Club> getAllClubs()
     {
@@ -37,6 +41,5 @@ public class ClubService {
             throw new RecordNotFoundException("No club record exist for given id");
         }
     }
-
 
 }

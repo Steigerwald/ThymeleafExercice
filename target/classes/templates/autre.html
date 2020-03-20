@@ -25,8 +25,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:action="@{/autre}" th:object="${joueurTrouve}" >
-                <td th:text="${joueurTrouve.numeroMaillot}"></td>
+            <tr th:action="@{/autre}" th:object="${footballeur}" >
+                <!--/*@thymesVar id="numeroMaillot" type=""*/-->
+                <td th:text="${footballeur.numeroMaillot}"></td>
                 <td th:text="*{nom}"></td>
                 <td th:text="*{prenom}"></td>
                 <td th:text="*{age}"></td>

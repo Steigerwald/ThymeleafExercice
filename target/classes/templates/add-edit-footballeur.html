@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -21,7 +21,7 @@
                     <form action="#" th:action="@{/footballeurs/createFootballeur}" th:object="${footballeur}"
                           method="post">
                         <div class="row">
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <label for="nom" class="col-form-label">Nom</label>
                                 <input type="text" th:field="*{nom}" class="form-control"
                                        id="nom" placeholder="nom" />
@@ -44,7 +44,7 @@
                             </div>
 
                             <div class="form-group col-md-2">
-                                <label for="position"class="col-form-label">Position</label>
+                                <label for="position" class="col-form-label">Position</label>
                                 <select type="text" th:field="*{position}" class="form-control" id="position">
                                     <option value="Goal" >Goal</option>
                                     <option value="Défenseur">Défenseur</option>
@@ -53,18 +53,18 @@
                                 </select>
                             </div>
 
-                            <div class="form-group col-md-1">
+                            <div class="form-group col-md-2">
                                 <label for="club" class="col-form-label">Club</label>
-                                <input type="text" th:field="*{club}" class="form-control"
-                                       id="club" placeholder="2" />
+                                <select th:field="*{club}" class="form-control" id="club">
+                                    <option th:each="club : ${clubs}" th:value="${club.getId()}" th:text="${club.getNomClub()}">
+                                    </option>
+                                </select>
                             </div>
 
                             <div class="col-md-6">
                                 <input type="submit" class="btn btn-primary" value=" Submit ">
                             </div>
-
                             <input type="hidden" id="id" th:field="*{id}">
-
                         </div>
                     </form>
                 </div>

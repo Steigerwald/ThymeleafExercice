@@ -17,7 +17,7 @@
     <header class="row">
     </header>
     <div class="row">
-        <div class="col-lg-1">
+        <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12-offset12">
                     <div th:insert="~{menu :: fragment }"></div>
@@ -48,6 +48,7 @@
                                             <th>Club</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
+                                            <th>Transfer</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -58,7 +59,7 @@
                                             <td th:text="${footballeur.getAge()}"></td>
                                             <td th:text="${footballeur.getNationalite()}"></td>
                                             <td th:text="${footballeur.getPosition()}"></td>
-                                            <td th:text="${footballeur.getClub().getNomClub()}"></td>
+                                            <td> <a  th:text="${footballeur.getClub().getNomClub()}" th:href="@{/{nom} (nom=${footballeur.getClub().getNomClub()})}"></a></td>
                                             <td>
                                                 <a th:href="@{/footballeurs/edit/{id}(id=${footballeur.id})}"
                                                    class="btn btn-primary">
@@ -69,6 +70,13 @@
                                                 <a th:href="@{/footballeurs/delete/{id}(id=${footballeur.id})}"
                                                    class="btn btn-primary">
                                                     <i class="fas fa-user-times ml-2"></i>
+                                                </a>
+                                            </td>
+
+                                            <td>
+                                                <a th:href="@{/footballeurs/transfert/{id}(id=${footballeur.id})}"
+                                                   class="btn btn-primary">
+                                                    <i class="fas fa-walking ml-2"></i>
                                                 </a>
                                             </td>
                                         </tr>
