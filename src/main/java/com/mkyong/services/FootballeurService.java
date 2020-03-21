@@ -104,45 +104,6 @@ public class FootballeurService {
         }
     }
 
-
-    /* public Footballeur transfereFootballeur(Footballeur entityWithNewClub, Club newClub) {
-
-        if (entityWithNewClub.getId() == null) {
-
-            logger.debug("A DEBUG Message l'entité est nulle");
-
-            return entityWithNewClub;
-
-        } else {
-
-            Optional<Footballeur> footballeur = repository.findById(entityWithNewClub.getId());
-
-            if (footballeur.isPresent()) {
-                Footballeur newEntity = footballeur.get();
-
-                logger.debug("A DEBUG Message footballeur est présent");
-                logger.trace("A TRACE Message");
-                logger.debug("A DEBUG Message");
-                logger.info("An INFO Message");
-                logger.warn("A WARN Message");
-                logger.error("An ERROR Message");
-
-                    newEntity.setClub(newClub);
-
-                    logger.debug("A DEBUG Message club est initialisé dans footballeur");
-
-                    newEntity = repository.save(newEntity);
-
-                    logger.debug("A DEBUG Message club est sauvegardé");
-
-                return newEntity;
-            } else {
-                logger.debug("A DEBUG Message footballeur n'est pas présent");
-                return entityWithNewClub;
-            }
-        }
-    } */
-
     public void deleteFootballeurById(Long id) throws RecordNotFoundException
     {
         Optional<Footballeur> footballeur = repository.findById(id);

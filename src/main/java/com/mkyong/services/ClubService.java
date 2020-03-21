@@ -1,6 +1,7 @@
 package com.mkyong.services;
 
 import com.mkyong.entity.Club;
+import com.mkyong.entity.Footballeur;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.ClubRepository;
 import org.slf4j.Logger;
@@ -37,6 +38,51 @@ public class ClubService {
 
         if(club.isPresent()) {
             return club.get();
+        } else {
+            throw new RecordNotFoundException("No club record exist for given id");
+        }
+    }
+
+    public Club createOrUpdateClub(Club entity)
+    {
+        if(entity.getId()  == null)
+        {
+            entity = clubRepository.save(entity);
+
+            return entity;
+        }
+        else
+        {
+            Optional<Club> club = clubRepository.findById(entity.getId());
+
+            if(club.isPresent())
+            {
+                Club newEntity = club.get();
+                newEntity.setNomClub(entity.getNomClub());
+                newEntity.setPresidentClub(entity.getPresidentClub());
+                newEntity.setAnneeCreation(entity.getAnneeCreation());
+                newEntity.setLeague(entity.getLeague());
+
+                newEntity = clubRepository.save(newEntity);
+
+                return newEntity;
+
+            } else {
+                entity = clubRepository.save(entity);
+
+                return entity;
+            }
+        }
+    }
+
+
+    public void deleteClubById(Long id) throws RecordNotFoundException
+    {
+        Optional<Club> club = clubRepository.findById(id);
+
+        if(club.isPresent())
+        {
+            clubRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("No club record exist for given id");
         }

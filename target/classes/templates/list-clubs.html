@@ -22,6 +22,10 @@
         <section class="col-lg-10">
             <div class="container my-2">
                 <div class="card">
+                        <p class="my-5">
+                            <a href="/clubs/edit" class="btn btn-primary">
+                                <i class="fas fa-user-plus ml-2"> Ajouter un club  </i></a>
+                        </p>
                         <div class="col-md-12">
                                 <table>
                                     <thead>
@@ -31,6 +35,8 @@
                                         <th>Président</th>
                                         <th>Date de création</th>
                                         <th>Nom de la ligue</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -40,6 +46,18 @@
                                         <td th:text="${club.getPresidentClub()}"></td>
                                         <td th:text="${club.getAnneeCreation()}"></td>
                                         <td th:text="${club.getLeague().getNomLeague()}"></td>
+                                        <td>
+                                            <a th:href="@{/clubs/edit/{id}(id=${club.id})}"
+                                               class="btn btn-primary">
+                                                <i class="fas fa-user-edit ml-2"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a th:href="@{/clubs/delete/{id}(id=${club.id})}"
+                                               class="btn btn-danger">
+                                                <i class="fas fa-user-times ml-2"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>

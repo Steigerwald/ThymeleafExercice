@@ -22,6 +22,10 @@
     <section class="col-lg-10">
         <div class="container my-2">
             <div class="card">
+                <p class="my-5">
+                    <a href="/leagues/edit" class="btn btn-primary">
+                        <i class="fas fa-user-plus ml-2"> Ajouter une ligue  </i></a>
+                </p>
                 <div class="col-md-12">
                     <table>
                         <thead>
@@ -30,15 +34,28 @@
                             <th>Nom de la league</th>
                             <th>Pays</th>
                             <th>Nombre de clubs</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <!--/*@thymesVar id="leagues" type="*/-->
                         <tr th:each="league : ${leagues}">
                             <td th:text="${league.getId()}"></td>
                             <td th:text="${league.getNomLeague()}"></td>
                             <td th:text="${league.getPays()}"></td>
                             <td th:text="${league.getNombreClubs()}"></td>
+                            <td>
+                                <a th:href="@{/leagues/edit/{id}(id=${league.id})}"
+                                   class="btn btn-primary">
+                                    <i class="fas fa-user-edit ml-2"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{/leagues/delete/{id}(id=${league.id})}"
+                                   class="btn btn-danger">
+                                    <i class="fas fa-user-times ml-2"></i>
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

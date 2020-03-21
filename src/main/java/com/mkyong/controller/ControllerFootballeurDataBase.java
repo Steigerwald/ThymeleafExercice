@@ -69,6 +69,37 @@ public class ControllerFootballeurDataBase {
         return "add-edit-footballeur";
     }
 
+    @RequestMapping(path = {"/clubs/edit", "clubs/edit/{id}"})
+    public String editClubById(Model model, @PathVariable("id") Optional <Long> id)
+            throws RecordNotFoundException
+    {
+        if (id.isPresent()) {
+            Club entity = clubService.getClubById(id.get());
+            model.addAttribute("club", entity);
+        } else {
+            model.addAttribute("club", new Club());
+        }
+
+        List<League> listC = leagueService.getAllLeagues();
+        model.addAttribute("leagues", listC);
+
+        return "add-edit-club";
+    }
+    @RequestMapping(path = {"/leagues/edit", "leagues/edit/{id}"})
+    public String editLeagueById(Model model, @PathVariable("id") Optional <Long> id)
+            throws RecordNotFoundException
+    {
+        if (id.isPresent()) {
+            League entity = leagueService.getLeagueById(id.get());
+            model.addAttribute("league", entity);
+        } else {
+            model.addAttribute("league", new League());
+        }
+
+        return "add-edit-league";
+    }
+
+
     @RequestMapping(path = "/footballeurs/delete/{id}")
     public String deleteEntityById(Model model, @PathVariable("id") Optional<Long> id)
             throws RecordNotFoundException
@@ -77,12 +108,56 @@ public class ControllerFootballeurDataBase {
         return "redirect:/footballeurs";
     }
 
+    @RequestMapping(path = "/leagues/delete/{id}")
+    public String deleteLeagueById(Model model, @PathVariable("id") Optional<Long> id)
+            throws RecordNotFoundException
+    {
+        leagueService.deleteLeagueById(id.get());
+        return "redirect:/leagues";
+    }
+
+    @RequestMapping(path = "/clubs/delete/{id}")
+    public String deleteClubsById(Model model, @PathVariable("id") Optional<Long> id)
+            throws RecordNotFoundException
+    {
+        clubService.deleteClubById(id.get());
+        return "redirect:/clubs";
+    }
+
+    @RequestMapping(path = "/clubs/details/{id}")
+    public String detailClubById(Model model, @PathVariable("id") Optional<Long> id)
+            throws RecordNotFoundException
+    {
+            Club entity = clubService.getClubById(id.get());
+            model.addAttribute("club", entity);
+
+        return "details-Club";
+    }
+
+
+
     @RequestMapping(path = "/footballeurs/createFootballeur", method = RequestMethod.POST)
     public String createOrUpdateEntity(Footballeur footballeur)
     {
         footballeurService.createOrUpdateFootballeur(footballeur);
 
         return "redirect:/footballeurs";
+    }
+
+    @RequestMapping(path = "/clubs/createClub", method = RequestMethod.POST)
+    public String createOrUpdateClub(Club club)
+    {
+        clubService.createOrUpdateClub(club);
+
+        return "redirect:/clubs";
+    }
+
+    @RequestMapping(path = "/leagues/createLeague", method = RequestMethod.POST)
+    public String createOrUpdateLeague(League league)
+    {
+        leagueService.createOrUpdateLeague(league);
+
+        return "redirect:/leagues";
     }
 
     @RequestMapping(path = {"footballeurs/transfert/{id}"})

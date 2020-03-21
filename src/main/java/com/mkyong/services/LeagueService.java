@@ -43,4 +43,52 @@ public class LeagueService {
         }
     }
 
+    public League createOrUpdateLeague(League entity)
+    {
+        if(entity.getId()  == null)
+        {
+            entity = leagueRepository.save(entity);
+
+            return entity;
+        }
+        else
+        {
+            Optional<League> league = leagueRepository.findById(entity.getId());
+
+            if(league.isPresent())
+            {
+                League newEntity = league.get();
+                newEntity.setNomLeague(entity.getNomLeague());
+                newEntity.setNombreClubs(entity.getNombreClubs());
+                newEntity.setPays(entity.getPays());
+
+                newEntity = leagueRepository.save(newEntity);
+
+                return newEntity;
+
+            } else {
+                entity = leagueRepository.save(entity);
+
+                return entity;
+            }
+        }
+    }
+
+
+
+
+
+    public void deleteLeagueById(Long id) throws RecordNotFoundException
+    {
+        Optional<League> league = leagueRepository.findById(id);
+
+        if(league.isPresent())
+        {
+            leagueRepository.deleteById(id);
+        } else {
+            throw new RecordNotFoundException("No club record exist for given id");
+        }
+    }
+
+
 }

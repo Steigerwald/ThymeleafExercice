@@ -59,7 +59,7 @@
                                             <td th:text="${footballeur.getAge()}"></td>
                                             <td th:text="${footballeur.getNationalite()}"></td>
                                             <td th:text="${footballeur.getPosition()}"></td>
-                                            <td> <a  th:text="${footballeur.getClub().getNomClub()}" th:href="@{/{nom} (nom=${footballeur.getClub().getNomClub()})}"></a></td>
+                                            <td> <a  th:text="${footballeur.getClub().getNomClub()}" th:href="@{/clubs/details/{nom} (nom=${footballeur.getClub().getId()})}"></a></td>
                                             <td>
                                                 <a th:href="@{/footballeurs/edit/{id}(id=${footballeur.id})}"
                                                    class="btn btn-primary">
@@ -68,14 +68,14 @@
                                             </td>
                                             <td>
                                                 <a th:href="@{/footballeurs/delete/{id}(id=${footballeur.id})}"
-                                                   class="btn btn-primary">
+                                                   class="btn btn-danger">
                                                     <i class="fas fa-user-times ml-2"></i>
                                                 </a>
                                             </td>
 
                                             <td>
                                                 <a th:href="@{/footballeurs/transfert/{id}(id=${footballeur.id})}"
-                                                   class="btn btn-primary">
+                                                   class="btn btn-success">
                                                     <i class="fas fa-walking ml-2"></i>
                                                 </a>
                                             </td>
