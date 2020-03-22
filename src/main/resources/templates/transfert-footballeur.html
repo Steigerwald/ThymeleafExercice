@@ -27,15 +27,15 @@
                     <tr >
                         <td th:text="${footballeur.nom}"></td>
                         <td th:text="${footballeur.prenom}"></td>
-                        <td th:text="${footballeur.getClub().getNomClub()}"></td>
-                        <td th:text="${footballeur.getClub().getLeague().getNomLeague()}"></td>
+                        <td th:text="${footballeur.club.nomClub}"></td>
+                        <td th:text="${footballeur.club.league.nomLeague}"></td>
                     </tr>
                     </tbody>
                 </table>
                 <div class="form-group col-md-2">
                     <label for="Club" class="col-form-label">Changement de Club</label>
                     <select th:field="*{club}" class="form-control" id="Club">
-                        <option th:each="club : ${clubs}" th:value="${club.getId()}" th:text="${club.getNomClub()}">
+                        <option th:each="club : ${clubs}" th:value="${club.id}" th:text="${club.nomClub}">
                         </option>
                     </select>
                 </div>

@@ -40,10 +40,10 @@
                         </thead>
                         <tbody>
                         <tr th:each="league : ${leagues}">
-                            <td th:text="${league.getId()}"></td>
-                            <td th:text="${league.getNomLeague()}"></td>
-                            <td th:text="${league.getPays()}"></td>
-                            <td th:text="${league.getNombreClubs()}"></td>
+                            <td th:text="${league.id}"></td>
+                            <td th:text="${league.nomLeague}"></td>
+                            <td th:text="${league.pays}"></td>
+                            <td th:text="${league.nombreClubs}"></td>
                             <td>
                                 <a th:href="@{/leagues/edit/{id}(id=${league.id})}"
                                    class="btn btn-primary">

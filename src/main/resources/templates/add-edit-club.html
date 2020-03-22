@@ -35,16 +35,15 @@
                             <input type="text" th:field="*{anneeCreation}" class="form-control"
                                    id="anneeCreation" placeholder="annee Creation" />
                         </div>
-
                         <div class="form-group col-md-2">
                             <label for="league" class="col-form-label">Ligue</label>
                             <select th:field="*{league}" class="form-control" id="league">
-                                <option th:each="league : ${leagues}" th:value="${league.getId()}" th:text="${league.getNomLeague()}">
+                                <option th:each="league : ${leagues}" th:value="${league.id}" th:text="${league.nomLeague}">
                                 </option>
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <input type="submit" class="btn btn-primary" value=" Submit ">
+                            <input type="submit" class="btn btn-primary" value=" Enregistrer ">
                         </div>
                         <input type="hidden" id="id" th:field="*{id}">
                     </div>

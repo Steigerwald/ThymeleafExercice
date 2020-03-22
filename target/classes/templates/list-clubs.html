@@ -41,11 +41,11 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="club : ${clubs}">
-                                        <td th:text="${club.getId()}"></td>
-                                        <td th:text="${club.getNomClub()}"></td>
-                                        <td th:text="${club.getPresidentClub()}"></td>
-                                        <td th:text="${club.getAnneeCreation()}"></td>
-                                        <td th:text="${club.getLeague().getNomLeague()}"></td>
+                                        <td th:text="${club.id}"></td>
+                                        <td th:text="${club.nomClub}"></td>
+                                        <td th:text="${club.presidentClub}"></td>
+                                        <td th:text="${club.anneeCreation}"></td>
+                                        <td th:text="${club.league.nomLeague}"></td>
                                         <td>
                                             <a th:href="@{/clubs/edit/{id}(id=${club.id})}"
                                                class="btn btn-primary">

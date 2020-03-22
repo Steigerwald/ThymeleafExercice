@@ -53,13 +53,13 @@
                                         </thead>
                                         <tbody>
                                         <tr th:each="footballeur : ${footballeurs}">
-                                            <td th:text="${footballeur.getId()}"></td>
-                                            <td th:text="${footballeur.getNom()}"></td>
-                                            <td th:text="${footballeur.getPrenom()}"></td>
-                                            <td th:text="${footballeur.getAge()}"></td>
-                                            <td th:text="${footballeur.getNationalite()}"></td>
-                                            <td th:text="${footballeur.getPosition()}"></td>
-                                            <td> <a  th:text="${footballeur.getClub().getNomClub()}" th:href="@{/clubs/details/{nom} (nom=${footballeur.getClub().getId()})}"></a></td>
+                                            <td th:text="${footballeur.id}"></td>
+                                            <td th:text="${footballeur.nom}"></td>
+                                            <td th:text="${footballeur.prenom}"></td>
+                                            <td th:text="${footballeur.age}"></td>
+                                            <td th:text="${footballeur.nationalite}"></td>
+                                            <td th:text="${footballeur.position}"></td>
+                                            <td> <a  th:text="${footballeur.club.nomClub}" th:href="@{/clubs/details/{nom} (nom=${footballeur.club.id})}"></a></td>
                                             <td>
                                                 <a th:href="@{/footballeurs/edit/{id}(id=${footballeur.id})}"
                                                    class="btn btn-primary">
@@ -83,7 +83,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
                     </div>

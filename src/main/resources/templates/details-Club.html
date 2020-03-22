@@ -22,7 +22,7 @@
     <section class="col-lg-10">
         <div class="container my-2">
             <div class="card">
-                <h1 th:text="${club.getNomClub()}">
+                <h1 th:text="${club.nomClub}">
                 </h1>
                 <div class="col-md-12">
                     <table>
@@ -36,11 +36,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <td th:text="${club.getPresidentClub()}"></td>
-                            <td th:text="${club.getAnneeCreation()}"></td>
-                            <td th:text="${club.getLeague().getNomLeague()}"></td>
-                            <td th:text="${club.getLeague().getPays()}"></td>
-                            <td th:text="${club.getLeague().getNombreClubs()}"></td>
+                            <td th:text="${club.presidentClub}"></td>
+                            <td th:text="${club.anneeCreation}"></td>
+                            <td th:text="${club.league.nomLeague}"></td>
+                            <td th:text="${club.league.pays}"></td>
+                            <td th:text="${club.league.nombreClubs}"></td>
                         </tr>
                         </tbody>
                     </table>

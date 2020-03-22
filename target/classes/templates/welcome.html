@@ -12,24 +12,26 @@
 </head>
 
 <body>
-    <ul>
-        <li><a href="http://localhost:8080/">Accueil</a></li>
-    </ul>
-    <div th:insert="~{menu :: fragment }"></div>
-    <div class="container">
-        <div class="starter-template">
-            <h1>Message de bienvenu </h1>
-            <h2>
-                <span th:text="'Bonjour, ' + ${message1}+' '+ ${message2}" ></span>
-            </h2>
-            <h2>
-                <span>Comment ça va ?</span><br>
-                <span> Vous allez rentrer dans le monde du football !! </span>
-            </h2>
+    <div th:insert="~{barreLogo :: fragment }"></div>
+    <main role="main" class="container">
+        <ul>
+            <li><a href="http://localhost:8080/">Accueil</a></li>
+        </ul>
+        <div th:insert="~{menu :: fragment }"></div>
+        <div class="container">
+            <div class="starter-template">
+                <h1>Message de bienvenu </h1>
+                <h2>
+                    <span th:text="'Bonjour, ' + ${message1}+' '+ ${message2}" ></span>
+                </h2>
+                <h2>
+                    <span>Comment ça va ?</span><br>
+                    <span></span><br>
+                    <span> Vous allez rentrer dans le monde du football !! </span>
+                </h2>
+            </div>
         </div>
-    </div>
-    <!-- /.container -->
-
+    </main>
     <script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
 </body>
 </html>

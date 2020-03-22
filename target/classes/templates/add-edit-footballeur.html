@@ -36,13 +36,11 @@
                                 <input type="text" th:field="*{age}" class="form-control"
                                        id="age" placeholder="age Id" />
                             </div>
-
                             <div class="form-group col-md-2">
                                 <label for="nationalite" class="col-form-label">Nationalité</label>
                                 <input type="text" th:field="*{nationalite}" class="form-control"
                                        id="nationalite" placeholder="nationalite Id" />
                             </div>
-
                             <div class="form-group col-md-2">
                                 <label for="position" class="col-form-label">Position</label>
                                 <select type="text" th:field="*{position}" class="form-control" id="position">
@@ -52,7 +50,6 @@
                                     <option value="Attaquant">Attaquant</option>
                                 </select>
                             </div>
-
                             <div class="form-group col-md-2">
                                 <label for="club" class="col-form-label">Club</label>
                                 <select th:field="*{club}" class="form-control" id="club">
@@ -60,9 +57,8 @@
                                     </option>
                                 </select>
                             </div>
-
                             <div class="col-md-6">
-                                <input type="submit" class="btn btn-primary" value=" Submit ">
+                                <input type="submit" class="btn btn-primary" value=" Enregistrer ">
                             </div>
                             <input type="hidden" id="id" th:field="*{id}">
                         </div>

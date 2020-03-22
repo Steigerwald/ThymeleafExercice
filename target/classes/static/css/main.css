@@ -1,6 +1,11 @@
 body {
   padding-top: 2rem;
 }
+
+main {
+    margin-top: 40px !important;
+}
+
 .starter-template {
   padding: 1rem 1rem;
   text-align: center;

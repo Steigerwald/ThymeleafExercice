@@ -43,7 +43,7 @@ public class ControllerFootballeurDataBase {
         return "presentation"; //view
     }
 
-    @RequestMapping (path = "/footballeurs")
+    @RequestMapping (path = "footballeurs")
     public String getAllFootballeurs(Model model)
     {
         List<Footballeur> listF = footballeurService.getAllFootballeurs();
@@ -99,7 +99,6 @@ public class ControllerFootballeurDataBase {
         return "add-edit-league";
     }
 
-
     @RequestMapping(path = "/footballeurs/delete/{id}")
     public String deleteEntityById(Model model, @PathVariable("id") Optional<Long> id)
             throws RecordNotFoundException
@@ -133,7 +132,6 @@ public class ControllerFootballeurDataBase {
 
         return "details-Club";
     }
-
 
 
     @RequestMapping(path = "/footballeurs/createFootballeur", method = RequestMethod.POST)
@@ -219,6 +217,5 @@ public class ControllerFootballeurDataBase {
         model.addAttribute("message2", message2);
         return "welcome";
     }
-
 
 }
