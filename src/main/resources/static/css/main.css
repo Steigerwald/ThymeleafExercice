@@ -2,6 +2,16 @@ body {
   padding-top: 2rem;
 }
 
+.nav-link {
+    text-align: justify !important;
+    font-size:1.2em !important;
+    margin-left: 30px !important;
+    left: 150px !important;
+}
+
+.navbar-brand {
+    color:white !important;
+}
 main {
     margin-top: 40px !important;
 }
@@ -28,7 +38,7 @@ table, th, td {
 }
 th, td {
     padding: 5px;
-    text-align: left;
+    text-align: center;
 }
 table tr:nth-child(even) {
     background-color: #eee;
@@ -43,4 +53,12 @@ table th {
 img {
     width: 25%;
     height: 25%;
+    margin-top: 100px;
+}
+.question{
+    padding-top: 40px;
+}
+#formulaireUser{
+    margin-top: 40px; !important;
+    margin-left:100px;
 }

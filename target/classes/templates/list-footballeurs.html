@@ -12,31 +12,24 @@
 </head>
 
 <body>
-
+<div th:insert="~{barreLogo :: fragment }"></div>
 <div class="container col-lg-12">
     <header class="row">
     </header>
     <div class="row">
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-12-offset12">
-                    <div th:insert="~{menu :: fragment }"></div>
-                </div>
-            </div>
-        </div>
         <section class="col-lg-12">
             <div class="container">
                 <div class="card">
                     <div class="card-body">
                         <div th:switch="${footballeurs}" class="container">
                             <p class="my-5">
-                                <a href="/footballeurs/edit" class="btn btn-primary">
+                                <a href="/footballeurs/addFootballeur" class="btn btn-primary">
                                     <i class="fas fa-user-plus ml-2"> Ajouter un footballeur  </i></a>
                             </p>
                             <div class="col-md-12">
                                 <h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
                                 <div th:case="*">
-                                    <table style="width:100%" >
+                                    <table class="table-responsive" style="width:100%" >
                                         <thead>
                                         <tr>
                                             <th>Ordre</th>
@@ -69,14 +62,14 @@
                                             <td>
                                                 <a th:href="@{/footballeurs/delete/{id}(id=${footballeur.id})}"
                                                    class="btn btn-danger">
-                                                    <i class="fas fa-user-times ml-2"></i>
+                                                    <i class="fas fa-user-times ml-2"> </i>
                                                 </a>
                                             </td>
 
                                             <td>
                                                 <a th:href="@{/footballeurs/transfert/{id}(id=${footballeur.id})}"
                                                    class="btn btn-success">
-                                                    <i class="fas fa-walking ml-2"></i>
+                                                    <i class="fas fa-walking ml-2"> </i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -92,5 +85,5 @@
     </div>
 </div>
 </body>
-
-</html>>
+<div th:insert="~{bootstrap :: fragment }"></div>
+</html>

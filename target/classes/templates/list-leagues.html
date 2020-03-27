@@ -11,58 +11,54 @@
     <link rel="stylesheet" type="text/css" href="/css/main.css"/>
 </head>
 <body>
-<div class="row">
-    <div class="col-lg-2 my-10">
+    <div th:insert="~{barreLogo :: fragment }"></div>
+    <main>
         <div class="row">
-            <div class="col-lg-12-offset12">
-                <div th:insert="~{menu :: fragment }"></div>
-            </div>
-        </div>
-    </div>
-    <section class="col-lg-10">
-        <div class="container my-2">
-            <div class="card">
-                <p class="my-5">
-                    <a href="/leagues/edit" class="btn btn-primary">
-                        <i class="fas fa-user-plus ml-2"> Ajouter une ligue  </i></a>
-                </p>
-                <div class="col-md-12">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Ordre</th>
-                            <th>Nom de la league</th>
-                            <th>Pays</th>
-                            <th>Nombre de clubs</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="league : ${leagues}">
-                            <td th:text="${league.id}"></td>
-                            <td th:text="${league.nomLeague}"></td>
-                            <td th:text="${league.pays}"></td>
-                            <td th:text="${league.nombreClubs}"></td>
-                            <td>
-                                <a th:href="@{/leagues/edit/{id}(id=${league.id})}"
-                                   class="btn btn-primary">
-                                    <i class="fas fa-user-edit ml-2"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a th:href="@{/leagues/delete/{id}(id=${league.id})}"
-                                   class="btn btn-danger">
-                                    <i class="fas fa-user-times ml-2"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+            <section class="col-lg-12">
+                <div class="container my-2">
+                    <div class="card">
+                        <p class="my-6">
+                            <a href="/leagues/addLeague" class="btn btn-primary">
+                                <i class="fas fa-user-plus ml-2"> Ajouter une ligue  </i></a>
+                        </p>
+                        <div class="col-md-12">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Ordre</th>
+                                    <th>Nom de la league</th>
+                                    <th>Pays</th>
+                                    <th>Nombre de clubs</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="league : ${leagues}">
+                                    <td th:text="${league.id}"></td>
+                                    <td th:text="${league.nomLeague}"></td>
+                                    <td th:text="${league.pays}"></td>
+                                    <td th:text="${league.nombreClubs}"></td>
+                                    <td>
+                                        <a th:href="@{/leagues/edit/{id}(id=${league.id})}"
+                                           class="btn btn-primary">
+                                            <i class="fas fa-user-edit ml-2"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/leagues/delete/{id}(id=${league.id})}"
+                                           class="btn btn-danger">
+                                            <i class="fas fa-user-times ml-2"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
-</div>
+    </main>
 </body>
 </html>

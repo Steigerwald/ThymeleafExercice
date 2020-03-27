@@ -12,39 +12,55 @@
 </head>
 
 <body>
-<div th:insert="~{menu :: fragment }"></div>
-<div class="container my-5">
-    <h3> Ajouter Ligue</h3>
-    <div class="card">
-        <div class="card-body">
-            <div class="col-md-12">
-                <form action="#" th:action="@{/leagues/createLeague}" th:object="${league}" method="post">
-                    <div class="row">
-                        <div class="form-group col-md-2">
-                            <label for="nom" class="col-form-label">Nom</label>
-                            <input type="text" th:field="*{nomLeague}" class="form-control"
-                                   id="nom" placeholder="nom ligue" />
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="nombreClubs" class="col-form-label">Président</label>
-                            <input type="text" th:field="*{nombreClubs}" class="form-control"
-                                   id="nombreClubs" placeholder="nombre Clubs" />
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="pays" class="col-form-label">Date de Création</label>
-                            <input type="text" th:field="*{pays}" class="form-control"
-                                   id="pays" placeholder="pays" />
-                        </div>
-                        <div class="col-md-4">
-                            <input type="submit" class="btn btn-primary" value=" Enregistrer ">
-                        </div>
-                        <input type="hidden" id="id" th:field="*{id}">
+    <div th:insert="~{barreLogo :: fragment }"></div>
+    <main>
+        <div class="container my-5">
+            <h3>
+                <span th:text="${titreFormLeague}" ></span>
+            </h3>
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <form action="#" th:action="@{/leagues/createLeague}" th:object="${league}" method="post">
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="nom" class="col-form-label">Nom</label>
+                                    <input type="text" th:field="*{nomLeague}" class="form-control"
+                                           id="nom" placeholder="nom ligue" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="nombreClubs" class="col-form-label">Président</label>
+                                    <input type="text" th:field="*{nombreClubs}" class="form-control"
+                                           id="nombreClubs" placeholder="nombre Clubs" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="pays" class="col-form-label">Date de Création</label>
+                                    <input type="text" th:field="*{pays}" class="form-control"
+                                           id="pays" placeholder="pays" />
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="submit" class="btn btn-primary" value=" Enregistrer ">
+                                </div>
+                                <input type="hidden" id="id" th:field="*{id}">
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </main>
+    <br>
+    <Footer class="pagination">
+        <nav aria-label="pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="http://localhost:8080/leagues" tabindex="-1">Retour</a>
+                </li>
+                <li class="page-item"><a class="page-link disabled" href="#">1</a></li>
+            </ul>
+        </nav>
+    </Footer>
+
 </body>
 
 </html>

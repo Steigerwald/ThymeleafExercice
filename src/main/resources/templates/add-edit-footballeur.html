@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Ajouter Joueur</title>
+    <title>Editer ou Ajouter un footballeur</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
@@ -12,61 +12,76 @@
 </head>
 
 <body>
-    <div th:insert="~{menu :: fragment }"></div>
-    <div class="container my-5">
-        <h3> Ajouter Footballeur</h3>
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-12">
-                    <form action="#" th:action="@{/footballeurs/createFootballeur}" th:object="${footballeur}"
-                          method="post">
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                <label for="nom" class="col-form-label">Nom</label>
-                                <input type="text" th:field="*{nom}" class="form-control"
-                                       id="nom" placeholder="nom" />
+    <div th:insert="~{barreLogo :: fragment }"></div>
+    <main>
+        <div class="container my-5">
+            <h3>
+                <span th:text="${titreFormFootballeur}" ></span>
+            </h3>
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <form action="#" th:action="@{/footballeurs/createFootballeur}" th:object="${footballeur}"
+                              method="post">
+                            <div class="row">
+                                <div class="form-group col-md-2">
+                                    <label for="nom" class="col-form-label">Nom</label>
+                                    <input type="text" th:field="*{nom}" class="form-control"
+                                           id="nom" placeholder="nom" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="prenom" class="col-form-label">Prénom</label>
+                                    <input type="text" th:field="*{prenom}" class="form-control"
+                                           id="prenom" placeholder="prenom" />
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <label for="age" class="col-form-label">Age</label>
+                                    <input type="text" th:field="*{age}" class="form-control"
+                                           id="age" placeholder="age" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="nationalite" class="col-form-label">Nationalité</label>
+                                    <input type="text" th:field="*{nationalite}" class="form-control"
+                                           id="nationalite" placeholder="nationalite" />
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="position" class="col-form-label">Position</label>
+                                    <select type="text" th:field="*{position}" class="form-control" id="position">
+                                        <option value="Goal" >Goal</option>
+                                        <option value="Défenseur">Défenseur</option>
+                                        <option value="Milieu">Milieu</option>
+                                        <option value="Attaquant">Attaquant</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label for="club" class="col-form-label">Club</label>
+                                    <select th:field="*{club}" class="form-control" id="club">
+                                        <option th:each="club : ${clubs}" th:value="${club.getId()}" th:text="${club.getNomClub()}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="submit" class="btn btn-primary" value=" Enregistrer ">
+                                </div>
+                                <input type="hidden" id="id" th:field="*{id}">
                             </div>
-                            <div class="form-group col-md-3">
-                                <label for="prenom" class="col-form-label">Prénom</label>
-                                <input type="text" th:field="*{prenom}" class="form-control"
-                                       id="prenom" placeholder="prenom" />
-                            </div>
-                            <div class="form-group col-md-1">
-                                <label for="age" class="col-form-label">Age</label>
-                                <input type="text" th:field="*{age}" class="form-control"
-                                       id="age" placeholder="age Id" />
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="nationalite" class="col-form-label">Nationalité</label>
-                                <input type="text" th:field="*{nationalite}" class="form-control"
-                                       id="nationalite" placeholder="nationalite Id" />
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="position" class="col-form-label">Position</label>
-                                <select type="text" th:field="*{position}" class="form-control" id="position">
-                                    <option value="Goal" >Goal</option>
-                                    <option value="Défenseur">Défenseur</option>
-                                    <option value="Milieu">Milieu</option>
-                                    <option value="Attaquant">Attaquant</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="club" class="col-form-label">Club</label>
-                                <select th:field="*{club}" class="form-control" id="club">
-                                    <option th:each="club : ${clubs}" th:value="${club.getId()}" th:text="${club.getNomClub()}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="submit" class="btn btn-primary" value=" Enregistrer ">
-                            </div>
-                            <input type="hidden" id="id" th:field="*{id}">
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
+    <br>
+    <Footer class="pagination">
+        <nav aria-label="pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="http://localhost:8080/footballeurs" tabindex="-1">Retour</a>
+                </li>
+                <li class="page-item"><a class="page-link disabled" href="#">1</a></li>
+            </ul>
+        </nav>
+    </Footer>
 </body>
 
 </html>

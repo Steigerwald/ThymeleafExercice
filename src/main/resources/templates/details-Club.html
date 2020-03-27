@@ -11,43 +11,50 @@
     <link rel="stylesheet" type="text/css" href="/css/main.css"/>
 </head>
 <body>
-<div class="row">
-    <div class="col-lg-2 my-10">
+    <div th:insert="~{barreLogo :: fragment }"></div>
+    <main>
         <div class="row">
-            <div class="col-lg-12-offset12">
-                <div th:insert="~{menu :: fragment }"></div>
-            </div>
-        </div>
-    </div>
-    <section class="col-lg-10">
-        <div class="container my-2">
-            <div class="card">
-                <h1 th:text="${club.nomClub}">
-                </h1>
-                <div class="col-md-12">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Président</th>
-                            <th>Date de création</th>
-                            <th>Nom de la ligue</th>
-                            <th>Pays</th>
-                            <th>Nombre de Clubs dans la ligue</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <td th:text="${club.presidentClub}"></td>
-                            <td th:text="${club.anneeCreation}"></td>
-                            <td th:text="${club.league.nomLeague}"></td>
-                            <td th:text="${club.league.pays}"></td>
-                            <td th:text="${club.league.nombreClubs}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+            <section class="col-lg-10">
+                <div class="container my-2">
+                    <div class="card">
+                        <h1 th:text="${club.nomClub}">
+                        </h1>
+                        <div class="col-md-12">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Président</th>
+                                    <th>Date de création</th>
+                                    <th>Nom de la ligue</th>
+                                    <th>Pays</th>
+                                    <th>Nombre de Clubs dans la ligue</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <td th:text="${club.presidentClub}"></td>
+                                    <td th:text="${club.anneeCreation}"></td>
+                                    <td th:text="${club.league.nomLeague}"></td>
+                                    <td th:text="${club.league.pays}"></td>
+                                    <td th:text="${club.league.nombreClubs}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
-</div>
+    </main>
+    <br>
+    <Footer class="pagination">
+        <nav aria-label="pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="http://localhost:8080/footballeurs" tabindex="-1">Retour</a>
+                </li>
+                <li class="page-item"><a class="page-link disabled" href="#">1</a></li>
+            </ul>
+        </nav>
+    </Footer>
 </body>
 </html>

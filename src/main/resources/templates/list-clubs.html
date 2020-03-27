@@ -11,60 +11,56 @@
     <link rel="stylesheet" type="text/css" href="/css/main.css"/>
 </head>
 <body>
-    <div class="row">
-        <div class="col-lg-2 my-10">
-            <div class="row">
-                <div class="col-lg-12-offset12">
-                    <div th:insert="~{menu :: fragment }"></div>
+<div th:insert="~{barreLogo :: fragment }"></div>
+    <main>
+        <div class="row">
+            <section class="col-lg-12">
+                <div class="container my-2">
+                    <div class="card">
+                            <p class="my-5">
+                                <a href="/clubs/addClub" class="btn btn-primary">
+                                    <i class="fas fa-user-plus ml-2"> Ajouter un club  </i></a>
+                            </p>
+                            <div class="col-md-12">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th>Ordre</th>
+                                            <th>Nom du Club</th>
+                                            <th>Président</th>
+                                            <th>Date de création</th>
+                                            <th>Nom de la ligue</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="club : ${clubs}">
+                                            <td th:text="${club.id}"></td>
+                                            <td th:text="${club.nomClub}"></td>
+                                            <td th:text="${club.presidentClub}"></td>
+                                            <td th:text="${club.anneeCreation}"></td>
+                                            <td th:text="${club.league.nomLeague}"></td>
+                                            <td>
+                                                <a th:href="@{/clubs/edit/{id}(id=${club.id})}"
+                                                   class="btn btn-primary">
+                                                    <i class="fas fa-user-edit ml-2"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a th:href="@{/clubs/delete/{id}(id=${club.id})}"
+                                                   class="btn btn-danger">
+                                                    <i class="fas fa-user-times ml-2"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
-        <section class="col-lg-10">
-            <div class="container my-2">
-                <div class="card">
-                        <p class="my-5">
-                            <a href="/clubs/edit" class="btn btn-primary">
-                                <i class="fas fa-user-plus ml-2"> Ajouter un club  </i></a>
-                        </p>
-                        <div class="col-md-12">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th>Ordre</th>
-                                        <th>Nom du Club</th>
-                                        <th>Président</th>
-                                        <th>Date de création</th>
-                                        <th>Nom de la ligue</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="club : ${clubs}">
-                                        <td th:text="${club.id}"></td>
-                                        <td th:text="${club.nomClub}"></td>
-                                        <td th:text="${club.presidentClub}"></td>
-                                        <td th:text="${club.anneeCreation}"></td>
-                                        <td th:text="${club.league.nomLeague}"></td>
-                                        <td>
-                                            <a th:href="@{/clubs/edit/{id}(id=${club.id})}"
-                                               class="btn btn-primary">
-                                                <i class="fas fa-user-edit ml-2"></i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a th:href="@{/clubs/delete/{id}(id=${club.id})}"
-                                               class="btn btn-danger">
-                                                <i class="fas fa-user-times ml-2"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                        </div>
-                </div>
-            </div>
-        </section>
-    </div>
+    </main>
 </body>
 </html>

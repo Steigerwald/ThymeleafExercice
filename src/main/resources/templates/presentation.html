@@ -18,11 +18,11 @@
                 <h1>
                 <img th:alt="imagePres" th:src="@{/images/pres.jpg}" />
                 </h1>
-                <h2>
+                <h2 class="question">
                     <span>Bonjour, comment vous appelez-vous?</span>
                 </h2>
             </div>
-            <form th:action="@{/}" th:object="${user}" method="post" class="col-lg-10 border">
+            <form id="formulaireUser" th:action="@{/}" th:object="${user}" method="post" class="col-lg-10 border">
                 <div class="row">
                     <div class="form-group col-5">
                         <label>Nom</label>
@@ -36,5 +36,7 @@
                 </div>
             </form>
         </main>
+
+         <script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
     </body>
 </html>
