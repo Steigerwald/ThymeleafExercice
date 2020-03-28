@@ -72,7 +72,6 @@ public class footballeurController {
     }
 
 
-
     @RequestMapping(path = "/delete/{id}")
     public String deleteEntityById(Model model, @PathVariable("id") Long id)
             throws RecordNotFoundException

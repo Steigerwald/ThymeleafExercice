@@ -3,8 +3,8 @@ package com.mkyong.entity;
 import javax.persistence.*;
 import java.awt.*;
 
-@Entity
-@Table(name="TBL_IMAGE_ENTITY")
+//@Entity
+//@Table(name="TBL_IMAGE_ENTITY")
 public class ImageEntity {
 
     @Id

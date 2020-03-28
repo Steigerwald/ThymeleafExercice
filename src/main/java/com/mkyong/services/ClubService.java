@@ -26,8 +26,10 @@ public class ClubService {
         List<Club> result1 =(List<Club>) clubRepository.findAll();
 
         if(result1.size() > 0) {
+            logger.info(" retour liste result1 si taille de result1 >0 ");
             return result1;
         } else {
+            logger.info(" retour nouvelle liste  car pas d'élément dans la liste result1 ");
             return new ArrayList<Club>();
         }
     }
@@ -37,6 +39,7 @@ public class ClubService {
         Optional<Club> club = clubRepository.findById(id);
 
         if(club.isPresent()) {
+            logger.info(" retour du club car il est présent ");
             return club.get();
         } else {
             throw new RecordNotFoundException("No club record exist for given id");
@@ -49,6 +52,7 @@ public class ClubService {
         {
             entity = clubRepository.save(entity);
 
+            logger.info("retour entité Club de createOrUpdateClub si id nul ");
             return entity;
         }
         else
@@ -64,12 +68,12 @@ public class ClubService {
                 newEntity.setLeague(entity.getLeague());
 
                 newEntity = clubRepository.save(newEntity);
-
+                logger.info(" retour nouvelle entité Club de createOrUpdateClub si club présent ");
                 return newEntity;
 
             } else {
                 entity = clubRepository.save(entity);
-
+                logger.info(" retour entité Club de createOrUpdateClub si club n'est pas présent ");
                 return entity;
             }
         }

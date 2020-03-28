@@ -26,8 +26,10 @@ public class LeagueService {
         List<League> result2 = (List<League>) leagueRepository.findAll();
 
         if(result2.size() > 0) {
+            logger.info(" retour liste result2 si taille de result2 >0 ");
             return result2;
         } else {
+            logger.info(" retour nouvelle liste League car pas d'élément dans la liste result2 ");
             return new ArrayList<League>();
         }
     }
@@ -37,6 +39,7 @@ public class LeagueService {
         Optional<League> league = leagueRepository.findById(id);
 
         if(league.isPresent()) {
+            logger.info(" retour de la league car elle est présente ");
             return league.get();
         } else {
             throw new RecordNotFoundException("No league record exist for given id");
@@ -48,7 +51,7 @@ public class LeagueService {
         if(entity.getId()  == null)
         {
             entity = leagueRepository.save(entity);
-
+            logger.info("retour entité League de createOrUpdateLeague car id est nul ");
             return entity;
         }
         else
@@ -63,12 +66,12 @@ public class LeagueService {
                 newEntity.setPays(entity.getPays());
 
                 newEntity = leagueRepository.save(newEntity);
-
+                logger.info(" retour de la nouvelle entité league de createOrUpdateLeague qui a été sauvegardée et  la League est existante");
                 return newEntity;
 
             } else {
                 entity = leagueRepository.save(entity);
-
+                logger.info(" retour de l'entité League de createOrUpdateLeague qui a été sauvegardée car la league n'est pas existante");
                 return entity;
             }
         }
@@ -84,6 +87,7 @@ public class LeagueService {
 
         if(league.isPresent())
         {
+            logger.info(" l'entité league a été trouvée et est effacée");
             leagueRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("No club record exist for given id");

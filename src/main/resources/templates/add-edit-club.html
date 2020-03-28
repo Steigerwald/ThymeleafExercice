@@ -17,6 +17,7 @@
         <div class="container my-5">
             <h3>
                 <span th:text="${titreFormClub}" ></span>
+                <Br>
             </h3>
             <div class="card">
                 <div class="card-body">
@@ -61,12 +62,11 @@
         <nav aria-label="pagination">
             <ul class="pagination justify-content-center">
                 <li class="page-item">
-                    <a class="page-link" href="http://localhost:8080/clubs" tabindex="-1">Retour</a>
+                    <a class="page-link" href="/clubs" tabindex="-1">Retour</a>
                 </li>
-                <li class="page-item"><a class="page-link disabled" href="#">1</a></li>
             </ul>
         </nav>
     </Footer>
 </body>
-
+<div th:insert="~{bootstrap :: fragment }"></div>
 </html>

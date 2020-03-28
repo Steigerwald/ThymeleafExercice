@@ -30,8 +30,11 @@ public class FootballeurService {
         List<Footballeur> result = (List<Footballeur>) repository.findAll();
 
         if(result.size() > 0) {
+            logger.info(" retour liste result si taille de result >0 ");
             return result;
         } else {
+
+            logger.info(" retour nouvelle liste  car pas d'élément dans la liste result de getAllFootballeurs ");
             return new ArrayList<Footballeur>();
         }
     }
@@ -41,6 +44,7 @@ public class FootballeurService {
         Optional<Footballeur> footballeur = repository.findById(id);
 
         if(footballeur.isPresent()) {
+            logger.info(" retour du footballeur car il est présent ");
             return footballeur.get();
         } else {
             throw new RecordNotFoundException("No footballeur record exist for given id");
@@ -52,6 +56,7 @@ public class FootballeurService {
         {
             entity = repository.save(entity);
 
+            logger.info(" retour de l'entité de createOrUpdateFootballeur car l'Id n'existe pas");
             return entity;
         }
         else
@@ -70,11 +75,12 @@ public class FootballeurService {
 
                 newEntity = repository.save(newEntity);
 
+                logger.info(" retour de la nouvelle entité Footballeur de createOrUpdateFootballeur qui a été sauvegardée et le footballeur est existant");
                 return newEntity;
 
             } else {
                 entity = repository.save(entity);
-
+                logger.info(" retour de l'entité Footballeur de createOrUpdateFootballeur qui a été sauvegardée car le footballeur n'est pas existant");
                 return entity;
             }
         }
@@ -98,8 +104,11 @@ public class FootballeurService {
 
             newEntity = repository.save(newEntity);
 
+            logger.info(" retour de la nouvelle entité Footballeur de transfereFootballeur qui a été sauvegardée et le footballeur est existant");
             return newEntity;
         } else{
+
+            logger.info(" retour de l'entité entityWithNewClub Footballeur de transfereFootballeur qui a été sauvegardée et le footballeur est existant");
             return entityWithNewClub;
         }
     }
@@ -110,6 +119,7 @@ public class FootballeurService {
 
         if(footballeur.isPresent())
         {
+            logger.info(" l'entité footballeur a été trouvée et est effacée");
             repository.deleteById(id);
         } else {
             throw new RecordNotFoundException("No footballer record exist for given id");

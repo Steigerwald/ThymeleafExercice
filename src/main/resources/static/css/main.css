@@ -1,5 +1,8 @@
 body {
   padding-top: 2rem;
+    display:flex;
+    align-items: center;
+    justify-content:center;
 }
 
 .nav-link {
@@ -23,10 +26,16 @@ main {
 
 h1{
 	color:blue;
+    text-align:center;
 }
 
 h2{
 	color:black;
+
+}
+
+h3{
+    color:red;
 }
 .menu {
     margin-top: 5px !important;
@@ -61,4 +70,10 @@ img {
 #formulaireUser{
     margin-top: 40px; !important;
     margin-left:100px;
+}
+.card{
+    display:flex;
+    align-items: center;
+    justify-content:center;
+
 }

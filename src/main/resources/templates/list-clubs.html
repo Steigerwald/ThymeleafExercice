@@ -13,16 +13,13 @@
 <body>
 <div th:insert="~{barreLogo :: fragment }"></div>
     <main>
+        <h1>Liste des clubs du Monde du football</h1>
         <div class="row">
             <section class="col-lg-12">
                 <div class="container my-2">
                     <div class="card">
-                            <p class="my-5">
-                                <a href="/clubs/addClub" class="btn btn-primary">
-                                    <i class="fas fa-user-plus ml-2"> Ajouter un club  </i></a>
-                            </p>
-                            <div class="col-md-12">
-                                    <table>
+                            <div class="table-responsive text-nowrap col-md-12">
+                                    <table class="table table-striped">
                                         <thead>
                                         <tr>
                                             <th>Ordre</th>
@@ -56,6 +53,10 @@
                                         </tr>
                                         </tbody>
                                     </table>
+                                <p class="my-5">
+                                    <a href="/clubs/addClub" class="btn btn-primary">
+                                        <i class="fas fa-user-plus ml-2"> Ajouter un club  </i></a>
+                                </p>
                             </div>
                     </div>
                 </div>
@@ -63,4 +64,5 @@
         </div>
     </main>
 </body>
+<div th:insert="~{bootstrap :: fragment }"></div>
 </html>
