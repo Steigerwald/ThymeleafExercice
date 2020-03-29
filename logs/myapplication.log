@@ -4948,7 +4948,7 @@ org.springframework.beans.NotReadablePropertyException: Invalid property 'getClu
 2020-03-20 12:03:03,098 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-5] Mapped to ResourceHttpRequestHandler [class path resource [META-INF/resources/], class path resource [resources/], class path resource [static/], class path resource [public/], ServletContext resource [/], class path resource []]
 2020-03-20 12:03:03,109 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-5] Completed 200 OK
 2020-03-20 12:03:17,344 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-6] POST "/", parameters={masked}
-2020-03-20 12:03:17,344 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-6] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.formUser(com.mkyong.entity.Users,org.springframework.ui.Model)
+2020-03-20 12:03:17,344 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMapping [http-nio-8080-exec-6] Mapped to public java.lang.String com.mkyong.controller.ControllerFootballeurDataBase.formUser(com.mkyong.entity.User,org.springframework.ui.Model)
 2020-03-20 12:03:17,354 DEBUG org.springframework.web.servlet.view.ContentNegotiatingViewResolver [http-nio-8080-exec-6] Selected 'text/html' given [text/html, application/xhtml+xml, image/webp, application/xml;q=0.9, */*;q=0.8]
 2020-03-20 12:03:17,373 DEBUG org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-6] Completed 200 OK
 2020-03-20 12:03:17,392 DEBUG org.springframework.core.log.LogFormatUtils [http-nio-8080-exec-7] GET "/webjars/bootstrap/4.2.1/js/bootstrap.min.js", parameters={}
