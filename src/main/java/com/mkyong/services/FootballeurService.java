@@ -1,6 +1,5 @@
 package com.mkyong.services;
 
-import com.mkyong.entity.Club;
 import com.mkyong.entity.Footballeur;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.FootballeurRepository;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.lang.System.*;
 
 @Service
 public class FootballeurService {

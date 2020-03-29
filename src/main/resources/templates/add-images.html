@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Stocker des images</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+
+</head>
+<body>
+    <div th:insert="~{barreLogo :: fragment }"></div>
+    <main>
+        <h3>Enregistrer une image</h3>
+        <form enctype="multipart/form-data" action="#" th:action="@{/images/stockerImage}" th:object="${image}" method="post">
+            <input type="hidden" name="MAX_FILE_SIZE" value="250000" />
+            <input type="file" name="fic" size=50 />
+
+            <div class="form-group col-md-8">
+                <label for="nomFichier" class="col-form-label">Nationalité</label>
+                <input type="text" th:field="*{nomImage}" class="form-control"
+                       id="nomFichier" placeholder="nom Image" />
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="mime" class="col-form-label">extension</label>
+                <select type="text" th:field="*{mimeType}" class="form-control" id="mime">
+                    <option value="jpg" >jpg</option>
+                    <option value="png">png</option>
+                    <option value="jpeg">jpeg</option>
+                </select>
+            </div>
+            <input type="submit" value="Envoyer" />
+            <input type="hidden" id="blob" th:field="*{image}">
+            <input type="hidden" id="id" th:field="*{id}">
+        </form>
+    </main>
+    <Footer class="pagination">
+        <nav aria-label="pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/footballeurs" tabindex="-1">Retour</a>
+                </li>
+            </ul>
+        </nav>
+    </Footer>
+</body>
+<div th:insert="~{bootstrap :: fragment }"></div>
+</html>
