@@ -1,5 +1,5 @@
 USE foot;
-
+/*
 INSERT INTO TBL_LEAGUE (NOM_LEAGUE,PAYS,NOMBRE_CLUBS)
 VALUES
 ('LIGUE 1','FRANCE',18),
@@ -19,3 +19,19 @@ VALUES
 ('MALDINI','PAOLO','35','ITALIEN','DEFENSEUR','2',3),
 ('HENRY','THIERRY','20','FRANCAIS','ATTAQUANT','9',1);
 
+*/
+
+INSERT INTO TBL_ROLE (id_role, nom_role) VALUES
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_ACTUATOR'),
+(3, 'ROLE_USER');
+
+INSERT INTO TBL_USER (id_user, mail_user, mot_de_passe_user, nom_user,prenom_user) VALUES
+(1, 'admin@gmail.com', '$2a$10$hKDVYxLefVHV/vtuPhWD3OigtRyOykRLDdUAp80Z1crSoS1lFqaFS', 'Steigerwald','Brice'),
+(3, 'user@gmail.com', '$2a$10$ByIUiNaRfBKSV6urZoBBxe4UbJ/sS6u1ZaPORHF9AtNWAuVPVz1by', 'Steigerwald','Jacques');
+
+insert into TBL_USER_ROLES(user_id, role_id) values
+(1,1),
+(1,2),
+(1,3),
+(3,2);

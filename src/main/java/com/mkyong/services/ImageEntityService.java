@@ -1,6 +1,6 @@
 package com.mkyong.services;
 
-import com.mkyong.entity.Footballeur;
+
 import com.mkyong.entity.ImageEntity;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.ImageEntityRepository;
@@ -9,6 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -95,4 +99,10 @@ public class ImageEntityService {
             }
         }
     }
+    /*
+    public ImageEntity transformerImage (Image imageBlob){
+        BufferedImage image = ImageIO.read(imageBlob.getBinaryStream());
+        InputStream img = imageBlob.getBinaryStream();
+        buffimg= ImageIO.read(img);
+    return image;*/
 }

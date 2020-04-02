@@ -66,7 +66,7 @@ public class WebSecurityConfig
                 .rememberMe()
                 //.key("my-secure-key")
                 .rememberMeCookieName("my-remember-me-cookie")
-                .tokenValiditySeconds(24 * 60 * 60)
+                //.tokenValiditySeconds(24 * 60 * 60)
                 .and()
                 .exceptionHandling()
         ;
