@@ -3,6 +3,7 @@ package com.mkyong.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
@@ -36,13 +37,19 @@ public class User {
     @Size(min=4)
     private String motDePasseUser;
 
-    @ManyToMany
-    private Collection<Role> roles;
+    @ManyToMany(cascade=CascadeType.MERGE)
+    @JoinTable(
+            name="TBL_USER_ROLES",
+            joinColumns={@JoinColumn(name="USERS_ID_USER")},
+            inverseJoinColumns={@JoinColumn(name="ROLES_ID_ROLE")})
+    private List<Role> roles;
+
+
 
     //constructeurs
     public User(){
-
     }
+
 
     //getters
 
@@ -66,10 +73,9 @@ public class User {
         return motDePasseUser;
     }
 
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-//setters
+    public List<Role> getRoles() { return roles; }
+
+    //setters
 
     public void setIdUser(Integer idUser) {
         this.idUser = idUser;
@@ -91,7 +97,5 @@ public class User {
         this.motDePasseUser = motDePasseUser;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
+    public void setRoles(List<Role> roles) { this.roles = roles; }
 }

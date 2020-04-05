@@ -13,7 +13,7 @@ import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-/*
+
    @Autowired
     private MessageSource messageSource;
 
@@ -41,5 +41,4 @@ public class WebConfig implements WebMvcConfigurer {
         return new SpringSecurityDialect();
     }
 
- */
 }

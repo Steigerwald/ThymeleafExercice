@@ -78,9 +78,6 @@ public class LeagueService {
     }
 
 
-
-
-
     public void deleteLeagueById(Long id) throws RecordNotFoundException
     {
         Optional<League> league = leagueRepository.findById(id);

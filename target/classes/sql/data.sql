@@ -30,7 +30,7 @@ INSERT INTO TBL_USER (id_user, mail_user, mot_de_passe_user, nom_user,prenom_use
 (1, 'admin@gmail.com', '$2a$10$hKDVYxLefVHV/vtuPhWD3OigtRyOykRLDdUAp80Z1crSoS1lFqaFS', 'Steigerwald','Brice'),
 (3, 'user@gmail.com', '$2a$10$ByIUiNaRfBKSV6urZoBBxe4UbJ/sS6u1ZaPORHF9AtNWAuVPVz1by', 'Steigerwald','Jacques');
 
-insert into TBL_USER_ROLES(user_id, role_id) values
+insert into TBL_USER_ROLES(users_id_user, roles_id_role) values
 (1,1),
 (1,2),
 (1,3),
