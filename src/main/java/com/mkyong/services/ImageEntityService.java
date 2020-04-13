@@ -1,6 +1,5 @@
 package com.mkyong.services;
 
-
 import com.mkyong.entity.ImageEntity;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.ImageEntityRepository;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class ImageEntityService {
 
@@ -28,11 +26,10 @@ public class ImageEntityService {
     Logger logger = (Logger) LoggerFactory.getLogger(ImageEntityService.class);
 
 
-    public List<ImageEntity> getAllImages()
-    {
+    public List<ImageEntity> getAllImages() {
         List<ImageEntity> listeImages = (List<ImageEntity>) repositoryImage.findAll();
 
-        if(listeImages.size() > 0) {
+        if (listeImages.size() > 0) {
             logger.info(" retour liste listeImages si taille de rde la liste >0 ");
             return listeImages;
         } else {
@@ -42,11 +39,10 @@ public class ImageEntityService {
         }
     }
 
-    public ImageEntity getImageById(Long id) throws RecordNotFoundException
-    {
-        Optional <ImageEntity> image = repositoryImage.findById(id);
+    public ImageEntity getImageById(Long id) throws RecordNotFoundException {
+        Optional<ImageEntity> image = repositoryImage.findById(id);
 
-        if(image.isPresent()) {
+        if (image.isPresent()) {
             logger.info(" retour de l'image car elle est présente ");
             return image.get();
         } else {
@@ -54,12 +50,10 @@ public class ImageEntityService {
         }
     }
 
-    public void deleteImageById(Long id) throws RecordNotFoundException
-    {
+    public void deleteImageById(Long id) throws RecordNotFoundException {
         Optional<ImageEntity> image = repositoryImage.findById(id);
 
-        if(image.isPresent())
-        {
+        if (image.isPresent()) {
             logger.info(" l'entité image a été trouvée et est effacée");
             repositoryImage.deleteById(id);
         } else {
@@ -67,21 +61,16 @@ public class ImageEntityService {
         }
     }
 
-    public ImageEntity stockerImage (ImageEntity entity)
-    {
-        if(entity.getId()  == null)
-        {
+    public ImageEntity stockerImage(ImageEntity entity) {
+        if (entity.getId() == null) {
             entity = repositoryImage.save(entity);
 
             logger.info(" retour de l'entité de stockerImage car l'Id n'existe pas");
             return entity;
-        }
-        else
-        {
+        } else {
             Optional<ImageEntity> image = repositoryImage.findById(entity.getId());
 
-            if(image.isPresent())
-            {
+            if (image.isPresent()) {
                 ImageEntity newEntity = image.get();
                 newEntity.setNomImage(entity.getNomImage());
                 newEntity.setMimeType(entity.getMimeType());
@@ -99,10 +88,12 @@ public class ImageEntityService {
             }
         }
     }
-    /*
-    public ImageEntity transformerImage (Image imageBlob){
+/*
+    public ImageEntity transformerImage(Image imageBlob) {
         BufferedImage image = ImageIO.read(imageBlob.getBinaryStream());
         InputStream img = imageBlob.getBinaryStream();
-        buffimg= ImageIO.read(img);
-    return image;*/
+        buffimg = ImageIO.read(img);
+        return image;
+    }
+ */
 }

@@ -2,19 +2,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-      layout:decorator="layout">
-
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" layout:decorate="layout">
 <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Home</title>
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>-->
+    <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.4.1/css/all.css}" />
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>-->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css}" />
+
 </head>
 <body>
-<div layout:fragment="content">
-
-    <p sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></p>
-    <p><a th:href="@{/home}">User Home</a></p>
-    <p><a th:href="@{/admin/home}">Admin Home</a></p>
-    <p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></p>
-</div>
+    <main>
+        <!--<div layout:fragment="content">-->
+        <div>
+            <p sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></p>
+            <p><a th:href="@{/home}">User Home</a></p>
+            <p><a th:href="@{/admin/home}">Admin Home</a></p>
+            <p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></p>
+        </div>
+    </main>
 </body>
+<div th:insert="~{bootstrap :: fragment }"></div>
+
 </html>
+

@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-
+import org.springframework.security.core.GrantedAuthority;
 
 
 @Entity
@@ -47,8 +47,11 @@ public class User {
 
 
     //constructeurs
-    public User(){
-    }
+    public User (){
+    };
+
+    public User(String mailUser, String motDePasseUser, Collection<? extends GrantedAuthority> authorities){
+    };
 
 
     //getters

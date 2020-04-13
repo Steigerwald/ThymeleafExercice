@@ -8,29 +8,29 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
-
 @Entity
 @Table(name="TBL_IMAGE_ENTITY")
 public class ImageEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="NOM_IMAGE")
+    @Column(name = "NOM_IMAGE")
     private String nomImage;
 
-    @Column(name="MIME_TYPE")
+    @Column(name = "MIME_TYPE")
     private String mimeType;
 
     @Lob()
-    private byte [] image;
+    private byte[] image;
 
     // constructor
     public ImageEntity() {
     }
 
     // getters
+
     public Long getId() {
         return id;
     }
@@ -47,9 +47,6 @@ public class ImageEntity implements Serializable {
         return image;
     }
 
-    public BufferedImage getBufferedImage() throws IOException {
-        return ImageIO.read(new ByteArrayInputStream(image));
-    }
     // setters
 
     public void setId(Long id) {
@@ -75,8 +72,6 @@ public class ImageEntity implements Serializable {
         this.image = baos.toByteArray();
         baos.close();
     }
-
-
-
-
 }
+
+

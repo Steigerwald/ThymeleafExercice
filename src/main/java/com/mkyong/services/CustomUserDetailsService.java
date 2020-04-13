@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,19 +26,27 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(userName)
+        User user = userRepository.findByMailUser(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("Email " + userName + " not found"));
-        logger.info(" retour des users et get Authorities de UserDetails ");
+
+        logger.info(" on est passe par la avant getAuthorities de loadUserByUsername");
+
         return new org.springframework.security.core.userdetails.User(user.getMailUser(), user.getMotDePasseUser(),
-               getAuthorities(user));
+                getAuthorities(user));
     }
 
    private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
-        String[] userRoles = user.getRoles().stream().map((role) -> role.getNomRole()).toArray(String[]::new);
+        String[] userRoles = user.getRoles().stream().map((roles) -> roles.getNomRole()).toArray(String[]::new);
        Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(userRoles);
-        return authorities;
+       return authorities;
     }
+
+
 }
 
