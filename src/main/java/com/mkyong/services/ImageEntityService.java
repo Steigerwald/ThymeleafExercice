@@ -9,9 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,15 +32,28 @@ public class ImageEntityService {
     public List<ImageEntity> getAllImages() {
         List<ImageEntity> listeImages = (List<ImageEntity>) repositoryImage.findAll();
 
+        Source: https://prograide.com/pregunta/25305/comment-telecharger-et-stocker-une-image-avec-google-app-engine-java
         if (listeImages.size() > 0) {
             logger.info(" retour liste listeImages si taille de rde la liste >0 ");
             return listeImages;
         } else {
-
             logger.info(" retour nouvelle liste  car pas d'élément dans la liste result de getAllImages ");
             return new ArrayList<ImageEntity>();
         }
+
+
     }
+    /*
+public File transformerImageBlob (Blob image, HttpServletResponse res){
+
+        res.setContentType("image/jpeg");
+        File f = res.getOutputStream().write(image.getBytes());
+
+        return f;
+}*/
+
+
+
 
     public ImageEntity getImageById(Long id) throws RecordNotFoundException {
         Optional<ImageEntity> image = repositoryImage.findById(id);
@@ -88,12 +104,34 @@ public class ImageEntityService {
             }
         }
     }
-/*
-    public ImageEntity transformerImage(Image imageBlob) {
-        BufferedImage image = ImageIO.read(imageBlob.getBinaryStream());
-        InputStream img = imageBlob.getBinaryStream();
-        buffimg = ImageIO.read(img);
-        return image;
-    }
- */
+    /**
+     * Retourne l'image coorespondant à id
+     //* @param id identifiant de l'image
+     * @return bufferedImage
+     */
+    /*public BufferedImage getImageById(int id) {
+        String sql= "select img from image where idImg = ?";
+        BufferedImage buffimg = null;
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1,id);
+            ResultSet result = stmt.executeQuery();
+            if(result.next()){
+                InputStream img = result.getBinaryStream(1);
+                buffimg= ImageIO.read(img);
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return buffimg;
+    }*/
+
+
+    //public ImageEntity transformerImage(Image imageBlob) {
+        //BufferedImage image = ImageIO.read(imageBlob.getBinaryStream());
+       // InputStream img = imageBlob.getBinaryStream();
+       // buffimg = ImageIO.read(img);
+       // return image;
+  //  }
 }

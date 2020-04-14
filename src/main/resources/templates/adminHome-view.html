@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-      layout:decorator="layout">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Admin Home</title>
-    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"/>-->
     <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.4.1/css/all.css}" />
-    <link rel="stylesheet" th:href="@{ressources/static/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
-    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>-->
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css}" />
-
 
 </head>
 <body>
-<div layout:fragment="content">
+<div th:insert="~{index-view :: fragment }"></div>
+<div>
     <p>Welcome Administrator(<span sec:authentication="principal.username">Admin</span>)</p>
     <p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></p>
 </div>

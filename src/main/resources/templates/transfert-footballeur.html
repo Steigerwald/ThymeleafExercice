@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/css/main.css"/>
 </head>
 <body>
+<div th:insert="~{index-view :: fragment }"></div>
     <div class="col-md-12">
         <form action="#" th:action="@{/footballeurs/footballeurTransfere}" th:object="${footballeur}" method="post">
             <div class="row">

@@ -10,8 +10,9 @@
     <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.4.1/css/all.css}" />
 </head>
 <body>
+<div th:insert="~{index-view :: fragment }"></div>
 <main class="container">
-    <div layout:fragment="content">
+    <div>
         <div class="panel col-md-5">
             <div class="panel panel-primary">
                 <div class="panel-heading">Login Form</div>

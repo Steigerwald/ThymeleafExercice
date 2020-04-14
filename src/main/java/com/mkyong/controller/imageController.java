@@ -21,9 +21,10 @@ public class imageController {
     ImageEntityService imageEntityService;
 
     @GetMapping()
-    public String getAllClubs(Model model) {
+    public String getAllImages(Model model) {
 
         List<ImageEntity> listC = imageEntityService.getAllImages();
+
         model.addAttribute("images", listC);
         return "list-images"; //view
     }

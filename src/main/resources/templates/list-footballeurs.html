@@ -6,13 +6,13 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Tous les footballeurs</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
-    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.4.1/css/all.css}" />
 </head>
 
 <body>
-<div th:insert="~{barreLogo :: fragment }"></div>
+<div th:insert="~{index-view :: fragment }"></div>
     <main>
         <h1>Liste des Footballeurs présents dans le Monde du football</h1>
         <div class="container col-lg-12">
