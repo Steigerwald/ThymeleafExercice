@@ -1,9 +1,12 @@
 package com.mkyong.controller;
 
 import com.mkyong.entity.League;
+import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
+import com.mkyong.services.CustomUserDetailsService;
 import com.mkyong.services.FootballeurService;
 import com.mkyong.services.LeagueService;
+import com.mkyong.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +32,7 @@ public class leagueController {
     Logger logger = (Logger) LoggerFactory.getLogger(FootballeurService.class);
 
     @GetMapping()
-    public String getAllLeagues(Model model) {
+    public String getAllLeagues(Principal principal,Model model) throws RecordNotFoundException {
 
         List<League> listL = leagueService.getAllLeagues();
         model.addAttribute("leagues", listL);

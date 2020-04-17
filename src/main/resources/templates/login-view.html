@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.4.1/css/all.css}" />
 </head>
 <body>
-<div th:insert="~{index-view :: fragment }"></div>
+<div th:insert="~{baniere :: fragment }"></div>
 <main class="container">
     <div>
         <div class="panel col-md-5">
@@ -53,6 +53,9 @@
                                     </p>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <h4 class="text-center"><a th:href="@{/registration}">Create an account</a></h4>
                         </div>
                     </form>
                 </div>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="utf-8">
+    <title>Create an account</title>
+    <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.4.1/css/all.css}" />
+</head>
+
+<body>
+<div th:insert="~{baniere :: fragment }"></div>
+<main>
+    <div class="container">
+        <form th:action="@{/registration/create}"  th:object="${user}" method="post" modelAttribute="userForm" class="form-signin">
+            <h2 class="form-signin-heading col-12">Créer votre compte</h2>
+            <bind path="username">
+                <div><span class="far fa-envelope"></span></div>
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <input type="email" th:field="*{mailUser}" path="username" class="form-control" placeholder="mail" autofocus="true"/>
+                    <errors path="username"></errors>
+                </div>
+            </bind>
+            <bind path="nomUser">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <span class="fas fa-user"></span>
+                    <input type="text" th:field="*{nomUser}" path="nomUser" class="form-control" placeholder="nom" autofocus="true"/>
+                    <errors path="nomUser"></errors>
+                </div>
+            </bind>
+            <bind path="prenomUser">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <span class="fas fa-user"></span>
+                    <input type="text" th:field="*{prenomUser}" path="prenomUser" class="form-control" placeholder="prenom" autofocus="true"/>
+                    <errors path="prenomUser"></errors>
+                </div>
+            </bind>
+            <bind path="password">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <i class="fa fa-unlock"></i>
+                    <input type="password" th:field="*{motDePasseUser}" path="password" class="form-control" placeholder="Mot de passe"/>
+                    <errors path="password"></errors>
+                </div>
+            </bind>
+
+            <bind path="passwordConfirm">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <i class="fa fa-unlock"></i>
+                    <input type="password" th:field="*{motDePasseUser}" path="passwordConfirm" class="form-control"
+                                placeholder="Confirmez votre mot de passe"/>
+                    <errors path="passwordConfirm"></errors>
+                </div>
+            </bind>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Enregistrer</button>
+            <input type="hidden" id="id" th:field="*{idUser}">
+        </form>
+    </div>
+</main>
+</body>
+<div th:insert="~{bootstrap :: fragment }"></div>
+</html>

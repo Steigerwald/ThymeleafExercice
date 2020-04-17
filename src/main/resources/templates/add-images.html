@@ -12,7 +12,7 @@
 
 </head>
 <body>
-<div th:insert="~{index-view :: fragment }"></div>
+<div th:insert="~{baniere :: fragment }"></div>
     <main>
         <h3>Enregistrer une image</h3>
         <form enctype="multipart/form-data" action="#" th:action="@{/images/stockerImage}" th:object="${image}" method="post">

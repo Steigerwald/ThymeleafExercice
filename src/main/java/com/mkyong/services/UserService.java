@@ -1,13 +1,15 @@
 package com.mkyong.services;
 
-import com.mkyong.entity.Footballeur;
+import com.mkyong.entity.Role;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
-import com.mkyong.repository.ClubRepository;
+import com.mkyong.repository.RoleRepository;
 import com.mkyong.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,7 +22,15 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+
     Logger logger = (Logger) LoggerFactory.getLogger(UserService.class);
+
 
     public List<User> getAllUsers()
     {
@@ -47,6 +57,24 @@ public class UserService {
             throw new RecordNotFoundException("No user record exist for given mail");
         }
     }
+    /*
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }*/
 
+    public void saveUser (User user) {
+
+            User newUser = new User();
+        logger.info(newUser.getNomUser());
+            newUser.setMailUser(user.getMailUser());
+            newUser.setNomUser(user.getNomUser());
+            newUser.setPrenomUser(user.getPrenomUser());
+        logger.info(" récupération des données nom, prenom, mail de create");
+            newUser.setMotDePasseUser(passwordEncoder.encode(user.getMotDePasseUser()));
+            List<Role> roles = (List<Role>) roleRepository.findAll();
+            newUser.setRoles(roles);
+            userRepository.save(newUser);
+            logger.info(" enregistrement du newUser avec create");
+    }
 
 }
