@@ -5,3 +5,26 @@ main {
     justify-content:center !important;
     color:red !important;
 }
+
+.nav-link {
+    text-align: justify !important;
+    font-size:1.1em !important;
+    margin-left: 30px !important;
+    left: 150px !important;
+}
+
+.navbar-nav {
+    color:white !important;
+}
+
+#navbarNav {
+    font-size:0.9em !important;
+}
+
+#text-banniere{
+    color:white !important;
+}
+
+.nav-login {
+    color:white !important;
+}

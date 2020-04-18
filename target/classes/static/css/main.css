@@ -5,30 +5,8 @@ body {
     justify-content:center;
 }
 
-.nav-link {
-    text-align: justify !important;
-    font-size:1.1em !important;
-    margin-left: 30px !important;
-    left: 150px !important;
-}
-
-.navbar-brand {
-    color:white !important;
-}
-
-.navbar-nav {
-    color:white !important;
-}
-
-#navbarNav {
-    font-size:0.9em !important;
-}
-.nav-login {
-    color:white !important;
-}
-
 main {
-    margin-top: 40px !important;
+    margin-top: 70px !important;
 }
 
 .starter-template {
@@ -37,7 +15,7 @@ main {
 }
 
 h1{
-	color:red !important ;
+	color:blue !important ;
     text-align:center;
 }
 
@@ -46,7 +24,7 @@ h2{
 }
 
 h3{
-    color:red;
+    color:black;
 }
 
 table, th, td {

@@ -12,10 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -91,7 +88,7 @@ public class userController {
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("user", new User());
-        logger.info(" envoi de l'attribut userForm à registration view");
+        logger.info(" envoi de l'attribut user à registration view");
         return "registration-view";
     }
 /*
@@ -115,7 +112,7 @@ public class userController {
 
     // Process form input data
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView processRegistrationForm(ModelAndView modelAndView, @Valid User user, BindingResult bindingResult, HttpServletRequest request) throws RecordNotFoundException {
+    public ModelAndView processRegistrationForm(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, HttpServletRequest request,ModelAndView modelAndView) throws RecordNotFoundException {
 
         // Lookup user in database by e-mail
         User userExists = userService.getUserByMail(user.getMailUser());
@@ -135,9 +132,17 @@ public class userController {
 
             userService.saveUser(user);
             logger.info(" enregistrement de user avec saveUser de post register");
-            modelAndView.setViewName("registration-view");
+            modelAndView.setViewName("success");
         }
         return modelAndView;
     }
+/*
+    @PostMapping("/registration")
+    public String userSubmit(@ModelAttribute("user") User user, Model model) {
+        userService.saveUser(user);
+        model.addAttribute("user",user);
+        return "success";
+    }
+*/
 
 }
