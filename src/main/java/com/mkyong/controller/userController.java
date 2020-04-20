@@ -1,6 +1,5 @@
 package com.mkyong.controller;
 
-import com.mkyong.entity.ImageEntity;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.CustomUserDetailsService;
@@ -18,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Optional;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -37,14 +36,12 @@ public class userController {
 
 
     @GetMapping()
-    public String siteIndex(Principal principal,Model model) throws RecordNotFoundException {
-
-        User newUser = userService.getUserByMail(principal.getName());
-        String nom=newUser.getNomUser();
-        String prenom=newUser.getPrenomUser();
-        model.addAttribute("message1", nom);
-        model.addAttribute("message2", prenom);
-
+    public String siteHome(Principal principal,Model model) throws RecordNotFoundException {
+        //User newUser = userService.getUserByMail(principal.getName());
+        //String nom=newUser.getNomUser();
+        //String prenom=newUser.getPrenomUser();
+        //model.addAttribute("message1", nom);
+       // model.addAttribute("message2", prenom);
         return "home"; //view
     }
 
@@ -63,6 +60,16 @@ public class userController {
         return "login-view"; //view
     }
 
+    @RequestMapping(path = "users/delete/{id}")
+    public String deleteEntityById(Model model, @PathVariable("id") Long id)
+            throws RecordNotFoundException
+    {
+        userService.deleteUserById(id);
+        return "redirect:/admin/home";
+    }
+
+
+
 // Spring security impose son controller
    @GetMapping("/welcome")
     public String formUser(Principal principal, Model model) throws RecordNotFoundException {
@@ -71,19 +78,24 @@ public class userController {
        String prenom=newUser.getPrenomUser();
        model.addAttribute("message1", nom);
        model.addAttribute("message2", prenom);
-
        logger.info(" on est passe par la avant mailuserForm de getMailUser");
-
             return "home";
     }
 
+    @GetMapping("/admin/home")
+    public String InsideHomeAdmin(Principal principal,Model model) {
+        User newUser = userService.getUserByMail(principal.getName());
+        String nom=newUser.getNomUser();
+        String prenom=newUser.getPrenomUser();
+        model.addAttribute("message1", nom);
+        model.addAttribute("message2", prenom);
 
-    @GetMapping("admin/home")
-    public String InsideHomeAdmin(Model model) {
+        List<User> listF = userService.getAllUsers();
 
-        return "adminHome-view"; //view
+        model.addAttribute("users", listF);
+        logger.info(" on est passe par la avant mailuserForm de getMailUser");
+        return "list-users"; //view
     }
-
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -91,17 +103,9 @@ public class userController {
         logger.info(" envoi de l'attribut user à registration view");
         return "registration-view";
     }
-/*
-    @RequestMapping(path = "/registration/create", method = RequestMethod.POST)
-    public String createUser(@ModelAttribute("userform") User userForm) throws RecordNotFoundException {
-        logger.info(" enregistrement de userForm avec create de post registration create");
-        userService.create(userForm);
-
-        return "redirect:/login";
-    }
-*/
 
     // Return registration form template
+    /*
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public ModelAndView showRegistrationPage(ModelAndView modelAndView, User user){
         modelAndView.addObject("user", user);
@@ -109,10 +113,12 @@ public class userController {
         logger.info(" envoi de user et appel de la vue enregistrement");
         return modelAndView;
     }
+    */
+
 
     // Process form input data
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView processRegistrationForm(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, HttpServletRequest request,ModelAndView modelAndView) throws RecordNotFoundException {
+    @RequestMapping(value = "/registration/create", method = RequestMethod.POST)
+    public ModelAndView processRegistrationForm(@ModelAttribute("user") @Valid User user, Model model, BindingResult bindingResult, HttpServletRequest request,ModelAndView modelAndView) throws RecordNotFoundException {
 
         // Lookup user in database by e-mail
         User userExists = userService.getUserByMail(user.getMailUser());
@@ -128,21 +134,14 @@ public class userController {
 
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration-view");
+
         } else { // new user so we create user and send confirmation e-mail
 
             userService.saveUser(user);
-            logger.info(" enregistrement de user avec saveUser de post register");
+            model.addAttribute("user", user);
+            logger.info(" enregistrement de user avec saveUser de post register et envoi du user");
             modelAndView.setViewName("success");
         }
         return modelAndView;
     }
-/*
-    @PostMapping("/registration")
-    public String userSubmit(@ModelAttribute("user") User user, Model model) {
-        userService.saveUser(user);
-        model.addAttribute("user",user);
-        return "success";
-    }
-*/
-
 }

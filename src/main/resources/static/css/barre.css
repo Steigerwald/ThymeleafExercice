@@ -72,12 +72,17 @@ body{
 }
 .navbar-toggle:hover,
 .navbar-toggle:focus {
-    background-color: black !important;
+    background-color: white !important;
+}
+.navbar-toggler-icon {
+    background-color: white !important;
 }
 
+/*
 .fas.fa-bars {
     color:white !important;
 }
+*/
 
 @media (max-width:968px) {
     .navbar-nav .open .dropdown-menu > li > a {

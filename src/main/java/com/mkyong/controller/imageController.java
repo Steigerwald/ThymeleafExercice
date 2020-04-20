@@ -1,12 +1,7 @@
 package com.mkyong.controller;
 
-import com.mkyong.entity.Club;
 import com.mkyong.entity.ImageEntity;
-import com.mkyong.entity.League;
-import com.mkyong.entity.User;
-import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.ImageEntityService;
-import com.mkyong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller

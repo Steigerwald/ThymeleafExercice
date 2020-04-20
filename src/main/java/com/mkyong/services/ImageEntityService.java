@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -127,11 +129,37 @@ public File transformerImageBlob (Blob image, HttpServletResponse res){
         return buffimg;
     }*/
 
-
-    //public ImageEntity transformerImage(Image imageBlob) {
+// premiere façon
+   /*
+    public ImageEntity transformerImage(Image imageBlob) {
         //BufferedImage image = ImageIO.read(imageBlob.getBinaryStream());
-       // InputStream img = imageBlob.getBinaryStream();
-       // buffimg = ImageIO.read(img);
-       // return image;
-  //  }
+       InputStream img = imageBlob.getBinaryStream();
+       buffimg = ImageIO.read(img);
+       return image;
+  //  }*/
+
+// autre façon
+    /*
+    public Image afficher(String identifiant) {
+        try (PreparedStatement ps=this.connexion.prepareStatement("SELECT images FROM Image1 WHERE nom=?")){
+            ps.setString(1, identifiant );
+            try(ResultSet rs=ps.executeQuery()) {
+                if (rs.next()) {
+                    Blob blob = rs.getBlob("images");
+                    try(InputStream inputStream = blob.getBinaryStream()) {
+                        return ImageIO.read( inputStream  );
+                    }
+                    finally {
+                        blob.free();
+                    }
+                }
+            }
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "ERREUR L'ORS DE L'AFFICHAGE DE L'IMAGE");
+        }
+        return null;
+    }
+*/
+
+
 }

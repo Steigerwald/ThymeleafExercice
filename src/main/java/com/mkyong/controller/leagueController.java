@@ -1,12 +1,9 @@
 package com.mkyong.controller;
 
 import com.mkyong.entity.League;
-import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
-import com.mkyong.services.CustomUserDetailsService;
 import com.mkyong.services.FootballeurService;
 import com.mkyong.services.LeagueService;
-import com.mkyong.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 
 @Controller

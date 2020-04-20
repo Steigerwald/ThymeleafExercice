@@ -1,5 +1,6 @@
 package com.mkyong.services;
 
+import com.mkyong.entity.Footballeur;
 import com.mkyong.entity.Role;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
@@ -46,7 +47,7 @@ public class UserService {
         }
     }
 
-    public User getUserByMail(String mail) throws RecordNotFoundException
+    public User getUserByMail(String mail)
     {
         Optional<User> user = userRepository.findByMailUser(mail);
 
@@ -54,7 +55,8 @@ public class UserService {
             logger.info(" retour du user trouvé grâce au mail car il est présent ");
             return user.get();
         } else {
-            throw new RecordNotFoundException("No user record exist for given mail");
+            logger.info("No user record exist for given mail");
+            return null ;
         }
     }
     /*
@@ -69,12 +71,51 @@ public class UserService {
             newUser.setMailUser(user.getMailUser());
             newUser.setNomUser(user.getNomUser());
             newUser.setPrenomUser(user.getPrenomUser());
-        logger.info(" récupération des données nom, prenom, mail de create");
+        logger.info(" récupération des données nom, prenom, mail de saveUser");
             newUser.setMotDePasseUser(passwordEncoder.encode(user.getMotDePasseUser()));
             List<Role> roles = (List<Role>) roleRepository.findAll();
             newUser.setRoles(roles);
             userRepository.save(newUser);
-            logger.info(" enregistrement du newUser avec create");
+            logger.info(" enregistrement du newUser avec saveUser");
     }
+
+    public User updateUser(User entity) {
+
+            Optional<User> user = userRepository.findById(entity.getIdUser());
+
+            if(user.isPresent())
+            {
+                User newEntity = user.get();
+                newEntity.setNomUser(entity.getNomUser());
+                newEntity.setPrenomUser(entity.getPrenomUser());
+                newEntity.setMotDePasseUser(entity.getMotDePasseUser());
+                newEntity.setRoles(entity.getRoles());
+
+                newEntity = userRepository.save(newEntity);
+
+                logger.info(" retour de la nouvelle entité user de updateUser qui a été sauvegardée et le user est existant");
+                return newEntity;
+
+            } else {
+                entity = userRepository.save(entity);
+                logger.info(" retour de l'entité user de updateUser qui a été sauvegardée car le user n'est pas existant");
+                return entity;
+            }
+
+    }
+
+    public void deleteUserById(Long id) throws RecordNotFoundException
+    {
+    Optional<User> userAEffacer = userRepository.findByIdUser(id);
+
+        if(userAEffacer.isPresent())
+        {
+            logger.info(" l'entité user à effacer a été trouvée et est effacée");
+            userRepository.deleteById(id);
+        } else {
+            throw new RecordNotFoundException("No user record exist for given id and to cancel it");
+        }
+    }
+
 
 }
