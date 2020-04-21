@@ -63,8 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                    .antMatchers("/css/**")
-                    .antMatchers("/picture/**");
+                    .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
 
     }
 
@@ -76,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .frameOptions().sameOrigin()
                     .and()
                         .authorizeRequests()
-                            .antMatchers("/resources/**", "/webjars/**","/assets/**","/registration/**","/success").permitAll()
+                            .antMatchers("/resources/**", "/webjars/**","/assets/**","/registration/**").permitAll()
                                 .antMatchers("/").permitAll()
                                 .antMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()

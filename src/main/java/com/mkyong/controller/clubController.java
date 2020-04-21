@@ -37,69 +37,53 @@ public class clubController {
 
         List<Club> listC = clubService.getAllClubs();
         model.addAttribute("clubs", listC);
-        return "list-clubs"; //view
+        return "club/list-clubs"; //view
     }
 
     @RequestMapping(path = "/edit/{id}")
-    public String editClubById(Model model, @PathVariable("id") Long id)
-            throws RecordNotFoundException
-    {
+    public String editClubById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+
         Club entity = clubService.getClubById(id);
         if (id!=0) {
-
             model.addAttribute("club", entity);
         } else {
             model.addAttribute("club", new Club());
         }
         model.addAttribute("titreFormClub","Editer un club");
-
         List<League> listC = leagueService.getAllLeagues();
         model.addAttribute("leagues", listC);
-
-        return "add-edit-club";
+        return "club/add-edit-club";
     }
 
     @RequestMapping(path = "/addClub")
-    public String addClubById(Model model)
-    {
+    public String addClubById(Model model) {
+
         model.addAttribute("club", new Club());
-
         model.addAttribute("titreFormClub","Ajouter un club");
-
         List<League> listC = leagueService.getAllLeagues();
         model.addAttribute("leagues", listC);
-
-        return "add-edit-club";
+        return "club/add-edit-club";
     }
 
-
-
-
     @RequestMapping(path = "/delete/{id}")
-    public String deleteClubsById(Model model, @PathVariable("id") Long id)
-            throws RecordNotFoundException
-    {
+    public String deleteClubsById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+
         clubService.deleteClubById(id);
         return "redirect:/clubs";
     }
 
     @RequestMapping(path = "/details/{id}")
-    public String detailClubById(Model model, @PathVariable("id") Long id)
-            throws RecordNotFoundException
-    {
+    public String detailClubById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+
         Club entity = clubService.getClubById(id);
         model.addAttribute("club", entity);
-
-        return "details-Club";
+        return "club/details-Club";
     }
 
     @RequestMapping(path = "/createClub", method = RequestMethod.POST)
-    public String createOrUpdateClub(Club club)
-    {
-        clubService.createOrUpdateClub(club);
+    public String createOrUpdateClub(Club club) {
 
+        clubService.createOrUpdateClub(club);
         return "redirect:/clubs";
     }
-
-
 }

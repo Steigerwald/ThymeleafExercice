@@ -22,28 +22,23 @@ public class imageController {
     @GetMapping()
     public String getAllImages( Model model){
 
-
         List<ImageEntity> listC = imageEntityService.getAllImages();
-
         model.addAttribute("images", listC);
-        return "list-images"; //view
+        return "image/list-images"; //view
     }
-    @RequestMapping(path = "/addImage")
-    public String addImageById(Model model)
-    {
-        model.addAttribute("image", new ImageEntity());
 
-        return "add-images";
+    @RequestMapping(path = "/addImage")
+    public String addImageById(Model model) {
+
+        model.addAttribute("image", new ImageEntity());
+        return "image/add-images";
     }
 
     @RequestMapping(path = "/stockerImage", method = RequestMethod.POST)
-    public String addImage(ImageEntity image)
-    {
-        imageEntityService.stockerImage(image);
+    public String addImage(ImageEntity image) {
 
+        imageEntityService.stockerImage(image);
         return "redirect:/images";
     }
-
-
 }
 

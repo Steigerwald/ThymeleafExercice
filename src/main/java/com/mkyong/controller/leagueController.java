@@ -32,13 +32,12 @@ public class leagueController {
 
         List<League> listL = leagueService.getAllLeagues();
         model.addAttribute("leagues", listL);
-        return "list-leagues"; //view
+        return "league/list-leagues"; //view
     }
 
     @RequestMapping(path = "/edit/{id}")
-    public String editLeagueById(Model model, @PathVariable("id") Long id)
-            throws RecordNotFoundException
-    {
+    public String editLeagueById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException{
+
         League entity = leagueService.getLeagueById(id);
         if (id!=0) {
             model.addAttribute("league", entity);
@@ -46,35 +45,29 @@ public class leagueController {
             model.addAttribute("league", new League());
         }
         model.addAttribute("titreFormLeague","Editer une Ligue");
-        return "add-edit-league";
+        return "league/add-edit-league";
     }
 
     @RequestMapping(path = {"/addLeague"})
-    public String addLeagueById(Model model)
-    {
+    public String addLeagueById(Model model) {
 
         model.addAttribute("league", new League());
-
         model.addAttribute("titreFormLeague","Ajouter une Ligue");
-
-        return "add-edit-league";
+        return "league/add-edit-league";
     }
 
 
     @RequestMapping(path = "/delete/{id}")
-    public String deleteLeagueById(Model model, @PathVariable("id") Long id)
-            throws RecordNotFoundException
-    {
+    public String deleteLeagueById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+
         leagueService.deleteLeagueById(id);
         return "redirect:/leagues";
     }
 
     @RequestMapping(path = "/createLeague", method = RequestMethod.POST)
-    public String createOrUpdateLeague(League league)
-    {
-        leagueService.createOrUpdateLeague(league);
+    public String createOrUpdateLeague(League league) {
 
+        leagueService.createOrUpdateLeague(league);
         return "redirect:/leagues";
     }
-
 }
