@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                    .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
+                    .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/pictures/**");
 
     }
 
@@ -75,9 +75,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .frameOptions().sameOrigin()
                     .and()
                         .authorizeRequests()
-                            .antMatchers("/resources/**", "/webjars/**","/assets/**","/registration/**").permitAll()
-                                .antMatchers("/").permitAll()
-                                .antMatchers("/admin/**").hasRole("ADMIN")
+                            .antMatchers("/recources/**","/webjars/**","/assets/**","/login/**","/registration/**").permitAll()
+                                //.antMatchers("/admin/**").hasRole("ADMIN")
+                               // .antMatchers().permitAll()
                                 .anyRequest().authenticated()
                                 .and()
                             .formLogin()
@@ -88,7 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .and()
                             .logout()
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .logoutSuccessUrl("/login?logout")
+                                .logoutSuccessUrl("/")
                                 .deleteCookies("my-remember-me-cookie")
                                     .permitAll()
                                     .and()

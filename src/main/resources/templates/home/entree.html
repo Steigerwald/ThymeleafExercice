@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>home</title>
+    <title>Entrée du site</title>
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/barre.css}" />
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css}" />
@@ -13,24 +13,20 @@
 
 <body>
 <div th:insert="~{baniere :: fragment }"></div>
-    <main role="main" class="container">
-        <div class="container">
-            <div class="starter-template">
-                <h1>Bienvenue chez les footeux !!! </h1>
-                <h1>
-                    <img th:alt="imagePres" th:src="@{/static/pictures/pres.jpg}" />
-                </h1>
-                <h2>
-                   <!-- <span th:text="'Bonjour, ' + ${message1}+' '+ ${message2}" ></span>-->
-                </h2>
-                <h2>
-                    <span>Comment ça va ?</span><br>
-                    <span></span><br>
-                    <span> Vous rentrez dans le monde du football !! </span>
-                </h2>
-            </div>
+<main role="main" class="container">
+    <div class="container">
+        <div class="starter-template">
+            <h1>Portail d'entrée du site</h1>
+        </Br>
+        </Br>
+            <h2>
+                <span>Rentrez dans le site si vous êtes curieux !</span><br>
+                <span></span><br>
+                <span> rentrez votre mot de passe ou créez un compte</span>
+            </h2>
         </div>
-    </main>
+    </div>
+</main>
 </body>
 <div th:insert="~{bootstrap :: fragment }"></div>
 </html>

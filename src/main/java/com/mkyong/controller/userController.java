@@ -44,13 +44,13 @@ public class userController {
         model.addAttribute("message1", nom);
         model.addAttribute("message2", prenom);
         */
-        return "home/home"; //view
+        return "home/entree"; //view
     }
 
     @GetMapping("logout")
     public String logoutSite(Model model) {
 
-        return "redirect:/"; //view
+        return "user/login-view"; //view
     }
 
     @GetMapping("login")
@@ -102,7 +102,7 @@ public class userController {
        String prenom=newUser.getPrenomUser();
        model.addAttribute("message1", nom);
        model.addAttribute("message2", prenom);
-       logger.info(" on est passe par la avant mailuserForm de getMailUser");
+       logger.info(" on est passe par la avant l'appel de la page home/home de url /welcome");
             return "home/home";
     }
 
@@ -117,7 +117,7 @@ public class userController {
         model.addAttribute("message2", prenom);
         List<User> listF = userService.getAllUsers();
         model.addAttribute("users", listF);
-        logger.info(" on est passe par la avant mailuserForm de getMailUser");
+        logger.info(" on est passe par la avant l'appel de la page user/list-users de url /admin/home");
         return "user/list-users"; //view
     }
 
@@ -134,7 +134,7 @@ public class userController {
 
     // Controller pour récupérer les données du formulaire d'enregistrement des users
     @RequestMapping(value = "/registration/create", method = RequestMethod.POST)
-    public ModelAndView processRegistrationForm(@ModelAttribute("user") @Valid User user, Model model, BindingResult bindingResult, HttpServletRequest request,ModelAndView modelAndView) throws RecordNotFoundException {
+    public ModelAndView processRegistrationForm(@ModelAttribute("user") @Valid User user, Model model, BindingResult bindingResult, HttpServletRequest request,Principal principal,ModelAndView modelAndView) throws RecordNotFoundException {
 
         User userExists = userService.getUserByMail(user.getMailUser());
         System.out.println(userExists);
@@ -148,6 +148,11 @@ public class userController {
             modelAndView.setViewName("user/registration-view");
         } else {
             userService.saveUser(user);
+            User newUser = userService.getUserByMail(principal.getName());
+            String nom=newUser.getNomUser();
+            String prenom=newUser.getPrenomUser();
+            model.addAttribute("message1", nom);
+            model.addAttribute("message2", prenom);
             model.addAttribute("user", user);
             logger.info("enregistrement de user avec saveUser de post register et envoi du user");
             modelAndView.setViewName("user/success");

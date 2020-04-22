@@ -45,6 +45,9 @@ public class User {
     private List<Role> roles;
 
 
+    public String toStringRoles() {
+        return "roles=" + roles;
+    }
 
     //constructeurs
     public User (){

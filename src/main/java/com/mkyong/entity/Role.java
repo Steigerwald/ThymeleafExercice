@@ -30,7 +30,11 @@ public class Role {
 
 */
 
-    //Constructeurs
+    @Override
+    public String toString() {
+        return nomRole;
+    }
+//Constructeurs
 
     public Role() {
     }
@@ -48,6 +52,7 @@ public class Role {
     public Collection<User> getUsers() {
         return users;
     }
+
 // Setters
 
     public void setIdRole(Integer idRole) {

@@ -84,7 +84,7 @@ body{
 }
 */
 
-@media (max-width:968px) {
+@media (max-width:1080px) {
     .navbar-nav .open .dropdown-menu > li > a {
         color: blue;
     }
