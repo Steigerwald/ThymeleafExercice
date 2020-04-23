@@ -49,7 +49,7 @@
                                                 <td th:text="${user.nomUser}"></td>
                                                 <td th:text="${user.prenomUser}"></td>
                                                 <td th:text="${user.motDePasseUser}"></td>
-                                                <td th:text="${user.toStringRoles()}"></td>
+                                                <td th:text="${(user.roles).toString()}"></td>
                                                 <td>
                                                     <a th:href="@{/users/edit/{id}(id=${user.idUser})}"
                                                        class="btn btn-primary">

@@ -43,8 +43,10 @@
                             <div class="form-group col-md-2">
                                 <label for="role" class="col-form-label">Role</label>
                                 <select th:field="*{roles}" class="form-control" id="role">
-                                    <option th:each="role : ${roles}" th:value="${role.getIdRole()}" th:text="${role.getNomRole()}">
+                                    <option th:each="role : ${roles}" th:value="${roles.getIdRole()}" th:text="${roles.getNomRole()}">
                                     </option>
+
+
                                 </select>
                             </div>
                             <div class="col-md-6">

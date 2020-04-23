@@ -29,7 +29,6 @@ public class Role {
     private List<User> users;
 
 */
-
     @Override
     public String toString() {
         return nomRole;

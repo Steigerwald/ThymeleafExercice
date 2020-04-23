@@ -71,3 +71,7 @@ img {
     border-radius: 10px;
     padding-top: 10px;
 }
+Footer{
+    display:flex;
+    align-items: end;
+}
