@@ -7,16 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
-import javax.swing.*;
-import java.awt.*;
+import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.PreparedStatement;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,9 +26,9 @@ public class ImageEntityService {
 
 
     public List<ImageEntity> getAllImages() {
+
         List<ImageEntity> listeImages = (List<ImageEntity>) repositoryImage.findAll();
 
-        Source: https://prograide.com/pregunta/25305/comment-telecharger-et-stocker-une-image-avec-google-app-engine-java
         if (listeImages.size() > 0) {
             logger.info(" retour liste listeImages si taille de rde la liste >0 ");
             return listeImages;
@@ -42,22 +36,18 @@ public class ImageEntityService {
             logger.info(" retour nouvelle liste  car pas d'élément dans la liste result de getAllImages ");
             return new ArrayList<ImageEntity>();
         }
-
-
     }
-    /*
-public File transformerImageBlob (Blob image, HttpServletResponse res){
 
-        res.setContentType("image/jpeg");
-        File f = res.getOutputStream().write(image.getBytes());
-
-        return f;
-}*/
-
-
+    public BufferedImage getBufferedImage(ImageEntity image) throws IOException {
+        ImageInputStream stream = ImageIO.createImageInputStream(image);
+        BufferedImage bufferedImage = ImageIO.read(stream);
+        stream.close();
+        return bufferedImage;
+    }
 
 
     public ImageEntity getImageById(Long id) throws RecordNotFoundException {
+
         Optional<ImageEntity> image = repositoryImage.findById(id);
 
         if (image.isPresent()) {
@@ -68,7 +58,9 @@ public File transformerImageBlob (Blob image, HttpServletResponse res){
         }
     }
 
+
     public void deleteImageById(Long id) throws RecordNotFoundException {
+
         Optional<ImageEntity> image = repositoryImage.findById(id);
 
         if (image.isPresent()) {
@@ -106,60 +98,4 @@ public File transformerImageBlob (Blob image, HttpServletResponse res){
             }
         }
     }
-    /**
-     * Retourne l'image coorespondant à id
-     //* @param id identifiant de l'image
-     * @return bufferedImage
-     */
-    /*public BufferedImage getImageById(int id) {
-        String sql= "select img from image where idImg = ?";
-        BufferedImage buffimg = null;
-        try {
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1,id);
-            ResultSet result = stmt.executeQuery();
-            if(result.next()){
-                InputStream img = result.getBinaryStream(1);
-                buffimg= ImageIO.read(img);
-            }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        return buffimg;
-    }*/
-
-// premiere façon
-   /*
-    public ImageEntity transformerImage(Image imageBlob) {
-        //BufferedImage image = ImageIO.read(imageBlob.getBinaryStream());
-       InputStream img = imageBlob.getBinaryStream();
-       buffimg = ImageIO.read(img);
-       return image;
-  //  }*/
-
-// autre façon
-    /*
-    public Image afficher(String identifiant) {
-        try (PreparedStatement ps=this.connexion.prepareStatement("SELECT images FROM Image1 WHERE nom=?")){
-            ps.setString(1, identifiant );
-            try(ResultSet rs=ps.executeQuery()) {
-                if (rs.next()) {
-                    Blob blob = rs.getBlob("images");
-                    try(InputStream inputStream = blob.getBinaryStream()) {
-                        return ImageIO.read( inputStream  );
-                    }
-                    finally {
-                        blob.free();
-                    }
-                }
-            }
-        }catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "ERREUR L'ORS DE L'AFFICHAGE DE L'IMAGE");
-        }
-        return null;
-    }
-*/
-
-
 }

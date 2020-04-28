@@ -33,10 +33,10 @@ public class Role {
     public String toString() {
         return nomRole;
     }
-//Constructeurs
 
-    public Role() {
-    }
+    //Constructeurs
+
+    public Role() { }
 
     // Getters
 
@@ -52,7 +52,7 @@ public class Role {
         return users;
     }
 
-// Setters
+    // Setters
 
     public void setIdRole(Integer idRole) {
         this.idRole = idRole;

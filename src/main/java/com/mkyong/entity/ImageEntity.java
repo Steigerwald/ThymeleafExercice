@@ -5,9 +5,9 @@ import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import javax.imageio.ImageIO;
 import javax.persistence.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+
 @Entity
 @Table(name="TBL_IMAGE_ENTITY")
 public class ImageEntity implements Serializable {
@@ -43,9 +43,7 @@ public class ImageEntity implements Serializable {
         return mimeType;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
+    public byte[] getImage() { return image; }
 
     // setters
 
@@ -67,7 +65,7 @@ public class ImageEntity implements Serializable {
 
     public void setImage(BufferedImage bufferedImage) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, mimeType.split("image/")[1], baos);
+        ImageIO.write(bufferedImage, mimeType.split("picture/")[1], baos);
         baos.flush();
         this.image = baos.toByteArray();
         baos.close();

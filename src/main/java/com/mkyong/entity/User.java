@@ -2,7 +2,6 @@ package com.mkyong.entity;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.GenerationType;
@@ -81,6 +80,7 @@ public class User {
     }
 
     public List<Role> getRoles() { return roles; }
+
 
     //setters
 

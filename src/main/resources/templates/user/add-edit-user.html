@@ -29,13 +29,13 @@
                                 <input type="text" th:field="*{nomUser}" class="form-control"
                                        id="nom" placeholder="nom" />
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-2">
                                 <label for="prenom" class="col-form-label">Prénom</label>
                                 <input type="text" th:field="*{prenomUser}" class="form-control"
                                        id="prenom" placeholder="prenom" />
                             </div>
 
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-5">
                                 <label for="motDePasse" class="col-form-label">Mot de passe</label>
                                 <input type="text" th:field="*{motDePasseUser}" class="form-control"
                                        id="motDePasse" placeholder="mot de passe" />
@@ -43,10 +43,8 @@
                             <div class="form-group col-md-2">
                                 <label for="role" class="col-form-label">Role</label>
                                 <select th:field="*{roles}" class="form-control" id="role">
-                                    <option th:each="role : ${roles}" th:value="${roles.getIdRole()}" th:text="${roles.getNomRole()}">
+                                    <option th:each="role : ${roles}" th:value="${idRole}" th:text="${nomRole}">
                                     </option>
-
-
                                 </select>
                             </div>
                             <div class="col-md-6">

@@ -21,11 +21,37 @@
                 <i class="fas fa-user-plus ml-2"> Ajouter une image  </i></a>
         </p>
         <div class="container">
-            <div class="table-responsive" th:each="image : ${images}">
-                <td th:text="${nomImage}"></td>
-                <td>
-                    <img th:alt="${nomImage}" th:src="${image}" class="img-thumbnail" alt="Logo HTML w3" style="width:25%; height:25%">
-                </td>
+            <div class="table-responsive text-nowrap ncol-md-12">
+                <table class="table table-striped" >
+                    <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Nom image</th>
+                        <th>type</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="image : ${images}">
+                        <td>
+                           <img th:src="@{/pictures/pres.jpg}" alt="imagePres" class="img-thumbnail" style="width:25%; height:25%">
+                        </td>
+                        <td th:text="${image.nomImage}"></td>
+                        <td th:text="${image.mimeType}"></td>
+                        <td>
+                            <a th:href="@{/images/edit/{id}(id=${image.id})}"
+                               class="btn btn-primary">
+                                <i class="fas fa-user-edit ml-2"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a th:href="@{/images/delete/{id}(id=${image.id})}"
+                               class="btn btn-danger">
+                                <i class="fas fa-user-times ml-2"> </i>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </main>

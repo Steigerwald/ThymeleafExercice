@@ -17,12 +17,12 @@
     <main>
         <h3>Ajouter une image</h3>
     </Br>
-        <form enctype="multipart/form-data" th:action="@{images}" th:object="${image}" method="post">
+        <form enctype="multipart/form-data" th:action="@{/images/stockerImage}" th:object="${image}" method="post">
             <input type="hidden" name="MAX_FILE_SIZE" value="250000" />
             <input type="file" name="fic" size=50 />
 
             <div class="form-group col-md-8">
-                <label for="nomFichier" class="col-form-label">Nationalité</label>
+                <label for="nomFichier" class="col-form-label">Nom de l'image</label>
                 <input type="text" th:field="*{nomImage}" class="form-control"
                        id="nomFichier" placeholder="nom Image" />
             </div>
