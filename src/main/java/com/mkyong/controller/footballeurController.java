@@ -1,7 +1,5 @@
 package com.mkyong.controller;
 
-import com.mkyong.entity.Club;
-import com.mkyong.entity.Footballeur;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.ClubService;
 import com.mkyong.services.FootballeurService;

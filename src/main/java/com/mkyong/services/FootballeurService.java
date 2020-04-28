@@ -1,8 +1,6 @@
 package com.mkyong.services;
 
-import com.mkyong.entity.Footballeur;
 import com.mkyong.exception.RecordNotFoundException;
-import com.mkyong.repository.FootballeurRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

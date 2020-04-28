@@ -1,8 +1,8 @@
 package com.mkyong.services;
 
-import com.mkyong.entity.ImageEntity;
+import com.mkyong.entity.Image;
 import com.mkyong.exception.RecordNotFoundException;
-import com.mkyong.repository.ImageEntityRepository;
+import com.mkyong.repository.ImageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,29 +16,29 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ImageEntityService {
+public class ImageService {
 
 
     @Autowired
-    ImageEntityRepository repositoryImage;
+    ImageRepository repositoryImage;
 
-    Logger logger = (Logger) LoggerFactory.getLogger(ImageEntityService.class);
+    Logger logger = (Logger) LoggerFactory.getLogger(ImageService.class);
 
 
-    public List<ImageEntity> getAllImages() {
+    public List<Image> getAllImages() {
 
-        List<ImageEntity> listeImages = (List<ImageEntity>) repositoryImage.findAll();
+        List<Image> listeImages = (List<Image>) repositoryImage.findAll();
 
         if (listeImages.size() > 0) {
             logger.info(" retour liste listeImages si taille de rde la liste >0 ");
             return listeImages;
         } else {
             logger.info(" retour nouvelle liste  car pas d'élément dans la liste result de getAllImages ");
-            return new ArrayList<ImageEntity>();
+            return new ArrayList<Image>();
         }
     }
 
-    public BufferedImage getBufferedImage(ImageEntity image) throws IOException {
+    public BufferedImage getBufferedImage(Image image) throws IOException {
         ImageInputStream stream = ImageIO.createImageInputStream(image);
         BufferedImage bufferedImage = ImageIO.read(stream);
         stream.close();
@@ -46,9 +46,9 @@ public class ImageEntityService {
     }
 
 
-    public ImageEntity getImageById(Long id) throws RecordNotFoundException {
+    public Image getImageById(Long id) throws RecordNotFoundException {
 
-        Optional<ImageEntity> image = repositoryImage.findById(id);
+        Optional<Image> image = repositoryImage.findById(id);
 
         if (image.isPresent()) {
             logger.info(" retour de l'image car elle est présente ");
@@ -61,7 +61,7 @@ public class ImageEntityService {
 
     public void deleteImageById(Long id) throws RecordNotFoundException {
 
-        Optional<ImageEntity> image = repositoryImage.findById(id);
+        Optional<Image> image = repositoryImage.findById(id);
 
         if (image.isPresent()) {
             logger.info(" l'entité image a été trouvée et est effacée");
@@ -71,17 +71,17 @@ public class ImageEntityService {
         }
     }
 
-    public ImageEntity stockerImage(ImageEntity entity) {
+    public Image stockerImage(Image entity) {
         if (entity.getId() == null) {
             entity = repositoryImage.save(entity);
 
             logger.info(" retour de l'entité de stockerImage car l'Id n'existe pas");
             return entity;
         } else {
-            Optional<ImageEntity> image = repositoryImage.findById(entity.getId());
+            Optional<Image> image = repositoryImage.findById(entity.getId());
 
             if (image.isPresent()) {
-                ImageEntity newEntity = image.get();
+                Image newEntity = image.get();
                 newEntity.setNomImage(entity.getNomImage());
                 newEntity.setMimeType(entity.getMimeType());
                 newEntity.setImage(entity.getImage());

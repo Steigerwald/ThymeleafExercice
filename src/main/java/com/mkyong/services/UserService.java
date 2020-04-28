@@ -1,6 +1,5 @@
 package com.mkyong.services;
 
-import com.mkyong.entity.Footballeur;
 import com.mkyong.entity.Role;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
@@ -9,7 +8,6 @@ import com.mkyong.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

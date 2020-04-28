@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.Serializable;
 
 @Entity
-@Table(name="TBL_IMAGE_ENTITY")
-public class ImageEntity implements Serializable {
+@Table(name="TBL_IMAGE")
+public class Image implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +25,9 @@ public class ImageEntity implements Serializable {
     @Lob()
     private byte[] image;
 
-    // constructor
-    public ImageEntity() {
+    // constructeur
+
+    public Image() {
     }
 
     // getters
