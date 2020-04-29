@@ -23,6 +23,10 @@ public class Voie {
     @Column(name="NOMBRE_POINTS")
     private Integer nombrePoints;
 
+    @ManyToOne
+    private Secteur secteur;
+
+
     // Constructor
 
     public Voie() {
@@ -46,6 +50,10 @@ public class Voie {
     public Integer getNombrePoints() { return nombrePoints;
     }
 
+    public Secteur getSecteur() { return secteur;
+    }
+
+
     // Setters
 
 
@@ -63,4 +71,9 @@ public class Voie {
 
     public void setNombrePoints(Integer nombrePoints) { this.nombrePoints = nombrePoints;
     }
+
+    public void setSecteur(Secteur secteur) { this.secteur = secteur;
+    }
+
+
 }

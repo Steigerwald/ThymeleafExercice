@@ -27,6 +27,13 @@ public class Topo {
     @Column(name = "LOCATION")
     private Boolean location;
 
+    @OneToOne (mappedBy = "topo")
+    private Site site;
+
+    @OneToOne
+    private ReservationTopo reservation;
+
+
     // Constructeur
 
     public Topo() {
@@ -52,9 +59,14 @@ public class Topo {
     public Boolean getLocation() { return location;
     }
 
+    public Site getSite() { return site;
+    }
+
+    public ReservationTopo getReservation() { return reservation;
+    }
+
 
     // Setters
-
 
     public void setIdTopo(Long idTopo) { this.idTopo = idTopo;
     }
@@ -72,5 +84,11 @@ public class Topo {
     }
 
     public void setLocation(Boolean location) { this.location = location;
+    }
+
+    public void setSite(Site site) { this.site = site;
+    }
+
+    public void setReservation(ReservationTopo reservation) { this.reservation = reservation;
     }
 }

@@ -1,3 +1,4 @@
+/*
 package com.mkyong.services;
 
 import com.mkyong.exception.RecordNotFoundException;
@@ -11,8 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-
+*/
+/*
 @Service
 public class FootballeurService {
 
@@ -118,8 +119,8 @@ public class FootballeurService {
             logger.info(" l'entité footballeur a été trouvée et est effacée");
             repository.deleteById(id);
         } else {
-            throw new RecordNotFoundException("No footballer record exist for given id");
+            throw new RecordNotFoundException("Pas de footballeur enregistré avec cet Id");
         }
     }
 
-}
+}*/

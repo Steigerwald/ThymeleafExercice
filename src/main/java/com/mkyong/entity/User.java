@@ -39,14 +39,21 @@ public class User {
 
     @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(
-            name="TBL_USER_ROLES",
+            name="TBL_USER_SITES",
             joinColumns={@JoinColumn(name="USERS_ID_USER")},
-            inverseJoinColumns={@JoinColumn(name="ROLES_ID_ROLE")})
-    private List<Role> roles;
+            inverseJoinColumns={@JoinColumn(name="ROLES_ID_SITE")})
+    private List<Site> sites;
+
+    @ManyToOne
+    private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private Collection <ReservationTopo> Reservations;
+
 
     @Override
     public String toString() {
-        return "roles=" + roles;
+        return "role=" + role;
     }
 
     //constructeurs
@@ -79,8 +86,14 @@ public class User {
         return motDePasseUser;
     }
 
-    public List<Role> getRoles() { return roles; }
+    public List<Site> getSites() { return sites;
+    }
 
+    public Role getRole() { return role;
+    }
+
+    public Collection<ReservationTopo> getReservations() { return Reservations;
+    }
 
     //setters
 
@@ -104,5 +117,12 @@ public class User {
         this.motDePasseUser = motDePasseUser;
     }
 
-    public void setRoles(List<Role> roles) { this.roles = roles; }
+    public void setSites(List<Site> sites) { this.sites = sites;
+    }
+
+    public void setRole(Role role) { this.role = role;
+    }
+
+    public void setReservations(Collection<ReservationTopo> reservations) { Reservations = reservations;
+    }
 }

@@ -25,6 +25,13 @@ public class Image implements Serializable {
     @Lob()
     private byte[] image;
 
+    @ManyToOne
+    private Site site;
+
+    @ManyToOne
+    private Secteur secteur;
+
+
     // constructeur
 
     public Image() {

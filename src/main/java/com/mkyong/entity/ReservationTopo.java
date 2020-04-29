@@ -23,6 +23,12 @@ public class ReservationTopo {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateReservation;
 
+    @ManyToOne
+    private User user;
+
+    @OneToOne (mappedBy = "reservation")
+    private Topo topo;
+
     // Constructeur
 
     public ReservationTopo() {
@@ -42,6 +48,11 @@ public class ReservationTopo {
     public Date getDateReservation() { return dateReservation;
     }
 
+    public User getUser() { return user;
+    }
+
+    public Topo getTopo() { return topo;
+    }
 
     // Setters
 
@@ -57,4 +68,11 @@ public class ReservationTopo {
 
     public void setDateReservation(Date dateReservation) { this.dateReservation = dateReservation;
     }
+
+    public void setUser(User user) { this.user = user;
+    }
+
+    public void setTopo(Topo topo) { this.topo = topo;
+    }
+
 }

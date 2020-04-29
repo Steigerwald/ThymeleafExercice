@@ -54,7 +54,7 @@ public class ImageService {
             logger.info(" retour de l'image car elle est présente ");
             return image.get();
         } else {
-            throw new RecordNotFoundException("No picture record exist for given id");
+            throw new RecordNotFoundException("Pas d'image enregistrée avec cet Id");
         }
     }
 
@@ -67,7 +67,7 @@ public class ImageService {
             logger.info(" l'entité image a été trouvée et est effacée");
             repositoryImage.deleteById(id);
         } else {
-            throw new RecordNotFoundException("No footballer record exist for given id");
+            throw new RecordNotFoundException("Pas d'image enregistrée avec cet Id");
         }
     }
 

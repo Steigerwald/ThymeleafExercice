@@ -20,6 +20,9 @@ public class Commentaire {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCommentaire;
 
+    @ManyToOne
+    private Site site;
+
     // Constructor
 
     public Commentaire() {
@@ -36,7 +39,11 @@ public class Commentaire {
 
     public Date getDateCommentaire() { return dateCommentaire;
     }
-// Setters
+
+    public Site getSite() { return site;
+    }
+
+    // Setters
 
 
     public void setIdCommentaire(Long idCommentaire) { this.idCommentaire = idCommentaire;
@@ -47,4 +54,9 @@ public class Commentaire {
 
     public void setDateCommentaire(Date dateCommentaire) { this.dateCommentaire = dateCommentaire;
     }
+
+    public void setSite(Site site) { this.site = site;
+    }
+
+
 }

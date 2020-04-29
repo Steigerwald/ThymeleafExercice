@@ -18,17 +18,10 @@ public class Role {
     @NotEmpty
     private String nomRole;
 
-    @ManyToMany(mappedBy="roles")
+    @OneToMany(mappedBy = "role")
     private Collection<User> users;
 
-/*
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="TBL_USER_ROLES",
-            joinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="USER_ID", referencedColumnName="id")})
-    private List<User> users;
 
-*/
     @Override
     public String toString() {
         return nomRole;
@@ -36,7 +29,11 @@ public class Role {
 
     //Constructeurs
 
-    public Role() { }
+    public Role() {
+
+    }
+
+
 
     // Getters
 
@@ -51,6 +48,8 @@ public class Role {
     public Collection<User> getUsers() {
         return users;
     }
+
+
 
     // Setters
 

@@ -2,6 +2,7 @@ package com.mkyong.entity;
 
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name="TBL_SITE")
@@ -21,11 +22,30 @@ public class Site {
     @Column(name="DESCRIPTIF")
     private String descriptif;
 
+    @ManyToMany(mappedBy="sites")
+    private Collection<User> users;
+
+    @OneToOne
+    private Carte carte;
+
+    @OneToOne
+    private Topo topo;
+
+    @OneToMany (mappedBy = "site")
+    private Collection<Commentaire> commentaires;
+
+    @OneToMany (mappedBy = "site")
+    private Collection<Image> images;
+
+    @OneToMany (mappedBy = "site")
+    private Collection<Secteur> secteurs;
+
 
     // Constructeur
 
     public Site() {
     }
+
 
     // Getters
 
@@ -42,9 +62,26 @@ public class Site {
     public String getDescriptif() { return descriptif;
     }
 
+    public Collection<User> getUsers() { return users;
+    }
+
+    public Carte getCarte() { return carte;
+    }
+
+    public Topo getTopo() { return topo;
+    }
+
+    public Collection<Commentaire> getCommentaires() { return commentaires;
+    }
+
+    public Collection<Image> getImages() { return images;
+    }
+
+    public Collection<Secteur> getSecteurs() { return secteurs;
+    }
+
 
     // Setters
-
 
     public void setIdSite(Long idSite) { this.idSite = idSite;
     }
@@ -56,5 +93,23 @@ public class Site {
     }
 
     public void setDescriptif(String descriptif) { this.descriptif = descriptif;
+    }
+
+    public void setUsers(Collection<User> users) { this.users = users;
+    }
+
+    public void setCarte(Carte carte) { this.carte = carte;
+    }
+
+    public void setTopo(Topo topo) { this.topo = topo;
+    }
+
+    public void setCommentaires(Collection<Commentaire> commentaires) { this.commentaires = commentaires;
+    }
+
+    public void setImages(Collection<Image> images) { this.images = images;
+    }
+
+    public void setSecteurs(Collection<Secteur> secteurs) { this.secteurs = secteurs;
     }
 }
