@@ -1,3 +1,4 @@
+/*
 package com.mkyong.controller;
 
 import com.mkyong.exception.RecordNotFoundException;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-
+*/
+/*
 @Controller
 @RequestMapping("/footballeurs")
 public class footballeurController {
@@ -95,3 +97,4 @@ public class footballeurController {
         return "redirect:/footballeurs";
     }
 }
+*/

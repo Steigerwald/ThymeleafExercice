@@ -80,8 +80,7 @@ public class UserService {
             newUser.setPrenomUser(user.getPrenomUser());
         logger.info(" récupération des données nom, prenom, mail de saveUser");
             newUser.setMotDePasseUser(passwordEncoder.encode(user.getMotDePasseUser()));
-            List<Role> roles = (List<Role>) roleRepository.findAll();
-            newUser.setRoles(roles);
+            newUser.setRole(user.getRole());
             userRepository.save(newUser);
             logger.info(" enregistrement du newUser avec saveUser");
     }

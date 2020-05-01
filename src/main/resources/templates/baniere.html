@@ -16,17 +16,15 @@
         <div th:fragment="fragment">
             <div class="container col col-lg-12 fixed-top">
                 <nav class="navbar navbar-light navbar-expand-md">
-                    <a class="navbar-brand">Le Monde du football </a>
+                    <a class="navbar-brand">Les amis de l'escalade </a>
                     <button class="navbar-toggler bg-light " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="text-banniere">
                             <li class="nav-item active"><a class="nav-link " th:href="@{/welcome}">Home</a></li>
-                            <li class="nav-item"><a class="nav-link " th:href="@{/footballeurs}">Les joueurs</a></li>
-                            <li class="nav-item"><a class="nav-link " th:href="@{/clubs}">Les clubs</a></li>
-                            <li class="nav-item"><a class="nav-link " th:href="@{/leagues}">Les ligues</a></li>
-                            <li class="nav-item"><a class="nav-link " th:href="@{/images}">Les images</a></li>
+                            <li class="nav-item"><a class="nav-link " th:href="@{/Topos}">Les joueurs</a></li>
+                            <li class="nav-item"><a class="nav-link " th:href="@{/Sites}">Les clubs</a></li>
                         </ul>
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/login}">Login <span class="fas fa-sign-in-alt"></span></a></li>

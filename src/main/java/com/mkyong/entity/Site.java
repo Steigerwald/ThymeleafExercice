@@ -21,14 +21,11 @@ public class Site {
 
     @Column(name="DESCRIPTIF")
     private String descriptif;
-
+/*
     @ManyToMany(mappedBy="sites")
     private Collection<User> users;
-
-    @OneToOne
-    private Carte carte;
-
-    @OneToOne
+*/
+    @ManyToOne
     private Topo topo;
 
     @OneToMany (mappedBy = "site")
@@ -62,11 +59,6 @@ public class Site {
     public String getDescriptif() { return descriptif;
     }
 
-    public Collection<User> getUsers() { return users;
-    }
-
-    public Carte getCarte() { return carte;
-    }
 
     public Topo getTopo() { return topo;
     }
@@ -93,12 +85,6 @@ public class Site {
     }
 
     public void setDescriptif(String descriptif) { this.descriptif = descriptif;
-    }
-
-    public void setUsers(Collection<User> users) { this.users = users;
-    }
-
-    public void setCarte(Carte carte) { this.carte = carte;
     }
 
     public void setTopo(Topo topo) { this.topo = topo;

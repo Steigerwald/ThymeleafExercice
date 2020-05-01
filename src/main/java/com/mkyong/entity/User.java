@@ -37,12 +37,23 @@ public class User {
     @Size(min=4)
     private String motDePasseUser;
 
+/*
     @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(
             name="TBL_USER_SITES",
-            joinColumns={@JoinColumn(name="USERS_ID_USER")},
-            inverseJoinColumns={@JoinColumn(name="ROLES_ID_SITE")})
-    private List<Site> sites;
+            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
+            inverseJoinColumns={@JoinColumn(name="SITES_ID", referencedColumnName="ID")})
+    private Collection<Site> sites;
+*/
+/*
+    @ManyToMany(cascade=CascadeType.MERGE)
+    @JoinTable(
+            name="TBL_USER_TOPOS",
+            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
+            inverseJoinColumns={@JoinColumn(name="TOPOS_ID", referencedColumnName="ID")})
+    private Collection<Topo> topos;
+
+*/
 
     @ManyToOne
     private Role role;
@@ -86,14 +97,13 @@ public class User {
         return motDePasseUser;
     }
 
-    public List<Site> getSites() { return sites;
-    }
 
     public Role getRole() { return role;
     }
 
     public Collection<ReservationTopo> getReservations() { return Reservations;
     }
+
 
     //setters
 
@@ -117,12 +127,11 @@ public class User {
         this.motDePasseUser = motDePasseUser;
     }
 
-    public void setSites(List<Site> sites) { this.sites = sites;
-    }
-
     public void setRole(Role role) { this.role = role;
     }
 
     public void setReservations(Collection<ReservationTopo> reservations) { Reservations = reservations;
     }
+
+
 }

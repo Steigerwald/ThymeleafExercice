@@ -2,6 +2,7 @@ package com.mkyong.entity;
 
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -27,12 +28,17 @@ public class Topo {
     @Column(name = "LOCATION")
     private Boolean location;
 
-    @OneToOne (mappedBy = "topo")
-    private Site site;
+    @OneToMany (mappedBy = "topo")
+    private Collection<Site> sites;
 
     @OneToOne
     private ReservationTopo reservation;
 
+   /*
+    @ManyToMany(mappedBy="topos")
+    private Collection<User> users;
+
+    */
 
     // Constructeur
 
@@ -59,8 +65,9 @@ public class Topo {
     public Boolean getLocation() { return location;
     }
 
-    public Site getSite() { return site;
+    public Collection<Site> getSites() { return sites;
     }
+
 
     public ReservationTopo getReservation() { return reservation;
     }
@@ -86,8 +93,10 @@ public class Topo {
     public void setLocation(Boolean location) { this.location = location;
     }
 
-    public void setSite(Site site) { this.site = site;
+    public void setSites(Collection<Site> sites) {
+        this.sites = sites;
     }
+
 
     public void setReservation(ReservationTopo reservation) { this.reservation = reservation;
     }
