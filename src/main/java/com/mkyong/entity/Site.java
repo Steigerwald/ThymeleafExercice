@@ -21,10 +21,10 @@ public class Site {
 
     @Column(name="DESCRIPTIF")
     private String descriptif;
-/*
+
     @ManyToMany(mappedBy="sites")
     private Collection<User> users;
-*/
+
     @ManyToOne
     private Topo topo;
 
@@ -59,6 +59,8 @@ public class Site {
     public String getDescriptif() { return descriptif;
     }
 
+    public Collection<User> getUsers() { return users;
+    }
 
     public Topo getTopo() { return topo;
     }
@@ -85,6 +87,9 @@ public class Site {
     }
 
     public void setDescriptif(String descriptif) { this.descriptif = descriptif;
+    }
+
+    public void setUsers(Collection<User> users) { this.users = users;
     }
 
     public void setTopo(Topo topo) { this.topo = topo;

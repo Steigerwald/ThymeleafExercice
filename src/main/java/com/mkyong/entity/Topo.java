@@ -34,11 +34,9 @@ public class Topo {
     @OneToOne
     private ReservationTopo reservation;
 
-   /*
     @ManyToMany(mappedBy="topos")
     private Collection<User> users;
 
-    */
 
     // Constructeur
 
@@ -50,54 +48,43 @@ public class Topo {
     public Long getIdTopo() { return idTopo;
     }
 
-    public String getNomTopo() { return nomTopo;
-    }
+    public String getNomTopo() { return nomTopo; }
 
-    public String getDescription() { return description;
-    }
+    public String getDescription() { return description; }
 
-    public Date getDateParution() { return dateParution;
-    }
+    public Date getDateParution() { return dateParution; }
 
-    public Boolean getDisponible() { return disponible;
-    }
+    public Boolean getDisponible() { return disponible; }
 
-    public Boolean getLocation() { return location;
-    }
+    public Boolean getLocation() { return location; }
 
-    public Collection<Site> getSites() { return sites;
-    }
+    public Collection<Site> getSites() { return sites; }
 
+    public ReservationTopo getReservation() { return reservation; }
 
-    public ReservationTopo getReservation() { return reservation;
-    }
+    public Collection<User> getUsers() { return users; }
 
 
     // Setters
 
-    public void setIdTopo(Long idTopo) { this.idTopo = idTopo;
-    }
+    public void setIdTopo(Long idTopo) { this.idTopo = idTopo; }
 
-    public void setNomTopo(String nomTopo) { this.nomTopo = nomTopo;
-    }
+    public void setNomTopo(String nomTopo) { this.nomTopo = nomTopo; }
 
-    public void setDescription(String description) { this.description = description;
-    }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setDateParution(Date dateParution) { this.dateParution = dateParution;
-    }
+    public void setDateParution(Date dateParution) { this.dateParution = dateParution; }
 
-    public void setDisponible(Boolean disponible) { this.disponible = disponible;
-    }
+    public void setDisponible(Boolean disponible) { this.disponible = disponible; }
 
-    public void setLocation(Boolean location) { this.location = location;
-    }
+    public void setLocation(Boolean location) { this.location = location; }
 
     public void setSites(Collection<Site> sites) {
         this.sites = sites;
     }
 
 
-    public void setReservation(ReservationTopo reservation) { this.reservation = reservation;
-    }
+    public void setReservation(ReservationTopo reservation) { this.reservation = reservation; }
+
+    public void setUsers(Collection<User> users) { this.users = users; }
 }

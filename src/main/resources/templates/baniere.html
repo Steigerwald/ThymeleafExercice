@@ -17,14 +17,23 @@
             <div class="container col col-lg-12 fixed-top">
                 <nav class="navbar navbar-light navbar-expand-md">
                     <a class="navbar-brand">Les amis de l'escalade </a>
-                    <button class="navbar-toggler bg-light " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler bg-dark " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="text-banniere">
                             <li class="nav-item active"><a class="nav-link " th:href="@{/welcome}">Home</a></li>
-                            <li class="nav-item"><a class="nav-link " th:href="@{/Topos}">Les joueurs</a></li>
-                            <li class="nav-item"><a class="nav-link " th:href="@{/Sites}">Les clubs</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Les topos
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" th:href="@{/topos}">Liste des topos</a>
+                                    <a class="dropdown-item" th:href="@{/sites}">Liste des sites</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </li>
                         </ul>
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/login}">Login <span class="fas fa-sign-in-alt"></span></a></li>
@@ -32,6 +41,10 @@
                             <li class="nav-item"><a class="nav-link" th:text="${message1 !=null and message2 !=null} ? ${message1}+' '+ ${message2}:' '"></a></li>
                             <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout <i class="fas fa-sign-out-alt"></i></a></li>
                         </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
                     </div>
                 </nav>
                 <div class="liseret">

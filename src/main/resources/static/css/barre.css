@@ -8,30 +8,30 @@ body{
 }
 .navbar {
     /* Couleur de fond de la barre de navigation */
-   background-color:#FFA500 !important;
-    border-color: #FFA500 !important;
+   background-color: #ffffff !important;
+    border-color: #ffffff !important;
 }
 .liseret {
-    background-color: red;
+    background-color: #ffa64f;
     height:10px;
 }
 /* Couleur des titres affichés dans la barre */
 .navbar-brand {
-    color:#FFFFFF !important;
+    color: #000000 !important;
 }
 /* Couleur utilisée lors du passage de la souris sur un titre de la barre */
 .navbar-brand:hover,
 .navbar-brand:focus {
-    color: #000000;
+    color: #a2a2a2;
 }
 /* Couleur utilisée pour les liens */
 .navbar-nav > li > a {
-    color: #FFFFFF !important;
+    color: #000000 !important;
 }
 /* Couleur utilisée pour les liens lorsque la souris passe dessus */
 .navbar-nav > li > a:hover,
 .navbar-nav > li > a:focus {
-    color: #000000;
+    color: red !important;
 }
 
 /* Couleur utilisée pour le lien actif (celui qui est affiché sur la page) */
@@ -48,7 +48,7 @@ body{
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
     color: #555;
-    background-color: #D5D5D5;
+    background-color: #ffa64f;
 }
 /* Caret */
 .navbar-default .navbar-nav > .dropdown > a .caret {
@@ -68,14 +68,15 @@ body{
 }
 /* Version mobile, le menu devient une icône qui déroule une liste avec le menu en vertical */
 .navbar-toggler {
-    border-color: white !important;
+    border-color: #ffa64f !important;
+    background-color: #ffa64f !important;
 }
 .navbar-toggle:hover,
 .navbar-toggle:focus {
-    background-color: white !important;
+    background-color: #ffa64f !important;
 }
 .navbar-toggler-icon {
-    background-color: white !important;
+    background-color: #ffa64f !important;
 }
 
 /*

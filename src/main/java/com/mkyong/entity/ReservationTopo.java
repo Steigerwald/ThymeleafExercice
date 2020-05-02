@@ -12,9 +12,6 @@ public class ReservationTopo {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idReservation;
 
-    @Column(name="NUMERO_RESERVATION")
-    private String numeroReservation;
-
     @Column(name="ACCEPTATION")
     private Boolean acceptation;
 
@@ -39,8 +36,6 @@ public class ReservationTopo {
     public Long getIdReservation() { return idReservation;
     }
 
-    public String getNumeroReservation() { return numeroReservation;
-    }
 
     public Boolean getAcceptation() { return acceptation;
     }
@@ -60,8 +55,6 @@ public class ReservationTopo {
     public void setIdReservation(Long idReservation) { this.idReservation = idReservation;
     }
 
-    public void setNumeroReservation(String numeroReservation) { this.numeroReservation = numeroReservation;
-    }
 
     public void setAcceptation(Boolean acceptation) { this.acceptation = acceptation;
     }

@@ -64,7 +64,6 @@ public class ReservationTopoService {
             {
                 ReservationTopo newReservation = reservation.get();
                 newReservation.setIdReservation(entity.getIdReservation());
-                newReservation.setNumeroReservation(entity.getNumeroReservation());
                 newReservation.setAcceptation(entity.getAcceptation());
                 newReservation.setDateReservation(entity.getDateReservation());
 

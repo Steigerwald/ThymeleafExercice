@@ -37,21 +37,29 @@ public class User {
     @Size(min=4)
     private String motDePasseUser;
 
-/*
+
     @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(
             name="TBL_USER_SITES",
-            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="SITES_ID", referencedColumnName="ID")})
-    private Collection<Site> sites;
-*/
-/*
+            joinColumns={@JoinColumn(name="USERS_ID_USER")},
+            inverseJoinColumns={@JoinColumn(name="SITES_ID_SITE")})
+    private List<Site> sites;
+
+
     @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(
             name="TBL_USER_TOPOS",
-            joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="TOPOS_ID", referencedColumnName="ID")})
-    private Collection<Topo> topos;
+            joinColumns={@JoinColumn(name="USERS_ID_USER")},
+            inverseJoinColumns={@JoinColumn(name="TOPOS_ID_TOPO")})
+    private List<Topo> topos;
+
+/*
+    @ManyToMany(cascade=CascadeType.MERGE)
+    @JoinTable(
+            name="TBL_USER_ROLES",
+            joinColumns={@JoinColumn(name="USERS_ID_USER")},
+            inverseJoinColumns={@JoinColumn(name="ROLES_ID_ROLE")})
+    private List<Role> roles;
 
 */
 
@@ -62,8 +70,7 @@ public class User {
     private Collection <ReservationTopo> Reservations;
 
 
-    @Override
-    public String toString() {
+    public String toStringRole(Role role) {
         return "role=" + role;
     }
 
@@ -97,12 +104,13 @@ public class User {
         return motDePasseUser;
     }
 
+    public List<Site> getSites() { return sites; }
 
-    public Role getRole() { return role;
-    }
+    public List<Topo> getTopos() { return topos; }
 
-    public Collection<ReservationTopo> getReservations() { return Reservations;
-    }
+    public Role getRole() { return role; }
+
+    public Collection<ReservationTopo> getReservations() { return Reservations; }
 
 
     //setters
@@ -127,11 +135,13 @@ public class User {
         this.motDePasseUser = motDePasseUser;
     }
 
-    public void setRole(Role role) { this.role = role;
-    }
+    public void setSites(List<Site> sites) { this.sites = sites; }
 
-    public void setReservations(Collection<ReservationTopo> reservations) { Reservations = reservations;
-    }
+    public void setTopos(List<Topo> topos) { this.topos = topos; }
+
+    public void setRole(Role role) { this.role = role; }
+
+    public void setReservations(Collection<ReservationTopo> reservations) { Reservations = reservations; }
 
 
 }
