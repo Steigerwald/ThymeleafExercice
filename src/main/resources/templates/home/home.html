@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <meta charset="utf-8">
@@ -14,6 +15,9 @@
 <body>
 <div th:insert="~{baniere :: fragment }"></div>
     <main role="main" class="container">
+        <div>
+            <p>Welcome Administrator(<span sec:authentication="principal.username"></span>) est bien connecté comme Admin</p>
+        </div>
         <div class="container">
             <div class="starter-template">
                 <h1>Bienvenue chez les grimpeurs !!! </h1>

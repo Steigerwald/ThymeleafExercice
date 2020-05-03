@@ -13,77 +13,77 @@
 </head>
 
 <body>
-<div th:insert="~{baniere :: fragment }"></div>
-<main>
-    <div>
-        <p>Welcome Administrator(<span sec:authentication="principal.username"></span>) est bien connecté comme Admin</p>
-    </div>
-    <h1>Liste des users enregistrés sur le site</h1>
-    <div class="container col-lg-12">
-        <header class="row">
-        </header>
-        <div class="row">
-            <section class="col-lg-12">
-                <div class="container">
-                    <div class="card">
-                        <div class="card-body">
-                            <div th:switch="${users}" class="container">
-                                <div class="table-responsive text-nowrap ncol-md-12">
-                                    <h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
-                                    <div th:case="*">
-                                        <table class="table table-striped" >
-                                            <thead>
-                                            <tr>
-                                                <th>Ordre</th>
-                                                <th>Nom</th>
-                                                <th>Prenom</th>
-                                                <th>mot de passe</th>
-                                                <th>roles</th>
-                                                <th>Edit</th>
-                                                <th>Delete</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="user : ${users}">
-                                                <td th:text="${user.idUser}"></td>
-                                                <td th:text="${user.nomUser}"></td>
-                                                <td th:text="${user.prenomUser}"></td>
-                                                <td th:text="${user.motDePasseUser}"></td>
-                                                <td th:text="${(user.toStringRole(user.role))}"></td>
-                                                <td>
-                                                    <a th:href="@{/users/edit/{id}(id=${user.idUser})}"
-                                                       class="btn btn-primary">
-                                                        <i class="fas fa-user-edit ml-2"></i>
-                                                    </a>
-                                                </td>
-                                                <td>
-                                                    <a th:href="@{/users/delete/{id}(id=${user.idUser})}"
-                                                       class="btn btn-danger">
-                                                        <i class="fas fa-user-times ml-2"> </i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+    <div th:insert="~{baniere :: fragment }"></div>
+    <main>
+        <div>
+            <p>Welcome Administrator(<span sec:authentication="principal.username"></span>) est bien connecté comme Admin</p>
+        </div>
+        <h1>Liste des users enregistrés sur le site</h1>
+        <div class="container col-lg-12">
+            <header class="row">
+            </header>
+            <div class="row">
+                <section class="col-lg-12">
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-body">
+                                <div th:switch="${users}" class="container">
+                                    <div class="table-responsive text-nowrap ncol-md-12">
+                                        <h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
+                                        <div th:case="*">
+                                            <table class="table table-striped" >
+                                                <thead>
+                                                <tr>
+                                                    <th>Ordre</th>
+                                                    <th>Nom</th>
+                                                    <th>Prenom</th>
+                                                    <th>mot de passe</th>
+                                                    <th>roles</th>
+                                                    <th>Edit</th>
+                                                    <th>Delete</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="user : ${users}">
+                                                    <td th:text="${user.idUser}"></td>
+                                                    <td th:text="${user.nomUser}"></td>
+                                                    <td th:text="${user.prenomUser}"></td>
+                                                    <td th:text="${user.motDePasseUser}"></td>
+                                                    <td th:text="${(user.toStringRole(user.role))}"></td>
+                                                    <td>
+                                                        <a th:href="@{/users/edit/{id}(id=${user.idUser})}"
+                                                           class="btn btn-primary">
+                                                            <i class="fas fa-user-edit ml-2"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a th:href="@{/users/delete/{id}(id=${user.idUser})}"
+                                                           class="btn btn-danger">
+                                                            <i class="fas fa-user-times ml-2"> </i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
-</main>
-<Footer class="pagination">
-    <nav aria-label="pagination">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="/welcome" tabindex="-1"><i class="fas fa-undo"></i> Retour</a>
-            </li>
-        </ul>
-    </nav>
-</Footer>
+        <Footer class="pagination">
+            <nav aria-label="pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/home}" tabindex="-1"><i class="fas fa-undo"></i> Retour</a>
+                    </li>
+                </ul>
+            </nav>
+        </Footer>
+    </main>
 </body>
 <div th:insert="~{bootstrap :: fragment }"></div>
 </html>

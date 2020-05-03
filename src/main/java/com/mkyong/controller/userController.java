@@ -63,15 +63,15 @@ public class userController {
     }
 
     // Controller pour effacer un ser de la base de données
-    @RequestMapping(path = "users/delete/{id}")
+    @RequestMapping(path = "admin/users/delete/{id}")
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 
         userService.deleteUserById(id);
-        return "redirect:/admin/home";
+        return "redirect:/admin/users";
     }
 
     // Controller pour l'edition du User par Id
-    @RequestMapping(path = "users/edit/{id}")
+    @RequestMapping(path = "admin/users/edit/{id}")
     public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 
         User entity = userService.getUserById(id);
@@ -85,16 +85,16 @@ public class userController {
     }
 
     //Controller pour enregistrer les données de User dans la base de données
-    @RequestMapping(path = "/users/createUser", method = RequestMethod.POST)
+    @RequestMapping(path = "admin/users/createUser", method = RequestMethod.POST)
     public String createOrUpdateUser(User user) {
 
         userService.updateUserById(user.getIdUser());
-        return "redirect:/admin/home";
+        return "redirect:/admin/users";
     }
 
 
     // Controller de la page de présentation
-   @GetMapping("/welcome")
+   @GetMapping("home")
     public String formUser(Principal principal, Model model) throws RecordNotFoundException {
 
         User newUser = userService.getUserByMail(principal.getName());
@@ -102,12 +102,12 @@ public class userController {
        String prenom=newUser.getPrenomUser();
        model.addAttribute("message1", nom);
        model.addAttribute("message2", prenom);
-       logger.info(" on est passe par la avant l'appel de la page home/home de url /welcome");
+       logger.info(" on est passe par la avant l'appel de la page home/home de url /home");
             return "home/home";
     }
 
     // controller pour la page de l'administrateur
-    @GetMapping("/admin/home")
+    @GetMapping("admin/users")
     public String InsideHomeAdmin(Principal principal,Model model) {
 
         User newUser = userService.getUserByMail(principal.getName());
@@ -123,7 +123,7 @@ public class userController {
 
 
     // controller pour la page d'enregistrement du user
-    @GetMapping("/registration")
+    @GetMapping("registration")
     public String registration(Model model) {
 
         model.addAttribute("user", new User());
@@ -133,7 +133,7 @@ public class userController {
 
 
     // Controller pour récupérer les données du formulaire d'enregistrement des users
-    @RequestMapping(value = "/registration/create", method = RequestMethod.POST)
+    @RequestMapping(value = "registration/create", method = RequestMethod.POST)
     public ModelAndView processRegistrationForm(@ModelAttribute("user") @Valid User user, Model model, BindingResult bindingResult, HttpServletRequest request,Principal principal,ModelAndView modelAndView) throws RecordNotFoundException {
 
         User userExists = userService.getUserByMail(user.getMailUser());

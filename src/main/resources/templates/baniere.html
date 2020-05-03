@@ -22,7 +22,7 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="text-banniere">
-                            <li class="nav-item active"><a class="nav-link " th:href="@{/welcome}">Home</a></li>
+                            <li class="nav-item active"><a class="nav-link " th:href="@{/home}">Home</a></li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Les topos
@@ -36,9 +36,18 @@
                             </li>
                         </ul>
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/login}">Login <span class="fas fa-sign-in-alt"></span></a></li>
-                            <li class="nav-item"><a class="nav-link" th:href="@{/admin/home}"> Admin</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Admin
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" th:href="@{/admin/users}">Liste des users</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" th:href="@{/admin/images}">Liste des images</a>
+                                </div>
+                            </li>
                             <li class="nav-item"><a class="nav-link" th:text="${message1 !=null and message2 !=null} ? ${message1}+' '+ ${message2}:' '"></a></li>
+                            <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/login}">Login <span class="fas fa-sign-in-alt"></span></a></li>
                             <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout <i class="fas fa-sign-out-alt"></i></a></li>
                         </ul>
                         <form class="form-inline my-2 my-lg-0">

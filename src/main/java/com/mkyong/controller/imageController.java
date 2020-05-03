@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/images")
+@RequestMapping("/admin/images")
 public class imageController {
 
     @Autowired
