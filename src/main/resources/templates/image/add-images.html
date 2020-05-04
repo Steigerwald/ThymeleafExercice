@@ -15,6 +15,9 @@
 <body>
 <div th:insert="~{baniere :: fragment }"></div>
     <main>
+        <h3>
+        <span th:text="${titreFormImage}" ></span>
+    </h3>
         <h3>Ajouter une image</h3>
     </Br>
         <form enctype="multipart/form-data" th:action="@{/admin/images/stockerImage}" th:object="${image}" method="post">

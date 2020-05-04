@@ -1,7 +1,6 @@
 package com.mkyong.controller;
 
 import com.mkyong.entity.Site;
-import com.mkyong.entity.Topo;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.SiteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ public class siteController {
     @Autowired
     SiteService siteService;
 
+    /* Controller pour la liste des sites */
     @RequestMapping()
     public String getAllSites(Model model) {
 
@@ -28,6 +28,7 @@ public class siteController {
         return "site/list-sites"; //view
     }
 
+    /* controller pour avoir le détail du site */
     @RequestMapping(path="/details/{id}")
     public String getDetailsSite(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 

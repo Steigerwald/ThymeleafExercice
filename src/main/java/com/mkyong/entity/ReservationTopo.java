@@ -55,7 +55,6 @@ public class ReservationTopo {
     public void setIdReservation(Long idReservation) { this.idReservation = idReservation;
     }
 
-
     public void setAcceptation(Boolean acceptation) { this.acceptation = acceptation;
     }
 

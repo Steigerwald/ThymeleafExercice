@@ -23,7 +23,7 @@ public class topoController {
     @Autowired
     TopoService topoService;
 
-
+    /* Controller pour la liste des topos */
     @RequestMapping()
     public String getAllTopos(Model model) {
 

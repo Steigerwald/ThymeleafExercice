@@ -31,7 +31,6 @@
                                             <table class="table table-striped" >
                                                 <thead>
                                                 <tr>
-                                                    <th>id</th>
                                                     <th>Nom du Site</th>
                                                     <th>lieu</th>
                                                     <th>descriptif</th>
@@ -39,7 +38,6 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="site : ${sites}">
-                                                    <td th:text="${site.idSite}"></td>
                                                     <td th:text="${site.nomSite}"></td>
                                                     <td th:text="${site.lieu}"></td>
                                                     <td th:text="${site.descriptif}"></td>

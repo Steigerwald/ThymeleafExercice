@@ -85,13 +85,17 @@ public class UserService {
             logger.info(" enregistrement du newUser avec saveUser");
     }
 
-    //Methode pour modifier un User
-    public void updateUserById(Long Id) {
 
-            Optional<User> user = userRepository.findById(Id);
-            User newEntity = user.get();
-            newEntity = userRepository.save(newEntity);
-            logger.info(" la nouvelle entité user de updateUser a été sauvegardée et le user est existant");
+    //Methode pour modifier un User
+    public void updateUser (User user){
+        User newUser = new User();
+        newUser.setMailUser(user.getMailUser());
+        newUser.setNomUser(user.getNomUser());
+        newUser.setPrenomUser(user.getPrenomUser());
+        newUser.setMotDePasseUser(passwordEncoder.encode(user.getMotDePasseUser()));
+        newUser.setRole((user.getRole()));
+        userRepository.save(newUser);
+        logger.info(" la nouvelle entité user de updateUser a été sauvegardée et le user est existant");
     }
 
     //Methode pour effacer un User par Id
@@ -106,6 +110,21 @@ public class UserService {
             throw new RecordNotFoundException("No user record exist for given id and to cancel it");
         }
     }
+
+
+    //Methode pour voir un role par Id
+    public Role getRoleById(Integer id) throws RecordNotFoundException
+    {
+        Optional<Role> role = roleRepository.findByIdRole(id);
+
+        if(role.isPresent()) {
+            logger.info(" retour du role car il est présent ");
+            return role.get();
+        } else {
+            throw new RecordNotFoundException("No role record exist for given id");
+        }
+    }
+
 
 
 }

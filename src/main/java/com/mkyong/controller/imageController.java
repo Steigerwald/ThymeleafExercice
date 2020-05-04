@@ -18,7 +18,7 @@ public class imageController {
     ImageService imageEntityService;
 
 
-    @GetMapping()
+    @RequestMapping(method = RequestMethod.GET)
     public String getAllImages( Model model)  {
 
         List<Image> images = imageEntityService.getAllImages();
@@ -27,7 +27,7 @@ public class imageController {
         return "image/list-images"; //view
     }
 
-    @RequestMapping(path = "/addImage")
+    @RequestMapping(path = "/addImage",method = RequestMethod.GET)
     public String addImageById(Model model) {
 
         model.addAttribute("image", new Image());
@@ -38,15 +38,15 @@ public class imageController {
     public String addImage(Image image) {
 
         imageEntityService.stockerImage(image);
-        return "redirect:/images";
+        return "redirect:/admin/images";
     }
 
-    @RequestMapping(path = "/delete/{id}")
-    public String deleteImageEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    @RequestMapping(path = "/delete/{id}",method = RequestMethod.GET)
+    public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+
         imageEntityService.deleteImageById(id);
-        return "redirect:/footballeurs";
+        return "redirect:/admin/images";
     }
-
 
 }
 
