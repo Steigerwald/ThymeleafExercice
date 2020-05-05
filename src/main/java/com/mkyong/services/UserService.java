@@ -88,7 +88,9 @@ public class UserService {
 
     //Methode pour modifier un User
     public void updateUser (User user){
+
         User newUser = new User();
+        newUser.setIdUser(user.getIdUser());
         newUser.setMailUser(user.getMailUser());
         newUser.setNomUser(user.getNomUser());
         newUser.setPrenomUser(user.getPrenomUser());
