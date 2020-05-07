@@ -69,9 +69,7 @@ public class VoieService {
                 newVoie.setCotation(entity.getCotation());
                 newVoie.setNombreLongueurs(entity.getNombreLongueurs());
                 newVoie.setNombrePoints(entity.getNombrePoints());
-
                 newVoie = voieRepository.save(newVoie);
-
 
                 logger.info(" retour de la nouvelle entité voie de createOrUpdateVoie qui a été sauvegardée et la voie est existante");
                 return newVoie;

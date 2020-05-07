@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Editer ou Ajouter une voie</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/barre.css}" />
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.4.1/css/all.css}" />
+</head>
+
+<body>
+<div th:insert="~{baniere :: fragment }"></div>
+<main>
+    <div class="container my-5">
+        <h3>
+            <span th:text="${titreFormVoie}" ></span>
+        </h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-12">
+                    <form th:action="@{/voies/createVoie}" th:object="${voie}" method="post">
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label for="numero" class="col-form-label">Numero de voie</label>
+                                <input type="text" th:field="*{numeroVoie}" class="form-control"
+                                       id="numero" placeholder="numero de voie" />
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="cotation" class="col-form-label">difficulté</label>
+                                <select th:field="*{cotation}" class="form-control" id="cotation" placeholder="difficulte">
+                                    <option th:value="1a" th:text="1a"></option>
+                                    <option th:value="1b" th:text="1b"></option>
+                                    <option th:value="1c" th:text="1c"></option>
+                                    <option th:value="2a" th:text="2a"></option>
+                                    <option th:value="2b" th:text="2b"></option>
+                                    <option th:value="2c" th:text="2c"></option>
+                                    <option th:value="3a" th:text="3a"></option>
+                                    <option th:value="3b" th:text="3b"></option>
+                                    <option th:value="3c" th:text="3c"></option>
+                                    <option th:value="4a" th:text="4a"></option>
+                                    <option th:value="4b" th:text="4b"></option>
+                                    <option th:value="4c" th:text="4c"></option>
+                                    <option th:value="5a" th:text="5a"></option>
+                                    <option th:value="5b" th:text="5b"></option>
+                                    <option th:value="5c" th:text="5c"></option>
+                                    <option th:value="6a" th:text="6a"></option>
+                                    <option th:value="6b" th:text="6b"></option>
+                                    <option th:value="6c" th:text="6c"></option>
+                                    <option th:value="7a" th:text="7a"></option>
+                                    <option th:value="7b" th:text="7b"></option>
+                                    <option th:value="7c" th:text="7c"></option>
+                                    <option th:value="8a" th:text="8a"></option>
+                                    <option th:value="8b" th:text="8b"></option>
+                                    <option th:value="8c" th:text="8c"></option>
+                                    <option th:value="9a" th:text="9a"></option>
+                                    <option th:value="9b" th:text="9b"></option>
+                                    <option th:value="9c" th:text="9c"></option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="nombreLongueur" class="col-form-label">Nombre longueurs</label>
+                                <input type="text" th:field="*{nombreLongueurs}" class="form-control"
+                                       id="nombreLongueur" placeholder="nbre Long" />
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="nombrePoints" class="col-form-label">Nombre Points</label>
+                                <input type="text" th:field="*{nombrePoints}" class="form-control"
+                                       id="nombrePoints" placeholder="mot de passe" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="secteur" class="col-form-label">Secteur</label>
+                                <select th:field="*{secteur}" class="form-control" id="secteur">
+                                    <option th:each="secteur : ${secteurs}" th:value="${secteur.idSecteur}" th:text="${secteur.nomSecteur}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="submit" class="btn btn-primary" value=" Enregistrer ">
+                            </div>
+                            <input type="hidden" id="id" th:field="*{idVoie}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<br>
+<Footer class="pagination">
+    <nav aria-label="pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item">
+                <a class="page-link" href="/voies" tabindex="-1"><i class="fas fa-undo"></i> Retour</a>
+            </li>
+        </ul>
+    </nav>
+</Footer>
+</body>
+<div th:insert="~{bootstrap :: fragment }"></div>
+</html>

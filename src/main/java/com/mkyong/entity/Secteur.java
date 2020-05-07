@@ -36,7 +36,10 @@ public class Secteur {
     public Secteur() {
     }
 
-    // Getters
+    public String toStringVoies(Voie voies) {
+        return " " + voies;
+    }
+// Getters
 
     public Long getIdSecteur() { return idSecteur;
     }

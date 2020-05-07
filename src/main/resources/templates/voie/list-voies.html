@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Tous les topos</title>
+    <title>Toutes les voies</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/barre.css}" />
@@ -15,7 +15,7 @@
 <body>
     <div th:insert="~{baniere :: fragment }"></div>
     <main>
-        <h1>Liste des topos</h1>
+        <h1>Liste des voies</h1>
         <div class="container col-lg-12">
             <header class="row">
             </header>
@@ -24,29 +24,41 @@
                     <div class="container">
                         <div class="card">
                             <div class="card-body">
-                                <div th:switch="${topos}" class="container">
+                                <div th:switch="${voies}" class="container">
                                     <div class="table-responsive text-nowrap ncol-md-12">
                                         <h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
                                         <div th:case="*">
                                             <table class="table table-striped" >
                                                 <thead>
                                                 <tr>
-                                                    <th>Nom du Topo</th>
-                                                    <th>description</th>
-                                                    <th>date de parution</th>
-                                                    <th>disponibilité</th>
-                                                    <th>à louer</th>
-                                                    <th>les sites</th>
+                                                    <th>Numéro de voie</th>
+                                                    <th>Difficulté</th>
+                                                    <th>Nombre longueurs</th>
+                                                    <th>Nombre de points</th>
+                                                    <th>Secteur</th>
+                                                    <th>Edit</th>
+                                                    <th>Delete</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="topo : ${topos}">
-                                                    <td th:text="${topo.nomTopo}"></td>
-                                                    <td th:text="${topo.description}"></td>
-                                                    <td th:text="${topo.dateParution}"></td>
-                                                    <td th:text="${topo.disponible}"></td>
-                                                    <td th:text="${topo.location}"></td>
-                                                    <!--<td> <a  th:text="${topo.sites.nomSite()}" th:href="@{/sites/details/{nom} (nom=${topo.sites.idSite})}"></a></td>-->
+                                                <tr th:each="voie : ${voies}">
+                                                    <td th:text="${voie.numeroVoie}"></td>
+                                                    <td th:text="${voie.cotation}"></td>
+                                                    <td th:text="${voie.nombreLongueurs}"></td>
+                                                    <td th:text="${voie.nombrePoints}"></td>
+                                                    <td th:text="${voie.secteur.nomSecteur}"></td>
+                                                    <td>
+                                                        <a th:href="@{/voies/edit/{id}(id=${voie.idVoie})}"
+                                                           class="btn btn-primary">
+                                                            <i class="fas fa-user-edit ml-2"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a th:href="@{/voies/delete/{id}(id=${voie.idVoie})}"
+                                                           class="btn btn-danger">
+                                                            <i class="fas fa-user-times ml-2"> </i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                                 </tbody>
                                             </table>

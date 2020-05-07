@@ -22,7 +22,7 @@ public class ReservationTopoService {
     Logger logger = (Logger) LoggerFactory.getLogger(ReservationTopoService.class);
 
 
-    public List<ReservationTopo> getAllResrvationTopos()
+    public List<ReservationTopo> getAllReservationTopos()
     {
         List<ReservationTopo> result1 =(List<ReservationTopo>) reservationTopoRepository.findAll();
 

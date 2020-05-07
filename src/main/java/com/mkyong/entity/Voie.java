@@ -26,6 +26,11 @@ public class Voie {
     @ManyToOne
     private Secteur secteur;
 
+    @Override
+    public String toString() {
+        return "" + numeroVoie;
+    }
+
 
     // Constructor
 

@@ -71,7 +71,7 @@ public class User {
 
 
     public String toStringRole(Role role) {
-        return "role=" + role;
+        return " "+ role;
     }
 
     //constructeurs

@@ -31,7 +31,10 @@
                                     <a class="dropdown-item" th:href="@{/topos}">Liste des topos</a>
                                     <a class="dropdown-item" th:href="@{/sites}">Liste des sites</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <a class="dropdown-item" th:href="@{/secteurs}">Liste des secteurs</a>
+                                    <a class="dropdown-item" th:href="@{/voies}">Liste des voies</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" th:href="@{/reservations}">Liste des réservations</a>
                                 </div>
                             </li>
                         </ul>
@@ -44,6 +47,8 @@
                                     <a class="dropdown-item" th:href="@{/admin/users}">Liste des users</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" th:href="@{/admin/images}">Liste des images</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" th:href="@{/admin/commentaires}">Liste des commentaires</a>
                                 </div>
                             </li>
                             <li class="nav-item"><a class="nav-link" th:text="${message1 !=null and message2 !=null} ? ${message1}+' '+ ${message2}:' '"></a></li>

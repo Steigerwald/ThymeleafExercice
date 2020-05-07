@@ -88,12 +88,16 @@ public class userController {
     @RequestMapping(path="home",method = RequestMethod.GET)
     public String formUser(Principal principal, Model model) throws RecordNotFoundException {
 
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("userConnecte", userConnecte);
+  /*
         User newUser = userService.getUserByMail(principal.getName());
        String nom=newUser.getNomUser();
        String prenom=newUser.getPrenomUser();
        model.addAttribute("message1", nom);
        model.addAttribute("message2", prenom);
-       logger.info(" on est passe par la avant l'appel de la page home/home de url /home");
+ */
+        logger.info(" on est passe par la avant l'appel de la page home/home de url /home");
             return "home/home";
     }
 
@@ -101,13 +105,12 @@ public class userController {
     @RequestMapping(path="admin/users",method = RequestMethod.GET)
     public String InsideHomeAdmin(Principal principal,Model model) {
 
-        User newUser = userService.getUserByMail(principal.getName());
-        String nom=newUser.getNomUser();
-        String prenom=newUser.getPrenomUser();
-        model.addAttribute("message1", nom);
-        model.addAttribute("message2", prenom);
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("userConnecte", userConnecte);
+
         List<User> listF = userService.getAllUsers();
         model.addAttribute("users", listF);
+
         logger.info(" on est passe par la avant l'appel de la page user/list-users de url /admin/home");
         return "user/list-users"; //view
     }
