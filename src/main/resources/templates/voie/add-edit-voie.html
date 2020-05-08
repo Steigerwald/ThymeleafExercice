@@ -30,7 +30,7 @@
                                        id="numero" placeholder="numero de voie" />
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="cotation" class="col-form-label">difficulté</label>
+                                <label for="cotation" class="col-form-label">Difficulté</label>
                                 <select th:field="*{cotation}" class="form-control" id="cotation" placeholder="difficulte">
                                     <option th:value="1a" th:text="1a"></option>
                                     <option th:value="1b" th:text="1b"></option>
@@ -64,12 +64,12 @@
                             <div class="form-group col-md-2">
                                 <label for="nombreLongueur" class="col-form-label">Nombre longueurs</label>
                                 <input type="text" th:field="*{nombreLongueurs}" class="form-control"
-                                       id="nombreLongueur" placeholder="nbre Long" />
+                                       id="nombreLongueur" placeholder="nbre Longueurs" />
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="nombrePoints" class="col-form-label">Nombre Points</label>
                                 <input type="text" th:field="*{nombrePoints}" class="form-control"
-                                       id="nombrePoints" placeholder="mot de passe" />
+                                       id="nombrePoints" placeholder="nbre Points" />
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="secteur" class="col-form-label">Secteur</label>
@@ -88,17 +88,17 @@
             </div>
         </div>
     </div>
+    <br>
+    <Footer class="pagination">
+        <nav aria-label="pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/voies" tabindex="-1"><i class="fas fa-undo"></i> Retour</a>
+                </li>
+            </ul>
+        </nav>
+    </Footer>
 </main>
-<br>
-<Footer class="pagination">
-    <nav aria-label="pagination">
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="/voies" tabindex="-1"><i class="fas fa-undo"></i> Retour</a>
-            </li>
-        </ul>
-    </nav>
-</Footer>
 </body>
 <div th:insert="~{bootstrap :: fragment }"></div>
 </html>

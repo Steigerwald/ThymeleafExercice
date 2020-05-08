@@ -16,8 +16,13 @@
     <div th:insert="~{baniere :: fragment }"></div>
     <main>
         <h1>Liste des secteurs</h1>
+
         <div class="container col-lg-12">
             <header class="row">
+                <p class="my-5">
+                    <a href="/secteurs/addSecteur" class="btn btn-primary">
+                        <i class="fas fa-plus ml-2"> Ajouter un secteur  </i></a>
+                </p>
             </header>
             <div class="row">
                 <section class="col-lg-12">
@@ -32,9 +37,11 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Nom du Secteur</th>
-                                                    <th>description</th>
-                                                    <th>hauteur</th>
-                                                    <th>voies</th>
+                                                    <th>Description</th>
+                                                    <th>Hauteur</th>
+                                                    <th>Voies</th>
+                                                    <th>Edit</th>
+                                                    <th>Delete</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -42,8 +49,20 @@
                                                     <td th:text="${secteur.nomSecteur}"></td>
                                                     <td th:text="${secteur.descriptifSecteur}"></td>
                                                     <td th:text="${secteur.hauteur}"></td>
-                                                    <td th:text="${secteur.toStringVoies(secteur.voies)}"></td>
+                                                    <td th:text="${secteur.voies.toString()}"></td>
                                                     <!--<td> <a  th:text="${secteur.voies.nomVoie()}" th:href="@{/sites/details/{nom} (nom=${secteur.voie.idVoie})}"></a></td>-->
+                                                    <td>
+                                                        <a th:href="@{/secteurs/edit/{id}(id=${secteur.idSecteur})}"
+                                                           class="btn btn-primary">
+                                                            <i class="fas fa-edit ml-2"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a th:href="@{/secteurs/delete/{id}(id=${secteur.idSecteur})}"
+                                                           class="btn btn-danger">
+                                                            <i class="fas fa-trash-alt ml-2"> </i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                                 </tbody>
                                             </table>

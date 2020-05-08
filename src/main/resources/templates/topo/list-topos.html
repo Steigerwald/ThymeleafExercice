@@ -43,7 +43,7 @@
                                                 <tr th:each="topo : ${topos}">
                                                     <td th:text="${topo.nomTopo}"></td>
                                                     <td th:text="${topo.description}"></td>
-                                                    <td th:text="${topo.dateParution}"></td>
+                                                    <td th:text="${topo.toStringDateParution(topo.dateParution)}"></td>
                                                     <td th:text="${topo.disponible}"></td>
                                                     <td th:text="${topo.location}"></td>
                                                     <!--<td> <a  th:text="${topo.sites.nomSite()}" th:href="@{/sites/details/{nom} (nom=${topo.sites.idSite})}"></a></td>-->

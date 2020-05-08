@@ -2,6 +2,7 @@ package com.mkyong.entity;
 
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -22,6 +23,22 @@ public class Commentaire {
 
     @ManyToOne
     private Site site;
+
+
+    // Méthodes pour l'affichage
+
+    @Override
+    public String toString() {
+        return "  " + contenu;
+    }
+
+    public String toStringDateCommentaire(Date date) {
+        SimpleDateFormat formater = null;
+        formater = new SimpleDateFormat("dd-MM-yy");
+        formater.format(date);
+
+        return " " +  formater.format(date);
+    }
 
     // Constructor
 

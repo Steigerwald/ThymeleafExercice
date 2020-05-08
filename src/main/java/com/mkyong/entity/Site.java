@@ -38,6 +38,14 @@ public class Site {
     private Collection<Secteur> secteurs;
 
 
+    // Méthodes pour l'affichage
+
+    @Override
+    public String toString() {
+        return " " + nomSite;
+    }
+
+
     // Constructeur
 
     public Site() {

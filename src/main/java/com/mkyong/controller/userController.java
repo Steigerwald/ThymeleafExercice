@@ -88,15 +88,11 @@ public class userController {
     @RequestMapping(path="home",method = RequestMethod.GET)
     public String formUser(Principal principal, Model model) throws RecordNotFoundException {
 
-        User userConnecte = userService.getUserByMail(principal.getName());
-        model.addAttribute("userConnecte", userConnecte);
-  /*
         User newUser = userService.getUserByMail(principal.getName());
        String nom=newUser.getNomUser();
        String prenom=newUser.getPrenomUser();
        model.addAttribute("message1", nom);
        model.addAttribute("message2", prenom);
- */
         logger.info(" on est passe par la avant l'appel de la page home/home de url /home");
             return "home/home";
     }
@@ -104,15 +100,32 @@ public class userController {
     /* controller pour la page de l'administrateur */
     @RequestMapping(path="admin/users",method = RequestMethod.GET)
     public String InsideHomeAdmin(Principal principal,Model model) {
-
         User userConnecte = userService.getUserByMail(principal.getName());
-        model.addAttribute("userConnecte", userConnecte);
 
-        List<User> listF = userService.getAllUsers();
-        model.addAttribute("users", listF);
+        System.out.println(userConnecte.getRole().getNomRole());
 
-        logger.info(" on est passe par la avant l'appel de la page user/list-users de url /admin/home");
-        return "user/list-users"; //view
+        if ((userConnecte.getRole().getNomRole()).equalsIgnoreCase("ROLE_ADMIN")) {
+            String nom = userConnecte.getNomUser();
+            String prenom = userConnecte.getPrenomUser();
+            model.addAttribute("message1", nom);
+            model.addAttribute("message2", prenom);
+
+            //model.addAttribute("userConnecte", userConnecte);
+
+            List<User> listF = userService.getAllUsers();
+            model.addAttribute("users", listF);
+
+            logger.info(" on est passe par la avant l'appel de la page user/list-users de url /admin/home");
+            return "user/list-users"; //view
+        } else{
+            String nom = userConnecte.getNomUser();
+            String prenom = userConnecte.getPrenomUser();
+            model.addAttribute("message1", nom);
+            model.addAttribute("message2", prenom);
+            return "home/home"; //view
+        }
+
+
     }
 
     /* controller pour la page d'enregistrement du user */

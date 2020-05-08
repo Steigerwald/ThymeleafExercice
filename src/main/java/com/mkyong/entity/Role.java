@@ -21,6 +21,8 @@ public class Role {
     @OneToMany(mappedBy = "role")
     private Collection<User> users;
 
+
+    // Méthodes pour l'affichage
     @Override
     public String toString() {
         return nomRole;

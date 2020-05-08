@@ -60,6 +60,18 @@ public class voieController {
         return "voie/add-edit-voie";
     }
 
+    /* controller pour l'ajout d'une voie */
+    @RequestMapping(path = "/addVoie")
+    public String addEntityById(Model model) {
+
+        model.addAttribute("voie", new Voie());
+        model.addAttribute("titreFormVoie","Ajouter une voie");
+        List<Secteur> listSecteurs = secteurService.getAllSecteurs();
+        model.addAttribute("secteurs", listSecteurs);
+        return "voie/add-edit-voie";
+    }
+
+
     /* controller pour enregistrer les données d'une voie dans la base de données */
     @RequestMapping(path = "/createVoie", method = RequestMethod.POST)
     public String createOrUpdateVoie(Voie voie) {

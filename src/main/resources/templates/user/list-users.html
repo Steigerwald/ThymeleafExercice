@@ -47,7 +47,8 @@
                                                     <td th:text="${user.mailUser}"></td>
                                                     <td th:text="${user.nomUser}"></td>
                                                     <td th:text="${user.prenomUser}"></td>
-                                                    <td th:text="${(user.toStringRole(user.role))}"></td>
+                                                    <td th:text="${user.getRole().getNomRole()}"></td>
+                                                    <!--<td th:text="${(user.toStringRole(user.role))}"></td>-->
                                                     <td>
                                                         <a th:href="@{/admin/users/edit/{id}(id=${user.idUser})}"
                                                            class="btn btn-primary">

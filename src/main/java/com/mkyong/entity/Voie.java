@@ -26,6 +26,9 @@ public class Voie {
     @ManyToOne
     private Secteur secteur;
 
+
+    // Méthodes d'affichage
+
     @Override
     public String toString() {
         return "" + numeroVoie;

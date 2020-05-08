@@ -53,15 +53,6 @@ public class User {
             inverseJoinColumns={@JoinColumn(name="TOPOS_ID_TOPO")})
     private List<Topo> topos;
 
-/*
-    @ManyToMany(cascade=CascadeType.MERGE)
-    @JoinTable(
-            name="TBL_USER_ROLES",
-            joinColumns={@JoinColumn(name="USERS_ID_USER")},
-            inverseJoinColumns={@JoinColumn(name="ROLES_ID_ROLE")})
-    private List<Role> roles;
-
-*/
 
     @ManyToOne
     private Role role;

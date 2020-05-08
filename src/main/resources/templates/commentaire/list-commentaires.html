@@ -40,7 +40,7 @@
                                                 <tr th:each="commentaire : ${commentaires}">
                                                     <td th:text="${commentaire.contenu}"></td>
                                                     <td th:text="${commentaire.site.nomSite}"></td>
-                                                    <td th:text="${commentaire.dateCommentaire}"></td>
+                                                    <td th:text="${commentaire.toStringDateCommentaire(commentaire.dateCommentaire)}"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>

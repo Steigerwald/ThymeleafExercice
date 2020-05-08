@@ -2,6 +2,8 @@ package com.mkyong.entity;
 
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -36,6 +38,15 @@ public class Topo {
 
     @ManyToMany(mappedBy="topos")
     private Collection<User> users;
+
+
+    public String toStringDateParution(Date date) {
+        SimpleDateFormat formater = null;
+        formater = new SimpleDateFormat("dd-MM-yy");
+        formater.format(date);
+
+        return " " +  formater.format(date);
+    }
 
 
     // Constructeur

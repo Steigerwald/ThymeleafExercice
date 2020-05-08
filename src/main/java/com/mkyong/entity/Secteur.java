@@ -31,15 +31,20 @@ public class Secteur {
     private Collection<Voie> voies;
 
 
-    // Constructeur
+    // Méthodes pour l'affichage
+
+    @Override
+    public String toString() {
+        return "  " + nomSecteur;
+    }
+
+// Constructeur
 
     public Secteur() {
     }
 
-    public String toStringVoies(Voie voies) {
-        return " " + voies;
-    }
-// Getters
+
+    // Getters
 
     public Long getIdSecteur() { return idSecteur;
     }

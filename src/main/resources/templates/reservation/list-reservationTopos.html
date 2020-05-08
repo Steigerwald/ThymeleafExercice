@@ -41,10 +41,10 @@
                                                 <tbody>
                                                 <tr th:each="reservation: ${reservations}">
                                                     <td th:text="${reservation.topo.nomTopo}"></td>
-                                                    <td th:text="${reservation.dateReservation}"></td>
+                                                    <td th:text="${reservation.toStringDateReservation(reservation.dateReservation)}"></td>
                                                     <td th:text="${reservation.user.nomUser}"></td>
                                                     <td th:text="${reservation.user.prenomUser}"></td>
-                                                    <td th:text="${reservation.acceptation}"></td>
+                                                    <td th:text="${reservation.toStringEtat(reservation.acceptation)}"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>
