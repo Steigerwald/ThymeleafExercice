@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Détails du club</title>
+    <title>Détail du topo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" th:href="@{/static/css/main.css}" />
-    <link rel="stylesheet" th:href="@{/static/css/barre.css}" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/barre.css}" />
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css}" />
     <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.4.1/css/all.css}" />
 </head>
@@ -17,36 +17,56 @@
         <div class="row">
             <section class="col-lg-12">
                         <h1 th:text="${topo.nomTopo}"></h1>
-                        <h2 th:text="${topo.site.lieu}"></h2>
             </section>
         </div>
+        </Br>
         <div class="row">
-            <aside>
-                <h2>Carte topographique région</h2>
-            </aside>
-            <p>
-                descriptif
+            <section class="col-lg-6">
+                <div class="card">
+                    <h2>Autre</h2>
+                    <h1>Photo</h1>
+                </div>
+            </section>
+           <section class="col-lg-6">
+            <h2>descriptif du topo: </h2>
+            <p th:text="${topo.description}">
             </p>
-
+           </section>
+            <aside class="col-lg-6" id="Carte">
+                <div class="card">
+                    <h2>Carte topographique région</h2>
+                </div>
+            </aside>
             <section class="col-lg-6">
                 <div class="container my-2">
                     <div class="card">
-                        <h1 th:text="${topo.nomTopo}"></h1>
+                        <h2>les sites: </h2>
+                        <p th:text="${topo.toStringSites(topo.sites)}"></p>
+                        </Br>
+                        <h2>Les lieux à explorer: </h2>
+                        <p th:each="site : ${topo.sites}">
+                            <span th:text="${site.lieu}"></span>
+                        </p>
+                        </Br>
+                        <h2> Les secteurs possibles sur ce topo :</h2>
+                        <p th:each="site : ${topo.sites}">
+                        <span th:text="${site.toStringSecteurs(site.secteurs)}"></span>
+                        </p>
                     </div>
                 </div>
             </section>
         </div>
+        <br>
+        <Footer class="pagination">
+            <nav aria-label="pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="/topos" tabindex="-1"><i class="fas fa-undo"></i> Retour</a>
+                    </li>
+                </ul>
+            </nav>
+        </Footer>
     </main>
-    <br>
-    <Footer class="pagination">
-        <nav aria-label="pagination">
-            <ul class="pagination justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" href="/topos" tabindex="-1"><i class="fas fa-undo"></i> Retour</a>
-                </li>
-            </ul>
-        </nav>
-    </Footer>
 </body>
 <div th:insert="~{bootstrap :: fragment }"></div>
 </html>

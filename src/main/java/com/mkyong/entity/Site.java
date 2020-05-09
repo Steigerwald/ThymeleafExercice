@@ -3,6 +3,7 @@ package com.mkyong.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Iterator;
 
 @Entity
 @Table(name="TBL_SITE")
@@ -45,6 +46,22 @@ public class Site {
         return " " + nomSite;
     }
 
+    public String toStringSecteurs(Collection<Secteur> secteurs){
+        String[]tabSecteurs=new String [secteurs.size()];
+
+        Iterator iterator = secteurs.iterator();
+        while (iterator.hasNext()) {
+            for (int i=0;i<secteurs.size();i++){
+                tabSecteurs [i]=iterator.next().toString();
+            }
+        }
+        String joinedResult=String.join(",",tabSecteurs);
+        return joinedResult;
+    }
+
+    public String toStringLieu() {
+        return " " + lieu;
+    }
 
     // Constructeur
 

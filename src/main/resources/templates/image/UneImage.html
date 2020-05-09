@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Toutes les images</title>
+    <title>Affichage d'une image</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/barre.css}" />
@@ -20,44 +20,19 @@
             <p>Welcome Administrator(<span sec:authentication="principal.username"></span>) est bien connecté comme Admin</p>
         </div>
     </Br>
-        <h1>Liste des photos du site</h1>
-        <p class="my-5">
-            <a th:href="@{/admin/images/addImage}" class="btn btn-primary" >
-                <i class="fas fa-user-plus ml-2"> Ajouter une image  </i></a>
-        </p>
+        <h1>Afficage d'une image</h1>
         <div class="container">
             <form class="table-responsive text-nowrap ncol-md-12">
                 <table class="table table-striped" >
                     <thead>
                     <tr>
                         <th>Image1</th>
-                        <th>Image2</th>
-                        <th>Nom image</th>
-                        <th>type</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
                     </tr>
                     </thead>
-                    <tr th:each="image : ${images}">
+                    <tr>
                         <td>
-                           <img th:src="@{/pictures/pres.jpg}" alt="imagePres" class="img-thumbnail" style="width:25%; height:25%">
+                           <img th:src="@{${image1}}" alt="imagePres" class="img-thumbnail" style="width:25%; height:25%">
                         </td>
-                        <td th:text="${image.toString()}"></td>
-                        <td th:text="${image.nomImage}"></td>
-                        <td th:text="${image.mimeType}"></td>
-                        <td>
-                            <a th:href="@{/admin/images/edit/{id}(id=${image.id})}"
-                               class="btn btn-primary">
-                                <i class="fas fa-edit ml-2"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <a th:href="@{/admin/images/delete/{id}(id=${image.id})}"
-                               class="btn btn-danger">
-                                <i class="fas fa-trash-alt ml-2"> </i>
-                            </a>
-                        </td>
-
                     </tr>
                 </table>
             </form>

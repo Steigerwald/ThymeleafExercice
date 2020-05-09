@@ -1,7 +1,9 @@
 package com.mkyong.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 
 @Entity
@@ -35,8 +37,23 @@ public class Secteur {
 
     @Override
     public String toString() {
+
         return "  " + nomSecteur;
     }
+
+    public String toStringVoies(Collection<Voie> voies){
+        String[]tabVoies=new String [voies.size()];
+
+        Iterator iterator = voies.iterator();
+        while (iterator.hasNext()) {
+            for (int i=0;i<voies.size();i++){
+                tabVoies [i]=iterator.next().toString();
+            }
+        }
+        String joinedResult=String.join(",",tabVoies);
+        return joinedResult;
+    }
+
 
 // Constructeur
 

@@ -1,11 +1,10 @@
 package com.mkyong.entity;
 
-
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 @Entity
 @Table(name="TBL_TOPO")
@@ -39,6 +38,7 @@ public class Topo {
     @ManyToMany(mappedBy="topos")
     private Collection<User> users;
 
+    // Méthodes pour l'affichage
 
     public String toStringDateParution(Date date) {
         SimpleDateFormat formater = null;
@@ -47,6 +47,36 @@ public class Topo {
 
         return " " +  formater.format(date);
     }
+
+    public String toStringSites(Collection<Site> sites){
+        String[]tabSites=new String [sites.size()];
+
+        Iterator iterator = sites.iterator();
+        while (iterator.hasNext()) {
+            for (int i=0;i<sites.size();i++){
+                tabSites [i]=iterator.next().toString();
+            }
+        }
+        String joinedResult=String.join(",",tabSites);
+        return joinedResult;
+    }
+
+    public String toStringDisponible(Boolean dispo){
+        if (dispo==true){
+            return "loué";
+        }else{
+            return "non loué";
+        }
+    }
+
+    public String toStringLocation(Boolean loc){
+        if (loc==true){
+            return "oui";
+        }else{
+            return "non";
+        }
+    }
+
 
 
     // Constructeur

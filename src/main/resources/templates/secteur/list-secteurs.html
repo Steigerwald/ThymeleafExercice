@@ -49,7 +49,7 @@
                                                     <td th:text="${secteur.nomSecteur}"></td>
                                                     <td th:text="${secteur.descriptifSecteur}"></td>
                                                     <td th:text="${secteur.hauteur}"></td>
-                                                    <td th:text="${secteur.voies.toString()}"></td>
+                                                    <td th:text="${secteur.toStringVoies(secteur.voies)}"></td>
                                                     <!--<td> <a  th:text="${secteur.voies.nomVoie()}" th:href="@{/sites/details/{nom} (nom=${secteur.voie.idVoie})}"></a></td>-->
                                                     <td>
                                                         <a th:href="@{/secteurs/edit/{id}(id=${secteur.idSecteur})}"

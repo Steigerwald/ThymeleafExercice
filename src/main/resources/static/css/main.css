@@ -63,6 +63,9 @@ img {
     justify-content:center;
 
 }
+#carte{
+    height: 250px !important;
+}
 .panel-body{
     display:flex;
     align-items: center;

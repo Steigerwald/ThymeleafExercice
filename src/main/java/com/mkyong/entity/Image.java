@@ -4,9 +4,15 @@ import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 
 import javax.imageio.ImageIO;
 import javax.persistence.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Arrays;
 
 @Entity
 @Table(name="TBL_IMAGE")
@@ -30,6 +36,16 @@ public class Image implements Serializable {
 
     @ManyToOne
     private Secteur secteur;
+
+
+    // Méthodes pour l'affichage
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "image=" + Arrays.toString(image) +
+                '}';
+    }
 
 
     // constructeur
