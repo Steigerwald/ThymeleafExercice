@@ -59,6 +59,20 @@ public class Site {
         return joinedResult;
     }
 
+
+    public String toStringCommentaires(Collection<Commentaire> commentaires){
+        String[]tabCommentaires=new String [commentaires.size()];
+
+        Iterator iterator = commentaires.iterator();
+        while (iterator.hasNext()) {
+            for (int i=0;i<commentaires.size();i++){
+                tabCommentaires [i]=iterator.next().toString();
+            }
+        }
+        String joinedResult=String.join(",",tabCommentaires);
+        return joinedResult;
+    }
+
     public String toStringLieu() {
         return " " + lieu;
     }

@@ -49,8 +49,8 @@
                                                     <td th:text="${site.nomSite}"></td>
                                                     <td th:text="${site.lieu}"></td>
                                                     <td th:text="${site.descriptif}"></td>
-                                                    <td th:text="${site.commentaires.toString()}"></td>
-                                                    <td th:text="${site.secteurs.toString()}"></td>
+                                                    <td th:text="${site.toStringCommentaires(site.commentaires)}"></td>
+                                                    <td th:text="${site.toStringSecteurs(site.secteurs)}"></td>
                                                     <td>
                                                         <a th:href="@{/sites/edit/{id}(id=${site.idSite})}"
                                                            class="btn btn-primary">
