@@ -9,9 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TopoService {
@@ -49,8 +47,17 @@ public class TopoService {
 
     public Topo createOrUpdateTopo(Topo entity)
     {
+        //Calendar calendar = Calendar.getInstance();
+        //Date today =  calendar.getTime();
+        //logger.info(" avec calendar aujourd'hui il est :",today);
+        //System.out.println(today);
+        Date today = new Date();
+        //logger.info(" avec date aujourd'hui il est :",date);
+        //System.out.println(date);
+
         if(entity.getIdTopo()  == null)
         {
+            entity.setDateParution(today);
             entity = topoRepository.save(entity);
 
             logger.info(" retour de l'entité de createOrUpdateTopo car l'Id n'existe pas");
@@ -62,12 +69,13 @@ public class TopoService {
 
             if(topo.isPresent())
             {
-                Topo newTopo = topo.get();
-                newTopo.setIdTopo(entity.getIdTopo());
+                //Topo existantTopo = topo.get();
 
+                Topo newTopo = new Topo();
+                newTopo.setIdTopo(entity.getIdTopo());
                 newTopo.setNomTopo(entity.getNomTopo());
                 newTopo.setDescription(entity.getDescription());
-                newTopo.setDateParution(entity.getDateParution());
+                newTopo.setDateParution(today);
                 newTopo.setDisponible(entity.getDisponible());
                 newTopo.setLocation(entity.getLocation());
 
@@ -77,6 +85,7 @@ public class TopoService {
                 return newTopo;
 
             } else {
+                entity.setDateParution(today);
                 entity = topoRepository.save(entity);
                 logger.info(" retour de l'entité topo de createOrUpdateTopo qui a été sauvegardée car le topo n'est pas existant");
                 return entity;

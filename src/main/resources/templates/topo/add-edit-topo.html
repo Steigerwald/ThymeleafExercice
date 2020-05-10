@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Editer ou Ajouter un topo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/barre.css}" />
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.4.1/css/all.css}" />
+</head>
+
+<body>
+<div th:insert="~{baniere :: fragment }"></div>
+<main>
+    <div class="container my-5">
+        <h3>
+            <span th:text="${titreFormTopo}" ></span>
+        </h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="col-md-12">
+                    <form th:action="@{/topos/createTopo}" th:object="${topo}" method="post">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label for="nomTopo" class="col-form-label">Nom Topo</label>
+                                <input type="text" th:field="*{nomTopo}" class="form-control"
+                                       id="nomTopo" placeholder="nom Topo" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="description" class="col-form-label">Description</label>
+                                <input type="text" th:field="*{description}" class="form-control"
+                                       id="description" placeholder="description" />
+                            </div>
+                            <div class="form-group col-md-2">
+                            <label for="disponible" class="col-form-label">Réservation</label>
+                            <select th:field="*{disponible}" class="form-control" id="disponible" placeholder="réservation">
+                                <option th:value="true" th:text="réservé"></option>
+                                <option th:value="false" th:text="libre"></option>
+                            </select>
+                            </div>
+                            <!--<div class="form-group col-md-2">
+                                <label for="dateParution" class="col-form-label">Date Parution</label>
+                                <input type="text" th:field="*{dateParution}" th:value="${today}" class="form-control"
+                                       id="dateParution"/>
+                            </div>-->
+                            <div class="form-group col-md-1">
+                                <label for="location" class="col-form-label">Location</label>
+                                <select th:field="*{location}" class="form-control" id="location" placeholder="Location">
+                                    <option th:value="true" th:text="oui"></option>
+                                    <option th:value="false" th:text="non"></option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="submit" class="btn btn-primary" value=" Enregistrer ">
+                            </div>
+                            <input type="hidden" id="id" th:field="*{idTopo}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <Footer class="pagination">
+        <nav aria-label="pagination">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/topos" tabindex="-1"><i class="fas fa-undo"></i> Retour</a>
+                </li>
+            </ul>
+        </nav>
+    </Footer>
+</main>
+</body>
+<div th:insert="~{bootstrap :: fragment }"></div>
+</html>

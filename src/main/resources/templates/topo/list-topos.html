@@ -20,7 +20,7 @@
             <header class="row">
                 <p class="my-5">
                     <a href="/topos/addTopo" class="btn btn-primary">
-                        <i class="fa fa-map-signs ml-2" aria-hidden="true"> Ajouter un topo  </i></a>
+                        <i class="fas fa-plus ml-2" aria-hidden="true"> Ajouter un Topo </i></a>
                 </p>
             </header>
             <div class="row">
@@ -49,6 +49,7 @@
                                                 <tr th:each="topo : ${topos}">
                                                     <td> <a th:text="${topo.nomTopo}" th:href="@{/topos/details/{nom} (nom=${topo.idTopo})}" ></a> </td>
                                                     <td th:text="${topo.description}"></td>
+                                                    <!--<td th:text="${topo.dateParution}"></td>-->
                                                     <td th:text="${topo.toStringDateParution(topo.dateParution)}"></td>
                                                     <td th:text="${topo.toStringDisponible(topo.disponible)}"></td>
                                                     <td th:text="${topo.toStringLocation(topo.location)}"></td>

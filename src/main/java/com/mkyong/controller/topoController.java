@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -55,10 +56,13 @@ public class topoController {
     public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 
         Topo entity = topoService.getTopoById(id);
+        Date today = new Date();
         if (id!=0) {
             model.addAttribute("topo", entity);
+            model.addAttribute("today", today);
         } else {
             model.addAttribute("topo", new Topo());
+            model.addAttribute("today", today);
         }
         List<Site> listSites = siteService.getAllSites();
         model.addAttribute("sites",listSites);
@@ -69,7 +73,8 @@ public class topoController {
     /* controller pour l'ajout d'un topo */
     @RequestMapping(path = "/addTopo")
     public String addEntityById(Model model) {
-
+        Date today = new Date();
+        model.addAttribute("today", today);
         model.addAttribute("topo", new Topo());
         model.addAttribute("titreFormTopo","Ajouter un topo");
 

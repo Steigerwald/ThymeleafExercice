@@ -1,7 +1,9 @@
 package com.mkyong.entity;
 
 import javax.persistence.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -20,9 +22,14 @@ public class Topo {
     @Column(name = "DESCRIPTION")
     private String description;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE_PARUTION")
     private Date dateParution;
-
+    /*
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE_PARUTION",nullable=false,length=6)
+    private Date dateParution;
+*/
     @Column(name = "DISPONIBLE")
     private Boolean disponible;
 
@@ -41,11 +48,12 @@ public class Topo {
     // Méthodes pour l'affichage
 
     public String toStringDateParution(Date date) {
-        SimpleDateFormat formater = null;
-        formater = new SimpleDateFormat("dd-MM-yy");
-        formater.format(date);
 
-        return " " +  formater.format(date);
+        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yy");
+        String inActiveDate = null;
+        inActiveDate = format1.format(date);
+
+        return " " +  inActiveDate;
     }
 
     public String toStringSites(Collection<Site> sites){
@@ -63,9 +71,9 @@ public class Topo {
 
     public String toStringDisponible(Boolean dispo){
         if (dispo==true){
-            return "loué";
+            return "reservé";
         }else{
-            return "non loué";
+            return "libre";
         }
     }
 
@@ -76,7 +84,6 @@ public class Topo {
             return "non";
         }
     }
-
 
 
     // Constructeur

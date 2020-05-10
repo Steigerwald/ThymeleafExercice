@@ -16,8 +16,7 @@ public class ReservationTopo {
     @Column(name="ACCEPTATION")
     private Boolean acceptation;
 
-    @Column(name="DATE_RESERVATION")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="DATE_RESERVATION",nullable = false,length=6)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateReservation;
 
@@ -46,6 +45,7 @@ public class ReservationTopo {
             return reponse;
         }
     }
+
 
     // Constructeur
 
