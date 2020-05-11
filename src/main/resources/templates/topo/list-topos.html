@@ -40,7 +40,6 @@
                                                     <th>date de parution</th>
                                                     <th>Réservation</th>
                                                     <th>Location</th>
-                                                    <th>les sites</th>
                                                     <th>Edit</th>
                                                     <th>Delete</th>
                                                 </tr>
@@ -49,12 +48,9 @@
                                                 <tr th:each="topo : ${topos}">
                                                     <td> <a th:text="${topo.nomTopo}" th:href="@{/topos/details/{nom} (nom=${topo.idTopo})}" ></a> </td>
                                                     <td th:text="${topo.description}"></td>
-                                                    <!--<td th:text="${topo.dateParution}"></td>-->
                                                     <td th:text="${topo.toStringDateParution(topo.dateParution)}"></td>
                                                     <td th:text="${topo.toStringDisponible(topo.disponible)}"></td>
                                                     <td th:text="${topo.toStringLocation(topo.location)}"></td>
-                                                    <td th:text="${topo.toStringSites(topo.sites)}"></td>
-                                                    <!--<td> <a  th:text="${topo.sites.nomSite()}" th:href="@{/sites/details/{nom} (nom=${topo.sites.idSite})}"></a></td>-->
                                                     <td>
                                                         <a th:href="@{/topos/edit/{id}(id=${topo.idTopo})}"
                                                            class="btn btn-primary">
@@ -62,10 +58,9 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a th:href="@{/topos/delete/{id}(id=${topo.idTopo})}"
-                                                           class="btn btn-danger">
-                                                            <i class="fas fa-trash-alt ml-2"> </i>
-                                                        </a>
+                                                        <form th:action="@{/topos/delete/{id}(id=${topo.idTopo})}" method="post">
+                                                            <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                                 </tbody>

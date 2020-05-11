@@ -38,7 +38,7 @@ public class siteController {
 
 
     /* controller pour effacer un site de la base de données */
-    @RequestMapping(path = "/delete/{id}",method = RequestMethod.GET)
+    @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         siteService.deleteSiteById(id);
         return "redirect:/sites";
@@ -57,6 +57,7 @@ public class siteController {
         }
         List<Topo> listTopos = topoService.getAllTopos();
         model.addAttribute("topos",listTopos);
+
         model.addAttribute("titreFormSite","Editer un site");
         return "site/add-edit-site";
     }

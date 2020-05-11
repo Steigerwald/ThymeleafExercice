@@ -62,7 +62,7 @@ public class userController {
     }
 
     /* controller pour effacer un user de la base de données */
-    @RequestMapping(path = "admin/users/delete/{id}",method = RequestMethod.GET)
+    @RequestMapping(path = "admin/users/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         userService.deleteUserById(id);
         return "redirect:/admin/users";
@@ -125,7 +125,6 @@ public class userController {
             return "home/home"; //view
         }
 
-
     }
 
     /* controller pour la page d'enregistrement du user */
@@ -137,7 +136,6 @@ public class userController {
         logger.info(" envoi de l'attribut user à registration view");
         return "user/registration-view";
     }
-
 
     /* controller pour enregistrer les données de User dans la base de données */
     @RequestMapping(path = "admin/users/createUser", method = RequestMethod.POST)

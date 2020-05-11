@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/barre.css}" />
+    <link rel="stylesheet" th:href="@{/css/topoStyle.css}" />
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css}" />
     <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.4.1/css/all.css}" />
 </head>
@@ -19,14 +20,30 @@
                         <h1 th:text="${topo.nomTopo}"></h1>
             </section>
         </div>
-        </Br>
-        <div class="row">
-            <p class="my-5">
-                <a href="/reservations/reserved" class="btn btn-success">
-                    <i class="fas fa-handshake-alt-slash ml-2" aria-hidden="true"> Réserver le Topo </i>
-                </a>
-            </p>
+        <div class="card">
+            <div class="card-body">
+                <div class="row my-5" id="boutonReservation">
+                    <div class="table-responsive text-nowrap ncol-md-12">
+                        <table class="table table-striped" >
+                            <thead>
+                            <tr>
+                                <th>Etat de réservation du Topo</th>
+                                <th>Réserver le Topo </th>
+                            </tr>
+                            </thead>
+                            <tr>
+                                <td th:text="${topo.toStringDisponible(topo.disponible)}"></td>
+                                <td><a href="/reservations/reserved" class="btn btn-success">
+                                    <i class="fas fa-handshake-alt-slash ml-2" aria-hidden="true"> Réserver le Topo </i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
+        <Br>
         <div class="row">
             <section class="col-lg-6">
                 <div class="card">
@@ -34,9 +51,9 @@
                     <h1>Photo</h1>
                 </div>
             </section>
-           <section class="col-lg-6">
+           <section class="col-lg-6" id="descriptif">
             <h2>descriptif du topo: </h2>
-            <p th:text="${topo.description}">
+               <p th:text="${topo.description}">
             </p>
            </section>
             <aside class="col-lg-6" id="Carte">
@@ -46,19 +63,21 @@
             </aside>
             <section class="col-lg-6">
                 <div class="container my-2">
-                    <div class="card">
+                    <div class="card"id="details">
                         <h2>les sites: </h2>
-                        <p th:text="${topo.toStringSites(topo.sites)}"></p>
+                        <ul>
+                            <li th:text="${topo.toStringSites(topo.sites)}"></li>
+                        </ul>
                         </Br>
                         <h2>Les lieux à explorer: </h2>
-                        <p th:each="site : ${topo.sites}">
-                            <span th:text="${site.lieu}"></span>
-                        </p>
+                        <ul th:each="site : ${topo.sites}">
+                            <li th:text="${site.lieu}"></li>
+                        </ul>
                         </Br>
                         <h2> Les secteurs possibles sur ce topo :</h2>
-                        <p th:each="site : ${topo.sites}">
-                        <span th:text="${site.toStringSecteurs(site.secteurs)}"></span>
-                        </p>
+                        <ul th:each="site : ${topo.sites}">
+                            <li th:text="${site.toStringSecteurs(site.secteurs)}"></li>
+                        </ul>
                     </div>
                 </div>
             </section>

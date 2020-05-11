@@ -42,8 +42,9 @@ table tr:nth-child(odd) {
     background-color: #fff;
 }
 table th {
-    background-color: black;
+    background-color: #ffa64f;
     color: white;
+    text-align: center;
 }
 img {
     width: 50%;

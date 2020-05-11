@@ -49,10 +49,10 @@ public class TopoService {
     {
         //Calendar calendar = Calendar.getInstance();
         //Date today =  calendar.getTime();
-        //logger.info(" avec calendar aujourd'hui il est :",today);
+        //logger.info(" avec calendar aujourd'hui il est :" + today);
         //System.out.println(today);
         Date today = new Date();
-        //logger.info(" avec date aujourd'hui il est :",date);
+        logger.info(" avec date aujourd'hui il est :"+ today);
         //System.out.println(date);
 
         if(entity.getIdTopo()  == null)

@@ -1,0 +1,22 @@
+#boutonReservation {
+    display:flex !important;
+    align-items: center !important;
+    justify-content:center !important;
+    margin-left: 150px;
+}
+
+#details {
+    background-color: #ffa64f;
+    color:white;
+}
+tr{
+    align-items: center !important;
+    justify-content:center !important;
+}
+th{
+    align-content: center !important;
+}
+
+#descriptif{
+    padding-left: 30px;
+}

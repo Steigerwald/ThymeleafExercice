@@ -58,10 +58,9 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a th:href="@{/voies/delete/{id}(id=${voie.idVoie})}"
-                                                           class="btn btn-danger">
-                                                            <i class="fas fa-trash-alt ml-2"> </i>
-                                                        </a>
+                                                        <form th:action="@{/voies/delete/{id}(id=${voie.idVoie})}" method="post">
+                                                            <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                                 </tbody>

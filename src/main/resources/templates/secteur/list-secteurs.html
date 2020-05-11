@@ -39,7 +39,7 @@
                                                     <th>Nom du Secteur</th>
                                                     <th>Description</th>
                                                     <th>Hauteur</th>
-                                                    <th>Voies</th>
+                                                    <th>Site</th>
                                                     <th>Edit</th>
                                                     <th>Delete</th>
                                                 </tr>
@@ -49,8 +49,8 @@
                                                     <td th:text="${secteur.nomSecteur}"></td>
                                                     <td th:text="${secteur.descriptifSecteur}"></td>
                                                     <td th:text="${secteur.hauteur}"></td>
-                                                    <td th:text="${secteur.toStringVoies(secteur.voies)}"></td>
-                                                    <!--<td> <a  th:text="${secteur.voies.nomVoie()}" th:href="@{/sites/details/{nom} (nom=${secteur.voie.idVoie})}"></a></td>-->
+                                                    <td th:text="${secteur.site.nomSite}"></td>
+                                                    <!--<td th:text="${secteur.toStringVoies(secteur.voies)}"></td>-->
                                                     <td>
                                                         <a th:href="@{/secteurs/edit/{id}(id=${secteur.idSecteur})}"
                                                            class="btn btn-primary">
@@ -58,10 +58,9 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a th:href="@{/secteurs/delete/{id}(id=${secteur.idSecteur})}"
-                                                           class="btn btn-danger">
-                                                            <i class="fas fa-trash-alt ml-2"> </i>
-                                                        </a>
+                                                        <form th:action="@{/secteurs/delete/{id}(id=${secteur.idSecteur})}" method="post">
+                                                            <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                                 </tbody>

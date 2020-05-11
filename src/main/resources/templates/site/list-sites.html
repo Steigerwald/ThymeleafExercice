@@ -39,7 +39,7 @@
                                                     <th>lieu</th>
                                                     <th>descriptif</th>
                                                     <th>Commentaires</th>
-                                                    <th>Secteurs</th>
+                                                    <th>Topo</th>
                                                     <th>Edit</th>
                                                     <th>Delete</th>
                                                 </tr>
@@ -50,7 +50,8 @@
                                                     <td th:text="${site.lieu}"></td>
                                                     <td th:text="${site.descriptif}"></td>
                                                     <td th:text="${site.toStringCommentaires(site.commentaires)}"></td>
-                                                    <td th:text="${site.toStringSecteurs(site.secteurs)}"></td>
+                                                    <td th:text="${site.topo.nomTopo}"></td>
+                                                    <!--<td th:text="${site.toStringSecteurs(site.secteurs)}"></td>-->
                                                     <td>
                                                         <a th:href="@{/sites/edit/{id}(id=${site.idSite})}"
                                                            class="btn btn-primary">
@@ -58,12 +59,10 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a th:href="@{/sites/delete/{id}(id=${site.idSite})}"
-                                                           class="btn btn-danger">
-                                                            <i class="fas fa-trash-alt ml-2"> </i>
-                                                        </a>
+                                                        <form th:action="@{/sites/delete/{id}(id=${site.idSite})}" method="post">
+                                                            <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
+                                                        </form>
                                                     </td>
-
                                                 </tr>
                                                 </tbody>
                                             </table>

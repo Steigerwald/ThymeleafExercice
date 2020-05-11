@@ -44,7 +44,7 @@ public class topoController {
     }
 
     /* controller pour effacer un topo de la base de données */
-    @RequestMapping(path = "/delete/{id}",method = RequestMethod.GET)
+    @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         topoService.deleteTopoById(id);
         return "redirect:/topos";

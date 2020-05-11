@@ -88,7 +88,7 @@ public class imageController {
         return "redirect:/admin/images";
     }
 
-    @RequestMapping(path = "/delete/{id}",method = RequestMethod.GET)
+    @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 
         imageEntityService.deleteImageById(id);

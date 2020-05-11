@@ -56,10 +56,9 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <a th:href="@{/admin/users/delete/{id}(id=${user.idUser})}"
-                                                           class="btn btn-danger">
-                                                            <i class="fas fa-user-times ml-2"> </i>
-                                                        </a>
+                                                        <form th:action="@{/admin/users/delete/{id}(id=${user.idUser})}" method="post">
+                                                            <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-user-times ml-2"></span></button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                                 </tbody>

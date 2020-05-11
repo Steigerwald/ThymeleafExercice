@@ -36,7 +36,7 @@ public class secteurController {
     }
 
     /* controller pour effacer un secteur de la base de données */
-    @RequestMapping(path = "/delete/{id}",method = RequestMethod.GET)
+    @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         secteurService.deleteSecteurById(id);
         return "redirect:/voies";
@@ -71,7 +71,7 @@ public class secteurController {
     }
 
     /* controller pour enregistrer les données d'un secteur dans la base de données */
-    @RequestMapping(path = "/createVoie", method = RequestMethod.POST)
+    @RequestMapping(path = "/createSecteur", method = RequestMethod.POST)
     public String createOrUpdateVoie(Secteur secteur) {
         secteurService.createOrUpdateSecteur(secteur);
         return "redirect:/secteurs";

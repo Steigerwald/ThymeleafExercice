@@ -37,11 +37,12 @@ public class voieController {
     }
 
     /* controller pour effacer une voie de la base de données */
-    @RequestMapping(path = "/delete/{id}",method = RequestMethod.GET)
+    @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
        voieService.deleteVoieById(id);
         return "redirect:/voies";
     }
+
 
 
     /* controller pour l'edition d'une voie par Id */
