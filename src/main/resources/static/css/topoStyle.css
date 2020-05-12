@@ -20,3 +20,8 @@ th{
 #descriptif{
     padding-left: 30px;
 }
+
+.jumbotron{
+    background-color: #ffa64f !important;
+    color:white !important;
+}

@@ -46,7 +46,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="site : ${sites}">
-                                                    <td th:text="${site.nomSite}"></td>
+                                                    <td> <a th:text="${site.nomSite}" th:href="@{/sites/details/{nom} (nom=${site.idSite})}" ></a> </td>
                                                     <td th:text="${site.lieu}"></td>
                                                     <td th:text="${site.descriptif}"></td>
                                                     <td th:text="${site.toStringCommentaires(site.commentaires)}"></td>

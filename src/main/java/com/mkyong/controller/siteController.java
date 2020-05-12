@@ -81,4 +81,16 @@ public class siteController {
         return "redirect:/voies";
     }
 
+    /* controller pour avoir le détail du site */
+    @RequestMapping(path="/details/{id}")
+    public String getDetailsSite(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+
+        Site siteTrouve=siteService.getSiteById(id);
+
+        model.addAttribute("site", siteTrouve);
+
+        return "site/details-site"; //view
+    }
+
+
 }

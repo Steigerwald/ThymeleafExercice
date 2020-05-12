@@ -91,9 +91,9 @@ public class topoController {
         return "redirect:/topos";
     }
 
-    /* controller pour avoir le détail du topo*/
+    /* controller pour avoir le détail du topo */
     @RequestMapping(path="/details/{id}")
-    public String getDetailsSite(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String getDetailsTopo(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 
         Topo topoTrouve=topoService.getTopoById(id);
 
