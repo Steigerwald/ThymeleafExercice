@@ -63,7 +63,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @Nullable
-    private Collection <ReservationTopo> Reservations;
+    private Collection <ReservationTopo> reservations;
 
 
     public String toStringRole(Role role) {
@@ -111,7 +111,7 @@ public class User {
     }
 
     @Nullable
-    public Collection<ReservationTopo> getReservations() { return Reservations;
+    public Collection<ReservationTopo> getReservations() { return reservations;
     }
 
     //setters
@@ -144,6 +144,6 @@ public class User {
     public void setTopos(@Nullable List<Topo> topos) { this.topos = topos;
     }
 
-    public void setReservations(@Nullable Collection<ReservationTopo> reservations) { Reservations = reservations;
+    public void setReservations(@Nullable Collection<ReservationTopo> reservations) { this.reservations = reservations;
     }
 }

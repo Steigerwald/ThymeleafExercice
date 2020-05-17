@@ -48,9 +48,9 @@
                                                 <tr th:each="topo : ${topos}">
                                                     <td> <a th:text="${topo.nomTopo}" th:href="@{/topos/details/{nom} (nom=${topo.idTopo})}" ></a> </td>
                                                     <td th:text="${topo.description}"></td>
-                                                    <td th:text="${topo.toStringDateParution(topo.dateParution)}"></td>
-                                                    <td th:text="${topo.toStringDisponible(topo.disponible)}"></td>
-                                                    <td th:text="${topo.toStringLocation(topo.location)}"></td>
+                                                    <td th:text="${topo.toStringDateParution()}"></td>
+                                                    <td th:text="${topo.toStringDisponible()}"></td>
+                                                    <td th:text="${topo.toStringLocation()}"></td>
                                                     <td>
                                                         <a th:href="@{/topos/edit/{id}(id=${topo.idTopo})}"
                                                            class="btn btn-primary">

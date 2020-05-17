@@ -1,6 +1,7 @@
 package com.mkyong.security;
 
 import com.mkyong.services.CustomUserDetailsService;
+import com.mkyong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,8 +27,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService customUserDetailsService;
 
-    @Autowired
-    private DataSource dataSource;
+    //@Autowired
+    //private PasswordEncoder passwordEncoder;
+
+    //@Autowired
+    //private UserService userService;
+
+    //@Autowired
+    //private DataSource dataSource;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

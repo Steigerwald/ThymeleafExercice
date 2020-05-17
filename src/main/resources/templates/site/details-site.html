@@ -58,7 +58,7 @@
                     <div class="card col-lg-12">
                         <h2>Les Secteurs du site</h2>
                         <ul>
-                            <li th:text="'les secteurs du site sont: '+ |${site.toStringSecteurs(site.secteurs)}|"></li>
+                            <li th:text="'les secteurs du site sont: '+ |${site.toStringSecteurs()}|"></li>
                         </ul>
 
                         <ul th:each="secteur : ${site.secteurs}">

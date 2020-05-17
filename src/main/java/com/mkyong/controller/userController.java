@@ -35,7 +35,6 @@ public class userController {
     UserService userService;
 
 
-
     /* Controller pour la page d'entrée sans connection */
     @RequestMapping(method = RequestMethod.GET)
     public String siteHome(Principal principal,Model model) throws RecordNotFoundException {
@@ -67,7 +66,6 @@ public class userController {
         return "redirect:/admin/users";
     }
 
-
     /* controller pour l'edition du User par Id */
     @RequestMapping(path = "admin/users/edit/{id}",method = RequestMethod.GET)
     public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
@@ -82,11 +80,11 @@ public class userController {
         return "user/add-edit-user";
     }
 
-
     /* controller de la page de présentation */
     @RequestMapping(path="home",method = RequestMethod.GET)
     public String formUser(Principal principal, Model model) throws RecordNotFoundException {
 
+        System.out.println(principal);
         User newUser = userService.getUserByMail(principal.getName());
        String nom=newUser.getNomUser();
        String prenom=newUser.getPrenomUser();
@@ -123,7 +121,6 @@ public class userController {
             model.addAttribute("message2", prenom);
             return "home/home"; //view
         }
-
     }
 
     /* controller pour la page d'enregistrement du user */
@@ -149,6 +146,7 @@ public class userController {
 
         User userExists = userService.getUserByMail(user.getMailUser());
         System.out.println(userExists);
+
         if (userExists != null) {
             modelAndView.addObject("alreadyRegisteredMessage", "Oops!  There is already a user registered with the email provided.");
             logger.info(" enregistrement existe déjà de post register");

@@ -1,9 +1,12 @@
 package com.mkyong.entity;
 
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="TBL_RESERVATION_TOPO")
@@ -20,12 +23,16 @@ public class ReservationTopo {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateReservation;
 
-    @OneToOne (mappedBy ="reservation")
-    private Topo topo;
+    @ManyToMany(cascade=CascadeType.MERGE)
+    @Nullable
+    @JoinTable(
+            name="TBL_RESERVATION_TOPOS",
+            joinColumns={@JoinColumn(name="RESERVATIONS_ID_RESERVATION")},
+            inverseJoinColumns={@JoinColumn(name="TOPOS_ID_TOPO")})
+    private List<Topo> topos;
 
     @ManyToOne
     private User user;
-
 
 
     // Méthodes pour l'Affichage
@@ -66,7 +73,8 @@ public class ReservationTopo {
     public Date getDateReservation() { return dateReservation;
     }
 
-    public Topo getTopo() { return topo;
+    @Nullable
+    public List<Topo> getTopos() { return topos;
     }
 
     public User getUser() { return user;
@@ -85,7 +93,7 @@ public class ReservationTopo {
     public void setDateReservation(Date dateReservation) { this.dateReservation = dateReservation;
     }
 
-    public void setTopo(Topo topo) { this.topo = topo;
+    public void setTopos(@Nullable List<Topo> topos) { this.topos = topos;
     }
 
     public void setUser(User user) { this.user = user;

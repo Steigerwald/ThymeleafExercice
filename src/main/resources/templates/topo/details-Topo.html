@@ -35,12 +35,11 @@
                                 </tr>
                                 </thead>
                                 <tr>
-                                    <td th:text="${topo.toStringDisponible(topo.disponible)}"></td>
+                                    <td th:text="${topo.toStringDisponible()}"></td>
                                     <td>
                                         <form th:action="@{/reservations/reserverTopo}" th:object="${topo}" method="post">
                                             <button class="btn btn-success my-2 my-sm-0" type="submit">Réserver</button>
                                             <input type="hidden" id="idTopo1" th:field="*{idTopo}">
-
                                         </form>
                                     </td>
                                     <td>
@@ -77,8 +76,10 @@
                     <div class="container my-2">
                         <div class="card"id="details">
                             <h2>les sites: </h2>
+                            <!--<h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
+                            <div th:case="*">-->
                             <ul>
-                                <li th:text="${topo.toStringSites(topo.sites)}"></li>
+                                <li th:text="${topo.toStringSites()}"></li>
                             </ul>
                             </Br>
                             <h2>Les lieux à explorer: </h2>
@@ -87,8 +88,8 @@
                             </ul>
                             </Br>
                             <h2> Les secteurs possibles sur ce topo :</h2>
-                            <ul th:each="site : ${topo.sites}">
-                                <li th:text="${site.toStringSecteurs(site.secteurs)}"></li>
+                            <ul th:each="site : ${topo.getSites()}">
+                                <li th:text="${site.toStringSecteurs()}"></li>
                             </ul>
                         </div>
                     </div>

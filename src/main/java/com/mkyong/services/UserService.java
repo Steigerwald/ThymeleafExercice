@@ -19,13 +19,13 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
 
     Logger logger = (Logger) LoggerFactory.getLogger(UserService.class);
@@ -60,7 +60,7 @@ public class UserService {
     //Methode pour voir un user par Id
     public User getUserById(Long id) throws RecordNotFoundException
     {
-        Optional<User> user = userRepository.findById(id);
+        Optional<User> user = userRepository.findByIdUser(id);
 
         if(user.isPresent()) {
             logger.info(" retour du user car il est présent ");

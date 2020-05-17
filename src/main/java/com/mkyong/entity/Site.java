@@ -55,7 +55,7 @@ public class Site {
         return " " + nomSite;
     }
 
-    public String toStringSecteurs(Collection<Secteur> secteurs){
+    public String toStringSecteurs(){
         String[]tabSecteurs=new String [secteurs.size()];
 
         Iterator iterator = secteurs.iterator();

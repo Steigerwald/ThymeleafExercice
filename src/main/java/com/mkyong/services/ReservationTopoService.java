@@ -47,7 +47,7 @@ public class ReservationTopoService {
             throw new RecordNotFoundException("Pas de réservation enregistrée avec cet Id");
         }
     }
-
+/*
     public void deleteReservationTopoById(Long id) throws RecordNotFoundException {
 
         if (id != null) {
@@ -55,8 +55,7 @@ public class ReservationTopoService {
 
             if (reservation.isPresent()) {
                 ReservationTopo topoReservationTrouve = getReservationTopoById(id);
-                topoReservationTrouve.getTopo().setDisponible(false);
-                topoReservationTrouve.getTopo().setReservation(null);
+
                 reservationTopoRepository.deleteById(id);
             } else {
                 throw new RecordNotFoundException("Pas de reservation enregistrée avec cet Id");
@@ -66,7 +65,7 @@ public class ReservationTopoService {
         }
     }
 
-    public void createReservationTopo(Topo entity) throws RecordNotFoundException {
+    public void createReservationTopo(Topo entity,User currentUser) throws RecordNotFoundException {
         Date today = new Date();
         logger.info(" retour de l'entité topo "+entity);
         logger.info(" retour de l'entité reservation "+entity.getReservation());
@@ -77,14 +76,14 @@ public class ReservationTopoService {
             ReservationTopo newReservation =new ReservationTopo();
             newReservation.setAcceptation(false);
             newReservation.setDateReservation(today);
-            //newReservation.setUser(user);
-            newReservation.setTopo(entity);
-            newReservation = reservationTopoRepository.save(newReservation);
+            newReservation.setUser(currentUser);
+            //newReservation.setTopo(entity);
+            reservationTopoRepository.save(newReservation);
             logger.info(" retour de l'entité de createReservationTopo car l'Id n'existe pas et donc la réservation a été créee");
         } else {
             logger.info(" retour de l'entité reservation n'a pas été sauvegardée car la reservation est existante ou non disponible");
         }
-    }
+    }*/
 }
 
 

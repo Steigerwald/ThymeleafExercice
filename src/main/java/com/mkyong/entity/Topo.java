@@ -41,25 +41,26 @@ public class Topo {
     @OneToMany (mappedBy = "topo")
     private Collection<Site> sites;
 
-    @OneToOne()
+    @ManyToMany(mappedBy="topos")
     @Nullable
-    private ReservationTopo reservation;
+    private Collection<ReservationTopo> reservations;
+
 
     @ManyToMany(mappedBy="topos")
     private Collection<User> users;
 
     // Méthodes pour l'affichage
 
-    public String toStringDateParution(Date date) {
+    public String toStringDateParution() {
 
         SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yy");
         String inActiveDate = null;
-        inActiveDate = format1.format(date);
+        inActiveDate = format1.format(dateParution);
 
         return " " +  inActiveDate;
     }
 
-    public String toStringSites(Collection<Site> sites){
+    public String toStringSites(){
         String[]tabSites=new String [sites.size()];
 
         Iterator iterator = sites.iterator();
@@ -72,22 +73,21 @@ public class Topo {
         return joinedResult;
     }
 
-    public String toStringDisponible(Boolean dispo){
-        if (dispo==true){
+    public String toStringDisponible(){
+        if (disponible==true){
             return "reservé";
         }else{
             return "libre";
         }
     }
 
-    public String toStringLocation(Boolean loc){
-        if (loc==true){
+    public String toStringLocation(){
+        if (location==true){
             return "oui";
         }else{
             return "non";
         }
     }
-
 
     // Constructeur
 
@@ -112,7 +112,9 @@ public class Topo {
 
     public Collection<Site> getSites() { return sites; }
 
-    public ReservationTopo getReservation() { return reservation; }
+    @Nullable
+    public Collection<ReservationTopo> getReservations() { return reservations;
+    }
 
     public Collection<User> getUsers() { return users; }
 
@@ -136,7 +138,9 @@ public class Topo {
     }
 
 
-    public void setReservation(ReservationTopo reservation) { this.reservation = reservation; }
+    public void setReservations(@Nullable Collection<ReservationTopo> reservations) {
+        this.reservations = reservations;
+    }
 
     public void setUsers(Collection<User> users) { this.users = users; }
 }
