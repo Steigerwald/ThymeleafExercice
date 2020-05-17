@@ -1,11 +1,8 @@
 package com.mkyong.controller;
 
-import com.mkyong.entity.Image;
-import com.mkyong.entity.Secteur;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.Topo;
 import com.mkyong.exception.RecordNotFoundException;
-import com.mkyong.services.ImageService;
 import com.mkyong.services.SiteService;
 import com.mkyong.services.TopoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +31,7 @@ public class topoController {
     SiteService siteService;
 
     /* Controller pour la liste des topos */
-    @RequestMapping()
+    @RequestMapping(method = RequestMethod.GET)
     public String getAllTopos(Model model) {
 
         List<Topo> listTopos = topoService.getAllTopos();
@@ -71,7 +68,7 @@ public class topoController {
     }
 
     /* controller pour l'ajout d'un topo */
-    @RequestMapping(path = "/addTopo")
+    @RequestMapping(path = "/addTopo",method = RequestMethod.GET)
     public String addEntityById(Model model) {
         Date today = new Date();
         model.addAttribute("today", today);
@@ -92,12 +89,12 @@ public class topoController {
     }
 
     /* controller pour avoir le détail du topo */
-    @RequestMapping(path="/details/{id}")
+    @RequestMapping(path="/details/{id}",method = RequestMethod.GET)
     public String getDetailsTopo(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 
         Topo topoTrouve=topoService.getTopoById(id);
-
         model.addAttribute("topo", topoTrouve);
+
 
         return "topo/details-Topo"; //view
     }

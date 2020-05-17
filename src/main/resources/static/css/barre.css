@@ -47,7 +47,7 @@ body{
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-    color: #555;
+    color: white;
     background-color: #ffa64f;
 }
 /* Caret */
@@ -69,14 +69,14 @@ body{
 /* Version mobile, le menu devient une icône qui déroule une liste avec le menu en vertical */
 .navbar-toggler {
     border-color: #ffa64f !important;
-    background-color: #ffa64f !important;
+    background-color: white !important;
 }
 .navbar-toggle:hover,
 .navbar-toggle:focus {
-    background-color: #ffa64f !important;
+    background-color: white !important;
 }
 .navbar-toggler-icon {
-    background-color: #ffa64f !important;
+    background-color: transparent !important;
 }
 
 /*

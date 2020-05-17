@@ -31,13 +31,23 @@
                                 <tr>
                                     <th>Etat de réservation du Topo</th>
                                     <th>Réserver le Topo </th>
+                                    <th>Annuler la réservation </th>
                                 </tr>
                                 </thead>
                                 <tr>
                                     <td th:text="${topo.toStringDisponible(topo.disponible)}"></td>
-                                    <td><a href="/reservations/reserved" class="btn btn-success">
-                                        <i class="fas fa-handshake-alt-slash ml-2" aria-hidden="true"> Réserver le Topo </i>
-                                        </a>
+                                    <td>
+                                        <form th:action="@{/reservations/reserverTopo}" th:object="${topo}" method="post">
+                                            <button class="btn btn-success my-2 my-sm-0" type="submit">Réserver</button>
+                                            <input type="hidden" id="idTopo1" th:field="*{idTopo}">
+
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form th:action="@{/reservations/annulerReservationTopo}" th:object="${topo}" method="post">
+                                            <button class="btn btn-danger my-2 my-sm-0" type="submit">Annuler</button>
+                                            <input type="hidden" id="idTopo2" th:field="*{idTopo}">
+                                        </form>
                                     </td>
                                 </tr>
                             </table>

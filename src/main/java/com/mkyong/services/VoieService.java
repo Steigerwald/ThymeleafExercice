@@ -57,13 +57,8 @@ public class VoieService {
             logger.info(" retour de l'entité de createOrUpdateVoie car l'Id n'existe pas");
             return entity;
         }
-        else
-        {
-            Optional<Voie> voie = voieRepository.findById(entity.getIdVoie());
-
-            if(voie.isPresent())
-            {
-                Voie newVoie = voie.get();
+        else {
+                Voie newVoie = new Voie();
                 newVoie.setIdVoie(entity.getIdVoie());
                 newVoie.setNumeroVoie(entity.getNumeroVoie());
                 newVoie.setCotation(entity.getCotation());
@@ -74,11 +69,6 @@ public class VoieService {
                 logger.info(" retour de la nouvelle entité voie de createOrUpdateVoie qui a été sauvegardée et la voie est existante");
                 return newVoie;
 
-            } else {
-                entity = voieRepository.save(entity);
-                logger.info(" retour de l'entité voie de createOrUpdateVoie qui a été sauvegardée car la voie n'est pas existante");
-                return entity;
-            }
         }
     }
 

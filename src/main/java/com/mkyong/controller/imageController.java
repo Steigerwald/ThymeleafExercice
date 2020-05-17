@@ -31,6 +31,22 @@ public class imageController {
         return "image/list-images"; //view
     }
 
+   /*
+    @RequestMapping(path="/image/{id}",method = RequestMethod.GET)
+    public @ResponseBody byte[] getPrintImage(@PathVariable("id") Long id) throws RecordNotFoundException {
+
+        Attachment att = imageEntityService.getImageById(id);
+
+
+
+        InputStream in = new ByteArrayInputStream(att.getAttachmentFile());
+        BufferedImage img = ImageIO.read(in);
+        ByteArrayOutputStream bao = new ByteArrayOutputStream();
+        ImageIO.write(img, "jpg", bao);
+        return bao.toByteArray();
+    }
+
+*/
 /*
     @RequestMapping(path = "/uneImage",method = RequestMethod.GET)
     public String printOneImageById(Model model, HttpServletRequest request, HttpServletResponse response) throws RecordNotFoundException, IOException {

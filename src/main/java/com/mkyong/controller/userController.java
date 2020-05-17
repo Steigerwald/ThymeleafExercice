@@ -1,6 +1,5 @@
 package com.mkyong.controller;
 
-import com.mkyong.entity.Role;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.CustomUserDetailsService;

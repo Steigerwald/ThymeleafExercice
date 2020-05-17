@@ -57,11 +57,7 @@ public class SecteurService {
         }
         else
         {
-            Optional<Secteur> secteur = secteurRepository.findById(entity.getIdSecteur());
-
-            if(secteur.isPresent())
-            {
-                Secteur newSecteur = secteur.get();
+                Secteur newSecteur = new Secteur();
                 newSecteur.setIdSecteur(entity.getIdSecteur());
                 newSecteur.setNomSecteur(entity.getNomSecteur());
                 newSecteur.setDescriptifSecteur(entity.getDescriptifSecteur());
@@ -72,11 +68,6 @@ public class SecteurService {
                 logger.info(" retour de la nouvelle entité secteur de createOrUpdateSecteur qui a été sauvegardée et le secteur est existant");
                 return newSecteur;
 
-            } else {
-                entity = secteurRepository.save(entity);
-                logger.info(" retour de l'entité secteur de createOrUpdateSecteur qui a été sauvegardée car le secteur n'est pas existant");
-                return entity;
-            }
         }
     }
 

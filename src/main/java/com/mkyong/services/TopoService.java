@@ -65,12 +65,6 @@ public class TopoService {
         }
         else
         {
-            Optional<Topo> topo = topoRepository.findById(entity.getIdTopo());
-
-            if(topo.isPresent())
-            {
-                //Topo existantTopo = topo.get();
-
                 Topo newTopo = new Topo();
                 newTopo.setIdTopo(entity.getIdTopo());
                 newTopo.setNomTopo(entity.getNomTopo());
@@ -83,13 +77,6 @@ public class TopoService {
 
                 logger.info(" retour de la nouvelle entité topo de createOrUpdateTopo qui a été sauvegardée et le topo est existant");
                 return newTopo;
-
-            } else {
-                entity.setDateParution(today);
-                entity = topoRepository.save(entity);
-                logger.info(" retour de l'entité topo de createOrUpdateTopo qui a été sauvegardée car le topo n'est pas existant");
-                return entity;
-            }
         }
     }
 

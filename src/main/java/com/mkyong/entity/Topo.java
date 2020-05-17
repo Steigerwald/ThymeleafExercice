@@ -1,5 +1,7 @@
 package com.mkyong.entity;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,7 +41,8 @@ public class Topo {
     @OneToMany (mappedBy = "topo")
     private Collection<Site> sites;
 
-    @OneToOne
+    @Nullable
+    @OneToOne()
     private ReservationTopo reservation;
 
     @ManyToMany(mappedBy="topos")
@@ -89,6 +92,7 @@ public class Topo {
     // Constructeur
 
     public Topo() {
+        setDisponible(true);
     }
 
     // Getters

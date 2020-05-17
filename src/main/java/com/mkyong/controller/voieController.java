@@ -2,7 +2,6 @@ package com.mkyong.controller;
 
 
 import com.mkyong.entity.Secteur;
-import com.mkyong.entity.User;
 import com.mkyong.entity.Voie;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.SecteurService;
@@ -27,7 +26,7 @@ public class voieController {
     SecteurService secteurService;
 
     /* Controller pour la liste des voies */
-    @RequestMapping()
+    @RequestMapping(method = RequestMethod.GET)
     public String getAllTopos(Model model) {
 
         List<Voie> listVoies = voieService.getAllVoies();
@@ -62,7 +61,7 @@ public class voieController {
     }
 
     /* controller pour l'ajout d'une voie */
-    @RequestMapping(path = "/addVoie")
+    @RequestMapping(path = "/addVoie",method = RequestMethod.GET)
     public String addEntityById(Model model) {
 
         model.addAttribute("voie", new Voie());

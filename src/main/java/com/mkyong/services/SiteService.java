@@ -1,6 +1,7 @@
 package com.mkyong.services;
 
 import com.mkyong.entity.Site;
+import com.mkyong.entity.Topo;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.SiteRepository;
 import org.slf4j.Logger;
@@ -57,11 +58,7 @@ public class SiteService {
         }
         else
         {
-            Optional<Site> site = siteRepository.findById(entity.getIdSite());
-
-            if(site.isPresent())
-            {
-                Site newSite = site.get();
+                Site newSite = new Site();
                 newSite.setIdSite(entity.getIdSite());
                 newSite.setNomSite(entity.getNomSite());
                 newSite.setLieu(entity.getLieu());
@@ -72,11 +69,6 @@ public class SiteService {
                 logger.info(" retour de la nouvelle entité site de createOrUpdateSite qui a été sauvegardée et le site est existant");
                 return newSite;
 
-            } else {
-                entity = siteRepository.save(entity);
-                logger.info(" retour de l'entité site de createOrUpdateSite qui a été sauvegardée car le site n'est pas existant");
-                return entity;
-            }
         }
     }
 

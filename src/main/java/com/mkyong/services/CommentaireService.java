@@ -58,11 +58,7 @@ public class CommentaireService {
         }
         else
         {
-            Optional<Commentaire> commentaire = commentaireRepository.findById(entity.getIdCommentaire());
-
-            if(commentaire.isPresent())
-            {
-                Commentaire newCommentaire = commentaire.get();
+                Commentaire newCommentaire = new Commentaire();
                 newCommentaire.setIdCommentaire(entity.getIdCommentaire());
                 newCommentaire.setContenu(entity.getContenu());
                 newCommentaire.setDateCommentaire(entity.getDateCommentaire());
@@ -72,11 +68,6 @@ public class CommentaireService {
                 logger.info(" retour de la nouvelle entité commentaire de createOrUpdateCommentaire qui a été sauvegardée et le commentaire est existant");
                 return newCommentaire;
 
-            } else {
-                entity = commentaireRepository.save(entity);
-                logger.info(" retour de l'entité commentaire de createOrUpdateCommentaire qui a été sauvegardée car le commentaire n'est pas existant");
-                return entity;
-            }
         }
     }
 

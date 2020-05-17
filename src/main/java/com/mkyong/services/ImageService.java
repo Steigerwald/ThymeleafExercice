@@ -78,10 +78,7 @@ public class ImageService {
             logger.info(" retour de l'entité de stockerImage car l'Id n'existe pas");
             return entity;
         } else {
-            Optional<Image> image = repositoryImage.findById(entity.getId());
-
-            if (image.isPresent()) {
-                Image newEntity = image.get();
+                Image newEntity = new Image();
                 newEntity.setNomImage(entity.getNomImage());
                 newEntity.setMimeType(entity.getMimeType());
                 newEntity.setImage(entity.getImage());
@@ -91,11 +88,6 @@ public class ImageService {
                 logger.info(" retour de la nouvelle entité Image de stockerImage qui a été sauvegardée et l'image est existante");
                 return newEntity;
 
-            } else {
-                entity = repositoryImage.save(entity);
-                logger.info(" retour de l'entité Image de stockerImage qui a été sauvegardée car l'image n'est pas existante");
-                return entity;
-            }
         }
     }
 }

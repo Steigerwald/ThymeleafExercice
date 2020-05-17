@@ -26,7 +26,7 @@ public class secteurController {
     SiteService siteService;
 
     /* Controller pour la liste des secteurs */
-    @RequestMapping()
+    @RequestMapping(method = RequestMethod.GET)
     public String getAllSecteurs(Model model) {
 
         List<Secteur> listSecteurs = secteurService.getAllSecteurs();
@@ -60,7 +60,7 @@ public class secteurController {
     }
 
     /* controller pour l'ajout d'un secteur */
-    @RequestMapping(path = "/addSecteur")
+    @RequestMapping(path = "/addSecteur",method = RequestMethod.GET)
     public String addEntityById(Model model) {
 
         model.addAttribute("secteur", new Secteur());

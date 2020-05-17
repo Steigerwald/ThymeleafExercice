@@ -41,7 +41,7 @@ public class ReservationTopo {
             String reponse ="accepté";
             return reponse;
         } else {
-            String reponse ="refusé";
+            String reponse ="en attente";
             return reponse;
         }
     }
@@ -49,7 +49,9 @@ public class ReservationTopo {
 
     // Constructeur
 
+
     public ReservationTopo() {
+        setAcceptation(false);
     }
 
     // Getters

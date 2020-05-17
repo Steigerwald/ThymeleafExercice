@@ -1,0 +1,58 @@
+#details {
+    background-color: #ffa64f;
+    color:white;
+}
+
+#descriptif{
+    padding-left: 30px;
+}
+
+.fond {
+
+    /*position: fixed !important; /* Le fond est fixé en haut de la page */
+    width: 600px !important; /* Il occupe toute la largeur de l'écran */
+    height: 200px !important; /* On met ici la même hauteur que le jumbotron */
+    /*top:0 !important;
+    /*left:0 !important;
+    z-index: -1!important;
+    align-items: center!important;
+    text-align: center!important;
+     */
+}
+.jumbotron {
+    /*position: absolute;*/
+    align-items: center!important;
+    text-align: center!important;
+    margin-bottom: 0px !important;
+    width: 900px !important;
+    height:200px !important;
+    color: white!important;
+    text-shadow: black 0.3em 0.3em 0.3em !important;
+    background: url(/pictures/grimpeur1.jpg) no-repeat center center !important;
+    background-size: cover!important;
+    /*background:transparent !important;*/
+}
+
+body {
+    /* L'image est positionnée en fond et est centrée */
+    background: url(/pictures/photospotsescalades.jpg) no-repeat center center fixed;
+    /* Ajout de la propriété avec les préfixes pour tous les moteurs de rendu */
+    -webkit-background-size: cover!important;
+    -moz-background-size: cover!important;
+    -o-background-size: cover!important;
+    background-size: cover!important;
+}
+
+.Autrepagination{
+    display:flex;
+    align-items: end;
+    margin-top: 80px; !important;
+    margin-right:30px;
+    padding-left: 40px;
+    float:right;
+}
+
+.container{
+    width:250%!important;
+    align-items: center!important;
+}
