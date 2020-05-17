@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import javax.persistence.GenerationType;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name="TBL_ROLE")
@@ -15,10 +16,11 @@ public class Role {
     private Integer idRole;
 
     @Column(nullable = false, unique = true,name="NOM_ROLE")
-    @NotEmpty
+    @javax.validation.constraints.NotEmpty
     private String nomRole;
 
     @OneToMany(mappedBy = "role")
+    @Nullable
     private Collection<User> users;
 
 
@@ -34,7 +36,6 @@ public class Role {
 
     }
 
-
     // Getters
 
     public Integer getIdRole() {
@@ -45,13 +46,11 @@ public class Role {
         return nomRole;
     }
 
+    @Nullable
     public Collection<User> getUsers() {
         return users;
     }
-
-
-
-    // Setters
+// Setters
 
     public void setIdRole(Integer idRole) {
         this.idRole = idRole;
@@ -61,7 +60,7 @@ public class Role {
         this.nomRole = nomRole;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(@Nullable Collection<User> users) {
         this.users = users;
     }
 }

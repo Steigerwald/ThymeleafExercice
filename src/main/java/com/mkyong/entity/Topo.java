@@ -41,8 +41,8 @@ public class Topo {
     @OneToMany (mappedBy = "topo")
     private Collection<Site> sites;
 
-    @Nullable
     @OneToOne()
+    @Nullable
     private ReservationTopo reservation;
 
     @ManyToMany(mappedBy="topos")

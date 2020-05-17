@@ -1,6 +1,7 @@
 package com.mkyong.entity;
 
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+import org.springframework.lang.Nullable;
 
 import javax.imageio.ImageIO;
 import javax.persistence.*;
@@ -32,9 +33,11 @@ public class Image implements Serializable {
     private byte[] image;
 
     @ManyToOne
+    @Nullable
     private Site site;
 
     @ManyToOne
+    @Nullable
     private Secteur secteur;
 
 
@@ -69,6 +72,14 @@ public class Image implements Serializable {
 
     public byte[] getImage() { return image; }
 
+    @Nullable
+    public Site getSite() { return site;
+    }
+
+    @Nullable
+    public Secteur getSecteur() { return secteur;
+    }
+
     // setters
 
     public void setId(Long id) {
@@ -93,6 +104,12 @@ public class Image implements Serializable {
         baos.flush();
         this.image = baos.toByteArray();
         baos.close();
+    }
+
+    public void setSite(@Nullable Site site) { this.site = site;
+    }
+
+    public void setSecteur(@Nullable Secteur secteur) { this.secteur = secteur;
     }
 }
 

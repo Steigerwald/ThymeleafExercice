@@ -20,11 +20,12 @@ public class ReservationTopo {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateReservation;
 
+    @OneToOne (mappedBy ="reservation")
+    private Topo topo;
+
     @ManyToOne
     private User user;
 
-    @OneToOne (mappedBy = "reservation")
-    private Topo topo;
 
 
     // Méthodes pour l'Affichage
@@ -59,18 +60,18 @@ public class ReservationTopo {
     public Long getIdReservation() { return idReservation;
     }
 
-
     public Boolean getAcceptation() { return acceptation;
     }
 
     public Date getDateReservation() { return dateReservation;
     }
 
+    public Topo getTopo() { return topo;
+    }
+
     public User getUser() { return user;
     }
 
-    public Topo getTopo() { return topo;
-    }
 
     // Setters
 
@@ -84,10 +85,9 @@ public class ReservationTopo {
     public void setDateReservation(Date dateReservation) { this.dateReservation = dateReservation;
     }
 
-    public void setUser(User user) { this.user = user;
-    }
-
     public void setTopo(Topo topo) { this.topo = topo;
     }
 
+    public void setUser(User user) { this.user = user;
+    }
 }

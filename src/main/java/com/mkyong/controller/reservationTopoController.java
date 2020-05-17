@@ -42,6 +42,7 @@ public class reservationTopoController {
         model.addAttribute("topo", topo);
         logger.info(" retour de l'entité topo"+topo);
         logger.info(" retour de l'entité id de topo"+topo.getIdTopo());
+        logger.info(" retour de l'entité id de Reservationtopo"+topo.getReservation().getIdReservation());
         reservationTopoService.deleteReservationTopoById(topo.getReservation().getIdReservation());
         return "topo/details-Topo";
     }

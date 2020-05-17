@@ -5,9 +5,11 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 
 
@@ -20,25 +22,26 @@ public class User {
     private Long idUser;
 
     @Column(nullable=false,name="NOM_USER")
-    @NotEmpty()
+    @NotNull
     private String nomUser;
 
     @Column(nullable=false,name="PRENOM_USER")
-    @NotEmpty()
+    @NotNull
     private String prenomUser;
 
     @Column(nullable=false, unique=true,name="MAIL_USER")
-    @NotEmpty()
+    @NotNull
     @Email(message="{errors.invalid_email}")
     private String mailUser;
 
     @Column(nullable=false,name="MOT_DE_PASSE_USER")
-    @NotEmpty()
+    @NotNull
     @Size(min=4)
     private String motDePasseUser;
 
 
     @ManyToMany(cascade=CascadeType.MERGE)
+    @Nullable
     @JoinTable(
             name="TBL_USER_SITES",
             joinColumns={@JoinColumn(name="USERS_ID_USER")},
@@ -47,6 +50,7 @@ public class User {
 
 
     @ManyToMany(cascade=CascadeType.MERGE)
+    @Nullable
     @JoinTable(
             name="TBL_USER_TOPOS",
             joinColumns={@JoinColumn(name="USERS_ID_USER")},
@@ -58,6 +62,7 @@ public class User {
     private Role role;
 
     @OneToMany(mappedBy = "user")
+    @Nullable
     private Collection <ReservationTopo> Reservations;
 
 
@@ -95,14 +100,19 @@ public class User {
         return motDePasseUser;
     }
 
-    public List<Site> getSites() { return sites; }
-
-    public List<Topo> getTopos() { return topos; }
-
     public Role getRole() { return role; }
 
-    public Collection<ReservationTopo> getReservations() { return Reservations; }
+    @Nullable
+    public List<Site> getSites() { return sites;
+    }
 
+    @Nullable
+    public List<Topo> getTopos() { return topos;
+    }
+
+    @Nullable
+    public Collection<ReservationTopo> getReservations() { return Reservations;
+    }
 
     //setters
 
@@ -126,13 +136,14 @@ public class User {
         this.motDePasseUser = motDePasseUser;
     }
 
-    public void setSites(List<Site> sites) { this.sites = sites; }
-
-    public void setTopos(List<Topo> topos) { this.topos = topos; }
-
     public void setRole(Role role) { this.role = role; }
 
-    public void setReservations(Collection<ReservationTopo> reservations) { Reservations = reservations; }
+    public void setSites(@Nullable List<Site> sites) { this.sites = sites;
+    }
 
+    public void setTopos(@Nullable List<Topo> topos) { this.topos = topos;
+    }
 
+    public void setReservations(@Nullable Collection<ReservationTopo> reservations) { Reservations = reservations;
+    }
 }

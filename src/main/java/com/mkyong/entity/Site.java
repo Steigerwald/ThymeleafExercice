@@ -1,7 +1,10 @@
 package com.mkyong.entity;
 
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -15,24 +18,30 @@ public class Site {
 
 
     @Column(name="NOM_SITE")
+    @NotNull
     private String nomSite;
 
     @Column(name="LIEU")
+    @NotNull
     private String lieu;
 
     @Column(name="DESCRIPTIF")
+    @NotNull
     private String descriptif;
 
     @ManyToMany(mappedBy="sites")
+    @Nullable
     private Collection<User> users;
 
     @ManyToOne
     private Topo topo;
 
     @OneToMany (mappedBy = "site")
+    @Nullable
     private Collection<Commentaire> commentaires;
 
     @OneToMany (mappedBy = "site")
+    @Nullable
     private Collection<Image> images;
 
     @OneToMany (mappedBy = "site")
@@ -98,23 +107,26 @@ public class Site {
     public String getDescriptif() { return descriptif;
     }
 
-    public Collection<User> getUsers() { return users;
-    }
 
     public Topo getTopo() { return topo;
-    }
-
-    public Collection<Commentaire> getCommentaires() { return commentaires;
-    }
-
-    public Collection<Image> getImages() { return images;
     }
 
     public Collection<Secteur> getSecteurs() { return secteurs;
     }
 
+    @Nullable
+    public Collection<User> getUsers() { return users;
+    }
 
-    // Setters
+    @Nullable
+    public Collection<Commentaire> getCommentaires() { return commentaires;
+    }
+
+    @Nullable
+    public Collection<Image> getImages() { return images;
+    }
+
+// Setters
 
     public void setIdSite(Long idSite) { this.idSite = idSite;
     }
@@ -128,18 +140,18 @@ public class Site {
     public void setDescriptif(String descriptif) { this.descriptif = descriptif;
     }
 
-    public void setUsers(Collection<User> users) { this.users = users;
-    }
-
     public void setTopo(Topo topo) { this.topo = topo;
     }
 
-    public void setCommentaires(Collection<Commentaire> commentaires) { this.commentaires = commentaires;
-    }
-
-    public void setImages(Collection<Image> images) { this.images = images;
-    }
-
     public void setSecteurs(Collection<Secteur> secteurs) { this.secteurs = secteurs;
+    }
+
+    public void setUsers(@Nullable Collection<User> users) { this.users = users;
+    }
+
+    public void setCommentaires(@Nullable Collection<Commentaire> commentaires) { this.commentaires = commentaires;
+    }
+
+    public void setImages(@Nullable Collection<Image> images) { this.images = images;
     }
 }
