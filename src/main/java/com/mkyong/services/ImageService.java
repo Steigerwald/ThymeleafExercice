@@ -20,7 +20,7 @@ public class ImageService {
 
 
     @Autowired
-    ImageRepository repositoryImage;
+    private ImageRepository repositoryImage;
 
     Logger logger = (Logger) LoggerFactory.getLogger(ImageService.class);
 

@@ -17,7 +17,7 @@ import java.util.Optional;
 public class SiteService {
 
     @Autowired
-    SiteRepository siteRepository;
+    private SiteRepository siteRepository;
 
     Logger logger = (Logger) LoggerFactory.getLogger(SiteService.class);
 

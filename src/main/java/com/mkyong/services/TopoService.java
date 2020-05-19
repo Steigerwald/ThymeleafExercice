@@ -15,7 +15,7 @@ import java.util.*;
 public class TopoService {
 
     @Autowired
-    TopoRepository topoRepository;
+    private TopoRepository topoRepository;
 
     Logger logger = (Logger) LoggerFactory.getLogger(TopoService.class);
 

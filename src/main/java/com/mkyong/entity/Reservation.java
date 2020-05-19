@@ -5,12 +5,14 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Entity
 @Table(name="TBL_RESERVATION_TOPO")
-public class ReservationTopo {
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,29 +25,24 @@ public class ReservationTopo {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateReservation;
 
-    @ManyToMany(cascade=CascadeType.MERGE)
-    @Nullable
-    @JoinTable(
-            name="TBL_RESERVATION_TOPOS",
-            joinColumns={@JoinColumn(name="RESERVATIONS_ID_RESERVATION")},
-            inverseJoinColumns={@JoinColumn(name="TOPOS_ID_TOPO")})
-    private List<Topo> topos;
+    @OneToOne
+    private Topo topo;
 
     @ManyToOne
     private User user;
 
 
     // Méthodes pour l'Affichage
-    public String toStringDateReservation(Date date) {
+    public String toStringDateReservation() {
         SimpleDateFormat formater = null;
         formater = new SimpleDateFormat("dd-MM-yy");
-        formater.format(date);
+        formater.format(dateReservation);
 
-        return " " +  formater.format(date);
+        return " " +  formater.format(dateReservation);
     }
 
-    public String toStringEtat (Boolean etat){
-        if (etat==true) {
+    public String toStringEtat (){
+        if (acceptation==true) {
             String reponse ="accepté";
             return reponse;
         } else {
@@ -55,10 +52,11 @@ public class ReservationTopo {
     }
 
 
+
     // Constructeur
 
 
-    public ReservationTopo() {
+    public Reservation() {
         setAcceptation(false);
     }
 
@@ -73,8 +71,7 @@ public class ReservationTopo {
     public Date getDateReservation() { return dateReservation;
     }
 
-    @Nullable
-    public List<Topo> getTopos() { return topos;
+    public Topo getTopo() { return topo;
     }
 
     public User getUser() { return user;
@@ -93,7 +90,7 @@ public class ReservationTopo {
     public void setDateReservation(Date dateReservation) { this.dateReservation = dateReservation;
     }
 
-    public void setTopos(@Nullable List<Topo> topos) { this.topos = topos;
+    public void setTopo(Topo topo) { this.topo = topo;
     }
 
     public void setUser(User user) { this.user = user;

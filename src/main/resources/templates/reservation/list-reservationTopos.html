@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Toutes les résrvations</title>
+    <title>Toutes les réservations</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/barre.css}" />
@@ -41,10 +41,10 @@
                                                 <tbody>
                                                 <tr th:each="reservation: ${reservations}">
                                                     <td th:text="${reservation.topo.nomTopo}"></td>
-                                                    <td th:text="${reservation.toStringDateReservation(reservation.dateReservation)}"></td>
+                                                    <td th:text="${reservation.toStringDateReservation()}"></td>
                                                     <td th:text="${reservation.user.nomUser}"></td>
                                                     <td th:text="${reservation.user.prenomUser}"></td>
-                                                    <td th:text="${reservation.toStringEtat(reservation.acceptation)}"></td>
+                                                    <td th:text="${reservation.toStringEtat()}"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>

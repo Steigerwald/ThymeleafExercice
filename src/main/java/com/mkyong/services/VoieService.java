@@ -18,7 +18,7 @@ import java.util.Optional;
 public class VoieService {
 
     @Autowired
-    VoieRepository voieRepository;
+    private VoieRepository voieRepository;
 
     Logger logger = (Logger) LoggerFactory.getLogger(TopoService.class);
 

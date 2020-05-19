@@ -1,7 +1,7 @@
 package com.mkyong.controller;
 
 
-import com.mkyong.entity.ReservationTopo;
+import com.mkyong.entity.Reservation;
 import com.mkyong.entity.Topo;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -34,23 +35,20 @@ public class reservationTopoController {
     /* Controller pour la liste des topos */
     @RequestMapping(method = RequestMethod.GET)
     public String getAllReservations(Model model) {
-        List<ReservationTopo> listReservations = reservationTopoService.getAllReservationTopos();
+        List<Reservation> listReservations = reservationTopoService.getAllReservationTopos();
         model.addAttribute("reservations", listReservations);
         return "reservation/list-reservationTopos"; //view
     }
-/*
-    /* controller pour annuler une réservation de la base de données
-    @RequestMapping(path = "/annulerReservationTopo",method = RequestMethod.POST)
-    public String deleteReservationTopoById(Topo topo, Model model) throws RecordNotFoundException {
-        model.addAttribute("topo", topo);
-        logger.info(" retour de l'entité topo"+topo);
-        logger.info(" retour de l'entité id de topo"+topo.getIdTopo());
-        logger.info(" retour de l'entité id de Reservationtopo"+topo.getReservation().getIdReservation());
-        reservationTopoService.deleteReservationTopoById(topo.getReservation().getIdReservation());
+
+    /* controller pour annuler une réservation de la base de données*/
+    @RequestMapping(path = "/annulerReservationTopo/{id}",method = RequestMethod.POST)
+    public String deleteReservationTopoById(@PathVariable("id") Long id, Model model) throws RecordNotFoundException {
+        reservationTopoService.deleteReservationTopoById(id);
         return "topo/details-Topo";
     }
-*/
-    /* controller pour créer une réservation dans la base de données
+
+/*
+    /*controller pour créer une réservation dans la base de données
     @RequestMapping(path = "/reserverTopo",method = RequestMethod.POST)
     public String reserverReservationTopo(Principal principal,Topo topo, Model model) throws RecordNotFoundException {
         User currentUser = userService.getUserByMail(principal.getName());

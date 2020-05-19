@@ -16,7 +16,7 @@ import java.util.Optional;
 public class SecteurService {
 
     @Autowired
-    SecteurRepository secteurRepository;
+    private SecteurRepository secteurRepository;
 
     Logger logger = (Logger) LoggerFactory.getLogger(SecteurService.class);
 

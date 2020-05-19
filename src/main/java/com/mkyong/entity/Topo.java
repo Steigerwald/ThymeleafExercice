@@ -3,9 +3,7 @@ package com.mkyong.entity;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -41,15 +39,21 @@ public class Topo {
     @OneToMany (mappedBy = "topo")
     private Collection<Site> sites;
 
-    @ManyToMany(mappedBy="topos")
+    @OneToOne (mappedBy= "topo")
     @Nullable
-    private Collection<ReservationTopo> reservations;
+    private Reservation reservation;
 
 
     @ManyToMany(mappedBy="topos")
     private Collection<User> users;
 
     // Méthodes pour l'affichage
+
+
+    @Override
+    public String toString() {
+        return " " +nomTopo;
+    }
 
     public String toStringDateParution() {
 
@@ -113,7 +117,7 @@ public class Topo {
     public Collection<Site> getSites() { return sites; }
 
     @Nullable
-    public Collection<ReservationTopo> getReservations() { return reservations;
+    public Reservation getReservation() { return reservation;
     }
 
     public Collection<User> getUsers() { return users; }
@@ -138,8 +142,7 @@ public class Topo {
     }
 
 
-    public void setReservations(@Nullable Collection<ReservationTopo> reservations) {
-        this.reservations = reservations;
+    public void setReservation(@Nullable Reservation reservation) { this.reservation = reservation;
     }
 
     public void setUsers(Collection<User> users) { this.users = users; }

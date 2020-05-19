@@ -43,10 +43,14 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <form th:action="@{/reservations/annulerReservationTopo}" th:object="${topo}" method="post">
+                                        <form th:action="@{/reservations/annulerReservationTopo/{id}(id=${topo.reservation)}" th:object="${topo}" method="post">
                                             <button class="btn btn-danger my-2 my-sm-0" type="submit">Annuler</button>
                                             <input type="hidden" id="idTopo2" th:field="*{idTopo}">
                                         </form>
+                                        <form th:action="@{/voies/delete/{id}(id=${voie.idVoie})}" method="post">
+                                            <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
+                                        </form>
+
                                     </td>
                                 </tr>
                             </table>
@@ -78,9 +82,9 @@
                             <h2>les sites: </h2>
                             <!--<h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
                             <div th:case="*">-->
-                            <ul>
+                            <!--<ul>
                                 <li th:text="${topo.toStringSites()}"></li>
-                            </ul>
+                            </ul>-->
                             </Br>
                             <h2>Les lieux à explorer: </h2>
                             <ul th:each="site : ${topo.sites}">

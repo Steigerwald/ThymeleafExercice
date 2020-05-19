@@ -16,7 +16,7 @@ import java.util.Optional;
 public class CommentaireService {
 
     @Autowired
-    CommentaireRepository commentaireRepository;
+    private CommentaireRepository commentaireRepository;
 
     Logger logger = (Logger) LoggerFactory.getLogger(CommentaireService.class);
 

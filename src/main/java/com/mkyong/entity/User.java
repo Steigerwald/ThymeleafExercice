@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -63,7 +62,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @Nullable
-    private Collection <ReservationTopo> reservations;
+    private Collection <Reservation> reservations;
 
 
     public String toStringRole(Role role) {
@@ -111,7 +110,7 @@ public class User {
     }
 
     @Nullable
-    public Collection<ReservationTopo> getReservations() { return reservations;
+    public Collection<Reservation> getReservations() { return reservations;
     }
 
     //setters
@@ -144,6 +143,6 @@ public class User {
     public void setTopos(@Nullable List<Topo> topos) { this.topos = topos;
     }
 
-    public void setReservations(@Nullable Collection<ReservationTopo> reservations) { this.reservations = reservations;
+    public void setReservations(@Nullable Collection<Reservation> reservations) { this.reservations = reservations;
     }
 }
