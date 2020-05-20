@@ -43,9 +43,8 @@ public class Topo {
     @Nullable
     private Reservation reservation;
 
-
-    @ManyToMany(mappedBy="topos")
-    private Collection<User> users;
+    @ManyToOne
+    private User owner;
 
     // Méthodes pour l'affichage
 
@@ -79,9 +78,9 @@ public class Topo {
 
     public String toStringDisponible(){
         if (disponible==true){
-            return "reservé";
-        }else{
             return "libre";
+        }else{
+            return "réservé";
         }
     }
 
@@ -117,11 +116,9 @@ public class Topo {
     public Collection<Site> getSites() { return sites; }
 
     @Nullable
-    public Reservation getReservation() { return reservation;
-    }
+    public Reservation getReservation() { return reservation; }
 
-    public Collection<User> getUsers() { return users; }
-
+    public User getOwner() { return owner; }
 
     // Setters
 
@@ -141,9 +138,8 @@ public class Topo {
         this.sites = sites;
     }
 
+    public void setReservation(@Nullable Reservation reservation) { this.reservation = reservation; }
 
-    public void setReservation(@Nullable Reservation reservation) { this.reservation = reservation;
-    }
+    public void setOwner(User owner) { this.owner = owner; }
 
-    public void setUsers(Collection<User> users) { this.users = users; }
 }

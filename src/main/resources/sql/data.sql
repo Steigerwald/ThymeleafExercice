@@ -9,15 +9,18 @@ TRUNCATE TABLE escalades.TBL_SITE;
 TRUNCATE TABLE escalades.TBL_SECTEUR;
 TRUNCATE TABLE escalades.TBL_VOIE;
 TRUNCATE TABLE escalades.TBL_COMMENTAIRE;
-TRUNCATE TABLE escalades.TBL_RESERVATION_TOPO;
+TRUNCATE TABLE escalades.TBL_RESERVATION;
 
 INSERT INTO escalades.TBL_ROLE (id_role, nom_role) VALUES
 (1, 'ROLE_ADMIN'),
 (2, 'ROLE_USER');
 
-INSERT INTO escalades.TBL_USER (id_user, mail_user, mot_de_passe_user, nom_user,prenom_user,role_id_role) VALUES
-(1, 'admin@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Steigerwald','Brice',1),
-(2, 'user@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Steigerwald','Jacques',2);
+INSERT INTO escalades.TBL_USER (id_user, mail_user, mot_de_passe_user, nom_user,prenom_user,role_id_role,site_id_site) VALUES
+(1, 'admin@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Steigerwald','Brice',1,1),
+(2, 'user@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Steigerwald','Jacques',2,2),
+(3, 'tara@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Hot','Tara',1,3),
+(4, 'jean@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Pierre','Jean',1,4),
+(5, 'anne@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Priska','Anne',1,5);
 
 INSERT INTO escalades.TBL_VOIE (id_voie, cotation, nombre_longueurs, nombre_points,numero_voie,secteur_id_secteur) VALUES
 (1, '2c', 2, 3,'1',1),
@@ -46,24 +49,20 @@ INSERT INTO escalades.TBL_SITE (id_site, descriptif, lieu, nom_site,topo_id_topo
 (4, 'site du Massif, en haut du col', 'Massif Central','le plateau central',2),
 (5, 'site du mont Oublié, sur la colline', 'Massif Armoricain','Le mont',3);
 
-INSERT INTO escalades.TBL_TOPO (id_topo, date_parution, description, disponible, location, nom_topo,reservation_id_reservation) VALUES
-(1,'2019-09-28 02:45:30', 'topo pour profiter de l"ile, de la montagne et des volcans',1,1,'La balade complète',1),
-(2,'2019-11-28 02:55:30', 'topo pour profiter du centre montagneux de la France',1,0,'La vieille montagne',2),
-(3,'2020-01-28 11:45:30', 'topo pour profiter de la Bretagne, des collines de granite',1,1,'Kenavo',3);
+INSERT INTO escalades.TBL_TOPO (id_topo, date_parution, description, disponible, location, nom_topo,owner_id_user) VALUES
+(1,'2019-09-28 02:45:30', 'topo pour profiter de l"ile, de la montagne et des volcans',1,1,'La balade complète',4),
+(2,'2019-11-28 02:55:30', 'topo pour profiter du centre montagneux de la France',1,1,'La vieille montagne',4),
+(3,'2020-01-28 11:45:30', 'topo pour profiter de la Bretagne, des collines de granite',1,1,'Kenavo',5);
 
-INSERT INTO escalades.TBL_RESERVATION_TOPO (id_reservation, acceptation, date_reservation,user_id_user) VALUES
-(1,1,'2020-04-28 02:45:30',1),
-(2,0,'2020-04-21 02:45:30',2),
-(3,1,'2020-05-04 02:45:30',1);
-
-INSERT INTO escalades.TBL_RESERVATION_TOPOS (reservations_id_reservation,topos_id_topo) VALUES
-(1,1),
-(2,2),
-(1,3);
+INSERT INTO escalades.TBL_RESERVATION (id_reservation, acceptation, date_reservation,topo_id_topo,user_id_user) VALUES
+(1,1,'2020-04-28 02:45:30',2,1),
+(2,0,'2020-04-21 02:45:30',3,2),
+(3,1,'2020-05-04 02:45:30',1,1);
 
 INSERT INTO escalades.TBL_COMMENTAIRE (id_commentaire, contenu, date_commentaire, site_id_site) VALUES
 (1,'Trop compliqué, pas d"eau','2020-04-29 02:45:30', 1),
 (2,'hyper facile, même trop','2020-05-01 02:45:30', 4),
-(3,'super content, trop d"eau','2020-04-28 02:45:30', 5);
+(3,'super content, trop d"eau','2020-04-28 02:45:30', 5),
+(4,'quelle galère pour la marche à pieds','2020-04-26 03:56:24',2);
 
 SET FOREIGN_KEY_CHECKS=1;

@@ -16,26 +16,25 @@
 <div th:insert="~{baniere :: fragment }"></div>
     <main>
         <div class="container col-sm-12 col-lg-12 col-xl-12">
-            <div class="Autrepagination">
-                <nav aria-label="pagination">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                            <a class="page-link" href="/sites" tabindex="-1"><i class="fas fa-undo"></i> Retour</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
             <div class="row">
-                    <div class="jumbotron col-lg-12">
+                    <div class="jumbotron col-lg-10">
                         <div class=container>
                             <div class="fond">
                             <!--<div class=fond id="dp-container"  th:style="'background-image:url(/pictures/grimpeur1.jpg)'">-->
                                 <!--<div id="dp-container"  th:style="'background-image:url(' + ${dpurl} + ');'">-->
-                                <h1>le site:</h1>
-                                <h1 th:text="${site.nomSite}"></h1>
+                                <h1 th:text="'Le site: '+|${site.nomSite}|"></h1>
                             </div>
                         </div>
                     </div>
+                <div class="pagination col-lg-1">
+                    <nav aria-label="pagination">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <a class="page-link" href="/sites" tabindex="-1"><i class="fas fa-undo"></i> Retour</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
             <br>
             <div class="row">
@@ -58,22 +57,23 @@
                     <div class="card col-lg-12">
                         <h2>Les Secteurs du site</h2>
                         <ul>
-                            <li th:text="'les secteurs du site sont: '+ |${site.toStringSecteurs()}|"></li>
+                            <li th:text="'Les secteurs du site sont: '+ |${site.toStringSecteurs()}|"></li>
                         </ul>
-
+                        <br>
                         <ul th:each="secteur : ${site.secteurs}">
-                            <h2 th:text="'details du secteur '+|${secteur.nomSecteur}|+' :'"></h2>
+                            <h2 th:text="'Details du secteur '+|${secteur.nomSecteur}|+' :'"></h2>
                             <ul>
-                                <li th:text="|${secteur.nomSecteur}|+' est situé à une hauteur de '+|${secteur.hauteur}| "></li>
-                                <li th:text="'description du secteur: '+|${secteur.descriptifSecteur}|"></li>
+                                <li th:text="'Le secteur '+|${secteur.nomSecteur}|+' est situé à une hauteur de '+|${secteur.hauteur}|+' .' "></li>
+                                <li th:text="'Description du secteur: '+|${secteur.descriptifSecteur}|"></li>
+
+                                <ul th:each="voie: ${secteur.voies}">
+                                    <li th:text="'La voie numéro '+|${voie.numeroVoie}|+' a une difficulté de  '+|${voie.cotation}|+' .' "></li>
+                                   <ul>
+                                       <li th:text="'Le nombre de longueurs est: '+|${voie.nombreLongueurs}|"></li>
+                                       <li th:text="'et qui comporte '+|${voie.nombrePoints}|+ ' points pour aider à grimper .'"></li>
+                                   </ul>
+                                </ul>
                             </ul>
-                            <ul th:each="voie: ${secteur.voies}">
-                                <li th:text="'la voie numéro '+|${voie.numeroVoie}|+' a une difficulté de  '+|${voie.cotation}| "></li>
-                                <li th:text="'le nombre de longueurs est: '+|${voie.nombreLongueurs}|"></li>
-                                <li th:text="'et qui comporte '+|${voie.nombrePoints}|+ ' points pour pouvoir grimper'"></li>
-                                <br>
-                            </ul>
-                            <br>
                         </ul>
                     </div>
                 </aside>

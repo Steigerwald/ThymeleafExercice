@@ -59,7 +59,7 @@ public class ReservationTopoService {
 
             if (reservation.isPresent()) {
                 Reservation topoReservationTrouve = getReservationTopoById(id);
-
+                topoReservationTrouve.getTopo().setDisponible(true);
                 reservationTopoRepository.deleteById(id);
 
             } else {
@@ -70,26 +70,22 @@ public class ReservationTopoService {
         }
    }
 /*
-
     public void createReservationTopo(Topo entity,User currentUser) throws RecordNotFoundException {
+
         Date today = new Date();
 
-        if ((entity.getReservations() == null) && ((entity.getDisponible()==null)||entity.getDisponible()==false)) {
+        if ((entity.getReservation() == null) && ((entity.getDisponible()==null)||entity.getDisponible()==false)) {
 
-            // je crée la réservationTopo
+            // je crée la réservation du topo
             Reservation newReservation =new Reservation();
-            List<Topo> listTopos = new ArrayList();
-            listTopos.add(entity);
             newReservation.setAcceptation(false);
             newReservation.setDateReservation(today);
-            newReservation.setTopos(listTopos);
+            newReservation.setTopo(entity);
             newReservation.setUser(currentUser);
 
             // je renseigne la reservation dans le topo
-            List<Reservation> listReservations=new ArrayList();
-            listReservations.add(newReservation);
             entity.setDisponible(true);
-            entity.setReservations(listReservations);
+            entity.setReservation(newReservation);
 
             // je renseigne la reservation dans le user
             currentUser.setReservations(listReservations);

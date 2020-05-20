@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Entity
-@Table(name="TBL_RESERVATION_TOPO")
+@Table(name="TBL_RESERVATION")
 public class Reservation {
 
     @Id

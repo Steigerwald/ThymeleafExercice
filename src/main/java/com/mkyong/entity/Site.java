@@ -29,9 +29,8 @@ public class Site {
     @NotNull
     private String descriptif;
 
-    @ManyToMany(mappedBy="sites")
-    @Nullable
-    private Collection<User> users;
+    @OneToOne(mappedBy="site")
+    private User user;
 
     @ManyToOne
     private Topo topo;
@@ -114,8 +113,7 @@ public class Site {
     public Collection<Secteur> getSecteurs() { return secteurs;
     }
 
-    @Nullable
-    public Collection<User> getUsers() { return users;
+    public User getUser() { return user;
     }
 
     @Nullable
@@ -146,7 +144,7 @@ public class Site {
     public void setSecteurs(Collection<Secteur> secteurs) { this.secteurs = secteurs;
     }
 
-    public void setUsers(@Nullable Collection<User> users) { this.users = users;
+    public void setUser(User user) { this.user = user;
     }
 
     public void setCommentaires(@Nullable Collection<Commentaire> commentaires) { this.commentaires = commentaires;

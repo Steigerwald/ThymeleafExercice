@@ -41,8 +41,10 @@ public class reservationTopoController {
     }
 
     /* controller pour annuler une réservation de la base de données*/
-    @RequestMapping(path = "/annulerReservationTopo/{id}",method = RequestMethod.POST)
+    @RequestMapping(path = "/annulerReservation/{id}",method = RequestMethod.POST)
     public String deleteReservationTopoById(@PathVariable("id") Long id, Model model) throws RecordNotFoundException {
+        Topo topoReserve =reservationTopoService.getReservationTopoById(id).getTopo();
+        model.addAttribute("topo", topoReserve);
         reservationTopoService.deleteReservationTopoById(id);
         return "topo/details-Topo";
     }

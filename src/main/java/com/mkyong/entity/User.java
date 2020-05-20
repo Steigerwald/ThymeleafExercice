@@ -39,23 +39,14 @@ public class User {
     private String motDePasseUser;
 
 
-    @ManyToMany(cascade=CascadeType.MERGE)
+    @OneToOne
     @Nullable
-    @JoinTable(
-            name="TBL_USER_SITES",
-            joinColumns={@JoinColumn(name="USERS_ID_USER")},
-            inverseJoinColumns={@JoinColumn(name="SITES_ID_SITE")})
-    private List<Site> sites;
+    private Site site;
 
 
-    @ManyToMany(cascade=CascadeType.MERGE)
+    @OneToMany(mappedBy = "owner")
     @Nullable
-    @JoinTable(
-            name="TBL_USER_TOPOS",
-            joinColumns={@JoinColumn(name="USERS_ID_USER")},
-            inverseJoinColumns={@JoinColumn(name="TOPOS_ID_TOPO")})
-    private List<Topo> topos;
-
+    private Collection <Topo> topos;
 
     @ManyToOne
     private Role role;
@@ -102,11 +93,11 @@ public class User {
     public Role getRole() { return role; }
 
     @Nullable
-    public List<Site> getSites() { return sites;
+    public Site getSite() { return site;
     }
 
     @Nullable
-    public List<Topo> getTopos() { return topos;
+    public Collection<Topo> getTopos() { return topos;
     }
 
     @Nullable
@@ -137,10 +128,10 @@ public class User {
 
     public void setRole(Role role) { this.role = role; }
 
-    public void setSites(@Nullable List<Site> sites) { this.sites = sites;
+    public void setSite(@Nullable Site site) { this.site = site;
     }
 
-    public void setTopos(@Nullable List<Topo> topos) { this.topos = topos;
+    public void setTopos(@Nullable Collection<Topo> topos) { this.topos = topos;
     }
 
     public void setReservations(@Nullable Collection<Reservation> reservations) { this.reservations = reservations;
