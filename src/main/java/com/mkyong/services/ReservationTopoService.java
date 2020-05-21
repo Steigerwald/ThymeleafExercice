@@ -49,8 +49,6 @@ public class ReservationTopoService {
     }
 
     public void deleteReservationTopoById(Long id) throws RecordNotFoundException {
-
-
         if (id != null) {
             Optional<Reservation> reservation = reservationTopoRepository.findById(id);
 
@@ -69,33 +67,33 @@ public class ReservationTopoService {
             throw new NullPointerException ( "l'id est null, la réservation n'existe pas");
         }
    }
-/*
+
     public void createReservationTopo(Topo entity,User currentUser) throws RecordNotFoundException {
-
         Date today = new Date();
+            if ((entity.getReservation() == null) && ((entity.getDisponible() == null) || entity.getDisponible() == true)) {
 
-        if ((entity.getReservation() == null) && ((entity.getDisponible()==null)||entity.getDisponible()==false)) {
+                // je crée la réservation du topo
+                Reservation newReservation = new Reservation();
+                newReservation.setAcceptation(false);
+                newReservation.setDateReservation(today);
+                newReservation.setTopo(entity);
+                newReservation.setUser(currentUser);
 
-            // je crée la réservation du topo
-            Reservation newReservation =new Reservation();
-            newReservation.setAcceptation(false);
-            newReservation.setDateReservation(today);
-            newReservation.setTopo(entity);
-            newReservation.setUser(currentUser);
+                // je renseigne la reservation dans le topo
+                entity.setDisponible(false);
+                entity.setReservation(newReservation);
 
-            // je renseigne la reservation dans le topo
-            entity.setDisponible(true);
-            entity.setReservation(newReservation);
+                // je renseigne la reservation dans le user
+                Collection listeReservations = currentUser.getReservations();
+                listeReservations.add(newReservation);
+                currentUser.setReservations(listeReservations);
 
-            // je renseigne la reservation dans le user
-            currentUser.setReservations(listReservations);
-
-            reservationTopoRepository.save(newReservation);
-            logger.info(" retour de l'entité de createReservationTopo car l'Id n'existe pas et donc la réservation a été créee");
-        } else {
-            logger.info(" retour de l'entité reservation n'a pas été sauvegardée car la reservation est existante ou non disponible");
-        }
-    }*/
+                reservationTopoRepository.save(newReservation);
+                logger.info(" retour de l'entité de createReservationTopo car l'Id n'existe pas et donc la réservation a été créee");
+            } else {
+                logger.info(" retour de l'entité reservation n'a pas été sauvegardée car la reservation est existante ou non disponible");
+            }
+    }
 }
 
 

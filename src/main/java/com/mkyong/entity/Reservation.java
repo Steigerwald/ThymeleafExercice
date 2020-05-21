@@ -15,6 +15,7 @@ import java.util.List;
 public class Reservation {
 
     @Id
+    @Nullable
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idReservation;
 
@@ -62,6 +63,8 @@ public class Reservation {
 
     // Getters
 
+
+    @Nullable
     public Long getIdReservation() { return idReservation;
     }
 
@@ -81,7 +84,7 @@ public class Reservation {
     // Setters
 
 
-    public void setIdReservation(Long idReservation) { this.idReservation = idReservation;
+    public void setIdReservation(@Nullable Long idReservation) { this.idReservation = idReservation;
     }
 
     public void setAcceptation(Boolean acceptation) { this.acceptation = acceptation;

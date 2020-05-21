@@ -40,7 +40,8 @@
                     </thead>
                     <tr th:each="image : ${images}">
                         <td>
-                           <img th:src="@{/pictures/pres.jpg}" alt="imagePres" class="img-thumbnail" style="width:25%; height:25%">
+                            <img th:src="@{'data:image/jpeg;base64,'+${image.generateBase64Image()}}" />
+                           <!--<img th:src="@{/pictures/pres.jpg}" alt="imagePres" class="img-thumbnail" style="width:25%; height:25%">-->
                         </td>
                         <td th:text="${image.toString()}"></td>
                         <td th:text="${image.nomImage}"></td>

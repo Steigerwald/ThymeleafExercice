@@ -24,12 +24,27 @@ public class imageController {
     @RequestMapping(method = RequestMethod.GET)
     public String getAllImages(Model model)  {
 
-
         List<Image> images = imageEntityService.getAllImages();
         model.addAttribute("images", images);
 
         return "image/list-images"; //view
     }
+
+    @RequestMapping(path = "/OneImage",method = RequestMethod.GET)
+    public String getOneImage(HttpServletRequest request, HttpServletResponse response, Model model) throws RecordNotFoundException, IOException {
+
+        Image image = imageEntityService.getImageById((long) 1);
+
+        response.reset();
+        response.setContentType(image.getMimeType());
+        response.setContentLength(image.getImage().length);
+        // Write image content to response.
+        response.getOutputStream().write(image.getImage());
+
+        return "image/UneImage"; //view
+    }
+
+
 
    /*
     @RequestMapping(path="/image/{id}",method = RequestMethod.GET)

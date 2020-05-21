@@ -94,8 +94,15 @@ public class topoController {
 
         Topo topoTrouve=topoService.getTopoById(id);
         model.addAttribute("topo", topoTrouve);
-
-
+        if (topoTrouve.getLocation()==true) {
+            if (topoTrouve.getDisponible()==true){
+                model.addAttribute("enableButton", 1);
+            } else {
+                model.addAttribute("enableButton", 2);
+            }
+        }   else{
+            model.addAttribute("enableButton", 3);
+        }
         return "topo/details-Topo"; //view
     }
 

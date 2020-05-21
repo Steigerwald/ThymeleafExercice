@@ -25,6 +25,7 @@ public class Role {
 
 
     // Méthodes pour l'affichage
+
     @Override
     public String toString() {
         return nomRole;

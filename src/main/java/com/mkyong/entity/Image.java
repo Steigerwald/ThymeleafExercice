@@ -1,5 +1,6 @@
 package com.mkyong.entity;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.lang.Nullable;
 
@@ -51,6 +52,12 @@ public class Image implements Serializable {
     }
 
 
+    public String generateBase64Image()
+    {
+        return Base64.encodeBase64String(this.getImage());
+    }
+
+
     // constructeur
 
     public Image() {
@@ -79,6 +86,7 @@ public class Image implements Serializable {
     @Nullable
     public Secteur getSecteur() { return secteur;
     }
+
 
     // setters
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Tous les commentaires</title>
+    <title>Gestion des réservations</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/main.css}" />
     <link rel="stylesheet" th:href="@{/css/barre.css}" />
@@ -15,7 +15,7 @@
 <body>
     <div th:insert="~{baniere :: fragment }"></div>
     <main>
-        <h1>Liste des commentaires</h1>
+        <h1>Liste des réservations</h1>
         <div class="container col-lg-12">
             <header class="row">
             </header>
@@ -24,25 +24,30 @@
                     <div class="container">
                         <div class="card">
                             <div class="card-body">
-                                <div th:switch="${commentaires}" class="container">
+                                <div th:switch="${reservations}" class="container">
                                     <div class="table-responsive text-nowrap ncol-md-12">
                                         <h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
                                         <div th:case="*">
                                             <table class="table table-striped" >
                                                 <thead>
                                                 <tr>
-                                                    <th>Commentaire laissé par</th>
-                                                    <th>Contenu du message</th>
-                                                    <th>Site concerné</th>
-                                                    <th>date</th>
+                                                    <th>Nom Topo</th>
+                                                    <th>Nom du propriétaire du Topo</th>
+                                                    <th>Date réservation</th>
+                                                    <th>Nom du locataire</th>
+                                                    <th>Prénom du locataire</th>
+                                                    <th>état</th>
+                                                    <th>Acceptation</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="commentaire : ${commentaires}">
-                                                    <td th:text="${commentaire.user.nomUser}"></td>
-                                                    <td th:text="${commentaire.contenu}"></td>
-                                                    <td th:text="${commentaire.site.nomSite}"></td>
-                                                    <td th:text="${commentaire.toStringDateCommentaire(commentaire.dateCommentaire)}"></td>
+                                                <tr th:each="reservation: ${reservations}">
+                                                    <td th:text="${reservation.topo.nomTopo}"></td>
+                                                    <td th:text="${reservation.topo.owner.nomUser}"></td>
+                                                    <td th:text="${reservation.toStringDateReservation()}"></td>
+                                                    <td th:text="${reservation.user.nomUser}"></td>
+                                                    <td th:text="${reservation.user.prenomUser}"></td>
+                                                    <td th:text="${reservation.toStringEtat()}"></td>
                                                 </tr>
                                                 </tbody>
                                             </table>

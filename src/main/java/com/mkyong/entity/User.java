@@ -55,6 +55,12 @@ public class User {
     @Nullable
     private Collection <Reservation> reservations;
 
+    @OneToMany (mappedBy = "user")
+    @Nullable
+    private Collection<Commentaire> commentaires;
+
+
+    //methodes pour l'affichage
 
     public String toStringRole(Role role) {
         return " "+ role;
@@ -104,6 +110,11 @@ public class User {
     public Collection<Reservation> getReservations() { return reservations;
     }
 
+    @Nullable
+    public Collection<Commentaire> getCommentaires() { return commentaires;
+    }
+
+
     //setters
 
     public void setIdUser(Long idUser) {
@@ -135,5 +146,8 @@ public class User {
     }
 
     public void setReservations(@Nullable Collection<Reservation> reservations) { this.reservations = reservations;
+    }
+
+    public void setCommentaires(@Nullable Collection<Commentaire> commentaires) { this.commentaires = commentaires;
     }
 }

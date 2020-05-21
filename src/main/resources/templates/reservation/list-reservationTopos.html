@@ -32,15 +32,18 @@
                                                 <thead>
                                                 <tr>
                                                     <th>Nom Topo</th>
+                                                    <th>Nom du propriétaire du Topo</th>
                                                     <th>Date réservation</th>
                                                     <th>Nom du locataire</th>
                                                     <th>Prénom du locataire</th>
                                                     <th>état</th>
+                                                    <th>Acceptation</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="reservation: ${reservations}">
                                                     <td th:text="${reservation.topo.nomTopo}"></td>
+                                                    <td th:text="${reservation.topo.owner.nomUser}"></td>
                                                     <td th:text="${reservation.toStringDateReservation()}"></td>
                                                     <td th:text="${reservation.user.nomUser}"></td>
                                                     <td th:text="${reservation.user.prenomUser}"></td>

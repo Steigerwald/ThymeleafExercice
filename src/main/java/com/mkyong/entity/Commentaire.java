@@ -24,6 +24,8 @@ public class Commentaire {
     @ManyToOne
     private Site site;
 
+    @ManyToOne
+    private User user;
 
     // Méthodes pour l'affichage
 
@@ -60,6 +62,9 @@ public class Commentaire {
     public Site getSite() { return site;
     }
 
+    public User getUser() { return user;
+    }
+
     // Setters
 
 
@@ -75,5 +80,6 @@ public class Commentaire {
     public void setSite(Site site) { this.site = site;
     }
 
-
+    public void setUser(User user) { this.user = user;
+    }
 }

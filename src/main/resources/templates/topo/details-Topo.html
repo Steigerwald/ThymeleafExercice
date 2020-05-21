@@ -35,19 +35,27 @@
                                 </tr>
                                 </thead>
                                 <tr>
-                                    <td th:text="${topo.toStringDisponible()}"></td>
-                                    <td>
-                                        <form th:action="@{/reservations/reserverTopo}" th:object="${topo}" method="post">
-                                            <button class="btn btn-success my-2 my-sm-0" type="submit">Réserver</button>
-                                            <!--<input type="hidden" id="idTopo1" th:field="*{idTopo}">-->
-                                        </form>
+                                    <td th:text="${topo.toStringDisponible()}">
+
                                     </td>
                                     <td>
-                                        <form th:action="@{/reservations/annulerReservation/{id}(id=${topo.reservation.idReservation})}" method="post">
-                                            <button class="btn btn-danger my-2 my-sm-0" type="submit">Annuler</button>
-                                        <!--<form th:action="@{/reservations/annulerReservation/{id}(id=${topo.reservation.idReservation})}" th:object="${topo}" method="post">
-                                            <input type="hidden" id="idTopo2" th:field="*{idTopo}">-->
-                                        </form>
+                                        <div th:switch="${enableButton}">
+                                            <form th:action="@{/reservations/reserverTopo/{id}(id=${topo.idTopo})}" method="post">
+                                                <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="1" >Réserver</button>
+                                                <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="2" disabled>Réserver</button>
+                                                <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="3" disabled>Réserver</button>
+                                                <!--<input type="hidden" id="idTopo1" th:field="*{idTopo}">-->
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div th:switch="${enableButton}">
+                                            <form th:action="@{/reservations/annulerReservation/{id}(id=${topo.idTopo})}" method="post">
+                                                <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="1" disabled >Annuler</button>
+                                                <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="2" >Annuler</button>
+                                                <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="3" disabled >Annuler</button>
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
@@ -55,7 +63,6 @@
                     </div>
                 </div>
             </div>
-            <Br>
             <div class="row">
                 <section class="col-lg-6">
                     <div class="card">
@@ -77,11 +84,9 @@
                     <div class="container my-2">
                         <div class="card"id="details">
                             <h2>les sites: </h2>
-                            <!--<h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
-                            <div th:case="*">-->
-                            <!--<ul>
+                            <ul>
                                 <li th:text="${topo.toStringSites()}"></li>
-                            </ul>-->
+                            </ul>
                             </Br>
                             <h2>Les lieux à explorer: </h2>
                             <ul th:each="site : ${topo.sites}">

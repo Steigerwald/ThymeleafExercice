@@ -6,6 +6,7 @@ import com.mkyong.entity.Topo;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.ReservationTopoService;
+import com.mkyong.services.TopoService;
 import com.mkyong.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,9 @@ public class reservationTopoController {
    @Autowired
     private UserService userService;
 
+    @Autowired
+    private TopoService topoService;
+
     Logger logger = (Logger) LoggerFactory.getLogger(reservationTopoController.class);
 
 
@@ -42,23 +46,32 @@ public class reservationTopoController {
 
     /* controller pour annuler une réservation de la base de données*/
     @RequestMapping(path = "/annulerReservation/{id}",method = RequestMethod.POST)
-    public String deleteReservationTopoById(@PathVariable("id") Long id, Model model) throws RecordNotFoundException {
-        Topo topoReserve =reservationTopoService.getReservationTopoById(id).getTopo();
+    public String deleteReservationTopoById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+        logger.info(" retour de l'id de annulerReservation: "+id);
+        Topo topoReserve = topoService.getTopoById(id);
         model.addAttribute("topo", topoReserve);
-        reservationTopoService.deleteReservationTopoById(id);
+            logger.info(" retour de l'entité de annulerReservation: "+topoReserve);
+        assert topoReserve.getReservation() != null;
+        logger.info(" retour de l'id de réservation de topoReserve: "+topoReserve.getReservation().getIdReservation());
+        reservationTopoService.deleteReservationTopoById(topoReserve.getReservation().getIdReservation());
+        model.addAttribute("enableButton", 1);
         return "topo/details-Topo";
+
     }
 
-/*
-    /*controller pour créer une réservation dans la base de données
-    @RequestMapping(path = "/reserverTopo",method = RequestMethod.POST)
-    public String reserverReservationTopo(Principal principal,Topo topo, Model model) throws RecordNotFoundException {
-        User currentUser = userService.getUserByMail(principal.getName());
-        logger.info(" retour de l'identifiant"+principal.getName());
-        logger.info(" retour de l'entité "+topo);
-        model.addAttribute("topo", topo);
-        reservationTopoService.createReservationTopo(topo,currentUser);
-        return "topo/details-Topo";
-    }*/
+    /*controller pour créer une réservation dans la base de données*/
+    @RequestMapping(path = "/reserverTopo/{id}",method = RequestMethod.POST)
+    public String reserverReservationTopo(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+
+            Topo topoReserve = topoService.getTopoById(id);
+            model.addAttribute("topo", topoReserve);
+            logger.info(" retour de l'entité: " + topoReserve);
+            logger.info(" retour du boolean: " + topoReserve.getLocation());
+                User currentUser = userService.getUserByMail(principal.getName());
+                reservationTopoService.createReservationTopo(topoReserve, currentUser);
+        model.addAttribute("enableButton", 2);
+                return "topo/details-Topo";
+
+    }
 }
 
