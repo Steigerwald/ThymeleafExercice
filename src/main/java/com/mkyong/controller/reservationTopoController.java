@@ -56,30 +56,28 @@ public class reservationTopoController {
     /* controller pour annuler une réservation de la base de données*/
     @RequestMapping(path = "/annulerReservation/{id}",method = RequestMethod.POST)
     public String deleteReservationTopoById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-        logger.info(" retour de l'id de annulerReservation: "+id);
+        logger.info("retour de l'id du topo concerné "+id);
         Topo topoReserve = topoService.getTopoById(id);
         model.addAttribute("topo", topoReserve);
-            logger.info(" retour de l'entité de annulerReservation: "+topoReserve);
         assert topoReserve.getReservation() != null;
-        logger.info(" retour de l'id de réservation de topoReserve: "+topoReserve.getReservation().getIdReservation());
+        logger.info(" retour de l'id de réservation de topoReserve: " + topoReserve.getReservation().getIdReservation());
         reservationTopoService.deleteReservationTopoById(topoReserve.getReservation().getIdReservation());
         model.addAttribute("enableButton", 1);
-        return "topo/details-Topo";
-
+        return "redirect:/topos/details/{id}";
     }
 
     /*controller pour créer une réservation dans la base de données*/
     @RequestMapping(path = "/reserverTopo/{id}",method = RequestMethod.POST)
     public String reserverReservationTopo(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-            Topo topoReserve = topoService.getTopoById(id);
-            model.addAttribute("topo", topoReserve);
-            logger.info(" retour de l'entité: " + topoReserve);
-            logger.info(" retour du boolean: " + topoReserve.getLocation());
-                User currentUser = userService.getUserByMail(principal.getName());
-                reservationTopoService.createReservationTopo(topoReserve, currentUser);
+        logger.info("retour de l'id du topo concerné "+id);
+        Topo topoReserve = topoService.getTopoById(id);
+        model.addAttribute("topo", topoReserve);
+        logger.info(" retour de l'entité: " + topoReserve);
+        logger.info(" retour du boolean: " + topoReserve.getLocation());
+        User currentUser = userService.getUserByMail(principal.getName());
+        reservationTopoService.createReservationTopo(topoReserve, currentUser);
         model.addAttribute("enableButton", 2);
-                return "topo/details-Topo";
-
+                return "redirect:/topos/details/{id}";
     }
 }
 

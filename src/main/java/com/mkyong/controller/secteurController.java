@@ -28,10 +28,8 @@ public class secteurController {
     /* Controller pour la liste des secteurs */
     @RequestMapping(method = RequestMethod.GET)
     public String getAllSecteurs(Model model) {
-
         List<Secteur> listSecteurs = secteurService.getAllSecteurs();
         model.addAttribute("secteurs", listSecteurs);
-
         return "secteur/list-secteurs"; //view
     }
 

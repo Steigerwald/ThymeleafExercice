@@ -41,12 +41,15 @@ public class commentaireController {
     }
 
     /* Controller pour creer un commentaire */
-    @RequestMapping(path="",method = RequestMethod.POST)
-    public String createNewCommentaire(Principal principal,Commentaire commentaire, Model model) {
+    @RequestMapping(path="/laisserCommentaires/{id}",method = RequestMethod.POST)
+    public String createNewCommentaire(Principal principal,@PathVariable("id") Long id,Commentaire commentaire, Model model) throws RecordNotFoundException {
+
+        Site siteConcerne =siteService.getSiteById(id);
+        commentaire.setSite(siteConcerne);
         User currentUser = userService.getUserByMail(principal.getName());
         commentaireService.createCommentaire(commentaire,currentUser);
 
-        return "details-site"; //view
+        return "redirect:/sites/details/{id}"; //view
     }
 
     /* controller pour modifier un commentaire par Id */

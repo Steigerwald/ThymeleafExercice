@@ -51,15 +51,10 @@ public class ReservationTopoService {
     public void deleteReservationTopoById(Long id) throws RecordNotFoundException {
         if (id != null) {
             Optional<Reservation> reservation = reservationTopoRepository.findById(id);
-
-
-            Topo topoTrouve = topoService.getTopoById(id);
-
             if (reservation.isPresent()) {
                 Reservation topoReservationTrouve = getReservationTopoById(id);
                 topoReservationTrouve.getTopo().setDisponible(true);
                 reservationTopoRepository.deleteById(id);
-
             } else {
                 throw new RecordNotFoundException("Pas de reservation enregistrée avec cet Id");
             }
@@ -87,7 +82,6 @@ public class ReservationTopoService {
                 Collection listeReservations = currentUser.getReservations();
                 listeReservations.add(newReservation);
                 currentUser.setReservations(listeReservations);
-
                 reservationTopoRepository.save(newReservation);
                 logger.info(" retour de l'entité de createReservationTopo car l'Id n'existe pas et donc la réservation a été créee");
             } else {

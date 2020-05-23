@@ -49,13 +49,13 @@ public class CommentaireService {
 
     public Commentaire modifyCommentaire(Commentaire entity)
     {
-            Commentaire newCommentaire = new Commentaire();
-            newCommentaire.setIdCommentaire(entity.getIdCommentaire());
-            newCommentaire.setContenu(entity.getContenu());
-            newCommentaire.setDateCommentaire(entity.getDateCommentaire());
-            newCommentaire.setSite(entity.getSite());
-            newCommentaire.setUser(entity.getUser());
-            newCommentaire = commentaireRepository.save(newCommentaire);
+        Commentaire newCommentaire = new Commentaire();
+        newCommentaire.setIdCommentaire(entity.getIdCommentaire());
+        newCommentaire.setContenu(entity.getContenu());
+        newCommentaire.setDateCommentaire(entity.getDateCommentaire());
+        newCommentaire.setSite(entity.getSite());
+        newCommentaire.setUser(entity.getUser());
+        newCommentaire = commentaireRepository.save(newCommentaire);
         logger.info(" retour de la nouvelle entité newCommentaire de modifyCommentaire qui a été sauvegardée et le commentaire est existant");
         return newCommentaire;
     }
@@ -63,17 +63,16 @@ public class CommentaireService {
     public Commentaire createCommentaire(Commentaire entity, User currentUser)
     {
         Date today = new Date();
-                Commentaire newCommentaire = new Commentaire();
-                newCommentaire.setContenu(entity.getContenu());
-                newCommentaire.setDateCommentaire(today);
-                newCommentaire.setSite(entity.getSite());
-                newCommentaire.setUser(currentUser);
+        Commentaire newCommentaire = new Commentaire();
+        newCommentaire.setContenu(entity.getContenu());
+        newCommentaire.setDateCommentaire(today);
+        newCommentaire.setSite(entity.getSite());
+        newCommentaire.setUser(currentUser);
+        newCommentaire = commentaireRepository.save(newCommentaire);
+        logger.info(" retour de la nouvelle entité commentaire de createOrUpdateCommentaire qui a été sauvegardée et le commentaire est existant");
+        return newCommentaire;
 
-                newCommentaire = commentaireRepository.save(newCommentaire);
-
-                logger.info(" retour de la nouvelle entité commentaire de createOrUpdateCommentaire qui a été sauvegardée et le commentaire est existant");
-                return newCommentaire;
-        }
+    }
 
 
 

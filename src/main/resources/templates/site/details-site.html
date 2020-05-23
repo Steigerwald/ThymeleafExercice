@@ -46,16 +46,18 @@
                        <h2>Descriptif du site: </h2>
                        <p th:text="${site.descriptif}"></p>
                        <h2>Topo: </h2>
-                       <p th:text="${site.topo.nomTopo}"></p>
+                       <p th:text="|${site.topo.nomTopo}|+' qui est '+|${site.topo.toStringLocation()}|"></p>
                    </div>
                    <div class="card col-lg-12" id="photo">
-                       <form th:action="@{/sites/laisserCommentaires}" th:object="${commentaire}" method="post" >
+                       <form th:action="@{/commentaires/laisserCommentaires/{id}(id=${site.idSite})}" th:object="${commentaire}" method="post" >
+                           <br>
                             <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Vous pouvez laisser vos commentaires sur ce Site</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" th:field="*{commentaire.contenu}"></textarea>
+                                <label for="exampleFormControlTextarea1">Vous pouvez laisser vos commentaires ci-dessous:</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" th:field="*{contenu}"></textarea>
                             </div>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-download"></i> Enregistrer</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-cloud-download-alt"></i> Envoyer</button>
                            <input type="hidden" id="id" th:field="*{idCommentaire}">
+                           <input type="hidden" id="site" th:field="*{site}" th:value="${site.idSite}">
                         </form>
                    </div>
                </section>

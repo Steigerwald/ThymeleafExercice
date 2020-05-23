@@ -1,5 +1,6 @@
 package com.mkyong.controller;
 
+import com.mkyong.entity.Commentaire;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.Topo;
 import com.mkyong.exception.RecordNotFoundException;
@@ -83,8 +84,10 @@ public class siteController {
     @RequestMapping(path="/details/{id}",method = RequestMethod.GET)
     public String getDetailsSite(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 
-        Site siteTrouve=siteService.getSiteById(id);
+        Commentaire commentaire = new Commentaire();
+        model.addAttribute(commentaire);
 
+        Site siteTrouve=siteService.getSiteById(id);
         model.addAttribute("site", siteTrouve);
 
         return "site/details-site"; //view

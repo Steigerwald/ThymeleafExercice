@@ -78,7 +78,7 @@ public class Topo {
 
     public String toStringDisponible(){
         if (disponible==true){
-            return "libre";
+            return "disponible";
         }else{
             return "réservé";
         }
@@ -86,9 +86,9 @@ public class Topo {
 
     public String toStringLocation(){
         if (location==true){
-            return "oui";
+            return "disponible en location";
         }else{
-            return "non";
+            return "indisponible en location";
         }
     }
 

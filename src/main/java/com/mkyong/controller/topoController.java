@@ -1,5 +1,6 @@
 package com.mkyong.controller;
 
+import com.mkyong.entity.Commentaire;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.Topo;
 import com.mkyong.exception.RecordNotFoundException;
@@ -94,6 +95,7 @@ public class topoController {
 
         Topo topoTrouve=topoService.getTopoById(id);
         model.addAttribute("topo", topoTrouve);
+
         if (topoTrouve.getLocation()==true) {
             if (topoTrouve.getDisponible()==true){
                 model.addAttribute("enableButton", 1);
