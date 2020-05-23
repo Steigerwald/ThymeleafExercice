@@ -20,10 +20,10 @@ import java.util.List;
 public class voieController {
 
     @Autowired
-    VoieService voieService;
+    private VoieService voieService;
 
     @Autowired
-    SecteurService secteurService;
+    private SecteurService secteurService;
 
     /* Controller pour la liste des voies */
     @RequestMapping(method = RequestMethod.GET)
@@ -41,8 +41,6 @@ public class voieController {
        voieService.deleteVoieById(id);
         return "redirect:/voies";
     }
-
-
 
     /* controller pour l'edition d'une voie par Id */
     @RequestMapping(path = "/edit/{id}",method = RequestMethod.GET)

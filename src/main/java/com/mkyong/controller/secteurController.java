@@ -20,10 +20,10 @@ import java.util.List;
 public class secteurController {
 
     @Autowired
-    SecteurService secteurService;
+    private SecteurService secteurService;
 
     @Autowired
-    SiteService siteService;
+    private SiteService siteService;
 
     /* Controller pour la liste des secteurs */
     @RequestMapping(method = RequestMethod.GET)

@@ -25,10 +25,10 @@ public class topoController {
 
 
     @Autowired
-    TopoService topoService;
+    private TopoService topoService;
 
     @Autowired
-    SiteService siteService;
+    private SiteService siteService;
 
     /* Controller pour la liste des topos */
     @RequestMapping(method = RequestMethod.GET)

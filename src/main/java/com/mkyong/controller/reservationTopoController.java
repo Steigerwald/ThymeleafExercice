@@ -44,6 +44,15 @@ public class reservationTopoController {
         return "reservation/list-reservationTopos"; //view
     }
 
+    /* Controller pour la liste des topos */
+    @RequestMapping(path = "/gestion",method = RequestMethod.GET)
+    public String getAllReservationsMonitoring(Model model) {
+        List<Reservation> listReservations = reservationTopoService.getAllReservationTopos();
+        model.addAttribute("reservations", listReservations);
+        return "reservation/gestion-reservation"; //view
+    }
+
+
     /* controller pour annuler une réservation de la base de données*/
     @RequestMapping(path = "/annulerReservation/{id}",method = RequestMethod.POST)
     public String deleteReservationTopoById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
@@ -62,7 +71,6 @@ public class reservationTopoController {
     /*controller pour créer une réservation dans la base de données*/
     @RequestMapping(path = "/reserverTopo/{id}",method = RequestMethod.POST)
     public String reserverReservationTopo(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-
             Topo topoReserve = topoService.getTopoById(id);
             model.addAttribute("topo", topoReserve);
             logger.info(" retour de l'entité: " + topoReserve);

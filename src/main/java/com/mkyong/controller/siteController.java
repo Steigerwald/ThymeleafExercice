@@ -19,10 +19,10 @@ import java.util.List;
 public class siteController {
 
     @Autowired
-    SiteService siteService;
+    private SiteService siteService;
 
     @Autowired
-    TopoService topoService;
+    private TopoService topoService;
 
     /* Controller pour la liste des sites */
     @RequestMapping(method = RequestMethod.GET)

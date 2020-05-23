@@ -15,7 +15,7 @@
 <body>
 <div th:insert="~{baniere :: fragment }"></div>
     <main>
-        <div class="container col-sm-12 col-lg-12 col-xl-12">
+        <div class="container-fluid col-xs-4 col-sm-6 col-md-8 col-lg-12">
             <div class="row">
                     <div class="jumbotron col-lg-10">
                         <div class=container>
@@ -49,8 +49,14 @@
                        <p th:text="${site.topo.nomTopo}"></p>
                    </div>
                    <div class="card col-lg-12" id="photo">
-                       <h2>Autre</h2>
-                       <h1>Photo</h1>
+                       <form th:action="@{/sites/laisserCommentaires}" th:object="${commentaire}" method="post" >
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Vous pouvez laisser vos commentaires sur ce Site</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" th:field="*{commentaire.contenu}"></textarea>
+                            </div>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-download"></i> Enregistrer</button>
+                           <input type="hidden" id="id" th:field="*{idCommentaire}">
+                        </form>
                    </div>
                </section>
                 <aside class="col-lg-6" id="Carte">
@@ -78,15 +84,6 @@
                     </div>
                 </aside>
             </div>
-            <!--<form th:action="@{/sites/laisserCommentaires}" th:object="${commentaire}" method="post" >
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Vous pouvez laisser vos commentaires sur ce Site</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" th:field="*{commentaire.contenu}"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary"><i class="fas fa-download"></i> Enregistrer</button>
-                <input type="hidden" id="id" th:field="*{idCommentaire}">
-            </form>-->
-
         </div>
     </main>
 </body>

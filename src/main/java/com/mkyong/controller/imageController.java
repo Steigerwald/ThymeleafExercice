@@ -18,7 +18,7 @@ import java.util.List;
 public class imageController {
 
     @Autowired
-    ImageService imageEntityService;
+    private ImageService imageEntityService;
 
 
     @RequestMapping(method = RequestMethod.GET)

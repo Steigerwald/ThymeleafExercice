@@ -7,6 +7,10 @@
     padding-left: 30px;
 }
 
+h1.fond {
+    text-align: center!important;
+}
+
 .fond {
 
     /*position: fixed !important; /* Le fond est fixé en haut de la page */
@@ -23,8 +27,8 @@
 }
 .jumbotron {
     /*position: absolute;*/
-    align-items: center!important;
-    text-align: center!important;
+   /* align-items: center!important;
+    text-align: center!important;*/
     margin-bottom: 0px !important;
     width: 1300px !important;
     height:200px !important;

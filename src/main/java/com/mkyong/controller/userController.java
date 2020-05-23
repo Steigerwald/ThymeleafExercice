@@ -26,13 +26,13 @@ public class userController {
     Logger logger = (Logger) LoggerFactory.getLogger(userController.class);
 
     @Autowired
-    CustomUserDetailsService customUserDetailsService;
+    private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
 
     /* Controller pour la page d'entrée sans connection */

@@ -35,6 +35,7 @@
                                     <a class="dropdown-item" th:href="@{/voies}">Liste des voies</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" th:href="@{/reservations}">Liste des réservations</a>
+                                    <a class="dropdown-item" th:href="@{/reservations/gestion}">Gestion des réservations</a>
                                 </div>
                             </li>
                         </ul>
@@ -48,7 +49,7 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" th:href="@{/admin/images}">Liste des images</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" th:href="@{/admin/commentaires}">Liste des commentaires</a>
+                                    <a class="dropdown-item" th:href="@{/commentaires}">Liste des commentaires</a>
                                 </div>
                             </li>
                             <li class="nav-item"><a class="nav-link" th:text="${message1 !=null and message2 !=null} ? ${message1}+' '+ ${message2}:' '"></a></li>

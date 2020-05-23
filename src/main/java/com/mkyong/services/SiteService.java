@@ -22,10 +22,8 @@ public class SiteService {
     Logger logger = (Logger) LoggerFactory.getLogger(SiteService.class);
 
 
-    public List<Site> getAllSites()
-    {
+    public List<Site> getAllSites() {
         List<Site> result1 =(List<Site>) siteRepository.findAll();
-
         if(result1.size() > 0) {
             logger.info(" retour liste result1 si taille de result1 >0 ");
             return result1;
@@ -35,10 +33,8 @@ public class SiteService {
         }
     }
 
-    public Site getSiteById(Long id) throws RecordNotFoundException
-    {
+    public Site getSiteById(Long id) throws RecordNotFoundException {
         Optional<Site> site = siteRepository.findById(id);
-
         if(site.isPresent()) {
             logger.info(" retour du site car il est présent ");
             return site.get();
@@ -47,8 +43,7 @@ public class SiteService {
         }
     }
 
-    public Site createOrUpdateSite(Site entity)
-    {
+    public Site createOrUpdateSite(Site entity) {
         if(entity.getIdSite()  == null)
         {
             entity = siteRepository.save(entity);
@@ -73,10 +68,8 @@ public class SiteService {
     }
 
 
-    public void deleteSiteById(Long id) throws RecordNotFoundException
-    {
+    public void deleteSiteById(Long id) throws RecordNotFoundException {
         Optional<Site> site = siteRepository.findById(id);
-
         if(site.isPresent())
         {
             siteRepository.deleteById(id);
