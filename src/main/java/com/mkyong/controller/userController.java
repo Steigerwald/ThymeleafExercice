@@ -1,8 +1,10 @@
 package com.mkyong.controller;
 
+import com.mkyong.entity.Site;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.CustomUserDetailsService;
+import com.mkyong.services.SiteService;
 import com.mkyong.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,8 @@ public class userController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SiteService siteService;
 
     /* Controller pour la page d'entrée sans connection */
     @RequestMapping(method = RequestMethod.GET)
@@ -76,6 +80,8 @@ public class userController {
         } else {
             model.addAttribute("user", new User());
         }
+        List<Site> listSites = siteService.getAllSites();
+        model.addAttribute("sites",listSites);
         model.addAttribute("titreFormUser","Editer un user");
         return "user/add-edit-user";
     }
@@ -84,7 +90,6 @@ public class userController {
     @RequestMapping(path="home",method = RequestMethod.GET)
     public String formUser(Principal principal, Model model) throws RecordNotFoundException {
 
-        System.out.println(principal);
         User newUser = userService.getUserByMail(principal.getName());
        String nom=newUser.getNomUser();
        String prenom=newUser.getPrenomUser();
@@ -93,6 +98,17 @@ public class userController {
         logger.info(" on est passe par la avant l'appel de la page home/home de url /home");
             return "home/home";
     }
+
+    /* controller de la page de espace perso */
+    @RequestMapping(path="user/espacePersonnel",method = RequestMethod.GET)
+    public String EspacePersonnelUser(Principal principal, Model model) throws RecordNotFoundException {
+
+        User newUser = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", newUser);
+        return "user/espacePersonnel";
+    }
+
+
 
     /* controller pour la page de l'administrateur */
     @RequestMapping(path="admin/users",method = RequestMethod.GET)

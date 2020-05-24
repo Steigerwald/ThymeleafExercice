@@ -5,6 +5,8 @@ import com.mkyong.entity.Topo;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.ReservationTopoRepository;
+import com.mkyong.repository.TopoRepository;
+import com.mkyong.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,11 @@ public class ReservationTopoService {
     private ReservationTopoRepository reservationTopoRepository;
 
     @Autowired
-    private TopoService topoService;
+    private TopoRepository topoRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
     Logger logger = (Logger) LoggerFactory.getLogger(ReservationTopoService.class);
 
@@ -55,6 +61,7 @@ public class ReservationTopoService {
             if (reservation.isPresent()) {
                 Reservation topoReservationTrouve = getReservationTopoById(id);
                 topoReservationTrouve.getTopo().setDisponible(true);
+                //topoRepository.save(topoReservationTrouve.getTopo());
                 reservationTopoRepository.deleteById(id);
             } else {
                 throw new RecordNotFoundException("Pas de reservation enregistrée avec cet Id");
@@ -84,6 +91,8 @@ public class ReservationTopoService {
                 listeReservations.add(newReservation);
                 currentUser.setReservations(listeReservations);
                 reservationTopoRepository.save(newReservation);
+                topoRepository.save(entity);
+                userRepository.save(currentUser);
                 logger.info(" retour de l'entité de createReservationTopo car l'Id n'existe pas et donc la réservation a été créee");
             } else {
                 logger.info(" retour de l'entité reservation n'a pas été sauvegardée car la reservation est existante ou non disponible");

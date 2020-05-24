@@ -3,9 +3,11 @@ package com.mkyong.controller;
 import com.mkyong.entity.Commentaire;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.Topo;
+import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.SiteService;
 import com.mkyong.services.TopoService;
+import com.mkyong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,9 @@ public class siteController {
 
     @Autowired
     private TopoService topoService;
+
+    @Autowired
+    private UserService userService;
 
     /* Controller pour la liste des sites */
     @RequestMapping(method = RequestMethod.GET)
@@ -56,7 +61,8 @@ public class siteController {
         }
         List<Topo> listTopos = topoService.getAllTopos();
         model.addAttribute("topos",listTopos);
-
+        List<User> listUsers = userService.getAllUsers();
+        model.addAttribute("users",listUsers);
         model.addAttribute("titreFormSite","Editer un site");
         return "site/add-edit-site";
     }
@@ -69,6 +75,8 @@ public class siteController {
         model.addAttribute("titreFormSite","Ajouter un site");
         List<Topo> listTopos = topoService.getAllTopos();
         model.addAttribute("topos",listTopos);
+        List<User> listUsers = userService.getAllUsers();
+        model.addAttribute("users",listUsers);
         return "site/add-edit-site";
     }
 

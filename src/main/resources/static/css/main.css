@@ -64,7 +64,7 @@ img {
     justify-content:start !important;
     border-color: white !important;
     text-align: left !important;
-
+    width:1000px!important;
 }
 #carte{
     height: 250px !important;

@@ -3,9 +3,11 @@ package com.mkyong.controller;
 import com.mkyong.entity.Commentaire;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.Topo;
+import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.SiteService;
 import com.mkyong.services.TopoService;
+import com.mkyong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,9 @@ public class topoController {
 
     @Autowired
     private SiteService siteService;
+
+    @Autowired
+    private UserService userService;
 
     /* Controller pour la liste des topos */
     @RequestMapping(method = RequestMethod.GET)
@@ -62,6 +67,8 @@ public class topoController {
             model.addAttribute("topo", new Topo());
             model.addAttribute("today", today);
         }
+        List<User> listUsers = userService.getAllUsers();
+        model.addAttribute("users",listUsers);
         List<Site> listSites = siteService.getAllSites();
         model.addAttribute("sites",listSites);
         model.addAttribute("titreFormTopo","Editer un topo");
@@ -75,10 +82,10 @@ public class topoController {
         model.addAttribute("today", today);
         model.addAttribute("topo", new Topo());
         model.addAttribute("titreFormTopo","Ajouter un topo");
-
+        List<User> listUsers = userService.getAllUsers();
+        model.addAttribute("users",listUsers);
         List<Site> listSites = siteService.getAllSites();
         model.addAttribute("sites",listSites);
-
         return "topo/add-edit-topo";
     }
 

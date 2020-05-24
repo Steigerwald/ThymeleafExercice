@@ -3,6 +3,7 @@ package com.mkyong.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.GenerationType;
 import javax.validation.constraints.NotNull;
@@ -64,6 +65,31 @@ public class User {
 
     public String toStringRole(Role role) {
         return " "+ role;
+    }
+
+    public String toStringTopos() {
+        String[]tabTopos=new String [topos.size()];
+        Iterator iterator = topos.iterator();
+        while (iterator.hasNext()) {
+            for (int i=0;i<topos.size();i++){
+                tabTopos [i]=iterator.next().toString();
+            }
+        }
+        String joinedResult=String.join(",",tabTopos);
+        return joinedResult;
+    }
+
+    public String toStringReservations() {
+        String[]tabReservations=new String [reservations.size()];
+
+        Iterator iterator = reservations.iterator();
+        while (iterator.hasNext()) {
+            for (int i=0;i<reservations.size();i++){
+                tabReservations [i]=iterator.next().toString();
+            }
+        }
+        String joinedResult=String.join(",",tabReservations);
+        return joinedResult;
     }
 
     //constructeurs

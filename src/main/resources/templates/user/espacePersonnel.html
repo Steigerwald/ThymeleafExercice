@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Les données du user connecté</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/barre.css}" />
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.4.1/css/all.css}" />
+</head>
+
+<body>
+    <div th:insert="~{baniere :: fragment }"></div>
+    <main>
+        <h1 th:text="'Votre espace '+|${user.nomUser}| +' '+ |${user.prenomUser}|"></h1>
+        <div class="container col-lg-12">
+            <header class="row">
+            </header>
+            <div class="row">
+                <section class="col-lg-12">
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="table-responsive text-nowrap ncol-md-12">
+                                        <div>
+                                            <table class="table table-striped" >
+                                                <thead>
+                                                <tr>
+                                                    <th th:text="'site de la propriété de '+|${user.nomUser}|"></th>
+                                                    <th>Liste des réservations</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td> <a th:text="${user.site.nomSite}" th:href="@{/sites/details/{nom} (nom=${user.site.idSite})}" ></a> </td>
+                                                    <td th:text="${user.toStringReservations()}"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div th:if="${user.topos}==null"></div>
+                                    <div th:unless="${user.topos}==null">
+                                        <h2 th:text="'Vos topos actuellement sont: '+ |${user.toStringTopos()}|"></h2>
+                                        <table class="table table-striped" >
+                                            <thead>
+                                            <tr>
+                                                <th>Nom du topo</th>
+                                                <th>Etat réservation</th>
+                                                <th>Disponible pour la Location</th>
+                                                <th>Rendre disponible la location</th>
+                                                <th>Interdire la location</th>
+                                                <!--<th>Liste des topos loués</th>-->
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="topo : ${user.topos}">
+                                                <td th:text="${topo.nomTopo}"> </td>
+                                                <td th:text="${topo.toStringDisponible()}"></td>
+                                                <td th:text="${topo.toStringLocation()}"></td>
+                                                <td>
+                                                    <form th:action="@{/topos/DisponibleLocation/{id}(id=${topo.idTopo})}" method="post">
+                                                        <button class="btn btn-info my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <form th:action="@{/topos/AnnulerLocation/{id}(id=${topo.idTopo})}" method="post">
+                                                        <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
+                                                    </form>
+                                                </td>
+                                                <!--<td th:text="${user.topos.}"></td>-->
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <Footer class="pagination">
+            <nav aria-label="pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{/home}" tabindex="-1"><i class="fas fa-undo"></i> Retour</a>
+                    </li>
+                </ul>
+            </nav>
+        </Footer>
+    </main>
+</body>
+<div th:insert="~{bootstrap :: fragment }"></div>
+</html>

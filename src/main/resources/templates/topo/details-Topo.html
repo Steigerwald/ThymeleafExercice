@@ -29,12 +29,15 @@
                             <table class="table table-striped" >
                                 <thead>
                                 <tr>
+                                    <th>Nom du propriétaire</th>
                                     <th>Etat de réservation du Topo</th>
                                     <th>Réserver le Topo </th>
                                     <th>Annuler la réservation </th>
                                 </tr>
                                 </thead>
                                 <tr>
+                                   <td th:text="${topo.owner.nomUser}">
+                                   </td>
                                     <td th:text="${topo.toStringDisponible()}">
                                     </td>
                                     <td>
