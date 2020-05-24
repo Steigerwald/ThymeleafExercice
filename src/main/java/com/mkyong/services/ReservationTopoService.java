@@ -38,6 +38,7 @@ public class ReservationTopoService {
     }
 
     public Reservation getReservationTopoById(Long id) throws RecordNotFoundException {
+
         Optional<Reservation> reservation = reservationTopoRepository.findById(id);
 
         if (reservation.isPresent()) {
@@ -75,7 +76,7 @@ public class ReservationTopoService {
                 newReservation.setUser(currentUser);
 
                 // je renseigne la reservation dans le topo
-                entity.setDisponible(false);
+                entity.setDisponible(true);
                 entity.setReservation(newReservation);
 
                 // je renseigne la reservation dans le user
@@ -88,6 +89,34 @@ public class ReservationTopoService {
                 logger.info(" retour de l'entité reservation n'a pas été sauvegardée car la reservation est existante ou non disponible");
             }
     }
+
+    public void updateReservationTopo(Reservation entity) throws RecordNotFoundException {
+
+        if ((entity.getIdReservation()) != null) {
+
+            Optional<Reservation> reservation = reservationTopoRepository.findById(entity.getIdReservation());
+            if (reservation.isPresent()) {
+
+                // je modifie la réservation du topo
+                Reservation updateReservation = new Reservation();
+                updateReservation.setIdReservation(entity.getIdReservation());
+                updateReservation.setAcceptation(entity.getAcceptation());
+                updateReservation.setDateReservation(entity.getDateReservation());
+                updateReservation.setTopo(entity.getTopo());
+                updateReservation.setUser(entity.getUser());
+                reservationTopoRepository.save(updateReservation);
+                logger.info(" l'entité de updateReservation a été modifiée dans la base");
+
+            } else {
+                logger.info(" l'entité reservation n'a pas été sauvegardée car la reservation n'est pas existante ou non disponible");
+            }
+
+        } else {
+            logger.info(" l'entité passée en paramètre de updateReservation n'existe pas ");
+        }
+    }
+
+
 }
 
 

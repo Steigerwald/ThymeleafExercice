@@ -79,5 +79,30 @@ public class reservationTopoController {
         model.addAttribute("enableButton", 2);
                 return "redirect:/topos/details/{id}";
     }
+
+    /*controller pour accepter une réservation dans la base de données*/
+    @RequestMapping(path = "/reservationAcceptee/{id}",method = RequestMethod.POST)
+    public String accepterReservationTopo(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+
+        logger.info("retour de l'id de la reservation concernée "+id);
+        Reservation reservationAcceptee = reservationTopoService.getReservationTopoById(id);
+        reservationAcceptee.setAcceptation(true);
+        reservationAcceptee.getTopo().setDisponible(false);
+        topoService.createOrUpdateTopo(reservationAcceptee.getTopo());
+        reservationTopoService.updateReservationTopo(reservationAcceptee);
+        return "redirect:/reservations/gestion";
+    }
+
+
+    /*controller pour refuser l'acceptation la demnde d'une réservation dans la base de données*/
+    @RequestMapping(path = "/reservationRefusee/{id}",method = RequestMethod.POST)
+    public String refuserReservationTopo(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+
+        logger.info("retour de l'id de la reservation concernée "+id);
+        Reservation reservationAcceptee = reservationTopoService.getReservationTopoById(id);
+        reservationTopoService.deleteReservationTopoById(id);
+        return "redirect:/reservations/gestion";
+    }
+
 }
 

@@ -58,6 +58,11 @@
                                     </td>
                                 </tr>
                             </table>
+                            <div th:if="${topo.reservation} and !${topo.reservation.acceptation}"class="alert alert-info alert-dismissable">
+                                <p>
+                                     <span>Votre réservation a été prise en compte, vous devez attendre maintenant que le propriétaire accepte votre demande</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
