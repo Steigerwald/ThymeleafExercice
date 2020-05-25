@@ -55,7 +55,7 @@ public class reservationTopoController {
 
     /* controller pour annuler une réservation de la base de données*/
     @RequestMapping(path = "/annulerReservation/{id}",method = RequestMethod.POST)
-    public String deleteReservationTopoById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String deleteReservationTopoById(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         logger.info("retour de l'id du topo concerné "+id);
         Topo topoReserve = topoService.getTopoById(id);
         model.addAttribute("topo", topoReserve);
@@ -88,6 +88,7 @@ public class reservationTopoController {
         Reservation reservationAcceptee = reservationTopoService.getReservationTopoById(id);
         reservationAcceptee.setAcceptation(true);
         reservationAcceptee.getTopo().setDisponible(false);
+        reservationAcceptee.getTopo().setReservation(reservationAcceptee);
         topoService.createOrUpdateTopo(reservationAcceptee.getTopo());
         reservationTopoService.updateReservationTopo(reservationAcceptee);
         return "redirect:/reservations/gestion";
@@ -99,7 +100,10 @@ public class reservationTopoController {
     public String refuserReservationTopo(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 
         logger.info("retour de l'id de la reservation concernée "+id);
-        Reservation reservationAcceptee = reservationTopoService.getReservationTopoById(id);
+        Reservation reservationRefusee = reservationTopoService.getReservationTopoById(id);
+        reservationRefusee.getTopo().setReservation(null);
+        reservationRefusee.getTopo().setDisponible(true);
+        topoService.createOrUpdateTopo(reservationRefusee.getTopo());
         reservationTopoService.deleteReservationTopoById(id);
         return "redirect:/reservations/gestion";
     }

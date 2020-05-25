@@ -48,7 +48,13 @@
                        <h2>Topo: </h2>
                        <p th:text="|${site.topo.nomTopo}|+' qui est '+|${site.topo.toStringLocation()}|"></p>
                    </div>
-                   <div class="card col-lg-12" id="photo">
+                   <div class="card col-lg-12">
+                       <h2>Les commentaires des utilisateurs : </h2>
+                       <ul th:each="commentaire : ${site.commentaires}">
+                           <li th:text="${commentaire.contenu}"></li>
+                       </ul>
+                   </div>
+                   <div class="card col-lg-12">
                        <form th:action="@{/commentaires/laisserCommentaires/{id}(id=${site.idSite})}" th:object="${commentaire}" method="post" >
                            <br>
                             <div class="form-group">

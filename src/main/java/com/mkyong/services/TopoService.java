@@ -69,10 +69,12 @@ public class TopoService {
                 newTopo.setIdTopo(entity.getIdTopo());
                 newTopo.setNomTopo(entity.getNomTopo());
                 newTopo.setDescription(entity.getDescription());
-                newTopo.setDateParution(today);
+                newTopo.setDateParution(entity.getDateParution());
                 newTopo.setDisponible(entity.getDisponible());
                 newTopo.setLocation(entity.getLocation());
-
+                newTopo.setSites(entity.getSites());
+                newTopo.setReservation(entity.getReservation());
+                newTopo.setOwner(entity.getOwner());
                 newTopo = topoRepository.save(newTopo);
 
                 logger.info(" retour de la nouvelle entité topo de createOrUpdateTopo qui a été sauvegardée et le topo est existant");

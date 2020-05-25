@@ -61,7 +61,8 @@ public class ReservationTopoService {
             if (reservation.isPresent()) {
                 Reservation topoReservationTrouve = getReservationTopoById(id);
                 topoReservationTrouve.getTopo().setDisponible(true);
-                //topoRepository.save(topoReservationTrouve.getTopo());
+                logger.info(" retour de l'entité de deletereservationTopoById "+topoReservationTrouve.getTopo().getOwner().getNomUser());
+                topoRepository.save(topoReservationTrouve.getTopo());
                 reservationTopoRepository.deleteById(id);
             } else {
                 throw new RecordNotFoundException("Pas de reservation enregistrée avec cet Id");
@@ -84,12 +85,14 @@ public class ReservationTopoService {
 
                 // je renseigne la reservation dans le topo
                 entity.setDisponible(true);
+                logger.info(" retour de l'entité de createReservationTopo "+entity.getOwner().getNomUser());
                 entity.setReservation(newReservation);
 
                 // je renseigne la reservation dans le user
                 Collection listeReservations = currentUser.getReservations();
                 listeReservations.add(newReservation);
                 currentUser.setReservations(listeReservations);
+
                 reservationTopoRepository.save(newReservation);
                 topoRepository.save(entity);
                 userRepository.save(currentUser);
