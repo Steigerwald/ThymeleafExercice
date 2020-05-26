@@ -15,7 +15,7 @@
 <body>
     <div th:insert="~{baniere :: fragment }"></div>
     <main>
-        <h1 th:text="'Votre espace '+|${user.nomUser}| +' '+ |${user.prenomUser}|"></h1>
+        <h1 th:text="'L\'espace de '+|${user.nomUser}| +' '+ |${user.prenomUser}|"></h1>
         <div class="container col-lg-12">
             <header class="row">
             </header>
@@ -44,8 +44,10 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div th:if="${user.topos}==null"></div>
-                                    <div th:unless="${user.topos}==null">
+                                    <div th:if="${user.topos}!=null">
+                                        <h2>Vous ne possédez pas de topo  </h2>
+                                    </div>
+                                    <div th:unless="${user.topos}!=null">
                                         <h2 th:text="'Vos topos actuellement sont: '+ |${user.toStringTopos()}|"></h2>
                                         <table class="table table-striped" >
                                             <thead>
@@ -65,7 +67,7 @@
                                                 <td th:text="${topo.toStringLocation()}"></td>
                                                 <td>
                                                     <form th:action="@{/topos/DisponibleLocation/{id}(id=${topo.idTopo})}" method="post">
-                                                        <button class="btn btn-info my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
+                                                        <button class="btn btn-info my-2 my-sm-0" type="submit"><span class="fas fa-check-square ml-2"></span></button>
                                                     </form>
                                                 </td>
                                                 <td>

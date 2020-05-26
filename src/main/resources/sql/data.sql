@@ -50,19 +50,22 @@ INSERT INTO escalades.TBL_SITE (id_site, descriptif, lieu, nom_site,topo_id_topo
 (5, 'site du mont Oublié, sur la colline', 'Massif Armoricain','Le mont',3);
 
 INSERT INTO escalades.TBL_TOPO (id_topo, date_parution, description, disponible, location, nom_topo,owner_id_user) VALUES
-(1,'2019-09-28 02:45:30', 'topo pour profiter de l"ile, de la montagne et des volcans',1,1,'La balade complète',4),
-(2,'2019-11-28 02:55:30', 'topo pour profiter du centre montagneux de la France',1,1,'La vieille montagne',4),
-(3,'2020-01-28 11:45:30', 'topo pour profiter de la Bretagne, des collines de granite',1,1,'Kenavo',5);
+(1,'2019-09-28 02:45:30', 'topo pour profiter de l"ile, de la montagne et des volcans',0,1,'La balade complète',4),
+(2,'2019-11-28 02:55:30', 'topo pour profiter du centre montagneux de la France',0,1,'La vieille montagne',4),
+(3,'2020-01-28 11:45:30', 'topo pour profiter de la Bretagne, des collines de granite',0,1,'Kenavo',5),
+(4,'2020-02-14 11:45:30', 'topo pour profiter de la haute altitude',0,1,'Alpes',1);
+
 
 INSERT INTO escalades.TBL_RESERVATION (id_reservation, acceptation, date_reservation,topo_id_topo,user_id_user) VALUES
 (1,1,'2020-04-28 02:45:30',2,1),
 (2,0,'2020-04-21 02:45:30',3,2),
 (3,1,'2020-05-04 02:45:30',1,1);
 
-INSERT INTO escalades.TBL_COMMENTAIRE (id_commentaire, contenu, date_commentaire, site_id_site) VALUES
-(1,'Trop compliqué, pas d"eau','2020-04-29 02:45:30', 1),
-(2,'hyper facile, même trop','2020-05-01 02:45:30', 4),
-(3,'super content, trop d"eau','2020-04-28 02:45:30', 5),
-(4,'quelle galère pour la marche à pieds','2020-04-26 03:56:24',2);
+INSERT INTO escalades.TBL_COMMENTAIRE (id_commentaire, contenu, date_commentaire, site_id_site,user_id_user) VALUES
+(1,'Trop compliqué, pas d"eau','2020-04-29 02:45:30', 1,4),
+(2,'hyper facile, même trop','2020-05-01 02:45:30', 4,3),
+(3,'super content, trop d"eau','2020-04-28 02:45:30', 5,5),
+(4,'quelle galère pour la marche à pieds','2020-04-26 03:56:24',2,1),
+(5,'je ne suis pas fan de ce site','2020-04-26 03:56:24',4,3);
 
 SET FOREIGN_KEY_CHECKS=1;

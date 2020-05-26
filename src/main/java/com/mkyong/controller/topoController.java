@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -89,7 +90,7 @@ public class topoController {
         return "topo/add-edit-topo";
     }
 
-    /* controller pour enregistrer les données d'un topo dans la base de données */
+    /* controller pour creer un topo dans la base de données */
     @RequestMapping(path = "/createTopo", method = RequestMethod.POST)
     public String createOrUpdateVoie(Topo topo) {
         topoService.createOrUpdateTopo(topo);
@@ -114,5 +115,32 @@ public class topoController {
         }
         return "topo/details-Topo"; //view
     }
+
+    /* controller pour rendre disponible en location un topo dans la base de données */
+    @RequestMapping(path = "/DisponibleLocation/{id}", method = RequestMethod.POST)
+    public String rendreDisponibleLocationTopo(Principal principal, Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+        Topo topoTrouve=topoService.getTopoById(id);
+        model.addAttribute("topo", topoTrouve);
+        User newUser = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", newUser);
+        topoTrouve.setLocation(true);
+        topoService.createOrUpdateTopo(topoTrouve);
+        return "user/espacePersonnel";
+    }
+
+    /* controller pour rendre disponible en location un topo dans la base de données */
+    @RequestMapping(path = "/AnnulerLocation/{id}", method = RequestMethod.POST)
+    public String rendreIndisponibleLocationTopo(Principal principal, Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+        Topo topoTrouve=topoService.getTopoById(id);
+        model.addAttribute("topo", topoTrouve);
+        User newUser = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", newUser);
+        topoTrouve.setLocation(false);
+        topoService.createOrUpdateTopo(topoTrouve);
+        return "user/espacePersonnel";
+    }
+
+
+
 
 }

@@ -108,8 +108,6 @@ public class userController {
         return "user/espacePersonnel";
     }
 
-
-
     /* controller pour la page de l'administrateur */
     @RequestMapping(path="admin/users",method = RequestMethod.GET)
     public String InsideHomeAdmin(Principal principal,Model model) {

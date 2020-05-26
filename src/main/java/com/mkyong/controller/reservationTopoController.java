@@ -95,7 +95,7 @@ public class reservationTopoController {
     }
 
 
-    /*controller pour refuser l'acceptation la demnde d'une réservation dans la base de données*/
+    /*controller pour refuser la réservation suite à la demande dans la base de données*/
     @RequestMapping(path = "/reservationRefusee/{id}",method = RequestMethod.POST)
     public String refuserReservationTopo(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 
