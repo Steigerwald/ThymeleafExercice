@@ -37,8 +37,8 @@
                                                     <th>Nom du Demandeur</th>
                                                     <th>Prénom du Demandeur</th>
                                                     <th>Etat de la réservation</th>
-                                                    <th>Acceptation</th>
-                                                    <th>Refuser</th>
+                                                    <!--<th>Acceptation</th>
+                                                    <th>Refuser</th>-->
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -49,18 +49,16 @@
                                                     <td th:text="${reservation.user.nomUser}"></td>
                                                     <td th:text="${reservation.user.prenomUser}"></td>
                                                     <td th:text="${reservation.toStringEtat()}"></td>
-                                                    <td>
+                                                   <!-- <td>
                                                         <form th:action="@{/reservations/reservationAcceptee/{id}(id=${reservation.idReservation})}" method="post">
                                                             <button class="btn btn-success my-2 my-sm-0" type="submit">Accepter</button>
-                                                            <!--<input type="hidden" id="idTopo1" th:field="*{idTopo}">-->
                                                         </form>
                                                     </td>
                                                     <td>
                                                         <form th:action="@{/reservations/reservationRefusee/{id}(id=${reservation.idReservation})}" method="post">
                                                             <button class="btn btn-danger my-2 my-sm-0" type="submit">Refuser</button>
-                                                            <!--<input type="hidden" id="idTopo1" th:field="*{idTopo}">-->
                                                         </form>
-                                                    </td>
+                                                    </td>-->
                                                 </tr>
                                                 </tbody>
                                             </table>

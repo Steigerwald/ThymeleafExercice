@@ -102,9 +102,9 @@ public class userController {
     /* controller de la page de espace perso */
     @RequestMapping(path="user/espacePersonnel",method = RequestMethod.GET)
     public String EspacePersonnelUser(Principal principal, Model model) throws RecordNotFoundException {
-
         User newUser = userService.getUserByMail(principal.getName());
         model.addAttribute("user", newUser);
+        model.addAttribute("enableButton",2);
         return "user/espacePersonnel";
     }
 

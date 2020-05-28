@@ -32,7 +32,6 @@
                                     <th>Nom du propriétaire</th>
                                     <th>Etat de réservation du Topo</th>
                                     <th>Réserver le Topo </th>
-                                    <th>Annuler la réservation </th>
                                 </tr>
                                 </thead>
                                 <tr>
@@ -46,15 +45,6 @@
                                                 <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="1" >Réserver</button>
                                                 <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="2" disabled>Réserver</button>
                                                 <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="3" disabled>Réserver</button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div th:switch="${enableButton}">
-                                            <form th:action="@{/reservations/annulerReservation/{id}(id=${topo.idTopo})}" method="post">
-                                                <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="1" disabled >Annuler</button>
-                                                <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="2" >Annuler</button>
-                                                <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="3" disabled >Annuler</button>
                                             </form>
                                         </div>
                                     </td>

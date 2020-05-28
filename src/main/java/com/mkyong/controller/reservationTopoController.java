@@ -56,14 +56,14 @@ public class reservationTopoController {
     /* controller pour annuler une réservation de la base de données*/
     @RequestMapping(path = "/annulerReservation/{id}",method = RequestMethod.POST)
     public String deleteReservationTopoById(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-        logger.info("retour de l'id du topo concerné "+id);
-        Topo topoReserve = topoService.getTopoById(id);
-        model.addAttribute("topo", topoReserve);
-        assert topoReserve.getReservation() != null;
-        logger.info(" retour de l'id de réservation de topoReserve: " + topoReserve.getReservation().getIdReservation());
-        reservationTopoService.deleteReservationTopoById(topoReserve.getReservation().getIdReservation());
+        logger.info("retour de l'id de la réservation concernée "+id);
+        Reservation reservationTrouvee = reservationTopoService.getReservationTopoById(id);
+        model.addAttribute("reservation", reservationTrouvee);
+        reservationTopoService.deleteReservationTopoById(id);
+        User newUser = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", newUser);
         model.addAttribute("enableButton", 1);
-        return "redirect:/topos/details/{id}";
+        return "user/espacePersonnel";
     }
 
     /*controller pour créer une réservation dans la base de données*/
@@ -82,30 +82,34 @@ public class reservationTopoController {
 
     /*controller pour accepter une réservation dans la base de données*/
     @RequestMapping(path = "/reservationAcceptee/{id}",method = RequestMethod.POST)
-    public String accepterReservationTopo(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String accepterReservationTopo(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 
         logger.info("retour de l'id de la reservation concernée "+id);
         Reservation reservationAcceptee = reservationTopoService.getReservationTopoById(id);
         reservationAcceptee.setAcceptation(true);
         reservationAcceptee.getTopo().setDisponible(false);
         reservationAcceptee.getTopo().setReservation(reservationAcceptee);
+        User newUser = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", newUser);
         topoService.createOrUpdateTopo(reservationAcceptee.getTopo());
         reservationTopoService.updateReservationTopo(reservationAcceptee);
-        return "redirect:/reservations/gestion";
+        return "user/espacePersonnel";
     }
 
 
     /*controller pour refuser la réservation suite à la demande dans la base de données*/
     @RequestMapping(path = "/reservationRefusee/{id}",method = RequestMethod.POST)
-    public String refuserReservationTopo(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String refuserReservationTopo(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
 
         logger.info("retour de l'id de la reservation concernée "+id);
         Reservation reservationRefusee = reservationTopoService.getReservationTopoById(id);
         reservationRefusee.getTopo().setReservation(null);
         reservationRefusee.getTopo().setDisponible(true);
+        User newUser = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", newUser);
         topoService.createOrUpdateTopo(reservationRefusee.getTopo());
         reservationTopoService.deleteReservationTopoById(id);
-        return "redirect:/reservations/gestion";
+        return "user/espacePersonnel";
     }
 
 }
