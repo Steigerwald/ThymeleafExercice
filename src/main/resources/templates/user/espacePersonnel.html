@@ -43,10 +43,9 @@
                                             </table>
                                         </div>
                                     </div>
-
-                                    <div th:if="${user.reservations}!=null">
-                                        <div class="table-responsive text-nowrap ncol-md-12">
-                                            <h2>Détails de vos réservations: </h2>
+                                    <div class="table-responsive text-nowrap ncol-md-12">
+                                        <h2>Détails de vos réservations: </h2>
+                                        <div th:if="${user.reservations}!=null">
                                             <table class="table table-striped" >
                                                 <thead>
                                                 <tr>
@@ -58,32 +57,32 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="reservation : ${user.reservations}">
-                                                    <td th:text="${reservation.idReservation}"> </td>
-                                                    <td th:text="${reservation.topo.nomTopo}"></td>
-                                                    <td th:text="${reservation.topo.owner.nomUser}"></td>
-                                                    <td th:text="${reservation.toStringDateReservation()}"></td>
-                                                    <td>
-                                                        <div th:switch="${enableButton}">
-                                                            <form th:action="@{/reservations/annulerReservation/{id}(id=${reservation.idReservation})}" method="post">
-                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="1" disabled >Annuler</button>
-                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="2" >Annuler</button>
-                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="3" disabled >Annuler</button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                    <tr th:each="reservation : ${user.reservations}">
+                                                        <td th:text="${reservation.idReservation}"> </td>
+                                                        <td th:text="${reservation.topo.nomTopo}"></td>
+                                                        <td th:text="${reservation.topo.owner.nomUser}"></td>
+                                                        <td th:text="${reservation.toStringDateReservation()}"></td>
+                                                        <td>
+                                                            <div th:switch="${enableButton}">
+                                                                <form th:action="@{/reservations/annulerReservation/{id}(id=${reservation.idReservation})}" method="post">
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="1" disabled >Annuler</button>
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="2" >Annuler</button>
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="3" disabled >Annuler</button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
-                                    <div th:unless="${user.reservations}!=null">
-                                        <h2>Vous n'avez pas de réservation en cours  </h2>
+                                        <div th:unless="${user.reservations}!=null">
+                                            <h2>Vous n'avez pas de réservation en cours  </h2>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="table-responsive text-nowrap ncol-md-12">
+                                        <h2>Vos topos actuellement:</h2>
                                         <div th:if="${user.topos}!=null">
-                                            <h2>Vos topos actuellement:</h2>
                                             <table class="table table-striped" >
                                                 <thead>
                                                 <tr>
@@ -114,9 +113,9 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                    </div>
-                                    <div th:unless="${user.topos}!=null">
-                                        <h2>Vous ne possédez pas de topo  </h2>
+                                        <div th:unless="${user.topos}!=null">
+                                            <h2>Vous ne possédez pas de topo  </h2>
+                                        </div>
                                     </div>
                                     <div class="table-responsive text-nowrap ncol-md-12">
                                         <h2>Les demandes et locations de vos topos:</h2>

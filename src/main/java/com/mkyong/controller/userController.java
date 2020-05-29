@@ -3,6 +3,7 @@ package com.mkyong.controller;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
+import com.mkyong.form.Search;
 import com.mkyong.services.CustomUserDetailsService;
 import com.mkyong.services.SiteService;
 import com.mkyong.services.UserService;

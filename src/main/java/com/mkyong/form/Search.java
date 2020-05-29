@@ -4,6 +4,8 @@ public class Search {
 
     private String lieu;
     private String hauteur;
+    private Integer nombreSecteurs;
+    private String cotation;
     private Integer nombreLongueurs;
     private Integer nombrePoints;
 
@@ -12,6 +14,12 @@ public class Search {
     }
 
     public String getHauteur() { return hauteur;
+    }
+
+    public Integer getNombreSecteurs() { return nombreSecteurs;
+    }
+
+    public String getCotation() { return cotation;
     }
 
     public Integer getNombreLongueurs() { return nombreLongueurs;
@@ -26,6 +34,12 @@ public class Search {
     }
 
     public void setHauteur(String hauteur) { this.hauteur = hauteur;
+    }
+
+    public void setNombreSecteurs(Integer nombreSecteurs) { this.nombreSecteurs = nombreSecteurs;
+    }
+
+    public void setCotation(String cotation) { this.cotation = cotation;
     }
 
     public void setNombreLongueurs(Integer nombreLongueurs) { this.nombreLongueurs = nombreLongueurs;

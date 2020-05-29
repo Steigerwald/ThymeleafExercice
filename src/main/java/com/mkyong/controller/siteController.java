@@ -1,10 +1,9 @@
 package com.mkyong.controller;
 
-import com.mkyong.entity.Commentaire;
-import com.mkyong.entity.Site;
-import com.mkyong.entity.Topo;
-import com.mkyong.entity.User;
+import com.mkyong.entity.*;
 import com.mkyong.exception.RecordNotFoundException;
+import com.mkyong.form.Search;
+import com.mkyong.services.SecteurService;
 import com.mkyong.services.SiteService;
 import com.mkyong.services.TopoService;
 import com.mkyong.services.UserService;
@@ -29,6 +28,9 @@ public class siteController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SecteurService secteurService;
 
     /* Controller pour la liste des sites */
     @RequestMapping(method = RequestMethod.GET)
@@ -101,5 +103,22 @@ public class siteController {
         return "site/details-site"; //view
     }
 
+    /* controller pour la recherche de sites */
+    @RequestMapping(path = "/search", method = RequestMethod.GET)
+    public String searchSitesBySearch(Model model) {
+        List<Site> listSites = siteService.getAllSites();
+        model.addAttribute("sites", listSites);
+        List<Secteur> listSecteurs=secteurService.getAllSecteurs();
+        model.addAttribute("secteurs", listSecteurs);
+        model.addAttribute("search", new Search());
+        return "site/search-sites";
+    }
 
+    /* controller pour la recherche de sites par le lieu données venant de la base de données */
+    @RequestMapping(path = "/search/mycriteres", method = RequestMethod.POST)
+    public String searchSitesByLieu(Search search,Model model) {
+        List<Site> listSitesTrouves = siteService.getAllSitesByLieu(search.getLieu());
+        model.addAttribute("sitesTrouves", listSitesTrouves);
+        return "site/list-sitesTrouves";
+    }
 }

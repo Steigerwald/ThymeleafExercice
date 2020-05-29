@@ -67,7 +67,6 @@ public class SiteService {
         }
     }
 
-
     public void deleteSiteById(Long id) throws RecordNotFoundException {
         Optional<Site> site = siteRepository.findById(id);
         if(site.isPresent())
@@ -77,5 +76,11 @@ public class SiteService {
             throw new RecordNotFoundException("Pas de site enregistré avec cet Id");
         }
     }
+
+    public List<Site> getAllSitesByLieu(String lieu){
+        List<Site> listSitesTrouves =siteRepository.findByLieu(lieu);
+        return listSitesTrouves;
+    }
+
 
 }
