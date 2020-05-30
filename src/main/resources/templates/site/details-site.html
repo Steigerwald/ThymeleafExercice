@@ -77,7 +77,7 @@
                         <ul th:each="secteur : ${site.secteurs}">
                             <h2 th:text="'Details du secteur '+|${secteur.nomSecteur}|+' :'"></h2>
                             <ul>
-                                <li th:text="'Le secteur '+|${secteur.nomSecteur}|+' est situé à une hauteur de '+|${secteur.hauteur}|+' .' "></li>
+                                <li th:text="'Le secteur '+|${secteur.nomSecteur}|+' est situé à une hauteur de '+|${secteur.hauteur}|+'m .' "></li>
                                 <li th:text="'Description du secteur: '+|${secteur.descriptifSecteur}|"></li>
 
                                 <ul th:each="voie: ${secteur.voies}">

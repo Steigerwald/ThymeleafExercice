@@ -21,7 +21,7 @@ public class Secteur {
     private String descriptifSecteur;
 
     @Column(name="HAUTEUR")
-    private String hauteur;
+    private Integer hauteur;
 
     @ManyToOne
     private Site site;
@@ -41,7 +41,7 @@ public class Secteur {
         return "  " + nomSecteur;
     }
 
-    public String toStringVoies(Collection<Voie> voies){
+    public String toStringVoies(){
         String[]tabVoies=new String [voies.size()];
 
         Iterator iterator = voies.iterator();
@@ -72,7 +72,7 @@ public class Secteur {
     public String getDescriptifSecteur() { return descriptifSecteur;
     }
 
-    public String getHauteur() { return hauteur;
+    public Integer getHauteur() { return hauteur;
     }
 
     public Site getSite() { return site;
@@ -98,7 +98,7 @@ public class Secteur {
     public void setDescriptifSecteur(String descriptifSecteur) { this.descriptifSecteur = descriptifSecteur;
     }
 
-    public void setHauteur(String hauteur) { this.hauteur = hauteur;
+    public void setHauteur(Integer hauteur) { this.hauteur = hauteur;
     }
 
     public void setSite(Site site) { this.site = site;

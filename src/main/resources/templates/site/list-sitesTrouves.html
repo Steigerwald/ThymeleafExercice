@@ -24,7 +24,7 @@
                             <div class="card-body">
                                 <div th:switch="${sitesTrouves}" class="container">
                                     <div class="table-responsive text-nowrap ncol-md-12">
-                                        <h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
+                                        <h2 th:case="null">Pas de site trouvé avec vos critères !</h2>
                                         <div th:case="*">
                                             <table class="table table-striped" >
                                                 <thead>

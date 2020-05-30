@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface SiteRepository
         extends JpaRepository<Site, Long> {
     List<Site> findByLieu(String lieu);
+    List<Site> findByLieuAndSecteurs_HauteurGreaterThanEqual(String lieu,Integer hauteur);
     /*List<Site> findByHauteurGreaterThan(String hauteur);
     List<Site> findByNombreSecteursGreaterThanEqual(Integer nombreSecteurs);
     List<Site> findByCotationLessThanEqual(String cotation);

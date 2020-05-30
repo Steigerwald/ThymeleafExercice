@@ -1,9 +1,14 @@
 package com.mkyong.services;
 
+import com.mkyong.entity.Secteur;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.Topo;
+import com.mkyong.entity.Voie;
 import com.mkyong.exception.RecordNotFoundException;
+import com.mkyong.form.Search;
+import com.mkyong.repository.SecteurRepository;
 import com.mkyong.repository.SiteRepository;
+import com.mkyong.repository.VoieRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +23,12 @@ public class SiteService {
 
     @Autowired
     private SiteRepository siteRepository;
+
+    @Autowired
+    private SecteurRepository secteurRepository;
+
+    @Autowired
+    private VoieRepository voieRepository;
 
     Logger logger = (Logger) LoggerFactory.getLogger(SiteService.class);
 
@@ -82,5 +93,14 @@ public class SiteService {
         return listSitesTrouves;
     }
 
+    public List<Site> getAllSitesBySearch(Search search){
+        //List<Site> listSitesTrouvesByLieu =siteRepository.findByLieu(search.getLieu());
+        List<Site> listSitesTrouvesByLieuAndByHauteur=siteRepository.findByLieuAndSecteurs_HauteurGreaterThanEqual(search.getLieu(),search.getHauteur());
+        //List<Secteur> listSecteursByHauteur=secteurRepository.findByHauteurGreaterThanEqual(search.getHauteur());
+        //List<Voie> listVoiesByNombreLongueurs=voieRepository.findByNombreLongueursGreaterThanEqual(search.getNombreLongueurs());
+        //List<Voie> listVoiesByNombrePoints=voieRepository.findByNombrePointsGreaterThanEqual(search.getNombrePoints());
+        //List<Voie> listVoiesByCotation=voieRepository.findByCotationLessThanEqual(search.getCotation());
 
+        return listSitesTrouvesByLieuAndByHauteur;
+    }
 }

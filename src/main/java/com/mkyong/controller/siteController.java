@@ -7,6 +7,8 @@ import com.mkyong.services.SecteurService;
 import com.mkyong.services.SiteService;
 import com.mkyong.services.TopoService;
 import com.mkyong.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/sites")
 public class siteController {
+
+    Logger logger = (Logger) LoggerFactory.getLogger(siteController.class);
 
     @Autowired
     private SiteService siteService;
@@ -117,8 +121,14 @@ public class siteController {
     /* controller pour la recherche de sites par le lieu données venant de la base de données */
     @RequestMapping(path = "/search/mycriteres", method = RequestMethod.POST)
     public String searchSitesByLieu(Search search,Model model) {
-        List<Site> listSitesTrouves = siteService.getAllSitesByLieu(search.getLieu());
-        model.addAttribute("sitesTrouves", listSitesTrouves);
+        //List<Site> listSitesTrouves = siteService.getAllSitesByLieu(search.getLieu());
+        List<Site> listSitesTrouves = siteService.getAllSitesBySearch(search);
+        logger.info(" la valeur de listSitestrouves est: "+listSitesTrouves);
+        if (listSitesTrouves.size()==0){
+            model.addAttribute("sitesTrouves", null);
+        } else{
+            model.addAttribute("sitesTrouves", listSitesTrouves);
+        }
         return "site/list-sitesTrouves";
     }
 }
