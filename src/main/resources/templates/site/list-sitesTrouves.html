@@ -32,7 +32,6 @@
                                                     <th>Nom du Site</th>
                                                     <th>lieu</th>
                                                     <th>descriptif</th>
-                                                    <th>Commentaires</th>
                                                     <th>Topo</th>
                                                     <th>Les secteurs</th>
                                                 </tr>
@@ -42,7 +41,6 @@
                                                     <td> <a th:text="${siteTrouve.nomSite}" th:href="@{/sites/details/{nom} (nom=${siteTrouve.idSite})}" ></a> </td>
                                                     <td th:text="${siteTrouve.lieu}"></td>
                                                     <td th:text="${siteTrouve.descriptif}"></td>
-                                                    <td th:text="${siteTrouve.toStringCommentaires(siteTrouve.commentaires)}"></td>
                                                     <td th:text="${siteTrouve.topo.nomTopo}"></td>
                                                     <td th:text="${siteTrouve.toStringSecteurs()}">
                                                 </tr>

@@ -121,11 +121,11 @@ public class topoController {
     @RequestMapping(path = "/DisponibleLocation/{id}", method = RequestMethod.POST)
     public String rendreDisponibleLocationTopo(Principal principal, Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         Topo topoTrouve=topoService.getTopoById(id);
-        model.addAttribute("topo", topoTrouve);
-        User newUser = userService.getUserByMail(principal.getName());
-        model.addAttribute("user", newUser);
         topoTrouve.setLocation(true);
         topoService.createOrUpdateTopo(topoTrouve);
+        User newUser = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", newUser);
+        model.addAttribute("topo", topoTrouve);
         return "user/espacePersonnel";
     }
 
@@ -133,13 +133,14 @@ public class topoController {
     @RequestMapping(path = "/AnnulerLocation/{id}", method = RequestMethod.POST)
     public String rendreIndisponibleLocationTopo(Principal principal, Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         Topo topoTrouve=topoService.getTopoById(id);
-        model.addAttribute("topo", topoTrouve);
-        User newUser = userService.getUserByMail(principal.getName());
-        model.addAttribute("user", newUser);
         topoTrouve.setLocation(false);
+        topoTrouve.setDisponible(false);
         reservationTopoService.deleteReservationTopoById(topoTrouve.getReservation().getIdReservation());
         topoTrouve.setReservation(null);
         topoService.createOrUpdateTopo(topoTrouve);
+        model.addAttribute("topo", topoTrouve);
+        User newUser = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", newUser);
         return "user/espacePersonnel";
     }
 
