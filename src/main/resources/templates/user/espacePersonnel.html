@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="table-responsive text-nowrap ncol-md-12">
                                         <h2>Détails de vos réservations: </h2>
-                                        <div th:if="${user.reservations}!=null">
+                                        <div th:if="${user.reservations.size()}>0">
                                             <table class="table table-striped" >
                                                 <thead>
                                                 <tr>
@@ -75,14 +75,14 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div th:unless="${user.reservations}!=null">
+                                        <div th:unless="${user.reservations.size()}>0">
                                             <h2>Vous n'avez pas de réservation en cours  </h2>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="table-responsive text-nowrap ncol-md-12">
                                         <h2>Vos topos actuellement:</h2>
-                                        <div th:if="${user.topos}!=null">
+                                        <div th:if="${user.topos.size()}>0">
                                             <table class="table table-striped" >
                                                 <thead>
                                                 <tr>
@@ -113,7 +113,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div th:unless="${user.topos}!=null">
+                                        <div th:unless="${user.topos.size()}>0">
                                             <h2>Vous ne possédez pas de topo  </h2>
                                         </div>
                                     </div>

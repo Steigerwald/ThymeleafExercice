@@ -38,8 +38,8 @@
                                                     <th>Nom du Site</th>
                                                     <th>lieu</th>
                                                     <th>descriptif</th>
-                                                    <th>Commentaires</th>
                                                     <th>Topo</th>
+                                                    <th>Les amis de l'escalade</th>
                                                     <th>Edit</th>
                                                     <th>Delete</th>
                                                 </tr>
@@ -49,9 +49,17 @@
                                                     <td> <a th:text="${site.nomSite}" th:href="@{/sites/details/{nom} (nom=${site.idSite})}" ></a> </td>
                                                     <td th:text="${site.lieu}"></td>
                                                     <td th:text="${site.descriptif}"></td>
-                                                    <td th:text="${site.toStringCommentaires(site.commentaires)}"></td>
                                                     <td th:text="${site.topo.nomTopo}"></td>
-                                                    <!--<td th:text="${site.toStringSecteurs(site.secteurs)}"></td>-->
+                                                    <td>
+                                                            <form th:action="@{/sites/officiel/{id}(id=${site.idSite})}" method="post">
+                                                                <div th:if="${site.officiel}==false">
+                                                                    <button class="btn btn-success" type="submit">Officiel</button>
+                                                                </div>
+                                                                <div th:unless="${site.officiel}==false">
+                                                                    <button class="btn btn-dark" type="submit"disabled>Officiel</button>
+                                                                </div>
+                                                            </form>
+                                                    </td>
                                                     <td>
                                                         <a th:href="@{/sites/edit/{id}(id=${site.idSite})}"
                                                            class="btn btn-primary">

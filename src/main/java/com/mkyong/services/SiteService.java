@@ -93,9 +93,15 @@ public class SiteService {
         return listSitesTrouves;
     }
 
+    public List<Site> getAllSitesByHauteur(Integer hauteur){
+        List<Site> listSitesTrouves =siteRepository.findBySecteurs_HauteurGreaterThanEqual(hauteur);
+        return listSitesTrouves;
+    }
+
     public List<Site> getAllSitesBySearch(Search search){
         //List<Site> listSitesTrouvesByLieu =siteRepository.findByLieu(search.getLieu());
         List<Site> listSitesTrouvesByLieuAndByHauteur=siteRepository.findByLieuAndSecteurs_HauteurGreaterThanEqual(search.getLieu(),search.getHauteur());
+        //List<Site> listSitesTrouvesByLieuAndByHauteurAndByNombreLongueurs=siteRepository.findByLieuAndSecteurs_HauteurGreatThanEqualAndSecteurs_Voies_NombreLongueursGreatThanEqual(search.getLieu(),search.getHauteur(),search.getNombreLongueurs());
         //List<Secteur> listSecteursByHauteur=secteurRepository.findByHauteurGreaterThanEqual(search.getHauteur());
         //List<Voie> listVoiesByNombreLongueurs=voieRepository.findByNombreLongueursGreaterThanEqual(search.getNombreLongueurs());
         //List<Voie> listVoiesByNombrePoints=voieRepository.findByNombrePointsGreaterThanEqual(search.getNombrePoints());

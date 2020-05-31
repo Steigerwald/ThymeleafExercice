@@ -22,7 +22,12 @@
                             <div class="fond">
                             <!--<div class=fond id="dp-container"  th:style="'background-image:url(/pictures/grimpeur1.jpg)'">-->
                                 <!--<div id="dp-container"  th:style="'background-image:url(' + ${dpurl} + ');'">-->
-                                <h1 th:text="'Le site: '+|${site.nomSite}|"></h1>
+                                <div th:if="${site.officiel}==false">
+                                    <h1 th:text="'Le site: '+|${site.nomSite}|"></h1>
+                                </div>
+                                <div th:unless="${site.officiel}==false">
+                                    <h1 th:text="|${site.nomSite}|+' est un site officiel des Amis de l\'escalade'"></h1>
+                                </div>
                             </div>
                         </div>
                     </div>

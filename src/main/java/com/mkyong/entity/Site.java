@@ -16,7 +16,6 @@ public class Site {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idSite;
 
-
     @Column(name="NOM_SITE")
     @NotNull
     private String nomSite;
@@ -28,6 +27,11 @@ public class Site {
     @Column(name="DESCRIPTIF")
     @NotNull
     private String descriptif;
+
+    @Column(name="OFFICIEL")
+    @NotNull
+    private Boolean officiel;
+
 
     @OneToOne(mappedBy="site")
     private User user;
@@ -68,7 +72,7 @@ public class Site {
     }
 
 
-    public String toStringCommentaires(Collection<Commentaire> commentaires){
+    public String toStringCommentaires(){
         String[]tabCommentaires=new String [commentaires.size()];
 
         Iterator iterator = commentaires.iterator();
@@ -88,6 +92,7 @@ public class Site {
     // Constructeur
 
     public Site() {
+        setOfficiel(false);
     }
 
 
@@ -106,6 +111,8 @@ public class Site {
     public String getDescriptif() { return descriptif;
     }
 
+    public Boolean getOfficiel() { return officiel;
+    }
 
     public Topo getTopo() { return topo;
     }
@@ -136,6 +143,9 @@ public class Site {
     }
 
     public void setDescriptif(String descriptif) { this.descriptif = descriptif;
+    }
+
+    public void setOfficiel(Boolean officiel) { this.officiel = officiel;
     }
 
     public void setTopo(Topo topo) { this.topo = topo;

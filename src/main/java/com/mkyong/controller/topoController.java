@@ -1,10 +1,8 @@
 package com.mkyong.controller;
 
-import com.mkyong.entity.Commentaire;
-import com.mkyong.entity.Site;
-import com.mkyong.entity.Topo;
-import com.mkyong.entity.User;
+import com.mkyong.entity.*;
 import com.mkyong.exception.RecordNotFoundException;
+import com.mkyong.services.ReservationTopoService;
 import com.mkyong.services.SiteService;
 import com.mkyong.services.TopoService;
 import com.mkyong.services.UserService;
@@ -33,6 +31,9 @@ public class topoController {
 
     @Autowired
     private SiteService siteService;
+
+    @Autowired
+    private ReservationTopoService reservationTopoService;
 
     @Autowired
     private UserService userService;
@@ -128,7 +129,7 @@ public class topoController {
         return "user/espacePersonnel";
     }
 
-    /* controller pour rendre disponible en location un topo dans la base de données */
+    /* controller pour rendre indisponible en location un topo dans la base de données */
     @RequestMapping(path = "/AnnulerLocation/{id}", method = RequestMethod.POST)
     public String rendreIndisponibleLocationTopo(Principal principal, Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         Topo topoTrouve=topoService.getTopoById(id);
@@ -136,6 +137,8 @@ public class topoController {
         User newUser = userService.getUserByMail(principal.getName());
         model.addAttribute("user", newUser);
         topoTrouve.setLocation(false);
+        reservationTopoService.deleteReservationTopoById(topoTrouve.getReservation().getIdReservation());
+        topoTrouve.setReservation(null);
         topoService.createOrUpdateTopo(topoTrouve);
         return "user/espacePersonnel";
     }

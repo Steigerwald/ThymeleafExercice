@@ -42,7 +42,6 @@ public class siteController {
 
         List<Site> listSites = siteService.getAllSites();
         model.addAttribute("sites", listSites);
-
         return "site/list-sites"; //view
     }
 
@@ -91,7 +90,7 @@ public class siteController {
     @RequestMapping(path = "/createSite", method = RequestMethod.POST)
     public String createOrUpdateVoie(Site site) {
         siteService.createOrUpdateSite(site);
-        return "redirect:/voies";
+        return "redirect:/sites";
     }
 
     /* controller pour avoir le détail du site */
@@ -131,4 +130,16 @@ public class siteController {
         }
         return "site/list-sitesTrouves";
     }
+
+    /* controller pour officialiser un site */
+    @RequestMapping(path = "/officiel/{id}",method = RequestMethod.POST)
+    public String officialiserSiteById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+        Site siteTrouve =siteService.getSiteById(id);
+        siteTrouve.setOfficiel(true);
+        siteService.createOrUpdateSite(siteTrouve);
+        return "redirect:/sites";
+    }
+
+
+
 }

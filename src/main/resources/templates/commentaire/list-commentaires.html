@@ -44,7 +44,7 @@
                                                     <td th:text="${commentaire.user.nomUser}"></td>
                                                     <td th:text="${commentaire.contenu}"></td>
                                                     <td th:text="${commentaire.site.nomSite}"></td>
-                                                    <td th:text="${commentaire.toStringDateCommentaire(commentaire.dateCommentaire)}"></td>
+                                                    <td th:text="${commentaire.toStringDateCommentaire()}"></td>
                                                     <td>
                                                         <a th:href="@{/commentaires/edit/{id}(id=${commentaire.idCommentaire})}"
                                                            class="btn btn-primary">

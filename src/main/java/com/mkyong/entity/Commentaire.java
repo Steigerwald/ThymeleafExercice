@@ -34,12 +34,12 @@ public class Commentaire {
         return "  " + contenu;
     }
 
-    public String toStringDateCommentaire(Date date) {
+    public String toStringDateCommentaire() {
         SimpleDateFormat formater = null;
         formater = new SimpleDateFormat("dd-MM-yy");
-        formater.format(date);
+        formater.format(dateCommentaire);
 
-        return " " +  formater.format(date);
+        return " " +  formater.format(dateCommentaire);
     }
 
     // Constructor

@@ -126,7 +126,6 @@ public class userController {
 
             List<User> listF = userService.getAllUsers();
             model.addAttribute("users", listF);
-
             logger.info(" on est passe par la avant l'appel de la page user/list-users de url /admin/home");
             return "user/list-users"; //view
         } else{

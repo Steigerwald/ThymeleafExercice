@@ -35,19 +35,19 @@ INSERT INTO escalades.TBL_VOIE (id_voie, cotation, nombre_longueurs, nombre_poin
 (10, '3a', 2, 2,'6',6);
 
 INSERT INTO escalades.TBL_SECTEUR (id_secteur, descriptif_secteur, hauteur, nom_secteur,site_id_site) VALUES
-(1, 'secteur de la plaine, au milieu des volcans', '360m','le feu embrasé',2),
-(2, 'secteur vertical, le mur ensoleillé', '540m','le mur',1),
-(3, 'secteur du rocher, dans les falaises', '470m','le rocher',1),
-(4, 'secteur du plateau, dans le maquis', '250m','le plateau',4),
-(5, 'secteur de la montagne éternelle, dans le glacier', '800m','le glacier',3),
-(6, 'secteur de la colline oubliée', '350m','l"oubliée',5);
+(1, 'secteur de la plaine, au milieu des volcans', 360,'le feu embrasé',2),
+(2, 'secteur vertical, le mur ensoleillé', 540,'le mur',1),
+(3, 'secteur du rocher, dans les falaises', 470,'le rocher',1),
+(4, 'secteur du plateau, dans le maquis', 250,'le plateau',4),
+(5, 'secteur de la montagne éternelle, dans le glacier', 800,'le glacier',3),
+(6, 'secteur de la colline oubliée', 350,'l"oubliée',5);
 
-INSERT INTO escalades.TBL_SITE (id_site, descriptif, lieu, nom_site,topo_id_topo) VALUES
-(1, 'site de la réunion, au milieu de l"ile', 'La réunion','l"ile',1),
-(2, 'site de l"etna, au milieu du volcan', 'Sicile','le volcan',1),
-(3, 'site des Alpes, dans les glaciers', 'les Alpes','Val torens',1),
-(4, 'site du Massif, en haut du col', 'Massif Central','le plateau central',2),
-(5, 'site du mont Oublié, sur la colline', 'Massif Armoricain','Le mont',3);
+INSERT INTO escalades.TBL_SITE (id_site, descriptif, lieu, nom_site,officiel,topo_id_topo) VALUES
+(1, 'site de la réunion, au milieu de l"ile', 'La réunion','l"ile',1,1),
+(2, 'site de l"etna, au milieu du volcan', 'Sicile','le volcan',0,1),
+(3, 'site des Alpes, dans les glaciers', 'les Alpes','Val torens',1,1),
+(4, 'site du Massif, en haut du col', 'Massif Central','le plateau central',0,2),
+(5, 'site du mont Oublié, sur la colline', 'Massif Armoricain','Le mont',1,3);
 
 INSERT INTO escalades.TBL_TOPO (id_topo, date_parution, description, disponible, location, nom_topo,owner_id_user) VALUES
 (1,'2019-09-28 02:45:30', 'topo pour profiter de l"ile, de la montagne et des volcans',0,1,'La balade complète',4),
