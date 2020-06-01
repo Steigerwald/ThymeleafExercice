@@ -55,11 +55,11 @@ INSERT INTO escalades.TBL_TOPO (id_topo, date_parution, description, disponible,
 (3,'2020-01-28 11:45:30', 'topo pour profiter de la Bretagne, des collines de granite',0,1,'Kenavo',5),
 (4,'2020-02-14 11:45:30', 'topo pour profiter de la haute altitude',0,1,'Alpes',1);
 
-
-INSERT INTO escalades.TBL_RESERVATION (id_reservation, acceptation, date_reservation,topo_id_topo,user_id_user) VALUES
-(1,1,'2020-04-28 02:45:30',2,1),
-(2,0,'2020-04-21 02:45:30',3,2),
-(3,1,'2020-05-04 02:45:30',1,1);
+INSERT INTO escalades.TBL_RESERVATION (id_reservation, etat, date_reservation,topo_id_topo,user_id_user) VALUES
+(1,'acceptee','2020-04-28 02:45:30',2,1),
+(2,'en attente','2020-04-21 02:45:30',3,2),
+(3,'acceptée','2020-05-04 02:45:30',1,1),
+(4,'refusee','2020-05-25 02:45:30',4,2);
 
 INSERT INTO escalades.TBL_COMMENTAIRE (id_commentaire, contenu, date_commentaire, site_id_site,user_id_user) VALUES
 (1,'Trop compliqué, pas d"eau','2020-04-29 02:45:30', 1,4),

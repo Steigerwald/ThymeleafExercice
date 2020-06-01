@@ -6,6 +6,8 @@ import com.mkyong.services.ReservationTopoService;
 import com.mkyong.services.SiteService;
 import com.mkyong.services.TopoService;
 import com.mkyong.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,7 @@ import java.util.List;
 @RequestMapping("/topos")
 public class topoController {
 
+    Logger logger = (Logger) LoggerFactory.getLogger(topoController.class);
 
     @Autowired
     private TopoService topoService;
@@ -135,16 +138,12 @@ public class topoController {
         Topo topoTrouve=topoService.getTopoById(id);
         topoTrouve.setLocation(false);
         topoTrouve.setDisponible(false);
-        reservationTopoService.deleteReservationTopoById(topoTrouve.getReservation().getIdReservation());
-        topoTrouve.setReservation(null);
+        logger.info("retour de l'id du topoTrouve "+topoTrouve.getReservation());
         topoService.createOrUpdateTopo(topoTrouve);
         model.addAttribute("topo", topoTrouve);
         User newUser = userService.getUserByMail(principal.getName());
         model.addAttribute("user", newUser);
         return "user/espacePersonnel";
     }
-
-
-
 
 }

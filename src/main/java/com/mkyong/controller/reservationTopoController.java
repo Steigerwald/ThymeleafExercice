@@ -52,14 +52,14 @@ public class reservationTopoController {
         return "reservation/gestion-reservation"; //view
     }
 
-
     /* controller pour annuler une réservation de la base de données*/
     @RequestMapping(path = "/annulerReservation/{id}",method = RequestMethod.POST)
     public String deleteReservationTopoById(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         logger.info("retour de l'id de la réservation concernée "+id);
         Reservation reservationTrouvee = reservationTopoService.getReservationTopoById(id);
         model.addAttribute("reservation", reservationTrouvee);
-        reservationTopoService.deleteReservationTopoById(id);
+        reservationTrouvee.setEtat("Annule");
+        reservationTopoService.updateReservationTopo(reservationTrouvee);
         User newUser = userService.getUserByMail(principal.getName());
         model.addAttribute("user", newUser);
         model.addAttribute("enableButton", 1);
@@ -86,7 +86,7 @@ public class reservationTopoController {
 
         logger.info("retour de l'id de la reservation concernée "+id);
         Reservation reservationAcceptee = reservationTopoService.getReservationTopoById(id);
-        reservationAcceptee.setAcceptation(true);
+        reservationAcceptee.setEtat("Acceptee");
         reservationAcceptee.getTopo().setDisponible(false);
         reservationAcceptee.getTopo().setReservation(reservationAcceptee);
         User newUser = userService.getUserByMail(principal.getName());
@@ -105,10 +105,11 @@ public class reservationTopoController {
         Reservation reservationRefusee = reservationTopoService.getReservationTopoById(id);
         reservationRefusee.getTopo().setReservation(null);
         reservationRefusee.getTopo().setDisponible(true);
+        reservationRefusee.setEtat("Refusee");
         User newUser = userService.getUserByMail(principal.getName());
         model.addAttribute("user", newUser);
         topoService.createOrUpdateTopo(reservationRefusee.getTopo());
-        reservationTopoService.deleteReservationTopoById(id);
+        reservationTopoService.updateReservationTopo(reservationRefusee);
         return "user/espacePersonnel";
     }
 

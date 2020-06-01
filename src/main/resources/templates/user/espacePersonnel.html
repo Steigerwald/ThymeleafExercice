@@ -134,13 +134,12 @@
                                             </thead>
                                             <tbody>
                                                 <tr th:each="topo : ${user.topos}">
-                                                    <div th:if="${topo.reservation}!=null">
                                                         <td th:text="${topo.reservation.idReservation}"> </td>
                                                         <td th:text="${topo.nomTopo}"> </td>
                                                         <td th:text="${topo.reservation.user.nomUser}"> </td>
                                                         <td th:text="${topo.reservation.user.prenomUser}"> </td>
                                                         <td th:text="${topo.reservation.user.mailUser}"> </td>
-                                                        <td th:text="${topo.reservation.toStringEtat()}"> </td>
+                                                        <td th:text="${topo.reservation.etat}"> </td>
                                                         <td>
                                                             <form th:action="@{/reservations/reservationAcceptee/{id}(id=${topo.reservation.idReservation})}" method="post">
                                                                 <button class="btn btn-success my-2 my-sm-0" type="submit">Accepter</button>
@@ -151,9 +150,6 @@
                                                                 <button class="btn btn-danger my-2 my-sm-0" type="submit">Refuser</button>
                                                             </form>
                                                         </td>
-                                                    </div>
-                                                    <div th:unless="${topo.reservation}!=null">
-                                                        <td colspan="8"> <h2>Vous n'avez pas de demande en attente actuellement</h2></td>
                                                     </div>
                                                 </tr>
                                             </tbody>

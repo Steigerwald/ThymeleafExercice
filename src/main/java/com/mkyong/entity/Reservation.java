@@ -19,8 +19,8 @@ public class Reservation {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long idReservation;
 
-    @Column(name="ACCEPTATION")
-    private Boolean acceptation;
+    @Column(name="ETAT")
+    private String etat;
 
     @Column(name="DATE_RESERVATION",nullable = false,length=6)
     @Temporal(TemporalType.TIMESTAMP)
@@ -42,16 +42,6 @@ public class Reservation {
         return " " +  formater.format(dateReservation);
     }
 
-    public String toStringEtat (){
-        if (acceptation==true) {
-            String reponse ="accepté";
-            return reponse;
-        } else {
-            String reponse ="en attente";
-            return reponse;
-        }
-    }
-
     @Override
     public String toString() {
         return " " + idReservation;
@@ -61,7 +51,7 @@ public class Reservation {
 
 
     public Reservation() {
-        setAcceptation(false);
+        setEtat("En attente");
     }
 
     // Getters
@@ -71,7 +61,7 @@ public class Reservation {
     public Long getIdReservation() { return idReservation;
     }
 
-    public Boolean getAcceptation() { return acceptation;
+    public String getEtat() { return etat;
     }
 
     public Date getDateReservation() { return dateReservation;
@@ -90,7 +80,7 @@ public class Reservation {
     public void setIdReservation(@Nullable Long idReservation) { this.idReservation = idReservation;
     }
 
-    public void setAcceptation(Boolean acceptation) { this.acceptation = acceptation;
+    public void setEtat(String etat) { this.etat = etat;
     }
 
     public void setDateReservation(Date dateReservation) { this.dateReservation = dateReservation;

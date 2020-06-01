@@ -170,7 +170,7 @@ public class userController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("user/registration-view");
         } else {
-            int identification=2;
+            int identification = 2;
             user.setRole(userService.getRoleById(identification));
             userService.saveUser(user);
             model.addAttribute("user", user);

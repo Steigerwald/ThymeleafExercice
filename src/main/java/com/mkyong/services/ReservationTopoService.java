@@ -78,7 +78,7 @@ public class ReservationTopoService {
 
                 // je crée la réservation du topo
                 Reservation newReservation = new Reservation();
-                newReservation.setAcceptation(false);
+                //newReservation.setEtat("en attente");
                 newReservation.setDateReservation(today);
                 newReservation.setTopo(entity);
                 newReservation.setUser(currentUser);
@@ -112,7 +112,7 @@ public class ReservationTopoService {
                 // je modifie la réservation du topo
                 Reservation updateReservation = new Reservation();
                 updateReservation.setIdReservation(entity.getIdReservation());
-                updateReservation.setAcceptation(entity.getAcceptation());
+                updateReservation.setEtat(entity.getEtat());
                 updateReservation.setDateReservation(entity.getDateReservation());
                 updateReservation.setTopo(entity.getTopo());
                 updateReservation.setUser(entity.getUser());

@@ -22,12 +22,7 @@
                             <div class="fond">
                             <!--<div class=fond id="dp-container"  th:style="'background-image:url(/pictures/grimpeur1.jpg)'">-->
                                 <!--<div id="dp-container"  th:style="'background-image:url(' + ${dpurl} + ');'">-->
-                                <div th:if="${site.officiel}==false">
-                                    <h1 th:text="'Le site: '+|${site.nomSite}|"></h1>
-                                </div>
-                                <div th:unless="${site.officiel}==false">
-                                    <h1 th:text="|${site.nomSite}|+' est un site officiel des Amis de l\'escalade'"></h1>
-                                </div>
+                                <h1 th:text="'Le site: '+|${site.nomSite}|"></h1>
                             </div>
                         </div>
                     </div>
@@ -50,6 +45,10 @@
                       <br>
                        <h2>Descriptif du site: </h2>
                        <p th:text="${site.descriptif}"></p>
+                       <div th:if="${site.officiel}==true">
+                           <strong th:text="|${site.nomSite}|+' est un site officiel des Amis de l\'escalade'"></strong>
+                       </div>
+                       <br>
                        <h2>Topo: </h2>
                        <p th:text="|${site.topo.nomTopo}|+' qui est '+|${site.topo.toStringLocation()}|"></p>
                    </div>
