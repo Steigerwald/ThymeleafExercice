@@ -100,14 +100,20 @@
                                                     <td th:text="${topo.toStringDisponible()}"></td>
                                                     <td th:text="${topo.toStringLocation()}"></td>
                                                     <td>
-                                                        <form th:action="@{/topos/DisponibleLocation/{id}(id=${topo.idTopo})}" method="post">
-                                                            <button class="btn btn-info my-2 my-sm-0" type="submit"><span class="fas fa-check-square ml-2"></span></button>
-                                                        </form>
+                                                        <div th:switch="${topo.location}">
+                                                            <form th:action="@{/topos/DisponibleLocation/{id}(id=${topo.idTopo})}" method="post">
+                                                                <button class="btn btn-info my-2 my-sm-0" type="submit"th:case="true"disabled><span class="fas fa-check-square ml-2"></span></button>
+                                                                <button class="btn btn-info my-2 my-sm-0" type="submit"th:case="false"><span class="fas fa-check-square ml-2"></span></button>
+                                                            </form>
+                                                        </div>
                                                     </td>
                                                     <td>
-                                                        <form th:action="@{/topos/AnnulerLocation/{id}(id=${topo.idTopo})}" method="post">
-                                                            <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
-                                                        </form>
+                                                        <div th:switch="${topo.location}">
+                                                            <form th:action="@{/topos/AnnulerLocation/{id}(id=${topo.idTopo})}" method="post">
+                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="true"><span class="fas fa-trash-alt ml-2"></span></button>
+                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="false"disabled><span class="fas fa-trash-alt ml-2"></span></button>
+                                                            </form>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -134,23 +140,32 @@
                                             </thead>
                                             <tbody>
                                                 <tr th:each="topo : ${user.topos}">
-                                                        <td th:text="${topo.reservation.idReservation}"> </td>
-                                                        <td th:text="${topo.nomTopo}"> </td>
-                                                        <td th:text="${topo.reservation.user.nomUser}"> </td>
-                                                        <td th:text="${topo.reservation.user.prenomUser}"> </td>
-                                                        <td th:text="${topo.reservation.user.mailUser}"> </td>
-                                                        <td th:text="${topo.reservation.etat}"> </td>
-                                                        <td>
+                                                    <td th:text="${topo.reservation.idReservation}"> </td>
+                                                    <td th:text="${topo.nomTopo}"> </td>
+                                                    <td th:text="${topo.reservation.user.nomUser}"> </td>
+                                                    <td th:text="${topo.reservation.user.prenomUser}"> </td>
+                                                    <td th:text="${topo.reservation.user.mailUser}"> </td>
+                                                    <td th:text="${topo.reservation.etat}"> </td>
+                                                    <td>
+                                                        <div th:switch="${topo.reservation.etat}">
                                                             <form th:action="@{/reservations/reservationAcceptee/{id}(id=${topo.reservation.idReservation})}" method="post">
-                                                                <button class="btn btn-success my-2 my-sm-0" type="submit">Accepter</button>
+                                                                <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'en attente'">Accepter</button>
+                                                                <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'acceptee'" disabled>Accepter</button>
+                                                                <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'refusee'">Accepter</button>
+                                                                <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'annulee'"disabled>Accepter</button>
                                                             </form>
-                                                        </td>
-                                                        <td>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div th:switch="${topo.reservation.etat}">
                                                             <form th:action="@{/reservations/reservationRefusee/{id}(id=${topo.reservation.idReservation})}" method="post">
-                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit">Refuser</button>
+                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'en attente'">Refuser</button>
+                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'acceptee'">Refuser</button>
+                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'refusee'"disabled>Refuser</button>
+                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'annulee'"disabled>Refuser</button>
                                                             </form>
-                                                        </td>
-                                                    </div>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
