@@ -76,7 +76,7 @@
                                             </table>
                                         </div>
                                         <div th:unless="${user.reservations.size()}>0">
-                                            <h2>Vous n'avez pas de réservation en cours  </h2>
+                                            <h3>Vous n'avez pas de réservation en cours  </h3>
                                         </div>
                                     </div>
                                     <br>
@@ -120,55 +120,60 @@
                                             </table>
                                         </div>
                                         <div th:unless="${user.topos.size()}>0">
-                                            <h2>Vous ne possédez pas de topo  </h2>
+                                            <h3>Vous ne possédez pas de topo  </h3>
                                         </div>
                                     </div>
                                     <div class="table-responsive text-nowrap ncol-md-12">
                                         <h2>Les demandes et locations de vos topos:</h2>
-                                        <table class="table table-striped" >
-                                            <thead>
-                                                <tr>
-                                                    <th>Réservation</th>
-                                                    <th>Topo</th>
-                                                    <th>Nom</th>
-                                                    <th>Prénom</th>
-                                                    <th>Mail du demandeur</th>
-                                                    <th>Etat de la réservation</th>
-                                                    <th>Acceptation</th>
-                                                    <th>Refus</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="topo : ${user.topos}">
-                                                    <td th:text="${topo.reservation.idReservation}"> </td>
-                                                    <td th:text="${topo.nomTopo}"> </td>
-                                                    <td th:text="${topo.reservation.user.nomUser}"> </td>
-                                                    <td th:text="${topo.reservation.user.prenomUser}"> </td>
-                                                    <td th:text="${topo.reservation.user.mailUser}"> </td>
-                                                    <td th:text="${topo.reservation.etat}"> </td>
-                                                    <td>
-                                                        <div th:switch="${topo.reservation.etat}">
-                                                            <form th:action="@{/reservations/reservationAcceptee/{id}(id=${topo.reservation.idReservation})}" method="post">
-                                                                <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'en attente'">Accepter</button>
-                                                                <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'acceptee'" disabled>Accepter</button>
-                                                                <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'refusee'">Accepter</button>
-                                                                <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'annulee'"disabled>Accepter</button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div th:switch="${topo.reservation.etat}">
-                                                            <form th:action="@{/reservations/reservationRefusee/{id}(id=${topo.reservation.idReservation})}" method="post">
-                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'en attente'">Refuser</button>
-                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'acceptee'">Refuser</button>
-                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'refusee'"disabled>Refuser</button>
-                                                                <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'annulee'"disabled>Refuser</button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div th:if="${user.topos.size()}>0">
+                                            <table class="table table-striped" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>Réservation</th>
+                                                        <th>Topo</th>
+                                                        <th>Nom</th>
+                                                        <th>Prénom</th>
+                                                        <th>Mail du demandeur</th>
+                                                        <th>Etat de la réservation</th>
+                                                        <th>Acceptation</th>
+                                                        <th>Refus</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="topo : ${user.topos}" th:if="${topo.reservation}!=null">
+                                                        <td th:text="${topo.reservation.idReservation}"> </td>
+                                                        <td th:text="${topo.nomTopo}"> </td>
+                                                        <td th:text="${topo.reservation.user.nomUser}"> </td>
+                                                        <td th:text="${topo.reservation.user.prenomUser}"> </td>
+                                                        <td th:text="${topo.reservation.user.mailUser}"> </td>
+                                                        <td th:text="${topo.reservation.etat}"> </td>
+                                                        <td>
+                                                            <div th:switch="${topo.reservation.etat}">
+                                                                <form th:action="@{/reservations/reservationAcceptee/{id}(id=${topo.reservation.idReservation})}" method="post">
+                                                                    <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'en attente'">Accepter</button>
+                                                                    <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'acceptee'" disabled>Accepter</button>
+                                                                    <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'refusee'">Accepter</button>
+                                                                    <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'annulee'"disabled>Accepter</button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div th:switch="${topo.reservation.etat}">
+                                                                <form th:action="@{/reservations/reservationRefusee/{id}(id=${topo.reservation.idReservation})}" method="post">
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'en attente'">Refuser</button>
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'acceptee'">Refuser</button>
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'refusee'"disabled>Refuser</button>
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'annulee'"disabled>Refuser</button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div th:unless="${user.topos.size()}>0">
+                                            <h3>Vous n'avez pas de demande ou de location de topo </h3>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

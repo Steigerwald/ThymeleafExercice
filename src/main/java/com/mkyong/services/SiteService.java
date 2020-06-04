@@ -89,26 +89,21 @@ public class SiteService {
     }
 
     public List<Site> getAllSitesByLieu(String lieu){
-        List<Site> listSitesTrouves =siteRepository.findByLieu(lieu);
-        return listSitesTrouves;
+        List<Site> listSitesTrouvesByLieu =siteRepository.findByLieu(lieu);
+        return listSitesTrouvesByLieu;
     }
 
     public List<Site> getAllSitesByHauteur(Integer hauteur){
-        List<Site> listSitesTrouves =siteRepository.findBySecteurs_HauteurGreaterThanEqual(hauteur);
-        return listSitesTrouves;
+        List<Site> listSitesTrouvesByHauteur =siteRepository.findBySecteurs_HauteurGreaterThanEqual(hauteur);
+        return listSitesTrouvesByHauteur;
     }
 
     public List<Site> getAllSitesBySearch(Search search){
         //List<Site> listSitesTrouvesByLieu =siteRepository.findByLieu(search.getLieu());
         //List<Site> listSitesTrouvesByLieuAndByHauteur=siteRepository.findByLieuAndSecteurs_HauteurGreaterThanEqual(search.getLieu(),search.getHauteur());
-        //List<Site> listSitesTrouvesByLieuAndByHauteurAndByNombreLongueurs=siteRepository.findByLieuAndSecteurs_HauteurGreatThanEqualAndSecteurs_Voies_NombreLongueursGreatThanEqual(search.getLieu(),search.getHauteur(),search.getNombreLongueurs());
-        //List<Secteur> listSecteursByHauteur=secteurRepository.findByHauteurGreaterThanEqual(search.getHauteur());
-        //List<Voie> listVoiesByNombreLongueurs=voieRepository.findByNombreLongueursGreaterThanEqual(search.getNombreLongueurs());
-        //List<Voie> listVoiesByNombrePoints=voieRepository.findByNombrePointsGreaterThanEqual(search.getNombrePoints());
-        //List<Voie> listVoiesByCotation=voieRepository.findByCotationLessThanEqual(search.getCotation());
         //List<Site> listSitesTrouvesByLieu =siteRepository.findAllSitesByLieu(search.getLieu());
-        List<Site> listSitesTrouvesByNombreLongueursByNombrePoints=siteRepository.findAllSitesByNombreLongueursAndByNombrePoints(search.getNombreLongueurs(),search.getNombrePoints());
-
-        return listSitesTrouvesByNombreLongueursByNombrePoints;
+        //List<Site> listSitesTrouvesByNombreLongueursByNombrePoints=siteRepository.findAllSitesByNombreLongueursAndByNombrePoints(search.getNombreLongueurs(),search.getNombrePoints());
+        List<Site> listSitesTrouves=siteRepository.findAllSitesByLieuAndByHauteurAndByNombreLongueursAndByNombrePoints(search.getLieu(),search.getHauteur(),search.getNombreLongueurs(),search.getNombrePoints());
+        return listSitesTrouves;
     }
 }

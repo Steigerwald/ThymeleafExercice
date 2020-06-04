@@ -27,4 +27,7 @@ public interface SiteRepository
     @Query(value = "SELECT DISTINCT u FROM Voie v, IN(v.secteur)s,IN(s.site)u WHERE v.nombreLongueurs>=?1 and v.nombrePoints>=?2")
     List<Site> findAllSitesByNombreLongueursAndByNombrePoints(Integer nombreLongueurs,Integer nombrePoints);
 
+    @Query(value = "SELECT DISTINCT u FROM Voie v, IN(v.secteur)s,IN(s.site)u WHERE u.lieu=?1 and s.hauteur>=?2 and v.nombreLongueurs>=?3 and v.nombrePoints>=?4")
+    List<Site> findAllSitesByLieuAndByHauteurAndByNombreLongueursAndByNombrePoints(String lieu,Integer hauteur,Integer nombreLongueurs,Integer nombrePoints);
+
 }
