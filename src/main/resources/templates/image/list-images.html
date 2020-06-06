@@ -30,22 +30,21 @@
                 <table class="table table-striped" >
                     <thead>
                     <tr>
-                        <th>Image1</th>
-                        <th>Image2</th>
+                        <th>Images</th>
                         <th>Nom image</th>
-                        <th>type</th>
+                        <th>Type</th>
+                        <th>Taille en Ko</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
                     </thead>
                     <tr th:each="image : ${images}">
                         <td>
-                            <img th:src="@{'data:image/jpeg;base64,'+${image.generateBase64Image()}}" />
-                           <!--<img th:src="@{/pictures/pres.jpg}" alt="imagePres" class="img-thumbnail" style="width:25%; height:25%">-->
+                            <img th:src="${'data:image/jpg;base64,'+ image.getImageBase64()}" alt="#" />
                         </td>
-                        <td th:text="${image.toString()}"></td>
                         <td th:text="${image.nomImage}"></td>
                         <td th:text="${image.mimeType}"></td>
+                        <td th:text="${image.taille}"></td>
                         <td>
                             <a th:href="@{/admin/images/edit/{id}(id=${image.id})}"
                                class="btn btn-primary">

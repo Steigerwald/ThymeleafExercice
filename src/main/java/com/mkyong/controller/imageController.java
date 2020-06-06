@@ -3,19 +3,27 @@ package com.mkyong.controller;
 import com.mkyong.entity.Image;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.ImageService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Decoder;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin/images")
 public class imageController {
+
+    Logger logger = (Logger) LoggerFactory.getLogger(imageController.class);
 
     @Autowired
     private ImageService imageEntityService;
@@ -30,81 +38,6 @@ public class imageController {
         return "image/list-images"; //view
     }
 
-    @RequestMapping(path = "/OneImage",method = RequestMethod.GET)
-    public String getOneImage(HttpServletRequest request, HttpServletResponse response, Model model) throws RecordNotFoundException, IOException {
-
-        Image image = imageEntityService.getImageById((long) 1);
-
-        response.reset();
-        response.setContentType(image.getMimeType());
-        response.setContentLength(image.getImage().length);
-        // Write image content to response.
-        response.getOutputStream().write(image.getImage());
-
-        return "image/UneImage"; //view
-    }
-
-
-
-   /*
-    @RequestMapping(path="/image/{id}",method = RequestMethod.GET)
-    public @ResponseBody byte[] getPrintImage(@PathVariable("id") Long id) throws RecordNotFoundException {
-
-        Attachment att = imageEntityService.getImageById(id);
-
-
-
-        InputStream in = new ByteArrayInputStream(att.getAttachmentFile());
-        BufferedImage img = ImageIO.read(in);
-        ByteArrayOutputStream bao = new ByteArrayOutputStream();
-        ImageIO.write(img, "jpg", bao);
-        return bao.toByteArray();
-    }
-
-*/
-/*
-    @RequestMapping(path = "/uneImage",method = RequestMethod.GET)
-    public String printOneImageById(Model model, HttpServletRequest request, HttpServletResponse response) throws RecordNotFoundException, IOException {
-
-        Long id= Long.valueOf(1);
-        final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
-        Image image1=imageEntityService.getImageById(id);
-
-        // Init servlet response.
-        response.reset();
-        response.setBufferSize(DEFAULT_BUFFER_SIZE);
-        response.setContentType(image1.getMimeType());
-        //response.setHeader("Content-Length", String.valueOf(image1.Length()));
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + image1.getNomImage() + "\"");
-
-        // Prepare streams.
-        BufferedInputStream input = null;
-        BufferedOutputStream output = null;
-
-        try {
-            // Open streams.
-            FileStream fileStream =new FileStream();
-            FileInputStream fis=new FileInputStream(fileStream.writeByte(image1.getImage()));
-
-            input = new BufferedInputStream(image1.getImage,0,image1.getImage().length), DEFAULT_BUFFER_SIZE);
-            output = new BufferedOutputStream(response.getOutputStream(), DEFAULT_BUFFER_SIZE);
-
-            // Write file contents to response.
-            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-            int length;
-            while ((length = input.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
-            }
-        } finally {
-            // Gently close streams.
-            output.close();
-            input.close();
-        }
-
-        model.addAttribute("image1", response.getHeader("Content-Disposition"));
-        return "image/UneImage";
-    }
-*/
     @RequestMapping(path = "/addImage",method = RequestMethod.GET)
     public String addImageById(Model model) {
 
@@ -113,11 +46,37 @@ public class imageController {
     }
 
     @RequestMapping(path = "/stockerImage", method = RequestMethod.POST)
-    public String addImage(Image image) {
+    public String addImage(@RequestParam("file") MultipartFile fileImage, Image image) throws IOException {
 
+        logger.info(" le nombre octet de image est: "+image.getImage());
+        logger.info(" le type de l'image est: "+image.getMimeType());
+        logger.info(" le nom de l'image est: "+image.getNomImage());
+        logger.info(" la valeur d'octet du fichier est: "+fileImage.getBytes());
+        logger.info(" le type du fichier est: "+fileImage.getContentType());
+        logger.info(" la taille du fichier est: "+fileImage.getSize());
+        logger.info(" Nom du paramètre du fichier est: "+fileImage.getName());
+        logger.info(" Nom original du fichier est: "+fileImage.getOriginalFilename());
+        image.setImage(fileImage.getBytes());
+        image.setTaille(fileImage.getSize()/1000);
+        String encodedString = Base64.getEncoder().encodeToString(fileImage.getBytes());
+        logger.info(" taille de l'image après l'enregistrement "+image.getTaille());
+        //BASE64Decoder decoder = new BASE64Decoder();
+        //byte[] imageByte = decoder.decodeBuffer(encodedString);
         imageEntityService.stockerImage(image);
         return "redirect:/admin/images";
     }
+/*
+    @RequestMapping(method = RequestMethod.GET)
+    public String showImage(Model model)  {
+
+        byte[] encode = Base64.getEncoder().encode(imagesObj.getImage());
+        model.addAttribute("image", new String(encode, "UTF-8"));
+
+        return "image/list-images"; //view
+    }
+
+*/
+
 
     @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {

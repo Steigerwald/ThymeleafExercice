@@ -3,6 +3,7 @@ package com.mkyong.entity;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.lang.Nullable;
+import sun.misc.BASE64Decoder;
 
 import javax.imageio.ImageIO;
 import javax.persistence.*;
@@ -10,10 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Arrays;
 
 @Entity
@@ -29,6 +27,9 @@ public class Image implements Serializable {
 
     @Column(name = "MIME_TYPE")
     private String mimeType;
+
+    @Column(name = "TAILLE")
+    private Long taille;
 
     @Lob()
     private byte[] image;
@@ -77,8 +78,15 @@ public class Image implements Serializable {
         return mimeType;
     }
 
+    public Long getTaille() { return taille;
+    }
+
     public byte[] getImage() { return image; }
 
+    public String getImageBase64(){
+        String encodedString = java.util.Base64.getEncoder().encodeToString(image);
+        return encodedString;
+    }
     @Nullable
     public Site getSite() { return site;
     }
@@ -102,16 +110,11 @@ public class Image implements Serializable {
         this.mimeType = mimeType;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setTaille(Long taille) { this.taille = taille;
     }
 
-    public void setImage(BufferedImage bufferedImage) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, mimeType.split("picture/")[1], baos);
-        baos.flush();
-        this.image = baos.toByteArray();
-        baos.close();
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public void setSite(@Nullable Site site) { this.site = site;
