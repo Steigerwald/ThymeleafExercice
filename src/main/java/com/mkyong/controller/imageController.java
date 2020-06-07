@@ -1,8 +1,12 @@
 package com.mkyong.controller;
 
 import com.mkyong.entity.Image;
+import com.mkyong.entity.Secteur;
+import com.mkyong.entity.Site;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.ImageService;
+import com.mkyong.services.SecteurService;
+import com.mkyong.services.SiteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import sun.misc.BASE64Decoder;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.Base64;
 import java.util.List;
@@ -28,6 +27,11 @@ public class imageController {
     @Autowired
     private ImageService imageEntityService;
 
+    @Autowired
+    private SecteurService secteurService;
+
+    @Autowired
+    private SiteService siteService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String getAllImages(Model model)  {
@@ -41,6 +45,10 @@ public class imageController {
     @RequestMapping(path = "/addImage",method = RequestMethod.GET)
     public String addImageById(Model model) {
 
+        List<Secteur> secteurs = secteurService.getAllSecteurs();
+        model.addAttribute("secteurs", secteurs);
+        List<Site> sites = siteService.getAllSites();
+        model.addAttribute("sites", sites);
         model.addAttribute("image", new Image());
         return "image/add-images";
     }
@@ -65,18 +73,6 @@ public class imageController {
         imageEntityService.stockerImage(image);
         return "redirect:/admin/images";
     }
-/*
-    @RequestMapping(method = RequestMethod.GET)
-    public String showImage(Model model)  {
-
-        byte[] encode = Base64.getEncoder().encode(imagesObj.getImage());
-        model.addAttribute("image", new String(encode, "UTF-8"));
-
-        return "image/list-images"; //view
-    }
-
-*/
-
 
     @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {

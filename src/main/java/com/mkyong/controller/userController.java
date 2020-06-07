@@ -3,7 +3,6 @@ package com.mkyong.controller;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
-import com.mkyong.form.Search;
 import com.mkyong.services.CustomUserDetailsService;
 import com.mkyong.services.SiteService;
 import com.mkyong.services.UserService;
@@ -74,17 +73,19 @@ public class userController {
     /* controller pour l'edition du User par Id */
     @RequestMapping(path = "admin/users/edit/{id}",method = RequestMethod.GET)
     public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-
+        logger.info(" valeur de l'id de user"+id);
         User entity = userService.getUserById(id);
+        logger.info(" valeur de l'user de edit " + entity.getNomUser());
         if (id!=0) {
+            logger.info(" on est passe par la avant l'appel de la page user/list-users de url /admin/home");
             model.addAttribute("user", entity);
+            List<Site> listSites = siteService.getAllSites();
+            model.addAttribute("sites",listSites);
+            model.addAttribute("titreFormUser","Editer un user");
+            return "user/add-edit-user";
         } else {
-            model.addAttribute("user", new User());
+           return "page404";
         }
-        List<Site> listSites = siteService.getAllSites();
-        model.addAttribute("sites",listSites);
-        model.addAttribute("titreFormUser","Editer un user");
-        return "user/add-edit-user";
     }
 
     /* controller de la page de présentation */
@@ -150,7 +151,10 @@ public class userController {
     /* controller pour enregistrer les données de User dans la base de données */
     @RequestMapping(path = "admin/users/createUser", method = RequestMethod.POST)
     public String createOrUpdateUser(User user) {
+        logger.info(" valeur de l'user de edit de creatUser "+ user.getMotDePasseUser());
+        logger.info(" valeur de l'id de edit de creatUser "+ user.getIdUser());
         userService.updateUser(user);
+
         return "redirect:/admin/users";
     }
 

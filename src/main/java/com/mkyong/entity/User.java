@@ -96,9 +96,6 @@ public class User {
     public User (){
     };
 
-    public User(String mailUser, String motDePasseUser, Collection<? extends GrantedAuthority> authorities){
-    };
-
 
     //getters
 

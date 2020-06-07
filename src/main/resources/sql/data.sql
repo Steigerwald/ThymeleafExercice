@@ -18,9 +18,9 @@ INSERT INTO escalades.TBL_ROLE (id_role, nom_role) VALUES
 INSERT INTO escalades.TBL_USER (id_user, mail_user, mot_de_passe_user, nom_user,prenom_user,role_id_role,site_id_site) VALUES
 (1, 'admin@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Steigerwald','Brice',1,1),
 (2, 'user@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Steigerwald','Jacques',2,2),
-(3, 'tara@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Hot','Tara',1,3),
-(4, 'jean@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Pierre','Jean',1,4),
-(5, 'anne@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Priska','Anne',1,5);
+(3, 'tara@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Hot','Tara',2,3),
+(4, 'jean@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Pierre','Jean',2,4),
+(5, 'anne@gmail.com', '$2a$10$2Mgmm6OlYvb54/SQik3EO.jCHE4RA4S5lpDSjmD73sDnS1zhPK1Ru', 'Priska','Anne',2,5);
 
 INSERT INTO escalades.TBL_VOIE (id_voie, cotation, nombre_longueurs, nombre_points,numero_voie,secteur_id_secteur) VALUES
 (1, '2c', 2, 3,'1',1),

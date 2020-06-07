@@ -40,11 +40,9 @@ public class secteurController {
         return "redirect:/voies";
     }
 
-
     /* controller pour l'edition d'un secteur par Id */
     @RequestMapping(path = "/edit/{id}",method = RequestMethod.GET)
     public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-
         Secteur entity = secteurService.getSecteurById(id);
         if (id!=0) {
             model.addAttribute("secteur", entity);
@@ -60,7 +58,6 @@ public class secteurController {
     /* controller pour l'ajout d'un secteur */
     @RequestMapping(path = "/addSecteur",method = RequestMethod.GET)
     public String addEntityById(Model model) {
-
         model.addAttribute("secteur", new Secteur());
         model.addAttribute("titreFormSecteur","Ajouter un secteur");
         List<Site> listSites = siteService.getAllSites();

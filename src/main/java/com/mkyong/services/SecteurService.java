@@ -51,22 +51,23 @@ public class SecteurService {
         if(entity.getIdSecteur()  == null)
         {
             entity = secteurRepository.save(entity);
-
             logger.info(" retour de l'entité de createOrUpdateSecteur car l'Id n'existe pas");
             return entity;
         }
         else
         {
-                Secteur newSecteur = new Secteur();
-                newSecteur.setIdSecteur(entity.getIdSecteur());
-                newSecteur.setNomSecteur(entity.getNomSecteur());
-                newSecteur.setDescriptifSecteur(entity.getDescriptifSecteur());
-                newSecteur.setHauteur(entity.getHauteur());
+            Secteur newSecteur = new Secteur();
+            newSecteur.setIdSecteur(entity.getIdSecteur());
+            newSecteur.setNomSecteur(entity.getNomSecteur());
+            newSecteur.setDescriptifSecteur(entity.getDescriptifSecteur());
+            newSecteur.setHauteur(entity.getHauteur());
+            newSecteur.setSite(entity.getSite());
+            newSecteur.setImages(entity.getImages());
+            newSecteur.setVoies(entity.getVoies());
+            newSecteur = secteurRepository.save(newSecteur);
 
-                newSecteur = secteurRepository.save(newSecteur);
-
-                logger.info(" retour de la nouvelle entité secteur de createOrUpdateSecteur qui a été sauvegardée et le secteur est existant");
-                return newSecteur;
+            logger.info(" retour de la nouvelle entité secteur de createOrUpdateSecteur qui a été sauvegardée et le secteur est existant");
+            return newSecteur;
 
         }
     }

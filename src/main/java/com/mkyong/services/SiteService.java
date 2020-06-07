@@ -58,23 +58,26 @@ public class SiteService {
         if(entity.getIdSite()  == null)
         {
             entity = siteRepository.save(entity);
-
             logger.info(" retour de l'entité de createOrUpdateSite car l'Id n'existe pas");
             return entity;
         }
         else
         {
-                Site newSite = new Site();
-                newSite.setIdSite(entity.getIdSite());
-                newSite.setNomSite(entity.getNomSite());
-                newSite.setLieu(entity.getLieu());
-                newSite.setDescriptif(entity.getDescriptif());
-
-                newSite = siteRepository.save(newSite);
-
-                logger.info(" retour de la nouvelle entité site de createOrUpdateSite qui a été sauvegardée et le site est existant");
-                return newSite;
-
+            Site newSite = new Site();
+            newSite.setIdSite(entity.getIdSite());
+            newSite.setNomSite(entity.getNomSite());
+            newSite.setLieu(entity.getLieu());
+            newSite.setDescriptif(entity.getDescriptif());
+            newSite.setOfficiel(entity.getOfficiel());
+            newSite.setImages(entity.getImages());
+            newSite.setCommentaires(entity.getCommentaires());
+            newSite.setSecteurs(entity.getSecteurs());
+            newSite.setUser(entity.getUser());
+            newSite.setTopo(entity.getTopo());
+            logger.info(" valeur entité newSite"+newSite);
+            newSite =siteRepository.save(newSite);
+            logger.info(" retour de la nouvelle entité site de createOrUpdateSite qui a été sauvegardée et le site est existant");
+            return newSite;
         }
     }
 

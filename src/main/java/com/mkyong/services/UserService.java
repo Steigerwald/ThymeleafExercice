@@ -89,13 +89,22 @@ public class UserService {
     //Methode pour modifier un User
     public void updateUser (User user){
 
+
         User newUser = new User();
         newUser.setIdUser(user.getIdUser());
+        logger.info(" la valeur de l'id user dans updateUser :"+user.getIdUser());
         newUser.setMailUser(user.getMailUser());
         newUser.setNomUser(user.getNomUser());
+        logger.info(" le nom user :"+user.getNomUser());
         newUser.setPrenomUser(user.getPrenomUser());
-        newUser.setMotDePasseUser(passwordEncoder.encode(user.getMotDePasseUser()));
+        newUser.setMotDePasseUser(user.getMotDePasseUser());
         newUser.setRole((user.getRole()));
+        newUser.setSite(user.getSite());
+        newUser.setTopos(user.getTopos());
+        newUser.setReservations(user.getReservations());
+
+        logger.info(" la valeur de mot de passe user "+user.getMotDePasseUser());
+        logger.info(" la valeur de mot de passe newUser "+newUser.getMotDePasseUser());
         userRepository.save(newUser);
         logger.info(" la nouvelle entité user de updateUser a été sauvegardée et le user est existant");
     }
