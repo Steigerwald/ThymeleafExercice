@@ -1,7 +1,6 @@
 package com.mkyong.services;
 
 
-import com.mkyong.entity.Topo;
 import com.mkyong.entity.Voie;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.VoieRepository;
@@ -22,11 +21,9 @@ public class VoieService {
 
     Logger logger = (Logger) LoggerFactory.getLogger(TopoService.class);
 
-
-    public List<Voie> getAllVoies()
-    {
+    /*Methode pour obtenir toutes les voies de la base de données*/
+    public List<Voie> getAllVoies() {
         List<Voie> result1 =(List<Voie>) voieRepository.findAll();
-
         if(result1.size() > 0) {
             logger.info(" retour liste result1 si taille de result1 >0 ");
             return result1;
@@ -36,10 +33,9 @@ public class VoieService {
         }
     }
 
-    public Voie getVoieById(Long id) throws RecordNotFoundException
-    {
+    /*Methode pour obtenir une voie par Id*/
+    public Voie getVoieById(Long id) throws RecordNotFoundException {
         Optional<Voie> voie = voieRepository.findById(id);
-
         if(voie.isPresent()) {
             logger.info(" retour de la voie car il est présent ");
             return voie.get();
@@ -48,17 +44,14 @@ public class VoieService {
         }
     }
 
-    public Voie createOrUpdateVoie(Voie entity)
-    {
-        if(entity.getIdVoie()  == null)
-        {
+    /*Methode pour creer ou modifier une entité voie dans la base de données*/
+    public Voie createOrUpdateVoie(Voie entity) {
+        if(entity.getIdVoie()  == null) {
             entity = voieRepository.save(entity);
-
             logger.info(" retour de l'entité de createOrUpdateVoie car l'Id n'existe pas");
             return entity;
         }
         else {
-
                 Voie newVoie = new Voie();
                 newVoie.setIdVoie(entity.getIdVoie());
                 newVoie.setNumeroVoie(entity.getNumeroVoie());
@@ -66,24 +59,18 @@ public class VoieService {
                 newVoie.setNombreLongueurs(entity.getNombreLongueurs());
                 newVoie.setNombrePoints(entity.getNombrePoints());
                 newVoie = voieRepository.save(newVoie);
-
                 logger.info(" retour de la nouvelle entité voie de createOrUpdateVoie qui a été sauvegardée et la voie est existante");
                 return newVoie;
-
         }
     }
 
-
-    public void deleteVoieById(Long id) throws RecordNotFoundException
-    {
+    /*Methode pour annuler une voie par Id*/
+    public void deleteVoieById(Long id) throws RecordNotFoundException {
         Optional<Voie> voie = voieRepository.findById(id);
-
-        if(voie.isPresent())
-        {
+        if(voie.isPresent()) {
             voieRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("Pas de voie enregistrée avec cet Id");
         }
     }
-
 }

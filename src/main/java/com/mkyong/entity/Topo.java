@@ -7,6 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 
 @Entity
 @Table(name="TBL_TOPO")
@@ -23,13 +26,9 @@ public class Topo {
     private String description;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DATE_PARUTION")
+    @Column(name = "DATE_PARUTION",nullable = false,length=6)
     private Date dateParution;
-    /*
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DATE_PARUTION",nullable=false,length=6)
-    private Date dateParution;
-*/
+
     @Column(name = "DISPONIBLE")
     private Boolean disponible;
 
@@ -46,8 +45,9 @@ public class Topo {
     @ManyToOne
     private User owner;
 
-    // Méthodes pour l'affichage
 
+
+    // Méthodes pour l'affichage
 
     @Override
     public String toString() {

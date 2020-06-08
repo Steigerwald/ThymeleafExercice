@@ -23,8 +23,7 @@ public class CommentaireService {
     Logger logger = (Logger) LoggerFactory.getLogger(CommentaireService.class);
 
 
-    public List<Commentaire> getAllCommentaires()
-    {
+    public List<Commentaire> getAllCommentaires() {
         List<Commentaire> result1 =(List<Commentaire>) commentaireRepository.findAll();
         if(result1.size() > 0) {
             logger.info(" retour liste result1 si taille de result1 >0 ");
@@ -35,8 +34,7 @@ public class CommentaireService {
         }
     }
 
-    public Commentaire getCommentaireById(Long id) throws RecordNotFoundException
-    {
+    public Commentaire getCommentaireById(Long id) throws RecordNotFoundException {
         Optional<Commentaire> commentaire = commentaireRepository.findById(id);
         if(commentaire.isPresent()) {
             logger.info(" retour du commentaire car il est présent ");
@@ -47,8 +45,7 @@ public class CommentaireService {
     }
 
 
-    public Commentaire modifyCommentaire(Commentaire entity)
-    {
+    public Commentaire modifyCommentaire(Commentaire entity) {
         Commentaire newCommentaire = new Commentaire();
         newCommentaire.setIdCommentaire(entity.getIdCommentaire());
         newCommentaire.setContenu(entity.getContenu());
@@ -60,8 +57,7 @@ public class CommentaireService {
         return newCommentaire;
     }
 
-    public Commentaire createCommentaire(Commentaire entity, User currentUser)
-    {
+    public Commentaire createCommentaire(Commentaire entity, User currentUser) {
         Date today = new Date();
         Commentaire newCommentaire = new Commentaire();
         newCommentaire.setContenu(entity.getContenu());
@@ -71,13 +67,10 @@ public class CommentaireService {
         newCommentaire = commentaireRepository.save(newCommentaire);
         logger.info(" retour de la nouvelle entité commentaire de createOrUpdateCommentaire qui a été sauvegardée et le commentaire est existant");
         return newCommentaire;
-
     }
 
 
-
-    public void deleteCommentaireById(Long id) throws RecordNotFoundException
-    {
+    public void deleteCommentaireById(Long id) throws RecordNotFoundException {
         Optional<Commentaire> commentaire = commentaireRepository.findById(id);
         if(commentaire.isPresent()) {
             commentaireRepository.deleteById(id);
@@ -85,9 +78,4 @@ public class CommentaireService {
             throw new RecordNotFoundException("Pas de commentaire enregistré avec cet Id");
         }
     }
-
-
-
-
-
 }

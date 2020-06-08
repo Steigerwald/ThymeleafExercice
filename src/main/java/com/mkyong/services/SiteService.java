@@ -1,9 +1,6 @@
 package com.mkyong.services;
 
-import com.mkyong.entity.Secteur;
 import com.mkyong.entity.Site;
-import com.mkyong.entity.Topo;
-import com.mkyong.entity.Voie;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.form.Search;
 import com.mkyong.repository.SecteurRepository;
@@ -32,7 +29,7 @@ public class SiteService {
 
     Logger logger = (Logger) LoggerFactory.getLogger(SiteService.class);
 
-
+    /*Methode pour obtenir tous les sites de la base de données*/
     public List<Site> getAllSites() {
         List<Site> result1 =(List<Site>) siteRepository.findAll();
         if(result1.size() > 0) {
@@ -44,6 +41,7 @@ public class SiteService {
         }
     }
 
+    /*Methode pour obtenir un site par Id de la base de données*/
     public Site getSiteById(Long id) throws RecordNotFoundException {
         Optional<Site> site = siteRepository.findById(id);
         if(site.isPresent()) {
@@ -54,42 +52,39 @@ public class SiteService {
         }
     }
 
-    public Site createOrUpdateSite(Site entity) {
-        if(entity.getIdSite()  == null)
-        {
+    /*Methode pour creer ou modifier un site dans la base de données*/
+    public Site createOrUpdateSite(Site entity) throws RecordNotFoundException {
+        if(entity.getIdSite()  == null) {
             entity = siteRepository.save(entity);
-            logger.info(" retour de l'entité de createOrUpdateSite car l'Id n'existe pas");
+            logger.info(" retour de l'entité de createOrUpdateSite qui a été créée car l'Id n'existe pas");
             return entity;
-        }
-        else
-        {
-            Site newSite = new Site();
-            newSite.setIdSite(entity.getIdSite());
-            newSite.setNomSite(entity.getNomSite());
-            newSite.setLieu(entity.getLieu());
-            newSite.setDescriptif(entity.getDescriptif());
-            newSite.setOfficiel(entity.getOfficiel());
-            newSite.setImages(entity.getImages());
-            newSite.setCommentaires(entity.getCommentaires());
-            newSite.setSecteurs(entity.getSecteurs());
-            newSite.setUser(entity.getUser());
-            newSite.setTopo(entity.getTopo());
-            logger.info(" valeur entité newSite"+newSite);
-            newSite =siteRepository.save(newSite);
-            logger.info(" retour de la nouvelle entité site de createOrUpdateSite qui a été sauvegardée et le site est existant");
-            return newSite;
+        } else {
+            Site siteAModifier = getSiteById(entity.getIdSite());
+            if(siteAModifier!=null) {
+                logger.info(" l'entité site à modifier a été trouvée et modifiée");
+                entity.setOfficiel(siteAModifier.getOfficiel());
+                entity.setCommentaires(siteAModifier.getCommentaires());
+                entity.setImages(siteAModifier.getImages());
+                entity.setSecteurs(siteAModifier.getSecteurs());
+                entity = siteRepository.save(entity);
+                logger.info(" retour de la nouvelle entité site de createOrUpdateSite qui a été sauvegardée et le site est existant");
+                return entity;
+            } else {
+                throw new RecordNotFoundException("No user record exist for given id and to modify it");
+            }
         }
     }
 
+    /*Methode pour effacer un site dans la base de données*/
     public void deleteSiteById(Long id) throws RecordNotFoundException {
         Optional<Site> site = siteRepository.findById(id);
-        if(site.isPresent())
-        {
+        if(site.isPresent()) {
             siteRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("Pas de site enregistré avec cet Id");
         }
     }
+
 
     public List<Site> getAllSitesByLieu(String lieu){
         List<Site> listSitesTrouvesByLieu =siteRepository.findByLieu(lieu);

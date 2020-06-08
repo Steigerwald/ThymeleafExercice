@@ -88,7 +88,7 @@ public class siteController {
 
     /* controller pour enregistrer les données d'un site dans la base de données */
     @RequestMapping(path = "/createSite", method = RequestMethod.POST)
-    public String createOrUpdateVoie(Site site) {
+    public String createOrUpdateVoie(Site site) throws RecordNotFoundException {
         siteService.createOrUpdateSite(site);
         return "redirect:/sites";
     }

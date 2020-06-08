@@ -73,7 +73,7 @@ public class ImageService {
         }
     }
 
-    public Image stockerImage(Image entity) {
+    public Image stockerImage(Image entity) throws RecordNotFoundException {
         if (entity.getId() == null) {
             Image newEntity = new Image();
             newEntity.setNomImage(entity.getNomImage());
@@ -100,7 +100,6 @@ public class ImageService {
             }
             logger.info(" retour de l'entité de stockerImage car cette image n'existe pas");
             return entity;
-
         } else {
             Image newEntity = new Image();
             newEntity.setId(entity.getId());

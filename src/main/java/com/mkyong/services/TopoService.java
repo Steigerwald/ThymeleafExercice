@@ -19,11 +19,9 @@ public class TopoService {
 
     Logger logger = (Logger) LoggerFactory.getLogger(TopoService.class);
 
-
-    public List<Topo> getAllTopos()
-    {
+    /*Methode pour obtenir tous les topos de la base de données*/
+    public List<Topo> getAllTopos() {
         List<Topo> result1 =(List<Topo>) topoRepository.findAll();
-
         if(result1.size() > 0) {
             logger.info(" retour liste result1 si taille de result1 >0 ");
             return result1;
@@ -33,10 +31,9 @@ public class TopoService {
         }
     }
 
-    public Topo getTopoById(Long id) throws RecordNotFoundException
-    {
+    /*Methode pour obtenir un topo par Id*/
+    public Topo getTopoById(Long id) throws RecordNotFoundException {
         Optional<Topo> topo = topoRepository.findById(id);
-
         if(topo.isPresent()) {
             logger.info(" retour du topo car il est présent ");
             return topo.get();
@@ -45,50 +42,35 @@ public class TopoService {
         }
     }
 
-    public Topo createOrUpdateTopo(Topo entity)
-    {
-        //Calendar calendar = Calendar.getInstance();
-        //Date today =  calendar.getTime();
-        //logger.info(" avec calendar aujourd'hui il est :" + today);
-        //System.out.println(today);
+    /*Methode pour creer ou modifier une entité topo*/
+    public Topo createOrUpdateTopo(Topo entity) throws RecordNotFoundException {
         Date today = new Date();
         logger.info(" avec date aujourd'hui il est :"+ today);
-        //System.out.println(date);
-
-        if(entity.getIdTopo()  == null)
-        {
+        if(entity.getIdTopo()  == null) {
             entity.setDateParution(today);
             entity = topoRepository.save(entity);
-
             logger.info(" retour de l'entité de createOrUpdateTopo car l'Id n'existe pas");
             return entity;
-        }
-        else
-        {
-                Topo newTopo = new Topo();
-                newTopo.setIdTopo(entity.getIdTopo());
-                newTopo.setNomTopo(entity.getNomTopo());
-                newTopo.setDescription(entity.getDescription());
-                newTopo.setDateParution(entity.getDateParution());
-                newTopo.setDisponible(entity.getDisponible());
-                newTopo.setLocation(entity.getLocation());
-                newTopo.setSites(entity.getSites());
-                newTopo.setReservation(entity.getReservation());
-                newTopo.setOwner(entity.getOwner());
-                newTopo = topoRepository.save(newTopo);
-
+        } else {
+            Topo topoAModifier = getTopoById(entity.getIdTopo());
+            if(topoAModifier!=null) {
+                logger.info(" l'entité topo à modifier a été trouvée et modifiée");
+                entity.setDateParution(topoAModifier.getDateParution());
+                entity.setSites(topoAModifier.getSites());
+                entity.setReservation(topoAModifier.getReservation());
+                entity = topoRepository.save(entity);
                 logger.info(" retour de la nouvelle entité topo de createOrUpdateTopo qui a été sauvegardée et le topo est existant");
-                return newTopo;
+                return entity;
+            } else {
+                throw new RecordNotFoundException("No user record exist for given id and to modify it");
+            }
         }
     }
 
-
-    public void deleteTopoById(Long id) throws RecordNotFoundException
-    {
+    /*Methode pour annuler un topo par id dans la base de données*/
+    public void deleteTopoById(Long id) throws RecordNotFoundException {
         Optional<Topo> topo = topoRepository.findById(id);
-
-        if(topo.isPresent())
-        {
+        if(topo.isPresent()) {
             topoRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("Pas de topo enregistré avec cet Id");

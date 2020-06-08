@@ -75,7 +75,7 @@ public class topoController {
         model.addAttribute("users",listUsers);
         List<Site> listSites = siteService.getAllSites();
         model.addAttribute("sites",listSites);
-        model.addAttribute("titreFormTopo","Editer un topo");
+        model.addAttribute("titreFormTopo","Modifier un topo");
         return "topo/add-edit-topo";
     }
 
@@ -94,8 +94,8 @@ public class topoController {
     }
 
     /* controller pour creer un topo dans la base de données */
-    @RequestMapping(path = "/createTopo", method = RequestMethod.POST)
-    public String createOrUpdateVoie(Topo topo) {
+    @RequestMapping(path = "/createTopoOrUpdateTopo", method = RequestMethod.POST)
+    public String createOrUpdateVoie(Topo topo) throws RecordNotFoundException {
         topoService.createOrUpdateTopo(topo);
         return "redirect:/topos";
     }

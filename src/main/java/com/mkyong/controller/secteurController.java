@@ -67,7 +67,7 @@ public class secteurController {
 
     /* controller pour enregistrer les données d'un secteur dans la base de données */
     @RequestMapping(path = "/createSecteur", method = RequestMethod.POST)
-    public String createOrUpdateVoie(Secteur secteur) {
+    public String createOrUpdateVoie(Secteur secteur) throws RecordNotFoundException {
         secteurService.createOrUpdateSecteur(secteur);
         return "redirect:/secteurs";
     }
