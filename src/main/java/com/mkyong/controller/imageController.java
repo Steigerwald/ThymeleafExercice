@@ -54,7 +54,7 @@ public class imageController {
     }
 
     @RequestMapping(path = "/stockerImage", method = RequestMethod.POST)
-    public String addImage(@RequestParam("file") MultipartFile fileImage, Image image) throws IOException {
+    public String addImage(@RequestParam("file") MultipartFile fileImage, Image image) throws IOException, RecordNotFoundException {
 
         logger.info(" le nombre octet de image est: "+image.getImage());
         logger.info(" le type de l'image est: "+image.getMimeType());
