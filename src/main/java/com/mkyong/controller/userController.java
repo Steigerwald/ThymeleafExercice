@@ -149,10 +149,12 @@ public class userController {
     }
 
     /* controller pour enregistrer les données de User dans la base de données */
-    @RequestMapping(path = "admin/users/createUser", method = RequestMethod.POST)
-    public String createOrUpdateUser(User user) {
-        logger.info(" valeur de l'user de edit de creatUser "+ user.getMotDePasseUser());
+    @RequestMapping(path = "admin/users/updateUser", method = RequestMethod.POST)
+    public String createOrUpdateUser(User user) throws RecordNotFoundException {
         logger.info(" valeur de l'id de edit de creatUser "+ user.getIdUser());
+        User userAModofier=userService.getUserById(user.getIdUser());
+        user.setMotDePasseUser(userAModofier.getMotDePasseUser());
+        logger.info(" valeur de l'user de edit de creatUser "+ user.getMotDePasseUser());
         userService.updateUser(user);
 
         return "redirect:/admin/users";

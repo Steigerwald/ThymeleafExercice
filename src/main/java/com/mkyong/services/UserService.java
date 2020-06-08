@@ -87,26 +87,16 @@ public class UserService {
 
 
     //Methode pour modifier un User
-    public void updateUser (User user){
+    public void updateUser (User user) throws RecordNotFoundException {
 
+        Optional<User> userAModifier = userRepository.findByIdUser(user.getIdUser());
 
-        User newUser = new User();
-        newUser.setIdUser(user.getIdUser());
-        logger.info(" la valeur de l'id user dans updateUser :"+user.getIdUser());
-        newUser.setMailUser(user.getMailUser());
-        newUser.setNomUser(user.getNomUser());
-        logger.info(" le nom user :"+user.getNomUser());
-        newUser.setPrenomUser(user.getPrenomUser());
-        newUser.setMotDePasseUser(user.getMotDePasseUser());
-        newUser.setRole((user.getRole()));
-        newUser.setSite(user.getSite());
-        newUser.setTopos(user.getTopos());
-        newUser.setReservations(user.getReservations());
-
-        logger.info(" la valeur de mot de passe user "+user.getMotDePasseUser());
-        logger.info(" la valeur de mot de passe newUser "+newUser.getMotDePasseUser());
-        userRepository.save(newUser);
-        logger.info(" la nouvelle entité user de updateUser a été sauvegardée et le user est existant");
+        if(userAModifier.isPresent())
+        { logger.info(" l'entité user à modifier a été trouvée et modifiée");
+            userRepository.save(user);
+        } else {
+            throw new RecordNotFoundException("No user record exist for given id and to cancel it");
+        }
     }
 
     //Methode pour effacer un User par Id
