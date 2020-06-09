@@ -23,12 +23,12 @@
         <form enctype="multipart/form-data" th:action="@{/admin/images/stockerImage}" th:object="${image}" method="post">
             <input type="hidden" name="MAX_FILE_SIZE" value="250000" />
             <input type="file" name="file" size=50  />
-            <div class="form-group col-md-8">
+            <div class="form-group col-xs-12 col-sm-6 col-md-8">
                 <label for="nomFichier" class="col-form-label">Nom de l'image</label>
                 <input type="text" th:field="*{nomImage}" class="form-control"
                        id="nomFichier" placeholder="nom Image" />
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-xs-12 col-sm-6 col-md-6">
                 <label for="mime" class="col-form-label">extension</label>
                 <select type="text" th:field="*{mimeType}" class="form-control" id="mime">
                     <option value="jpg" >jpg</option>
@@ -36,7 +36,7 @@
                     <option value="jpeg">jpeg</option>
                 </select>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-xs-12 col-sm-6 col-md-6">
                 <label for="secteur" class="col-form-label">Secteur</label>
                 <select th:field="*{secteur}" class="form-control" id="secteur">
                     <option th:value=null th:text="null"></option>
@@ -44,7 +44,7 @@
                     </option>
                 </select>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-xs-12 col-sm-6 col-md-6">
                 <label for="site" class="col-form-label">Site</label>
                 <select th:field="*{site}" class="form-control" id="site">
                     <option th:value=null th:text="null"></option>

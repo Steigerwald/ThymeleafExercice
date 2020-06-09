@@ -19,40 +19,38 @@
         <h3>
             <span th:text="${titreFormSecteur}" ></span>
         </h3>
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-12">
-                    <form th:action="@{/secteurs/createSecteur}" th:object="${secteur}" method="post">
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="nomSecteur" class="col-form-label">Nom Secteur</label>
-                                <input type="text" th:field="*{nomSecteur}" class="form-control"
-                                       id="nomSecteur" placeholder="nom Secteur" />
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="descriptifSecteur" class="col-form-label">Description</label>
-                                <input type="text" th:field="*{descriptifSecteur}" class="form-control"
-                                       id="descriptifSecteur" placeholder="descriptif Secteur" />
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="hauteur" class="col-form-label">Hauteur</label>
-                                <input type="text" th:field="*{hauteur}" class="form-control"
-                                       id="hauteur" placeholder="hauteur" />
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="site" class="col-form-label">Site</label>
-                                <select th:field="*{site}" class="form-control" id="site">
-                                    <option th:each="site : ${sites}" th:value="${site.idSite}" th:text="${site.nomSite}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="submit" class="btn btn-primary" value=" Enregistrer ">
-                            </div>
-                            <input type="hidden" id="id" th:field="*{idSecteur}">
+        <div class="form">
+            <div class="col-md-12">
+                <form th:action="@{/secteurs/createSecteur}" th:object="${secteur}" method="post">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                            <label for="nomSecteur" class="col-form-label">Nom Secteur</label>
+                            <input type="text" th:field="*{nomSecteur}" class="form-control"
+                                   id="nomSecteur" placeholder="nom Secteur" />
                         </div>
-                    </form>
-                </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                            <label for="descriptifSecteur" class="col-form-label">Description</label>
+                            <input type="text" th:field="*{descriptifSecteur}" class="form-control"
+                                   id="descriptifSecteur" placeholder="descriptif Secteur" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                            <label for="hauteur" class="col-form-label">Hauteur</label>
+                            <input type="text" th:field="*{hauteur}" class="form-control"
+                                   id="hauteur" placeholder="hauteur" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                            <label for="site" class="col-form-label">Site</label>
+                            <select th:field="*{site}" class="form-control" id="site">
+                                <option th:each="site : ${sites}" th:value="${site.idSite}" th:text="${site.nomSite}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Enregistrer ">
+                        </div>
+                        <input type="hidden" id="id" th:field="*{idSecteur}">
+                    </div>
+                </form>
             </div>
         </div>
     </div>

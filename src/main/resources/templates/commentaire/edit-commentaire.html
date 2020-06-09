@@ -17,38 +17,36 @@
 <main>
     <div class="container my-5">
         <h3> Commentaire à modifier</h3>
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-12">
-                    <form th:action="@{/commentaires/modifierCommentaire}" th:object="${commentaire}" method="post">
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <label for="contenu" class="col-form-label">Contenu</label>
-                                <input type="text" th:field="*{contenu}" rows="5" class="form-control"
-                                       id="contenu" placeholder="contenu" />
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="dateCommentaire" class="col-form-label">Date du dépôt</label>
-                                <input type="text" th:field="*{dateCommentaire}" class="form-control"
-                                       id="dateCommentaire" placeholder="date de dépôt" />
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="site" class="col-form-label">Site concerné</label>
-                                <select th:field="*{site}" class="form-control" id="site">
-                                    <option th:each="site : ${sites}" th:value="${site.idSite}" th:text="${site.nomSite}">
-                                    </option>
-                                </select>
-                            </div>
+        <div class="form">
+            <div class="col-md-12">
+                <form th:action="@{/commentaires/modifierCommentaire}" th:object="${commentaire}" method="post">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                            <label for="contenu" class="col-form-label">Contenu</label>
+                            <input type="text" th:field="*{contenu}" rows="5" class="form-control"
+                                   id="contenu" placeholder="contenu" />
                         </div>
-                        <Br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="submit" class="btn btn-primary" value=" Modifier ">
-                            </div>
-                            <input type="hidden" id="id" th:field="*{idCommentaire}">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                            <label for="dateCommentaire" class="col-form-label">Date du dépôt</label>
+                            <input type="text" th:field="*{dateCommentaire}" class="form-control"
+                                   id="dateCommentaire" placeholder="date de dépôt" />
                         </div>
-                    </form>
-                </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                            <label for="site" class="col-form-label">Site concerné</label>
+                            <select th:field="*{site}" class="form-control" id="site">
+                                <option th:each="site : ${sites}" th:value="${site.idSite}" th:text="${site.nomSite}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <Br>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Modifier ">
+                        </div>
+                        <input type="hidden" id="id" th:field="*{idCommentaire}">
+                    </div>
+                </form>
             </div>
         </div>
     </div>

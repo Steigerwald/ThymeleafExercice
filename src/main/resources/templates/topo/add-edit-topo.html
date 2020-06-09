@@ -19,75 +19,54 @@
         <h3>
             <span th:text="${titreFormTopo}" ></span>
         </h3>
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-12">
-                    <form th:action="@{/topos/createTopoOrUpdateTopo}" th:object="${topo}" method="post">
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="nomTopo" class="col-form-label">Nom Topo</label>
-                                <input type="text" th:field="*{nomTopo}" class="form-control"
-                                       id="nomTopo" placeholder="nom Topo" />
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="description" class="col-form-label">Description</label>
-                                <input type="text" th:field="*{description}" class="form-control"
-                                       id="description" placeholder="description" />
-                            </div>
-                            <div class="form-group col-md-2">
-                            <label for="disponible" class="col-form-label">Disponibilité</label>
-                            <select th:field="*{disponible}" class="form-control" id="disponible" placeholder="réservation">
-                                <option th:value="true" th:text="réservé"></option>
-                                <option th:value="false" th:text="libre"></option>
-                            </select>
-                            </div>
-                            <!--<div class="form-group col-md-2">
-                                <label for="dateParution" class="col-form-label">Date Parution</label>
-                                <input type="text" th:field="*{dateParution}" th:value="${today}" class="form-control"
-                                       id="dateParution"/>
-                            </div>-->
-                            <div class="form-group col-md-3">
-                                <label for="proprietaire" class="col-form-label">propriétaire</label>
-                                <select th:field="*{owner}" class="form-control" id="proprietaire">
-                                    <option th:each="user : ${users}" th:value="${user.idUser}" th:text="|${user.nomUser}|+' '+|${user.prenomUser}|">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="location" class="col-form-label">Location</label>
-                                <select th:field="*{location}" class="form-control" id="location" placeholder="Location">
-                                    <option th:value="true" th:text="oui"></option>
-                                    <option th:value="false" th:text="non"></option>
-                                </select>
-                            </div>
+        <div class="form">
+            <div class="col-md-12">
+                <form th:action="@{/topos/createTopoOrUpdateTopo}" th:object="${topo}" method="post">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                            <label for="nomTopo" class="col-form-label">Nom Topo</label>
+                            <input type="text" th:field="*{nomTopo}" class="form-control"
+                                   id="nomTopo" placeholder="nom Topo" />
                         </div>
-                        <!--<div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="site" class="col-form-label">Sites</label>
-                                <select th:field="*{sites}" class="form-control" id="site" placeholder="Sites">
-                                    <option th:each="site : ${sites}" th:value="${site.idSite}" th:text="${site.nomSite}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="reservation" class="col-form-label">Reservation</label>
-                                <select th:field="*{reservation}" class="form-control" id="reservation" placeholder="Sites">
-                                    <option th:each="reservation : ${réservations}" th:value="${site.idSite}" th:text="${site.nomSite}">
-                                    </option>
-                                </select>
-                            </div>
-
+                        <div class="form-group col-xs-12 col-sm-6 col-md-6">
+                            <label for="description" class="col-form-label">Description</label>
+                            <input type="text" th:field="*{description}" class="form-control"
+                                   id="description" placeholder="description" />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-2">
+                        <label for="disponible" class="col-form-label">Disponibilité</label>
+                        <select th:field="*{disponible}" class="form-control" id="disponible" placeholder="réservation">
+                            <option th:value="true" th:text="réservé"></option>
+                            <option th:value="false" th:text="libre"></option>
+                        </select>
+                        </div>
+                        <!--<div class="form-group col-md-2">
+                            <label for="dateParution" class="col-form-label">Date Parution</label>
+                            <input type="text" th:field="*{dateParution}" th:value="${today}" class="form-control"
+                                   id="dateParution"/>
                         </div>-->
-
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="submit" class="btn btn-primary" value=" Enregistrer ">
-                            </div>
-                            <input type="hidden" id="id" th:field="*{idTopo}">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                            <label for="proprietaire" class="col-form-label">propriétaire</label>
+                            <select th:field="*{owner}" class="form-control" id="proprietaire">
+                                <option th:each="user : ${users}" th:value="${user.idUser}" th:text="|${user.nomUser}|+' '+|${user.prenomUser}|">
+                                </option>
+                            </select>
                         </div>
-                    </form>
-                </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-2">
+                            <label for="location" class="col-form-label">Location</label>
+                            <select th:field="*{location}" class="form-control" id="location" placeholder="Location">
+                                <option th:value="true" th:text="oui"></option>
+                                <option th:value="false" th:text="non"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <input type="submit" class="btn btn-primary" value=" Enregistrer ">
+                        </div>
+                        <input type="hidden" id="id" th:field="*{idTopo}">
+                    </div>
+                </form>
             </div>
         </div>
     </div>

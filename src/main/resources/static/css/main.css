@@ -66,6 +66,10 @@ img {
     text-align: left !important;
     width:1000px!important;
 }
+
+
+
+
 #carte{
     height: 250px !important;
 }
@@ -83,3 +87,63 @@ Footer{
     margin-top: 40px; !important;
     margin-left:100px;
 }
+
+@media only screen and (max-width:320px) {
+    body {
+        font-size: 0.7em !important;
+    }
+    h1,h2 {
+        font-size: 1.1em !important;
+    }
+    .card{
+        table-layout: auto!important;
+        width: 30px!important;
+    }
+}
+
+
+@media only screen and (max-width:480px) {
+    body {
+        font-size: 0.9em !important;
+    }
+    h1,h2 {
+        font-size: 1.5em !important;
+    }
+    .card{
+        table-layout: auto!important;
+        width: 50px!important;
+    }
+}
+
+
+@media only screen and (max-width:768px) {
+    body {
+        font-size: 0.9em !important;
+    }
+    h1,h2 {
+        font-size: 1.5em !important;
+    }
+    .card{
+        table-layout: auto!important;
+        width: 100px!important;
+    }
+}
+
+
+@media only screen and (max-width:1024px) {
+    body {
+        font-size: 1.3em !important;
+    }
+
+    h1,h2 {
+        font-size: 1.5em !important;
+    }
+
+    .card{
+        table-layout: auto!important;
+        width: 150px!important;
+    }
+
+}
+
+
