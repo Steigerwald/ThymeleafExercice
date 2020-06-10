@@ -42,11 +42,11 @@ public class topoController {
 
     /* Controller pour la liste des topos */
     @RequestMapping(method = RequestMethod.GET)
-    public String getAllTopos(Model model) {
-
+    public String getAllTopos(Model model,Principal principal) {
+        User userConnecte = userService.getUserByMail(principal.getName());
         List<Topo> listTopos = topoService.getAllTopos();
+        model.addAttribute("user", userConnecte);
         model.addAttribute("topos", listTopos);
-
         return "topo/list-topos"; //view
     }
 

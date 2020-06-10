@@ -66,16 +66,13 @@ public class Image implements Serializable {
 
     // getters
 
-    public Long getId() {
-        return id;
+    public Long getId() { return id;
     }
 
-    public String getNomImage() {
-        return nomImage;
+    public String getNomImage() { return nomImage;
     }
 
-    public String getMimeType() {
-        return mimeType;
+    public String getMimeType() { return mimeType;
     }
 
     public Long getTaille() { return taille;

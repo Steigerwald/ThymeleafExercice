@@ -32,48 +32,56 @@
                                     <div class="table-responsive text-nowrap ncol-md-12">
                                         <h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
                                         <div th:case="*">
-                                            <table class="table table-striped" >
-                                                <thead>
-                                                <tr>
-                                                    <th>Nom du Site</th>
-                                                    <th>lieu</th>
-                                                    <th>descriptif</th>
-                                                    <th>Topo</th>
-                                                    <th>Les amis de l'escalade</th>
-                                                    <th>Edit</th>
-                                                    <th>Delete</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="site : ${sites}">
-                                                    <td> <a th:text="${site.nomSite}" th:href="@{/sites/details/{nom} (nom=${site.idSite})}" ></a> </td>
-                                                    <td th:text="${site.lieu}"></td>
-                                                    <td th:text="${site.descriptif}"></td>
-                                                    <td th:text="${site.topo.nomTopo}"></td>
-                                                    <td>
-                                                            <form th:action="@{/sites/officiel/{id}(id=${site.idSite})}" method="post">
-                                                                <div th:if="${site.officiel}==false">
-                                                                    <button class="btn btn-success" type="submit">Officiel</button>
-                                                                </div>
-                                                                <div th:unless="${site.officiel}==false">
-                                                                    <p>Officiel</p>
-                                                                </div>
-                                                            </form>
-                                                    </td>
-                                                    <td>
-                                                        <a th:href="@{/sites/edit/{id}(id=${site.idSite})}"
-                                                           class="btn btn-primary">
-                                                            <i class="fas fa-edit ml-2"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <form th:action="@{/sites/delete/{id}(id=${site.idSite})}" method="post">
-                                                            <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                            <div >
+                                                <table class="table table-striped" >
+                                                    <thead th:switch="${user.role.nomRole}">
+                                                    <tr>
+                                                        <th>Nom du Site</th>
+                                                        <th>lieu</th>
+                                                        <th>descriptif</th>
+                                                        <th>Topo</th>
+                                                        <div th:case="'ROLE_ADMIN'">
+                                                            <th>Les amis de l'escalade</th>
+                                                            <th>Edit</th>
+                                                            <th>Delete</th>
+                                                        </div>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="site : ${sites}">
+                                                        <div th:switch="${user.role.nomRole}">
+                                                            <td> <a th:text="${site.nomSite}" th:href="@{/sites/details/{nom} (nom=${site.idSite})}" ></a> </td>
+                                                            <td th:text="${site.lieu}"></td>
+                                                            <td th:text="${site.descriptif}"></td>
+                                                            <td th:text="${site.topo.nomTopo}"></td>
+                                                            <div th:case="'ROLE_ADMIN'">
+                                                                <td>
+                                                                    <form th:action="@{/sites/officiel/{id}(id=${site.idSite})}" method="post">
+                                                                        <div th:if="${site.officiel}==false">
+                                                                            <button class="btn btn-success" type="submit">Officiel</button>
+                                                                        </div>
+                                                                        <div th:unless="${site.officiel}==false">
+                                                                            <p>Officiel</p>
+                                                                        </div>
+                                                                    </form>
+                                                                </td>
+                                                                <td>
+                                                                    <a th:href="@{/sites/edit/{id}(id=${site.idSite})}"
+                                                                       class="btn btn-primary">
+                                                                        <i class="fas fa-edit ml-2"></i>
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    <form th:action="@{/sites/delete/{id}(id=${site.idSite})}" method="post">
+                                                                        <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
+                                                                    </form>
+                                                                </td>
+                                                            </div>
+                                                        </div>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

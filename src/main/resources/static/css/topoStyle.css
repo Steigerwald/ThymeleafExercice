@@ -24,5 +24,7 @@ th{
 .jumbotron{
     background-color: #ffa64f !important;
     color:white !important;
+    width: 1300px !important;
+    height:100px !important;
 }
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -38,9 +39,11 @@ public class siteController {
 
     /* Controller pour la liste des sites */
     @RequestMapping(method = RequestMethod.GET)
-    public String getAllSites(Model model) {
-
+    public String getAllSites(Model model, Principal principal) {
+        User userConnecte = userService.getUserByMail(principal.getName());
         List<Site> listSites = siteService.getAllSites();
+        logger.info(" le role du user est: "+userConnecte.getRole());
+        model.addAttribute("user", userConnecte);
         model.addAttribute("sites", listSites);
         return "site/list-sites"; //view
     }

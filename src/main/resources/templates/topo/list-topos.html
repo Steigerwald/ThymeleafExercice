@@ -33,35 +33,41 @@
                                         <h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
                                         <div th:case="*">
                                             <table class="table table-striped" >
-                                                <thead>
+                                                <thead th:switch="${user.role.nomRole}">
                                                 <tr>
                                                     <th>Nom du Topo</th>
                                                     <th>description</th>
                                                     <th>date de parution</th>
                                                     <th>Réservation</th>
                                                     <th>Location</th>
-                                                    <th>Edit</th>
-                                                    <th>Delete</th>
+                                                    <div th:case="'ROLE_ADMIN'">
+                                                        <th>Edit</th>
+                                                        <th>Delete</th>
+                                                    </div>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="topo : ${topos}">
-                                                    <td> <a th:text="${topo.nomTopo}" th:href="@{/topos/details/{nom} (nom=${topo.idTopo})}" ></a> </td>
-                                                    <td th:text="${topo.description}"></td>
-                                                    <td th:text="${topo.toStringDateParution()}"></td>
-                                                    <td th:text="${topo.toStringDisponible()}"></td>
-                                                    <td th:text="${topo.toStringLocation()}"></td>
-                                                    <td>
-                                                        <a th:href="@{/topos/edit/{id}(id=${topo.idTopo})}"
-                                                           class="btn btn-primary">
-                                                            <i class="fas fa-edit ml-2"></i>
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <form th:action="@{/topos/delete/{id}(id=${topo.idTopo})}" method="post">
-                                                            <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
-                                                        </form>
-                                                    </td>
+                                                    <div th:switch="${user.role.nomRole}">
+                                                        <td> <a th:text="${topo.nomTopo}" th:href="@{/topos/details/{nom} (nom=${topo.idTopo})}" ></a> </td>
+                                                        <td th:text="${topo.description}"></td>
+                                                        <td th:text="${topo.toStringDateParution()}"></td>
+                                                        <td th:text="${topo.toStringDisponible()}"></td>
+                                                        <td th:text="${topo.toStringLocation()}"></td>
+                                                        <div th:case="'ROLE_ADMIN'">
+                                                            <td>
+                                                                <a th:href="@{/topos/edit/{id}(id=${topo.idTopo})}"
+                                                                   class="btn btn-primary">
+                                                                    <i class="fas fa-edit ml-2"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <form th:action="@{/topos/delete/{id}(id=${topo.idTopo})}" method="post">
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
+                                                                </form>
+                                                            </td>
+                                                        </div>
+                                                    </div>
                                                 </tr>
                                                 </tbody>
                                             </table>
