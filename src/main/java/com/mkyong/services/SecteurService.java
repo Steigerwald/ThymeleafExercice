@@ -54,7 +54,6 @@ public class SecteurService {
 
                 logger.info(" l'entité secteur à modifier a été trouvée et modifiée");
 
-                entity.setImages(secteurAModifier.getImages());
                 entity.setVoies(secteurAModifier.getVoies());
                 entity = secteurRepository.save(entity);
                 logger.info(" retour de la nouvelle entité secteur de createOrUpdateSite qui a été sauvegardée et le secteur est existant");

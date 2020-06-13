@@ -98,14 +98,14 @@ public class siteController {
 
     /* controller pour avoir le détail du site */
     @RequestMapping(path="/details/{id}",method = RequestMethod.GET)
-    public String getDetailsSite(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String getDetailsSite(Model model,Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
 
         Commentaire commentaire = new Commentaire();
         model.addAttribute(commentaire);
-
+        User userConnecte = userService.getUserByMail(principal.getName());
         Site siteTrouve=siteService.getSiteById(id);
         model.addAttribute("site", siteTrouve);
-
+        model.addAttribute("user", userConnecte);
         return "site/details-site"; //view
     }
 

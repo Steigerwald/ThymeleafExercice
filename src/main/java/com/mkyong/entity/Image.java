@@ -38,9 +38,9 @@ public class Image implements Serializable {
     @Nullable
     private Site site;
 
-    @ManyToOne
+    @OneToOne
     @Nullable
-    private Secteur secteur;
+    private Topo topo;
 
 
     // Méthodes pour l'affichage
@@ -63,6 +63,7 @@ public class Image implements Serializable {
 
     public Image() {
     }
+
 
     // getters
 
@@ -89,7 +90,7 @@ public class Image implements Serializable {
     }
 
     @Nullable
-    public Secteur getSecteur() { return secteur;
+    public Topo getTopo() { return topo;
     }
 
 
@@ -107,18 +108,16 @@ public class Image implements Serializable {
         this.mimeType = mimeType;
     }
 
-    public void setTaille(Long taille) { this.taille = taille;
-    }
+    public void setTaille(Long taille) { this.taille = taille; }
 
     public void setImage(byte[] image) {
         this.image = image;
     }
 
-    public void setSite(@Nullable Site site) { this.site = site;
-    }
+    public void setSite(@Nullable Site site) { this.site = site; }
 
-    public void setSecteur(@Nullable Secteur secteur) { this.secteur = secteur;
-    }
+    public void setTopo(@Nullable Topo topo) { this.topo = topo; }
+
 }
 
 

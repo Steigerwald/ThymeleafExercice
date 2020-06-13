@@ -1,12 +1,13 @@
 package com.mkyong.controller;
 
 import com.mkyong.entity.Image;
-import com.mkyong.entity.Secteur;
 import com.mkyong.entity.Site;
+import com.mkyong.entity.Topo;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.ImageService;
 import com.mkyong.services.SecteurService;
 import com.mkyong.services.SiteService;
+import com.mkyong.services.TopoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,10 @@ public class imageController {
     private ImageService imageEntityService;
 
     @Autowired
-    private SecteurService secteurService;
+    private SiteService siteService;
 
     @Autowired
-    private SiteService siteService;
+    private TopoService topoService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String getAllImages(Model model)  {
@@ -45,8 +46,8 @@ public class imageController {
     @RequestMapping(path = "/addImage",method = RequestMethod.GET)
     public String addImageById(Model model) {
 
-        List<Secteur> secteurs = secteurService.getAllSecteurs();
-        model.addAttribute("secteurs", secteurs);
+        List<Topo> topos = topoService.getAllTopos();
+        model.addAttribute("topos", topos);
         List<Site> sites = siteService.getAllSites();
         model.addAttribute("sites", sites);
         model.addAttribute("image", new Image());

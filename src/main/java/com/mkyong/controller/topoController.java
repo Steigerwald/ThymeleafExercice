@@ -2,10 +2,7 @@ package com.mkyong.controller;
 
 import com.mkyong.entity.*;
 import com.mkyong.exception.RecordNotFoundException;
-import com.mkyong.services.ReservationTopoService;
-import com.mkyong.services.SiteService;
-import com.mkyong.services.TopoService;
-import com.mkyong.services.UserService;
+import com.mkyong.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +32,10 @@ public class topoController {
     private SiteService siteService;
 
     @Autowired
-    private ReservationTopoService reservationTopoService;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    private ImageService imageService;
 
     /* Controller pour la liste des topos */
     @RequestMapping(method = RequestMethod.GET)
@@ -106,7 +103,6 @@ public class topoController {
 
         Topo topoTrouve=topoService.getTopoById(id);
         model.addAttribute("topo", topoTrouve);
-
         if (topoTrouve.getLocation()==true) {
             if (topoTrouve.getDisponible()==true){
                 model.addAttribute("enableButton", 1);

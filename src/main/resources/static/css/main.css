@@ -65,10 +65,8 @@ img {
     border-color: white !important;
     text-align: left !important;
     width:1000px!important;
+    padding-left:20px ;
 }
-
-
-
 
 #carte{
     height: 250px !important;
@@ -101,7 +99,6 @@ Footer{
     }
 }
 
-
 @media only screen and (max-width:480px) {
     body {
         font-size: 0.9em !important;
@@ -115,7 +112,6 @@ Footer{
     }
 }
 
-
 @media only screen and (max-width:768px) {
     body {
         font-size: 0.9em !important;
@@ -128,7 +124,6 @@ Footer{
         width: 100px!important;
     }
 }
-
 
 @media only screen and (max-width:1024px) {
     body {

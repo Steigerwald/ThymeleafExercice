@@ -42,6 +42,9 @@ public class Topo {
     @Nullable
     private Reservation reservation;
 
+    @OneToOne (mappedBy = "topo")
+    private Image image;
+
     @ManyToOne
     private User owner;
 
@@ -120,6 +123,9 @@ public class Topo {
 
     public User getOwner() { return owner; }
 
+    public Image getImage() { return image;
+    }
+
     // Setters
 
     public void setIdTopo(Long idTopo) { this.idTopo = idTopo; }
@@ -142,4 +148,6 @@ public class Topo {
 
     public void setOwner(User owner) { this.owner = owner; }
 
+    public void setImage(Image image) { this.image = image;
+    }
 }

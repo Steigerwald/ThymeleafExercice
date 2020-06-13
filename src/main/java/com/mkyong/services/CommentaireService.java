@@ -45,14 +45,11 @@ public class CommentaireService {
     }
 
 
-    public Commentaire modifyCommentaire(Commentaire entity) {
-        Commentaire newCommentaire = new Commentaire();
-        newCommentaire.setIdCommentaire(entity.getIdCommentaire());
-        newCommentaire.setContenu(entity.getContenu());
-        newCommentaire.setDateCommentaire(entity.getDateCommentaire());
-        newCommentaire.setSite(entity.getSite());
-        newCommentaire.setUser(entity.getUser());
-        newCommentaire = commentaireRepository.save(newCommentaire);
+    public Commentaire modifyCommentaire(Commentaire entity) throws RecordNotFoundException {
+        Commentaire commentaireTrouve = getCommentaireById(entity.getIdCommentaire());
+        commentaireTrouve.setContenu(entity.getContenu());
+        commentaireTrouve.setSite(entity.getSite());
+        Commentaire newCommentaire = commentaireRepository.save(commentaireTrouve);
         logger.info(" retour de la nouvelle entité newCommentaire de modifyCommentaire qui a été sauvegardée et le commentaire est existant");
         return newCommentaire;
     }

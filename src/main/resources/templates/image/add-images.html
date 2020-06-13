@@ -15,9 +15,6 @@
 <body>
 <div th:insert="~{baniere :: fragment }"></div>
     <main>
-        <h3>
-        <span th:text="${titreFormImage}" ></span>
-    </h3>
         <h3>Ajouter une image</h3>
     </Br>
         <form enctype="multipart/form-data" th:action="@{/admin/images/stockerImage}" th:object="${image}" method="post">
@@ -37,10 +34,10 @@
                 </select>
             </div>
             <div class="form-group col-xs-12 col-sm-6 col-md-6">
-                <label for="secteur" class="col-form-label">Secteur</label>
-                <select th:field="*{secteur}" class="form-control" id="secteur">
+                <label for="topo" class="col-form-label">Topo</label>
+                <select th:field="*{topo}" class="form-control" id="topo">
                     <option th:value=null th:text="null"></option>
-                    <option th:each="secteur : ${secteurs}" th:value="${secteur.idSecteur}" th:text="${secteur.nomSecteur}">
+                    <option th:each="topo : ${topos}" th:value="${topo.idTopo}" th:text="${topo.nomTopo}">
                     </option>
                 </select>
             </div>

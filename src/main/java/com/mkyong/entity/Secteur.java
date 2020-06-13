@@ -27,9 +27,6 @@ public class Secteur {
     private Site site;
 
     @OneToMany (mappedBy = "secteur")
-    private Collection<Image> images;
-
-    @OneToMany (mappedBy = "secteur")
     private Collection<Voie> voies;
 
 
@@ -78,8 +75,6 @@ public class Secteur {
     public Site getSite() { return site;
     }
 
-    public Collection<Image> getImages() { return images;
-    }
 
     public Collection<Voie> getVoies() { return voies;
     }
@@ -104,8 +99,6 @@ public class Secteur {
     public void setSite(Site site) { this.site = site;
     }
 
-    public void setImages(Collection<Image> images) { this.images = images;
-    }
 
     public void setVoies(Collection<Voie> voies) { this.voies = voies;
     }

@@ -77,7 +77,7 @@ public class commentaireController {
 
     /* controller pour enregistrer les données d'un commentaire modifié dans la base de données */
     @RequestMapping(path = "/modifierCommentaire", method = RequestMethod.POST)
-    public String UpdateCommentaire(Commentaire commentaire) {
+    public String UpdateCommentaire(Commentaire commentaire) throws RecordNotFoundException {
         commentaireService.modifyCommentaire(commentaire);
         return "redirect:/commentaires";
     }

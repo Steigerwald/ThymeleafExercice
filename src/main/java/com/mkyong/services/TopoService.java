@@ -21,7 +21,7 @@ public class TopoService {
 
     /*Methode pour obtenir tous les topos de la base de données*/
     public List<Topo> getAllTopos() {
-        List<Topo> result1 =(List<Topo>) topoRepository.findAll();
+        List<Topo> result1 =topoRepository.findAll();
         if(result1.size() > 0) {
             logger.info(" retour liste result1 si taille de result1 >0 ");
             return result1;

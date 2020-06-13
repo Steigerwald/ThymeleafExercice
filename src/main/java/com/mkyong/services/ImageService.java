@@ -3,10 +3,12 @@ package com.mkyong.services;
 import com.mkyong.entity.Image;
 import com.mkyong.entity.Secteur;
 import com.mkyong.entity.Site;
+import com.mkyong.entity.Topo;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.ImageRepository;
 import com.mkyong.repository.SecteurRepository;
 import com.mkyong.repository.SiteRepository;
+import com.mkyong.repository.TopoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class ImageService {
     private ImageRepository repositoryImage;
 
     @Autowired
-    private SecteurService secteurService;
+    private TopoService topoService;
 
     @Autowired
     private SiteService siteService;
@@ -75,48 +77,43 @@ public class ImageService {
 
     public Image stockerImage(Image entity) throws RecordNotFoundException {
         if (entity.getId() == null) {
-            Image newEntity = new Image();
+            /*Image newEntity = new Image();
             newEntity.setNomImage(entity.getNomImage());
             newEntity.setMimeType(entity.getMimeType());
             newEntity.setTaille(entity.getTaille());
             newEntity.setImage(entity.getImage());
-            newEntity.setSecteur(entity.getSecteur());
-            newEntity.setSite(entity.getSite());
-            entity = repositoryImage.save(newEntity);
-            if ((newEntity.getSecteur()!=null)&&(newEntity!=null)){
-                Secteur secteurConcerne =newEntity.getSecteur();
-                Collection listeSecteurImages = secteurConcerne.getImages();
-                listeSecteurImages.add(newEntity);
-                secteurConcerne.setImages(listeSecteurImages);
-                secteurRepository.save(secteurConcerne);
+            newEntity.setTopo(entity.getTopo());
+            newEntity.setSite(entity.getSite());*/
+            entity = repositoryImage.save(entity);
+            if ((entity.getTopo()!=null)&&(entity!=null)){
+                Topo topoConcerne =entity.getTopo();
+                topoConcerne.setImage(entity);
+                topoService.createOrUpdateTopo(topoConcerne);
             }
-            if ((newEntity.getSite()!=null)&&(newEntity!=null)){
-
-                Site siteConcerne =newEntity.getSite();
+            if ((entity.getSite()!=null)&&(entity!=null)){
+                Site siteConcerne =entity.getSite();
                 Collection listeSiteImages = siteConcerne.getImages();
-                listeSiteImages.add(newEntity);
+                listeSiteImages.add(entity);
                 siteConcerne.setImages(listeSiteImages);
-                siteRepository.save(siteConcerne);
+                siteService.createOrUpdateSite(siteConcerne);
             }
-            logger.info(" retour de l'entité de stockerImage car cette image n'existe pas");
+            logger.info(" retour de l'entité de stockerImage car cette image n'existe pas et donc elle ");
             return entity;
         } else {
+           /* Image imageAModifier = getImageById(entity.getId());
             Image newEntity = new Image();
             newEntity.setId(entity.getId());
             newEntity.setNomImage(entity.getNomImage());
             newEntity.setMimeType(entity.getMimeType());
             newEntity.setTaille(entity.getTaille());
             newEntity.setImage(entity.getImage());
-            newEntity.setSecteur(entity.getSecteur());
+            newEntity.setTopo(entity.getTopo());
             newEntity.setSite(entity.getSite());
             newEntity = repositoryImage.save(newEntity);
-            if (newEntity.getSecteur()!=null){
-                Secteur secteurConcerne =newEntity.getSecteur();
-                List<Image>listSecteurImage = null;
-                assert listSecteurImage != null;
-                listSecteurImage.add(newEntity);
-                secteurConcerne.setImages(listSecteurImage);
-                secteurService.createOrUpdateSecteur(secteurConcerne);
+            if (newEntity.getTopo()!=null){
+                Topo topoConcerne =newEntity.getTopo();
+                topoConcerne.setImage(newEntity);
+                topoService.createOrUpdateTopo(topoConcerne);
             }
             if (newEntity.getSite()!=null){
                 Site siteConcerne =newEntity.getSite();
@@ -125,9 +122,9 @@ public class ImageService {
                 listSiteImage.add(newEntity);
                 siteConcerne.setImages(listSiteImage);
                 siteService.createOrUpdateSite(siteConcerne);
-            }
-            logger.info(" retour de la nouvelle entité Image de stockerImage qui a été sauvegardée et l'image est existante");
-            return newEntity;
+            }*/
+            logger.info(" retour de la nouvelle entité Image de stockerImage qui n'a pas été sauvegardée car l'image est existante");
+            return entity;
         }
     }
 
