@@ -43,8 +43,8 @@ public class secteurController {
     /* controller pour l'edition d'un secteur par Id */
     @RequestMapping(path = "/edit/{id}",method = RequestMethod.GET)
     public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-        Secteur entity = secteurService.getSecteurById(id);
         if (id!=0) {
+            Secteur entity = secteurService.getSecteurById(id);
             model.addAttribute("secteur", entity);
         } else {
             model.addAttribute("secteur", new Secteur());

@@ -40,8 +40,8 @@
                                         <div th:switch="${enableButton}">
                                             <form th:action="@{/reservations/reserverTopo/{id}(id=${topo.idTopo})}" method="post">
                                                 <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="1" >Réserver</button>
-                                                <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="2" disabled>Réserver</button>
-                                                <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="3" disabled>Réserver</button>
+                                                <h2 th:case="2" >Non disponible</h2>
+                                                <h2 th:case="3" >Non disponible</h2>
                                             </form>
                                         </div>
                                     </td>

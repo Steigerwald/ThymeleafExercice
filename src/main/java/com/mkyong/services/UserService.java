@@ -105,5 +105,4 @@ public class UserService {
             throw new RecordNotFoundException("No role record exist for given id");
         }
     }
-
 }

@@ -42,21 +42,18 @@ public class userController {
     /* Controller pour la page d'entrée sans connection */
     @RequestMapping(method = RequestMethod.GET)
     public String siteHome(Principal principal,Model model) throws RecordNotFoundException {
-
         return "home/entree"; //view
     }
 
     /* Controller pour qu'un user se déconnecte */
     @RequestMapping(path="logout",method = RequestMethod.GET)
     public String logoutSite(Model model) {
-
         return "user/login-view"; //view
     }
 
     /* Controller pour un login d'un user */
     @RequestMapping(path="login",method = RequestMethod.GET)
     public String loginSite(Model model) {
-
         System.out.println(passwordEncoder.encode("brice"));
         User newUser = new User();
         model.addAttribute(newUser);
@@ -74,9 +71,9 @@ public class userController {
     @RequestMapping(path = "admin/users/edit/{id}",method = RequestMethod.GET)
     public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         logger.info(" valeur de l'id de user"+id);
-        User entity = userService.getUserById(id);
-        logger.info(" valeur de l'user de edit " + entity.getNomUser());
         if (id!=0) {
+            User entity = userService.getUserById(id);
+            logger.info(" valeur de l'user de edit " + entity.getNomUser());
             logger.info(" on est passe par la avant l'appel de la page user/list-users de url /admin/home");
             model.addAttribute("user", entity);
             List<Site> listSites = siteService.getAllSites();
@@ -91,7 +88,6 @@ public class userController {
     /* controller de la page de présentation */
     @RequestMapping(path="home",method = RequestMethod.GET)
     public String formUser(Principal principal, Model model) throws RecordNotFoundException {
-
         User newUser = userService.getUserByMail(principal.getName());
        String nom=newUser.getNomUser();
        String prenom=newUser.getPrenomUser();
@@ -114,17 +110,12 @@ public class userController {
     @RequestMapping(path="admin/users",method = RequestMethod.GET)
     public String InsideHomeAdmin(Principal principal,Model model) {
         User userConnecte = userService.getUserByMail(principal.getName());
-
         System.out.println(userConnecte.getRole().getNomRole());
-
         if ((userConnecte.getRole().getNomRole()).equalsIgnoreCase("ROLE_ADMIN")) {
             String nom = userConnecte.getNomUser();
             String prenom = userConnecte.getPrenomUser();
             model.addAttribute("message1", nom);
             model.addAttribute("message2", prenom);
-
-            //model.addAttribute("userConnecte", userConnecte);
-
             List<User> listF = userService.getAllUsers();
             model.addAttribute("users", listF);
             logger.info(" on est passe par la avant l'appel de la page user/list-users de url /admin/home");
@@ -141,7 +132,6 @@ public class userController {
     /* controller pour la page d'enregistrement du user */
     @RequestMapping(path="registration",method = RequestMethod.GET)
     public String registration(Model model) {
-
         User newUser = new User();
         model.addAttribute("user", newUser);
         logger.info(" envoi de l'attribut user à registration view");
@@ -156,17 +146,14 @@ public class userController {
         user.setMotDePasseUser(userAModofier.getMotDePasseUser());
         logger.info(" valeur de l'user de edit de creatUser "+ user.getMotDePasseUser());
         userService.updateUser(user);
-
         return "redirect:/admin/users";
     }
 
     /* controller pour récupérer les données du formulaire d'enregistrement des users */
     @RequestMapping(value = "registration/create", method = RequestMethod.POST)
     public ModelAndView processRegistrationForm(@ModelAttribute("user") @Valid User user, Model model, BindingResult bindingResult, HttpServletRequest request,Principal principal,ModelAndView modelAndView) throws RecordNotFoundException {
-
         User userExists = userService.getUserByMail(user.getMailUser());
         System.out.println(userExists);
-
         if (userExists != null) {
             modelAndView.addObject("alreadyRegisteredMessage", "Oops!  There is already a user registered with the email provided.");
             logger.info(" enregistrement existe déjà de post register");

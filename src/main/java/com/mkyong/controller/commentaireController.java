@@ -32,38 +32,32 @@ public class commentaireController {
     /* Controller pour la liste des commentaires */
     @RequestMapping(method = RequestMethod.GET)
     public String getAllTopos(Model model) {
-
         List<Commentaire> listCommentaires = commentaireService.getAllCommentaires();
         model.addAttribute("commentaires", listCommentaires);
-
         return "commentaire/list-commentaires"; //view
     }
 
     /* Controller pour creer un commentaire */
     @RequestMapping(path="/laisserCommentaires/{id}",method = RequestMethod.POST)
     public String createNewCommentaire(Principal principal,@PathVariable("id") Long id,Commentaire commentaire, Model model) throws RecordNotFoundException {
-
         Site siteConcerne =siteService.getSiteById(id);
         commentaire.setSite(siteConcerne);
         User currentUser = userService.getUserByMail(principal.getName());
         commentaireService.createCommentaire(commentaire,currentUser);
-
         return "redirect:/sites/details/{id}"; //view
     }
 
     /* controller pour modifier un commentaire par Id */
     @RequestMapping(path = "/edit/{id}",method = RequestMethod.GET)
     public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-
-        Commentaire entity = commentaireService.getCommentaireById(id);
         if (id!=0) {
+            Commentaire entity = commentaireService.getCommentaireById(id);
             model.addAttribute("commentaire", entity);
         } else {
             model.addAttribute("commentaire", new Voie());
         }
         List<Site> listSites = siteService.getAllSites();
         model.addAttribute("sites",listSites);
-
         return "commentaire/edit-commentaire";
     }
 

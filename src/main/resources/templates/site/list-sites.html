@@ -38,8 +38,9 @@
                                                         <th>lieu</th>
                                                         <th>descriptif</th>
                                                         <th>Topo</th>
+                                                        <th>Les amis de l'escalade</th>
                                                         <div th:case="'ROLE_ADMIN'">
-                                                            <th>Les amis de l'escalade</th>
+                                                            <th>Action Officiel/Non Officiel</th>
                                                             <th>Edit</th>
                                                             <th>Delete</th>
                                                         </div>
@@ -52,14 +53,17 @@
                                                             <td th:text="${site.lieu}"></td>
                                                             <td th:text="${site.descriptif}"></td>
                                                             <td th:text="${site.topo.nomTopo}"></td>
+                                                            <td th:text="${site.toStringOfficiel()}"></td>
                                                             <div th:case="'ROLE_ADMIN'">
                                                                 <td>
                                                                     <form th:action="@{/sites/officiel/{id}(id=${site.idSite})}" method="post">
                                                                         <div th:if="${site.officiel}==false">
                                                                             <button class="btn btn-success" type="submit">Officiel</button>
                                                                         </div>
+                                                                    </form>
+                                                                    <form th:action="@{/sites/nonOfficiel/{id}(id=${site.idSite})}" method="post">
                                                                         <div th:unless="${site.officiel}==false">
-                                                                            <p>Officiel</p>
+                                                                            <button class="btn btn-danger" type="submit">Non officiel</button>
                                                                         </div>
                                                                     </form>
                                                                 </td>

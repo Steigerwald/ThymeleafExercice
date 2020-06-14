@@ -77,13 +77,6 @@ public class ImageService {
 
     public Image stockerImage(Image entity) throws RecordNotFoundException {
         if (entity.getId() == null) {
-            /*Image newEntity = new Image();
-            newEntity.setNomImage(entity.getNomImage());
-            newEntity.setMimeType(entity.getMimeType());
-            newEntity.setTaille(entity.getTaille());
-            newEntity.setImage(entity.getImage());
-            newEntity.setTopo(entity.getTopo());
-            newEntity.setSite(entity.getSite());*/
             entity = repositoryImage.save(entity);
             if ((entity.getTopo()!=null)&&(entity!=null)){
                 Topo topoConcerne =entity.getTopo();
@@ -100,32 +93,8 @@ public class ImageService {
             logger.info(" retour de l'entité de stockerImage car cette image n'existe pas et donc elle ");
             return entity;
         } else {
-           /* Image imageAModifier = getImageById(entity.getId());
-            Image newEntity = new Image();
-            newEntity.setId(entity.getId());
-            newEntity.setNomImage(entity.getNomImage());
-            newEntity.setMimeType(entity.getMimeType());
-            newEntity.setTaille(entity.getTaille());
-            newEntity.setImage(entity.getImage());
-            newEntity.setTopo(entity.getTopo());
-            newEntity.setSite(entity.getSite());
-            newEntity = repositoryImage.save(newEntity);
-            if (newEntity.getTopo()!=null){
-                Topo topoConcerne =newEntity.getTopo();
-                topoConcerne.setImage(newEntity);
-                topoService.createOrUpdateTopo(topoConcerne);
-            }
-            if (newEntity.getSite()!=null){
-                Site siteConcerne =newEntity.getSite();
-                List<Image>listSiteImage = null;
-                assert listSiteImage != null;
-                listSiteImage.add(newEntity);
-                siteConcerne.setImages(listSiteImage);
-                siteService.createOrUpdateSite(siteConcerne);
-            }*/
             logger.info(" retour de la nouvelle entité Image de stockerImage qui n'a pas été sauvegardée car l'image est existante");
             return entity;
         }
     }
-
 }

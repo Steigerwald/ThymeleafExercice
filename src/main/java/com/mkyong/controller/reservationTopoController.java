@@ -35,7 +35,6 @@ public class reservationTopoController {
 
     Logger logger = (Logger) LoggerFactory.getLogger(reservationTopoController.class);
 
-
     /* Controller pour la liste des topos */
     @RequestMapping(method = RequestMethod.GET)
     public String getAllReservations(Model model) {
@@ -77,13 +76,12 @@ public class reservationTopoController {
         User currentUser = userService.getUserByMail(principal.getName());
         reservationTopoService.createReservationTopo(topoReserve, currentUser);
         model.addAttribute("enableButton", 2);
-                return "redirect:/topos/details/{id}";
+        return "redirect:/topos/details/{id}";
     }
 
     /*controller pour accepter une réservation dans la base de données*/
     @RequestMapping(path = "/reservationAcceptee/{id}",method = RequestMethod.POST)
     public String accepterReservationTopo(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-
         logger.info("retour de l'id de la reservation concernée de accepterReservationTopo "+id);
         Reservation reservationAcceptee = reservationTopoService.getReservationTopoById(id);
         reservationAcceptee.setEtat("Acceptee");
@@ -100,7 +98,6 @@ public class reservationTopoController {
     /*controller pour refuser la réservation suite à la demande dans la base de données*/
     @RequestMapping(path = "/reservationRefusee/{id}",method = RequestMethod.POST)
     public String refuserReservationTopo(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-
         logger.info("retour de l'id de la reservation concernée de refuserReservationTopo "+id);
         Reservation reservationRefusee = reservationTopoService.getReservationTopoById(id);
         reservationRefusee.getTopo().setReservation(null);

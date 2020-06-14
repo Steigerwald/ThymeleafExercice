@@ -10,3 +10,9 @@ $ mvn spring-boot:run
 
 ```
 # ThymeleafExercice
+
+# comment lancer la base de données
+
+# les scripts
+
+

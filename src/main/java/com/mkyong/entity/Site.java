@@ -89,6 +89,15 @@ public class Site {
         return " " + lieu;
     }
 
+
+    public String toStringOfficiel(){
+        if (officiel==true){
+            return "officiel";
+        } else{
+            return "non officiel";
+        }
+    }
+
     // Constructeur
 
     public Site() {

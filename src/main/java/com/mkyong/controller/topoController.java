@@ -58,10 +58,9 @@ public class topoController {
     /* controller pour l'edition d'un topo par Id */
     @RequestMapping(path = "/edit/{id}",method = RequestMethod.GET)
     public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-
-        Topo entity = topoService.getTopoById(id);
         Date today = new Date();
         if (id!=0) {
+            Topo entity = topoService.getTopoById(id);
             model.addAttribute("topo", entity);
             model.addAttribute("today", today);
         } else {

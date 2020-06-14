@@ -51,9 +51,7 @@ public class SecteurService {
         } else {
             Secteur secteurAModifier = getSecteurById(entity.getIdSecteur());
             if(secteurAModifier!=null) {
-
                 logger.info(" l'entité secteur à modifier a été trouvée et modifiée");
-
                 entity.setVoies(secteurAModifier.getVoies());
                 entity = secteurRepository.save(entity);
                 logger.info(" retour de la nouvelle entité secteur de createOrUpdateSite qui a été sauvegardée et le secteur est existant");

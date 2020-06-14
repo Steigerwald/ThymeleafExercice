@@ -28,10 +28,8 @@ public class voieController {
     /* Controller pour la liste des voies */
     @RequestMapping(method = RequestMethod.GET)
     public String getAllTopos(Model model) {
-
         List<Voie> listVoies = voieService.getAllVoies();
         model.addAttribute("voies", listVoies);
-
         return "voie/list-voies"; //view
     }
 
@@ -45,9 +43,8 @@ public class voieController {
     /* controller pour l'edition d'une voie par Id */
     @RequestMapping(path = "/edit/{id}",method = RequestMethod.GET)
     public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-
-        Voie entity = voieService.getVoieById(id);
         if (id!=0) {
+            Voie entity = voieService.getVoieById(id);
             model.addAttribute("voie", entity);
         } else {
             model.addAttribute("voie", new Voie());
@@ -61,7 +58,6 @@ public class voieController {
     /* controller pour l'ajout d'une voie */
     @RequestMapping(path = "/addVoie",method = RequestMethod.GET)
     public String addEntityById(Model model) {
-
         model.addAttribute("voie", new Voie());
         model.addAttribute("titreFormVoie","Ajouter une voie");
         List<Secteur> listSecteurs = secteurService.getAllSecteurs();
@@ -76,5 +72,4 @@ public class voieController {
         voieService.createOrUpdateVoie(voie);
         return "redirect:/voies";
     }
-
 }

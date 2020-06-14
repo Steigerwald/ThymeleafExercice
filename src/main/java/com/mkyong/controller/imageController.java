@@ -36,16 +36,13 @@ public class imageController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getAllImages(Model model)  {
-
         List<Image> images = imageEntityService.getAllImages();
         model.addAttribute("images", images);
-
         return "image/list-images"; //view
     }
 
     @RequestMapping(path = "/addImage",method = RequestMethod.GET)
     public String addImageById(Model model) {
-
         List<Topo> topos = topoService.getAllTopos();
         model.addAttribute("topos", topos);
         List<Site> sites = siteService.getAllSites();
@@ -56,7 +53,6 @@ public class imageController {
 
     @RequestMapping(path = "/stockerImage", method = RequestMethod.POST)
     public String addImage(@RequestParam("file") MultipartFile fileImage, Image image) throws IOException, RecordNotFoundException {
-
         logger.info(" le nombre octet de image est: "+image.getImage());
         logger.info(" le type de l'image est: "+image.getMimeType());
         logger.info(" le nom de l'image est: "+image.getNomImage());
@@ -77,7 +73,6 @@ public class imageController {
 
     @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-
         imageEntityService.deleteImageById(id);
         return "redirect:/admin/images";
     }
