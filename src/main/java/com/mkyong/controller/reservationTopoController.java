@@ -37,16 +37,20 @@ public class reservationTopoController {
 
     /* Controller pour la liste des topos */
     @RequestMapping(method = RequestMethod.GET)
-    public String getAllReservations(Model model) {
+    public String getAllReservations(Model model, Principal principal) {
         List<Reservation> listReservations = reservationTopoService.getAllReservationTopos();
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         model.addAttribute("reservations", listReservations);
         return "reservation/list-reservationTopos"; //view
     }
 
     /* Controller pour la liste des topos */
     @RequestMapping(path = "/gestion",method = RequestMethod.GET)
-    public String getAllReservationsMonitoring(Model model) {
+    public String getAllReservationsMonitoring(Model model, Principal principal) {
         List<Reservation> listReservations = reservationTopoService.getAllReservationTopos();
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         model.addAttribute("reservations", listReservations);
         return "reservation/gestion-reservation"; //view
     }

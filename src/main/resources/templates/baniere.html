@@ -27,21 +27,23 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     explorer
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" th:switch="${user.role.nomRole}">
                                     <a class="dropdown-item" th:href="@{/topos}">Liste des topos</a>
                                     <a class="dropdown-item" th:href="@{/sites}">Liste des sites</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" th:href="@{/secteurs}">Liste des secteurs</a>
-                                    <a class="dropdown-item" th:href="@{/voies}">Liste des voies</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" th:href="@{/reservations}">Liste des réservations</a>
-                                    <a class="dropdown-item" th:href="@{/reservations/gestion}">Gestion des réservations</a>
+                                    <div th:case="'ROLE_ADMIN'">
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" th:href="@{/secteurs}">Liste des secteurs</a>
+                                        <a class="dropdown-item" th:href="@{/voies}">Liste des voies</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" th:href="@{/reservations}">Liste des réservations</a>
+                                        <a class="dropdown-item" th:href="@{/reservations/gestion}">Gestion des réservations</a>
+                                    </div>
                                 </div>
                             </li>
                             <li class="nav-item active"><a class="nav-link " th:href="@{/user/espacePersonnel}">Espace Perso</a></li>
                         </ul>
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item dropdown">
+                        <ul class="navbar-nav mr-auto" th:switch="${user.role.nomRole}">
+                            <li class="nav-item dropdown" th:case="'ROLE_ADMIN'">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Admin
                                 </a>

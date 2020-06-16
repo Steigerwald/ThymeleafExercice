@@ -3,11 +3,9 @@ package com.mkyong.controller;
 import com.mkyong.entity.Image;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.Topo;
+import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
-import com.mkyong.services.ImageService;
-import com.mkyong.services.SecteurService;
-import com.mkyong.services.SiteService;
-import com.mkyong.services.TopoService;
+import com.mkyong.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
+import java.security.Principal;
 import java.util.Base64;
 import java.util.List;
 
@@ -34,19 +33,26 @@ public class imageController {
     @Autowired
     private TopoService topoService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(method = RequestMethod.GET)
-    public String getAllImages(Model model)  {
+    public String getAllImages(Model model, Principal principal)  {
         List<Image> images = imageEntityService.getAllImages();
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         model.addAttribute("images", images);
         return "image/list-images"; //view
     }
 
     @RequestMapping(path = "/addImage",method = RequestMethod.GET)
-    public String addImageById(Model model) {
+    public String addImageById(Model model, Principal principal) {
         List<Topo> topos = topoService.getAllTopos();
         model.addAttribute("topos", topos);
         List<Site> sites = siteService.getAllSites();
         model.addAttribute("sites", sites);
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         model.addAttribute("image", new Image());
         return "image/add-images";
     }

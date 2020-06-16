@@ -31,8 +31,10 @@ public class commentaireController {
 
     /* Controller pour la liste des commentaires */
     @RequestMapping(method = RequestMethod.GET)
-    public String getAllTopos(Model model) {
+    public String getAllTopos(Model model,Principal principal) {
         List<Commentaire> listCommentaires = commentaireService.getAllCommentaires();
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         model.addAttribute("commentaires", listCommentaires);
         return "commentaire/list-commentaires"; //view
     }
@@ -49,13 +51,15 @@ public class commentaireController {
 
     /* controller pour modifier un commentaire par Id */
     @RequestMapping(path = "/edit/{id}",method = RequestMethod.GET)
-    public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String editEntityById(Model model,Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
         if (id!=0) {
             Commentaire entity = commentaireService.getCommentaireById(id);
             model.addAttribute("commentaire", entity);
         } else {
             model.addAttribute("commentaire", new Voie());
         }
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         List<Site> listSites = siteService.getAllSites();
         model.addAttribute("sites",listSites);
         return "commentaire/edit-commentaire";

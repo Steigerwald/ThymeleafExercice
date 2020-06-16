@@ -57,7 +57,7 @@ public class siteController {
 
     /* controller pour l'edition d'un site par Id */
     @RequestMapping(path = "/edit/{id}",method = RequestMethod.GET)
-    public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String editEntityById(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
         if (id!=0) {
             Site entity = siteService.getSiteById(id);
             model.addAttribute("site", entity);
@@ -68,13 +68,15 @@ public class siteController {
         model.addAttribute("topos",listTopos);
         List<User> listUsers = userService.getAllUsers();
         model.addAttribute("users",listUsers);
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         model.addAttribute("titreFormSite","Editer un site");
         return "site/add-edit-site";
     }
 
     /* controller pour l'ajout d'un site */
     @RequestMapping(path = "/addSite",method = RequestMethod.GET)
-    public String addEntityById(Model model) {
+    public String addEntityById(Model model, Principal principal) {
 
         model.addAttribute("site", new Site());
         model.addAttribute("titreFormSite","Ajouter un site");
@@ -82,6 +84,8 @@ public class siteController {
         model.addAttribute("topos",listTopos);
         List<User> listUsers = userService.getAllUsers();
         model.addAttribute("users",listUsers);
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         return "site/add-edit-site";
     }
 
@@ -106,20 +110,24 @@ public class siteController {
 
     /* controller pour la recherche de sites */
     @RequestMapping(path = "/search", method = RequestMethod.GET)
-    public String searchSitesBySearch(Model model) {
+    public String searchSitesBySearch(Model model,Principal principal) {
         List<Site> listSites = siteService.getAllSites();
         model.addAttribute("sites", listSites);
         List<Secteur> listSecteurs=secteurService.getAllSecteurs();
         model.addAttribute("secteurs", listSecteurs);
         model.addAttribute("search", new Search());
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         return "site/search-sites";
     }
 
     /* controller pour la recherche de sites par le lieu données venant de la base de données */
     @RequestMapping(path = "/search/mycriteres", method = RequestMethod.POST)
-    public String searchSitesByLieu(Search search,Model model) {
+    public String searchSitesByLieu(Search search,Model model, Principal principal) {
         //List<Site> listSitesTrouves = siteService.getAllSitesByLieu(search.getLieu());
         List<Site> listSitesTrouves = siteService.getAllSitesBySearch(search);
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         logger.info(" la valeur de listSitestrouves est: "+listSitesTrouves);
         if (listSitesTrouves.size()==0){
             model.addAttribute("sitesTrouves", null);

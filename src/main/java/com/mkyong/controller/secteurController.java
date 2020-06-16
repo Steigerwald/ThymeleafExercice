@@ -3,9 +3,11 @@ package com.mkyong.controller;
 
 import com.mkyong.entity.Secteur;
 import com.mkyong.entity.Site;
+import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.SecteurService;
 import com.mkyong.services.SiteService;
+import com.mkyong.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -25,10 +28,16 @@ public class secteurController {
     @Autowired
     private SiteService siteService;
 
+    @Autowired
+    private UserService userService;
+
+
     /* Controller pour la liste des secteurs */
     @RequestMapping(method = RequestMethod.GET)
-    public String getAllSecteurs(Model model) {
+    public String getAllSecteurs(Model model, Principal principal) {
         List<Secteur> listSecteurs = secteurService.getAllSecteurs();
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         model.addAttribute("secteurs", listSecteurs);
         return "secteur/list-secteurs"; //view
     }
@@ -42,7 +51,7 @@ public class secteurController {
 
     /* controller pour l'edition d'un secteur par Id */
     @RequestMapping(path = "/edit/{id}",method = RequestMethod.GET)
-    public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String editEntityById(Model model,Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
         if (id!=0) {
             Secteur entity = secteurService.getSecteurById(id);
             model.addAttribute("secteur", entity);
@@ -50,6 +59,8 @@ public class secteurController {
             model.addAttribute("secteur", new Secteur());
         }
         List<Site> listSites = siteService.getAllSites();
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         model.addAttribute("sites",listSites);
         model.addAttribute("titreFormSecteur","Editer un secteur");
         return "secteur/add-edit-secteur";
@@ -57,10 +68,12 @@ public class secteurController {
 
     /* controller pour l'ajout d'un secteur */
     @RequestMapping(path = "/addSecteur",method = RequestMethod.GET)
-    public String addEntityById(Model model) {
+    public String addEntityById(Model model, Principal principal) {
         model.addAttribute("secteur", new Secteur());
         model.addAttribute("titreFormSecteur","Ajouter un secteur");
         List<Site> listSites = siteService.getAllSites();
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         model.addAttribute("sites",listSites);
         return "secteur/add-edit-secteur";
     }

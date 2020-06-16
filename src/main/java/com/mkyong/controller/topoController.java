@@ -57,7 +57,7 @@ public class topoController {
 
     /* controller pour l'edition d'un topo par Id */
     @RequestMapping(path = "/edit/{id}",method = RequestMethod.GET)
-    public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String editEntityById(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
         Date today = new Date();
         if (id!=0) {
             Topo entity = topoService.getTopoById(id);
@@ -71,13 +71,15 @@ public class topoController {
         model.addAttribute("users",listUsers);
         List<Site> listSites = siteService.getAllSites();
         model.addAttribute("sites",listSites);
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         model.addAttribute("titreFormTopo","Modifier un topo");
         return "topo/add-edit-topo";
     }
 
     /* controller pour l'ajout d'un topo */
     @RequestMapping(path = "/addTopo",method = RequestMethod.GET)
-    public String addEntityById(Model model) {
+    public String addEntityById(Model model, Principal principal) {
         Date today = new Date();
         model.addAttribute("today", today);
         model.addAttribute("topo", new Topo());
@@ -86,6 +88,8 @@ public class topoController {
         model.addAttribute("users",listUsers);
         List<Site> listSites = siteService.getAllSites();
         model.addAttribute("sites",listSites);
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         return "topo/add-edit-topo";
     }
 
@@ -98,10 +102,12 @@ public class topoController {
 
     /* controller pour avoir le détail du topo */
     @RequestMapping(path="/details/{id}",method = RequestMethod.GET)
-    public String getDetailsTopo(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String getDetailsTopo(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
 
         Topo topoTrouve=topoService.getTopoById(id);
         model.addAttribute("topo", topoTrouve);
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         if (topoTrouve.getLocation()==true) {
             if (topoTrouve.getDisponible()==true){
                 model.addAttribute("enableButton", 1);

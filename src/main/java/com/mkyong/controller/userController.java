@@ -47,7 +47,9 @@ public class userController {
 
     /* Controller pour qu'un user se déconnecte */
     @RequestMapping(path="logout",method = RequestMethod.GET)
-    public String logoutSite(Model model) {
+    public String logoutSite(Model model, Principal principal) {
+        User userConnecte = userService.getUserByMail(principal.getName());
+        model.addAttribute("user", userConnecte);
         return "user/login-view"; //view
     }
 
@@ -69,7 +71,7 @@ public class userController {
 
     /* controller pour l'edition du User par Id */
     @RequestMapping(path = "admin/users/edit/{id}",method = RequestMethod.GET)
-    public String editEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String editEntityById(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
         logger.info(" valeur de l'id de user"+id);
         if (id!=0) {
             User entity = userService.getUserById(id);
@@ -79,6 +81,8 @@ public class userController {
             List<Site> listSites = siteService.getAllSites();
             model.addAttribute("sites",listSites);
             model.addAttribute("titreFormUser","Editer un user");
+            User userConnecte = userService.getUserByMail(principal.getName());
+            model.addAttribute("user", userConnecte);
             return "user/add-edit-user";
         } else {
            return "page404";
@@ -91,6 +95,7 @@ public class userController {
         User newUser = userService.getUserByMail(principal.getName());
        String nom=newUser.getNomUser();
        String prenom=newUser.getPrenomUser();
+       model.addAttribute("user", newUser);
        model.addAttribute("message1", nom);
        model.addAttribute("message2", prenom);
         logger.info(" on est passe par la avant l'appel de la page home/home de url /home");
@@ -118,6 +123,7 @@ public class userController {
             model.addAttribute("message2", prenom);
             List<User> listF = userService.getAllUsers();
             model.addAttribute("users", listF);
+            model.addAttribute("user", userConnecte);
             logger.info(" on est passe par la avant l'appel de la page user/list-users de url /admin/home");
             return "user/list-users"; //view
         } else{
@@ -125,6 +131,7 @@ public class userController {
             String prenom = userConnecte.getPrenomUser();
             model.addAttribute("message1", nom);
             model.addAttribute("message2", prenom);
+            model.addAttribute("user", userConnecte);
             return "home/home"; //view
         }
     }
