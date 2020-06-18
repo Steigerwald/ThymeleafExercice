@@ -22,7 +22,7 @@ public class CommentaireService {
 
     Logger logger = (Logger) LoggerFactory.getLogger(CommentaireService.class);
 
-
+    /* méthode pour avoir la liste de tous les commentaires  de la base de données */
     public List<Commentaire> getAllCommentaires() {
         List<Commentaire> result1 =(List<Commentaire>) commentaireRepository.findAll();
         if(result1.size() > 0) {
@@ -34,6 +34,7 @@ public class CommentaireService {
         }
     }
 
+    /* méthode pour obtenir un commentaire de la base de données en utilisant l'Id */
     public Commentaire getCommentaireById(Long id) throws RecordNotFoundException {
         Optional<Commentaire> commentaire = commentaireRepository.findById(id);
         if(commentaire.isPresent()) {
@@ -44,7 +45,7 @@ public class CommentaireService {
         }
     }
 
-
+    /* méthode pour modifier les commentaires de la base de données à partir d'un commentaire*/
     public Commentaire modifyCommentaire(Commentaire entity) throws RecordNotFoundException {
         Commentaire commentaireTrouve = getCommentaireById(entity.getIdCommentaire());
         commentaireTrouve.setContenu(entity.getContenu());
@@ -54,6 +55,7 @@ public class CommentaireService {
         return newCommentaire;
     }
 
+    /* méthode pour créer le commentaire de la base de données à partir d'un commentaire et d'un utilisateur*/
     public Commentaire createCommentaire(Commentaire entity, User currentUser) {
         Date today = new Date();
         Commentaire newCommentaire = new Commentaire();
@@ -66,7 +68,7 @@ public class CommentaireService {
         return newCommentaire;
     }
 
-
+    /* méthode pour annuler le commentaire de la base de données à partir d'un id*/
     public void deleteCommentaireById(Long id) throws RecordNotFoundException {
         Optional<Commentaire> commentaire = commentaireRepository.findById(id);
         if(commentaire.isPresent()) {

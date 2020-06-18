@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <meta charset="utf-8">
@@ -11,7 +12,39 @@
 </head>
 
 <body>
-<div th:insert="~{baniere :: fragment }"></div>
+<div class="container col col-lg-12 fixed-top">
+    <nav class="navbar navbar-light navbar-expand-md">
+        <a class="navbar-brand">Les amis de l'escalade </a>
+        <button class="navbar-toggler bg-light " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0" id="text-banniere">
+                <li class="nav-item active"><a class="nav-link " th:href="@{/home}">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        explorer
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                        <a class="dropdown-item" th:href="@{/topos}">Liste des topos</a>
+                        <a class="dropdown-item" th:href="@{/sites}">Liste des sites</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/login}">Login <span class="fas fa-sign-in-alt"></span></a></li>
+                <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+            </ul>
+            <!--<form class="form-inline my-2 my-lg-0" th:action="@{/sites/search}" th:object="${search}" method="post">
+                <input class="form-control mr-sm-2" type="text" th:field="*{lieu}" placeholder="lieu" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><span class="fa fa-search"></span></button>
+            </form>-->
+        </div>
+    </nav>
+    <div class="liseret">
+    </div>
+</div>
 <main>
     <div class="container">
         <form th:action="@{/registration/create}"  th:object="${user}" method="post" modelAttribute="user" class="form-signin">

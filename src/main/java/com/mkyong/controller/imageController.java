@@ -36,6 +36,8 @@ public class imageController {
     @Autowired
     private UserService userService;
 
+
+    /* controller pour avoir toutes les images de la base de données */
     @RequestMapping(method = RequestMethod.GET)
     public String getAllImages(Model model, Principal principal)  {
         List<Image> images = imageEntityService.getAllImages();
@@ -45,6 +47,7 @@ public class imageController {
         return "image/list-images"; //view
     }
 
+    /* controller pour ajouter une image dans la base de données */
     @RequestMapping(path = "/addImage",method = RequestMethod.GET)
     public String addImageById(Model model, Principal principal) {
         List<Topo> topos = topoService.getAllTopos();
@@ -57,6 +60,8 @@ public class imageController {
         return "image/add-images";
     }
 
+
+    /* controller pour enregistrer les images dans la base de données */
     @RequestMapping(path = "/stockerImage", method = RequestMethod.POST)
     public String addImage(@RequestParam("file") MultipartFile fileImage, Image image) throws IOException, RecordNotFoundException {
         logger.info(" le nombre octet de image est: "+image.getImage());
@@ -77,6 +82,8 @@ public class imageController {
         return "redirect:/admin/images";
     }
 
+
+    /* controller pour effacer une image dans la base de données */
     @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         imageEntityService.deleteImageById(id);

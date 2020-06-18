@@ -41,6 +41,24 @@ public class SiteService {
         }
     }
 
+    /*Methode pour obtenir tous les sites publics de la base de données*/
+    public List<Site> getAllSitesPublics() {
+        List<Site> result1 =(List<Site>) siteRepository.findAll();
+        List<Site> result2=new ArrayList<Site>();
+        if(result1.size() > 0) {
+            logger.info(" retour liste result1 si taille de result1 >0 ");
+            for (int i=0;i<result1.size();i=i+1){
+                if (result1.get(i).getPublic()) {
+                    result2.add(result1.get(i));
+                }
+            }
+            return result2;
+        } else {
+            logger.info(" retour nouvelle liste car pas d'élément dans la liste result1 ");
+            return result2;
+        }
+    }
+
     /*Methode pour obtenir un site par Id de la base de données*/
     public Site getSiteById(Long id) throws RecordNotFoundException {
         Optional<Site> site = siteRepository.findById(id);
@@ -55,6 +73,7 @@ public class SiteService {
     /*Methode pour creer ou modifier un site dans la base de données*/
     public Site createOrUpdateSite(Site entity) throws RecordNotFoundException {
         if(entity.getIdSite()  == null) {
+            entity.setPublic(true);
             entity = siteRepository.save(entity);
             logger.info(" retour de l'entité de createOrUpdateSite qui a été créée car l'Id n'existe pas");
             return entity;

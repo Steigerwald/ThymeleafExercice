@@ -42,12 +42,12 @@ INSERT INTO escalades.TBL_SECTEUR (id_secteur, descriptif_secteur, hauteur, nom_
 (5, 'secteur de la montagne éternelle, dans le glacier', 800,'le glacier',3),
 (6, 'secteur de la colline oubliée', 350,'l"oubliée',5);
 
-INSERT INTO escalades.TBL_SITE (id_site, descriptif, lieu, nom_site,officiel,topo_id_topo) VALUES
-(1, 'site de la réunion, au milieu de l"ile', 'La réunion','l"ile',1,1),
-(2, 'site de l"etna, au milieu du volcan', 'Sicile','le volcan',0,1),
-(3, 'site des Alpes, dans les glaciers', 'les Alpes','Val torens',1,1),
-(4, 'site du Massif, en haut du col', 'Massif Central','le plateau central',0,2),
-(5, 'site du mont Oublié, sur la colline', 'Massif Armoricain','Le mont',1,3);
+INSERT INTO escalades.TBL_SITE (id_site, descriptif, lieu, nom_site,officiel,topo_id_topo,ispublic) VALUES
+(1, 'site de la réunion, au milieu de l"ile', 'La réunion','l"ile',1,1,0),
+(2, 'site de l"etna, au milieu du volcan', 'Sicile','le volcan',0,1,0),
+(3, 'site des Alpes, dans les glaciers', 'les Alpes','Val torens',1,1,0),
+(4, 'site du Massif, en haut du col', 'Massif Central','le plateau central',0,2,0),
+(5, 'site du mont Oublié, sur la colline', 'Massif Armoricain','Le mont',1,3,0);
 
 INSERT INTO escalades.TBL_TOPO (id_topo, date_parution, description, disponible, location, nom_topo,owner_id_user) VALUES
 (1,'2019-09-28 02:45:30', 'topo pour profiter de l"ile, de la montagne et des volcans',0,1,'La balade complète',4),

@@ -32,8 +32,12 @@ public class Site {
     @NotNull
     private Boolean officiel;
 
+    @Column(name="ISPUBLIC")
+    @NotNull
+    private Boolean isPublic;
 
     @OneToOne(mappedBy="site")
+    @Nullable
     private User user;
 
     @ManyToOne
@@ -98,6 +102,15 @@ public class Site {
         }
     }
 
+    public String toStringPublic(){
+        if (isPublic==true){
+            return "public";
+        } else{
+            return "privé";
+        }
+    }
+
+
     // Constructeur
 
     public Site() {
@@ -121,6 +134,9 @@ public class Site {
     }
 
     public Boolean getOfficiel() { return officiel;
+    }
+
+    public Boolean getPublic() { return isPublic;
     }
 
     public Topo getTopo() { return topo;
@@ -155,6 +171,9 @@ public class Site {
     }
 
     public void setOfficiel(Boolean officiel) { this.officiel = officiel;
+    }
+
+    public void setPublic(Boolean aPublic) { isPublic = aPublic;
     }
 
     public void setTopo(Topo topo) { this.topo = topo;

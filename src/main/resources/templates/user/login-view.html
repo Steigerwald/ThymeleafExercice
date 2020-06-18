@@ -24,12 +24,10 @@
                         explorer
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
                         <a class="dropdown-item" th:href="@{/topos}">Liste des topos</a>
                         <a class="dropdown-item" th:href="@{/sites}">Liste des sites</a>
                     </div>
                 </li>
-                <li class="nav-item active"><a class="nav-link " th:href="@{/user/espacePersonnel}">Espace Perso</a></li>
             </ul>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item" sec:authorize="isAnonymous()"><a class="nav-link" th:href="@{/login}">Login <span class="fas fa-sign-in-alt"></span></a></li>

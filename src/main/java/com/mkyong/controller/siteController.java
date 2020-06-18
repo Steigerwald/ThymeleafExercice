@@ -48,6 +48,19 @@ public class siteController {
         return "site/list-sites"; //view
     }
 
+    /* Controller pour la liste des sites publics */
+    @RequestMapping(path ="/publics",method = RequestMethod.GET)
+    public String getAllSitesPublics(Model model, Principal principal) {
+        User userConnecte = userService.getUserByMail(principal.getName());
+        List<Site> listSitesPublics = siteService.getAllSitesPublics();
+        logger.info(" le role du user est: "+userConnecte.getRole());
+        model.addAttribute("user", userConnecte);
+        model.addAttribute("sitesPublics", listSitesPublics);
+        return "site/list-sitesPublics"; //view
+    }
+
+
+
     /* controller pour effacer un site de la base de données */
     @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
@@ -91,7 +104,7 @@ public class siteController {
 
     /* controller pour enregistrer les données d'un site dans la base de données */
     @RequestMapping(path = "/createSite", method = RequestMethod.POST)
-    public String createOrUpdateVoie(Site site) throws RecordNotFoundException {
+    public String createOrUpdateSite(Site site) throws RecordNotFoundException {
         siteService.createOrUpdateSite(site);
         return "redirect:/sites";
     }

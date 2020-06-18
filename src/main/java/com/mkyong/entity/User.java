@@ -39,11 +39,9 @@ public class User {
     @Size(min=4)
     private String motDePasseUser;
 
-
     @OneToOne
     @Nullable
     private Site site;
-
 
     @OneToMany(mappedBy = "owner")
     @Nullable

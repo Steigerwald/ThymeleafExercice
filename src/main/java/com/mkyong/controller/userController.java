@@ -56,7 +56,6 @@ public class userController {
     /* Controller pour un login d'un user */
     @RequestMapping(path="login",method = RequestMethod.GET)
     public String loginSite(Model model) {
-        System.out.println(passwordEncoder.encode("brice"));
         User newUser = new User();
         model.addAttribute(newUser);
         return "user/login-view"; //view
