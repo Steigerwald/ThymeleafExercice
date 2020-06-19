@@ -63,7 +63,8 @@ public class imageController {
 
     /* controller pour enregistrer les images dans la base de données */
     @RequestMapping(path = "/stockerImage", method = RequestMethod.POST)
-    public String addImage(@RequestParam("file") MultipartFile fileImage, Image image) throws IOException, RecordNotFoundException {
+    public String addImage(@RequestParam("file") MultipartFile fileImage, Image image,Principal principal) throws IOException, RecordNotFoundException {
+        User userConnecte = userService.getUserByMail(principal.getName());
         logger.info(" le nombre octet de image est: "+image.getImage());
         logger.info(" le type de l'image est: "+image.getMimeType());
         logger.info(" le nom de l'image est: "+image.getNomImage());
@@ -78,7 +79,7 @@ public class imageController {
         logger.info(" taille de l'image après l'enregistrement "+image.getTaille());
         //BASE64Decoder decoder = new BASE64Decoder();
         //byte[] imageByte = decoder.decodeBuffer(encodedString);
-        imageEntityService.stockerImage(image);
+        imageEntityService.stockerImage(image,userConnecte);
         return "redirect:/admin/images";
     }
 

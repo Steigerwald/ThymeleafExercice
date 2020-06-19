@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -95,8 +94,9 @@ public class topoController {
 
     /* controller pour creer un topo dans la base de données */
     @RequestMapping(path = "/createTopoOrUpdateTopo", method = RequestMethod.POST)
-    public String createOrUpdateVoie(Topo topo) throws RecordNotFoundException {
-        topoService.createOrUpdateTopo(topo);
+    public String createOrUpdateVoie(Topo topo, Principal principal) throws RecordNotFoundException {
+        User userConnecte = userService.getUserByMail(principal.getName());
+        topoService.createOrUpdateTopo(topo,userConnecte);
         return "redirect:/topos";
     }
 
@@ -123,10 +123,10 @@ public class topoController {
     /* controller pour rendre disponible en location un topo dans la base de données */
     @RequestMapping(path = "/DisponibleLocation/{id}", method = RequestMethod.POST)
     public String rendreDisponibleLocationTopo(Principal principal, Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+        User newUser = userService.getUserByMail(principal.getName());
         Topo topoTrouve=topoService.getTopoById(id);
         topoTrouve.setLocation(true);
-        topoService.createOrUpdateTopo(topoTrouve);
-        User newUser = userService.getUserByMail(principal.getName());
+        topoService.createOrUpdateTopo(topoTrouve,newUser);
         model.addAttribute("user", newUser);
         model.addAttribute("topo", topoTrouve);
         return "user/espacePersonnel";
@@ -135,13 +135,13 @@ public class topoController {
     /* controller pour rendre indisponible en location un topo dans la base de données */
     @RequestMapping(path = "/AnnulerLocation/{id}", method = RequestMethod.POST)
     public String rendreIndisponibleLocationTopo(Principal principal, Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+        User newUser = userService.getUserByMail(principal.getName());
         Topo topoTrouve=topoService.getTopoById(id);
         topoTrouve.setLocation(false);
         topoTrouve.setDisponible(false);
         logger.info("retour de l'id du topoTrouve "+topoTrouve.getReservation());
-        topoService.createOrUpdateTopo(topoTrouve);
+        topoService.createOrUpdateTopo(topoTrouve,newUser);
         model.addAttribute("topo", topoTrouve);
-        User newUser = userService.getUserByMail(principal.getName());
         model.addAttribute("user", newUser);
         return "user/espacePersonnel";
     }

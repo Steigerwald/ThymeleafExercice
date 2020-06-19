@@ -36,8 +36,7 @@ public class Site {
     @NotNull
     private Boolean isPublic;
 
-    @OneToOne(mappedBy="site")
-    @Nullable
+    @ManyToOne
     private User user;
 
     @ManyToOne

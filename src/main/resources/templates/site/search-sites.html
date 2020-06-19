@@ -36,6 +36,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="hauteur" class="col-form-label">Hauteur mini</label>
                                     <select th:field="*{hauteur}" class="form-control" id="hauteur" placeholder="Hauteur mini">
+                                        <option th:value=null></option>
                                         <option th:value=100 th:text="100m"></option>
                                         <option th:value=200 th:text="200m"></option>
                                         <option th:value=300 th:text="300m"></option>
@@ -51,6 +52,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="nombreLongueurs" class="col-form-label">Nombre longueurs</label>
                                     <select type="text" th:field="*{nombreLongueurs}" class="form-control" id="nombreLongueurs" placeholder="Nombres Longueurs">
+                                        <option th:value=null></option>
                                         <option th:value=1 th:text="'Au moins une longueur'"></option>
                                         <option th:value=2 th:text="'Au moins deux longueurs'"></option>
                                         <option th:value=3 th:text="'Au moins trois longueurs'"></option>
@@ -61,6 +63,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="nombrePoints" class="col-form-label">Nombre points</label>
                                     <select type="text" th:field="*{nombrePoints}" class="form-control" id="nombrePoints" placeholder="Nombres Points">
+                                        <option th:value=null></option>
                                         <option th:value=2 th:text="'Au moins 2 points'"></option>
                                         <option th:value=3 th:text="'Au moins 3 points'"></option>
                                         <option th:value=4 th:text="'Au moins 4 points'"></option>

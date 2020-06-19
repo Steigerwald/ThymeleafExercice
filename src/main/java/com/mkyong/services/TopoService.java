@@ -2,6 +2,7 @@ package com.mkyong.services;
 
 
 import com.mkyong.entity.Topo;
+import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.TopoRepository;
 import org.slf4j.Logger;
@@ -43,11 +44,12 @@ public class TopoService {
     }
 
     /*Methode pour creer ou modifier une entité topo*/
-    public Topo createOrUpdateTopo(Topo entity) throws RecordNotFoundException {
+    public Topo createOrUpdateTopo(Topo entity, User user) throws RecordNotFoundException {
         Date today = new Date();
         logger.info(" avec date aujourd'hui il est :"+ today);
         if(entity.getIdTopo()  == null) {
             entity.setDateParution(today);
+            entity.setOwner(user);
             entity = topoRepository.save(entity);
             logger.info(" retour de l'entité de createOrUpdateTopo car l'Id n'existe pas");
             return entity;

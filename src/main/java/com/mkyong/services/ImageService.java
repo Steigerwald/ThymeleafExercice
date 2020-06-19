@@ -1,9 +1,6 @@
 package com.mkyong.services;
 
-import com.mkyong.entity.Image;
-import com.mkyong.entity.Secteur;
-import com.mkyong.entity.Site;
-import com.mkyong.entity.Topo;
+import com.mkyong.entity.*;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.ImageRepository;
 import com.mkyong.repository.SecteurRepository;
@@ -75,20 +72,20 @@ public class ImageService {
         }
     }
 
-    public Image stockerImage(Image entity) throws RecordNotFoundException {
+    public Image stockerImage(Image entity, User user) throws RecordNotFoundException {
         if (entity.getId() == null) {
             entity = repositoryImage.save(entity);
             if ((entity.getTopo()!=null)&&(entity!=null)){
                 Topo topoConcerne =entity.getTopo();
                 topoConcerne.setImage(entity);
-                topoService.createOrUpdateTopo(topoConcerne);
+                topoService.createOrUpdateTopo(topoConcerne, user);
             }
             if ((entity.getSite()!=null)&&(entity!=null)){
                 Site siteConcerne =entity.getSite();
                 Collection listeSiteImages = siteConcerne.getImages();
                 listeSiteImages.add(entity);
                 siteConcerne.setImages(listeSiteImages);
-                siteService.createOrUpdateSite(siteConcerne);
+                siteService.createOrUpdateSite(siteConcerne, user);
             }
             logger.info(" retour de l'entité de stockerImage car cette image n'existe pas et donc elle ");
             return entity;

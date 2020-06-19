@@ -1,6 +1,7 @@
 package com.mkyong.services;
 
 import com.mkyong.entity.Site;
+import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.form.Search;
 import com.mkyong.repository.SecteurRepository;
@@ -71,10 +72,15 @@ public class SiteService {
     }
 
     /*Methode pour creer ou modifier un site dans la base de données*/
-    public Site createOrUpdateSite(Site entity) throws RecordNotFoundException {
+    public Site createOrUpdateSite(Site entity, User user) throws RecordNotFoundException {
         if(entity.getIdSite()  == null) {
-            entity.setPublic(true);
+            entity.setPublic(false);
+            entity.setUser(user);
+            //enregistrement du site dans la basse de données
             entity = siteRepository.save(entity);
+
+           // enregistrement du site dans liste des sites de user
+
             logger.info(" retour de l'entité de createOrUpdateSite qui a été créée car l'Id n'existe pas");
             return entity;
         } else {
@@ -104,7 +110,8 @@ public class SiteService {
         }
     }
 
-
+/*
+Autre recherche possible à activer si besoin en même temps que dans SiteRepository
     public List<Site> getAllSitesByLieu(String lieu){
         List<Site> listSitesTrouvesByLieu =siteRepository.findByLieu(lieu);
         return listSitesTrouvesByLieu;
@@ -114,9 +121,9 @@ public class SiteService {
         List<Site> listSitesTrouvesByHauteur =siteRepository.findBySecteurs_HauteurGreaterThanEqual(hauteur);
         return listSitesTrouvesByHauteur;
     }
-
+*/
     public List<Site> getAllSitesBySearch(Search search){
-        List<Site> listSitesTrouves=siteRepository.findAllSitesByLieuAndByHauteurAndByNombreLongueursAndByNombrePoints(search.getLieu(),search.getHauteur(),search.getNombreLongueurs(),search.getNombrePoints());
+        List<Site> listSitesTrouves=siteRepository.findAllSitesByLieuOrByHauteurOrByNombreLongueursOrByNombrePoints(search.getLieu(),search.getHauteur(),search.getNombreLongueurs(),search.getNombrePoints());
         return listSitesTrouves;
     }
 }

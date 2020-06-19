@@ -59,6 +59,15 @@ public class siteController {
         return "site/list-sitesPublics"; //view
     }
 
+    /* controller pour rendre public un site */
+    @RequestMapping(path = "/rendrePublicSite/{id}",method = RequestMethod.POST)
+    public String rendrePublicSiteById(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
+        User userConnecte = userService.getUserByMail(principal.getName());
+        Site siteTrouve =siteService.getSiteById(id);
+        siteTrouve.setPublic(true);
+        siteService.createOrUpdateSite(siteTrouve,userConnecte);
+        return "redirect:/user/espacePersonnel";
+    }
 
 
     /* controller pour effacer un site de la base de données */
@@ -104,8 +113,9 @@ public class siteController {
 
     /* controller pour enregistrer les données d'un site dans la base de données */
     @RequestMapping(path = "/createSite", method = RequestMethod.POST)
-    public String createOrUpdateSite(Site site) throws RecordNotFoundException {
-        siteService.createOrUpdateSite(site);
+    public String createOrUpdateSite(Site site, Principal principal) throws RecordNotFoundException {
+        User userConnecte = userService.getUserByMail(principal.getName());
+        siteService.createOrUpdateSite(site, userConnecte);
         return "redirect:/sites";
     }
 
@@ -152,19 +162,21 @@ public class siteController {
 
     /* controller pour officialiser un site */
     @RequestMapping(path = "/officiel/{id}",method = RequestMethod.POST)
-    public String officialiserSiteById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String officialiserSiteById(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
+        User userConnecte = userService.getUserByMail(principal.getName());
         Site siteTrouve =siteService.getSiteById(id);
         siteTrouve.setOfficiel(true);
-        siteService.createOrUpdateSite(siteTrouve);
+        siteService.createOrUpdateSite(siteTrouve,userConnecte);
         return "redirect:/sites";
     }
 
     /* controller pour non officialiser un site */
     @RequestMapping(path = "/nonOfficiel/{id}",method = RequestMethod.POST)
-    public String nonOfficialiserSiteById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String nonOfficialiserSiteById(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
+        User userConnecte = userService.getUserByMail(principal.getName());
         Site siteTrouve =siteService.getSiteById(id);
         siteTrouve.setOfficiel(false);
-        siteService.createOrUpdateSite(siteTrouve);
+        siteService.createOrUpdateSite(siteTrouve, userConnecte);
         return "redirect:/sites";
     }
 

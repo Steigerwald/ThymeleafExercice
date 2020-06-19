@@ -93,7 +93,7 @@ public class reservationTopoController {
         reservationAcceptee.getTopo().setReservation(reservationAcceptee);
         User newUser = userService.getUserByMail(principal.getName());
         model.addAttribute("user", newUser);
-        topoService.createOrUpdateTopo(reservationAcceptee.getTopo());
+        topoService.createOrUpdateTopo(reservationAcceptee.getTopo(),newUser);
         reservationTopoService.updateReservationTopo(reservationAcceptee);
         return "user/espacePersonnel";
     }
@@ -109,7 +109,7 @@ public class reservationTopoController {
         reservationRefusee.setEtat("Refusee");
         User newUser = userService.getUserByMail(principal.getName());
         model.addAttribute("user", newUser);
-        topoService.createOrUpdateTopo(reservationRefusee.getTopo());
+        topoService.createOrUpdateTopo(reservationRefusee.getTopo(),newUser);
         reservationTopoService.updateReservationTopo(reservationRefusee);
         return "user/espacePersonnel";
     }

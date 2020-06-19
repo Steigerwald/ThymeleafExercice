@@ -29,16 +29,31 @@
                                         <div>
                                             <table class="table table-striped" >
                                                 <thead>
-                                                <tr>
-                                                    <th th:text="'site de la propriété de '+|${user.nomUser}|"></th>
-                                                    <th>Les numéros de vos réservations</th>
-                                                </tr>
+                                                    <div th:switch="${user.sites}">
+                                                        <div th:case="null">
+                                                        </div>
+                                                        <div th:case="*">
+                                                            <tr>
+                                                                <th th:text="'site de la propriété de '+|${user.nomUser}|"></th>
+                                                                <th>Action rendre public</th>
+                                                            </tr>
+                                                        </div>
+                                                    </div>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td> <a th:text="${user.site.nomSite}" th:href="@{/sites/details/{nom} (nom=${user.site.idSite})}" ></a> </td>
-                                                    <td th:text="${user.toStringReservations()}"></td>
-                                                </tr>
+                                                    <div th:switch="${user.sites}" class="container">
+                                                        <h2 th:case="null">Vous n'avez pas de site actuellement !!</h2>
+                                                        <div th:case="*">
+                                                            <tr th:each="site : ${user.sites}">
+                                                            <td> <a th:text="${site.nomSite}" th:href="@{/sites/details/{nom} (nom=${site.idSite})}" ></a> </td>
+                                                            <td>
+                                                                <form th:action="@{/sites/rendrePublicSite/{id}(id=${site.idSite})}" method="post">
+                                                                    <button class="btn btn-success my-2 my-sm-0" type="submit">Rendre public</button>
+                                                                </form>
+                                                            </td>
+                                                            </tr>
+                                                        </div>
+                                                    </div>
                                                 </tbody>
                                             </table>
                                         </div>

@@ -39,9 +39,9 @@ public class User {
     @Size(min=4)
     private String motDePasseUser;
 
-    @OneToOne
+    @OneToMany(mappedBy = "user")
     @Nullable
-    private Site site;
+    private Collection<Site> sites;
 
     @OneToMany(mappedBy = "owner")
     @Nullable
@@ -120,7 +120,7 @@ public class User {
     public Role getRole() { return role; }
 
     @Nullable
-    public Site getSite() { return site;
+    public Collection<Site> getSites() { return sites;
     }
 
     @Nullable
@@ -160,7 +160,7 @@ public class User {
 
     public void setRole(Role role) { this.role = role; }
 
-    public void setSite(@Nullable Site site) { this.site = site;
+    public void setSites(@Nullable Collection<Site> sites) { this.sites = sites;
     }
 
     public void setTopos(@Nullable Collection<Topo> topos) { this.topos = topos;
