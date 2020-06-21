@@ -1,18 +1,18 @@
 package com.mkyong.services;
 
+import com.mkyong.entity.Secteur;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.form.Search;
-import com.mkyong.repository.SecteurRepository;
 import com.mkyong.repository.SiteRepository;
-import com.mkyong.repository.VoieRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,10 +23,11 @@ public class SiteService {
     private SiteRepository siteRepository;
 
     @Autowired
-    private SecteurRepository secteurRepository;
+    private SecteurService secteurService;
 
     @Autowired
-    private VoieRepository voieRepository;
+    private UserService userService;
+
 
     Logger logger = (Logger) LoggerFactory.getLogger(SiteService.class);
 
@@ -71,25 +72,43 @@ public class SiteService {
         }
     }
 
-    /*Methode pour creer ou modifier un site dans la base de données*/
-    public Site createOrUpdateSite(Site entity, User user) throws RecordNotFoundException {
-        if(entity.getIdSite()  == null) {
+    /*Methode pour creer un site dans la base de données*/
+    public Site CreateSite(Site entity, User user) throws RecordNotFoundException {
             entity.setPublic(false);
             entity.setUser(user);
             //enregistrement du site dans la basse de données
+
+            logger.info(" les secteurs présents dans le site au niveau createOrUpdate= "+entity.getSecteurs());
             entity = siteRepository.save(entity);
 
-           // enregistrement du site dans liste des sites de user
-
+            // enregistrement du site dans chaque secteur concerné
+            for(int i=0;i<(entity.getSecteurs()).size();i++){
+                List<Secteur> listeSecteurs=new ArrayList<Secteur>();
+                listeSecteurs.addAll(entity.getSecteurs());
+                Secteur secteur =listeSecteurs.get(i);
+                secteur.setSite(entity);
+                secteurService.createOrUpdateSecteur(secteur);
+            }
+            // enregistrement du site dans liste des sites de user
+            Collection listeSites = user.getSites();
+            listeSites.add(entity);
+            user.setSites(listeSites);
+            userService.updateUser(user);
             logger.info(" retour de l'entité de createOrUpdateSite qui a été créée car l'Id n'existe pas");
             return entity;
-        } else {
+
+    }
+
+
+    /*Methode pour modifier un site dans la base de données*/
+    public Site UpdateSite(Site entity) throws RecordNotFoundException {
+
             Site siteAModifier = getSiteById(entity.getIdSite());
             if(siteAModifier!=null) {
                 logger.info(" l'entité site à modifier a été trouvée et modifiée");
                 entity.setOfficiel(siteAModifier.getOfficiel());
                 entity.setCommentaires(siteAModifier.getCommentaires());
-                entity.setImages(siteAModifier.getImages());
+                entity.setImage(siteAModifier.getImage());
                 entity.setSecteurs(siteAModifier.getSecteurs());
                 entity = siteRepository.save(entity);
                 logger.info(" retour de la nouvelle entité site de createOrUpdateSite qui a été sauvegardée et le site est existant");
@@ -97,8 +116,8 @@ public class SiteService {
             } else {
                 throw new RecordNotFoundException("No user record exist for given id and to modify it");
             }
-        }
     }
+
 
     /*Methode pour effacer un site dans la base de données*/
     public void deleteSiteById(Long id) throws RecordNotFoundException {

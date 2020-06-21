@@ -40,17 +40,19 @@ public class Site {
     private User user;
 
     @ManyToOne
+    @Nullable
     private Topo topo;
 
     @OneToMany (mappedBy = "site")
     @Nullable
     private Collection<Commentaire> commentaires;
 
-    @OneToMany (mappedBy = "site")
+    @OneToOne (mappedBy = "site")
     @Nullable
-    private Collection<Image> images;
+    private Image image;
 
     @OneToMany (mappedBy = "site")
+    @Nullable
     private Collection<Secteur> secteurs;
 
 
@@ -138,9 +140,11 @@ public class Site {
     public Boolean getPublic() { return isPublic;
     }
 
+    @Nullable
     public Topo getTopo() { return topo;
     }
 
+    @Nullable
     public Collection<Secteur> getSecteurs() { return secteurs;
     }
 
@@ -152,10 +156,10 @@ public class Site {
     }
 
     @Nullable
-    public Collection<Image> getImages() { return images;
+    public Image getImage() { return image;
     }
 
-// Setters
+    // Setters
 
     public void setIdSite(Long idSite) { this.idSite = idSite;
     }
@@ -175,10 +179,10 @@ public class Site {
     public void setPublic(Boolean aPublic) { isPublic = aPublic;
     }
 
-    public void setTopo(Topo topo) { this.topo = topo;
+    public void setTopo(@Nullable Topo topo) { this.topo = topo;
     }
 
-    public void setSecteurs(Collection<Secteur> secteurs) { this.secteurs = secteurs;
+    public void setSecteurs(@Nullable Collection<Secteur> secteurs) { this.secteurs = secteurs;
     }
 
     public void setUser(User user) { this.user = user;
@@ -187,6 +191,7 @@ public class Site {
     public void setCommentaires(@Nullable Collection<Commentaire> commentaires) { this.commentaires = commentaires;
     }
 
-    public void setImages(@Nullable Collection<Image> images) { this.images = images;
+    public void setImage(@Nullable Image image) { this.image = image;
     }
+
 }

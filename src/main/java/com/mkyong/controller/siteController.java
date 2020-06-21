@@ -3,10 +3,7 @@ package com.mkyong.controller;
 import com.mkyong.entity.*;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.form.Search;
-import com.mkyong.services.SecteurService;
-import com.mkyong.services.SiteService;
-import com.mkyong.services.TopoService;
-import com.mkyong.services.UserService;
+import com.mkyong.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -36,6 +36,10 @@ public class siteController {
 
     @Autowired
     private SecteurService secteurService;
+
+    @Autowired
+    private ImageService imageService;
+
 
     /* Controller pour la liste des sites */
     @RequestMapping(method = RequestMethod.GET)
@@ -65,10 +69,19 @@ public class siteController {
         User userConnecte = userService.getUserByMail(principal.getName());
         Site siteTrouve =siteService.getSiteById(id);
         siteTrouve.setPublic(true);
-        siteService.createOrUpdateSite(siteTrouve,userConnecte);
+        siteService.UpdateSite(siteTrouve);
         return "redirect:/user/espacePersonnel";
     }
 
+    /* controller pour rendre privé un site */
+    @RequestMapping(path = "/rendrePriveSite/{id}",method = RequestMethod.POST)
+    public String rendrePriveSiteById(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
+        User userConnecte = userService.getUserByMail(principal.getName());
+        Site siteTrouve =siteService.getSiteById(id);
+        siteTrouve.setPublic(false);
+        siteService.UpdateSite(siteTrouve);
+        return "redirect:/user/espacePersonnel";
+    }
 
     /* controller pour effacer un site de la base de données */
     @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
@@ -99,9 +112,10 @@ public class siteController {
     /* controller pour l'ajout d'un site */
     @RequestMapping(path = "/addSite",method = RequestMethod.GET)
     public String addEntityById(Model model, Principal principal) {
-
         model.addAttribute("site", new Site());
         model.addAttribute("titreFormSite","Ajouter un site");
+        List<Secteur> listSecteurs=secteurService.getAllSecteurs();
+        model.addAttribute("secteurs",listSecteurs);
         List<Topo> listTopos = topoService.getAllTopos();
         model.addAttribute("topos",listTopos);
         List<User> listUsers = userService.getAllUsers();
@@ -113,9 +127,25 @@ public class siteController {
 
     /* controller pour enregistrer les données d'un site dans la base de données */
     @RequestMapping(path = "/createSite", method = RequestMethod.POST)
-    public String createOrUpdateSite(Site site, Principal principal) throws RecordNotFoundException {
+    public String createOrUpdateSite(@RequestParam("file") MultipartFile fileImage,Site site, Image imageSite, Principal principal) throws RecordNotFoundException, IOException {
         User userConnecte = userService.getUserByMail(principal.getName());
-        siteService.createOrUpdateSite(site, userConnecte);
+        logger.info(" le nom du fichier image de createSite est: "+fileImage.getName());
+        logger.info(" la valeur d'octet du fichier est: "+fileImage.getBytes());
+        logger.info(" le type du fichier est: "+fileImage.getContentType());
+        logger.info(" la taille du fichier est: "+fileImage.getSize());
+        logger.info(" Nom original du fichier est: "+fileImage.getOriginalFilename());
+        logger.info(" secteurs de Site est: "+site.toStringSecteurs());
+        imageSite=imageService.recupererImageFile(fileImage);
+        imageSite.setSite(site);
+
+        site.setImage(imageSite);
+        site.setPublic(false);
+        site.setOfficiel(false);
+        site.setUser(userConnecte);
+
+        logger.info(" user de Site est: "+site.getUser());
+        imageService.stockerImage(imageSite, userConnecte);
+        siteService.CreateSite(site, userConnecte);
         return "redirect:/sites";
     }
 
@@ -166,7 +196,7 @@ public class siteController {
         User userConnecte = userService.getUserByMail(principal.getName());
         Site siteTrouve =siteService.getSiteById(id);
         siteTrouve.setOfficiel(true);
-        siteService.createOrUpdateSite(siteTrouve,userConnecte);
+        siteService.UpdateSite(siteTrouve);
         return "redirect:/sites";
     }
 
@@ -176,7 +206,7 @@ public class siteController {
         User userConnecte = userService.getUserByMail(principal.getName());
         Site siteTrouve =siteService.getSiteById(id);
         siteTrouve.setOfficiel(false);
-        siteService.createOrUpdateSite(siteTrouve, userConnecte);
+        siteService.UpdateSite(siteTrouve);
         return "redirect:/sites";
     }
 

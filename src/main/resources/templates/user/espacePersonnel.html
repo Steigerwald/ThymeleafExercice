@@ -33,8 +33,9 @@
                                                         <div th:case="null">
                                                         </div>
                                                         <div th:case="*">
+                                                            <h2>Mes sites </h2>
                                                             <tr>
-                                                                <th th:text="'site de la propriété de '+|${user.nomUser}|"></th>
+                                                                <th th:text="'Sites de la propriété de '+|${user.nomUser}|"></th>
                                                                 <th>Action rendre public</th>
                                                             </tr>
                                                         </div>
@@ -46,9 +47,14 @@
                                                         <div th:case="*">
                                                             <tr th:each="site : ${user.sites}">
                                                             <td> <a th:text="${site.nomSite}" th:href="@{/sites/details/{nom} (nom=${site.idSite})}" ></a> </td>
-                                                            <td>
+                                                            <td th:if="${!(site.public)}">
                                                                 <form th:action="@{/sites/rendrePublicSite/{id}(id=${site.idSite})}" method="post">
                                                                     <button class="btn btn-success my-2 my-sm-0" type="submit">Rendre public</button>
+                                                                </form>
+                                                            </td>
+                                                            <td th:unless="${!(site.public)}">
+                                                                <form th:action="@{/sites/rendrePriveSite/{id}(id=${site.idSite})}" method="post">
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit">Rendre privé</button>
                                                                 </form>
                                                             </td>
                                                             </tr>
@@ -59,7 +65,7 @@
                                         </div>
                                     </div>
                                     <div class="table-responsive text-nowrap ncol-md-12">
-                                        <h2>Détails de vos réservations: </h2>
+                                        <h2>Mes réservations: </h2>
                                         <div th:if="${user.reservations.size()}>0">
                                             <table class="table table-striped" >
                                                 <thead>
@@ -74,7 +80,7 @@
                                                 <tbody>
                                                     <tr th:each="reservation : ${user.reservations}">
                                                         <td th:text="${reservation.idReservation}"> </td>
-                                                        <td th:text="${reservation.topo.nomTopo}"></td>
+                                                        <td><a th:text="${reservation.topo.nomTopo}" th:href="@{/topos/details/{nom} (nom=${reservation.topo.idTopo})}"></a></td>
                                                         <td th:text="${reservation.topo.owner.nomUser}"></td>
                                                         <td th:text="${reservation.toStringDateReservation()}"></td>
                                                         <td>
@@ -96,7 +102,7 @@
                                     </div>
                                     <br>
                                     <div class="table-responsive text-nowrap ncol-md-12">
-                                        <h2>Vos topos actuellement:</h2>
+                                        <h2>Mes topos actuellement:</h2>
                                         <div th:if="${user.topos.size()}>0">
                                             <table class="table table-striped" >
                                                 <thead>
@@ -111,7 +117,7 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="topo : ${user.topos}">
-                                                    <td th:text="${topo.nomTopo}"> </td>
+                                                    <td><a th:text="${topo.nomTopo}" th:href="@{/topos/details/{nom} (nom=${topo.idTopo})}"></a></td>
                                                     <td th:text="${topo.toStringDisponible()}"></td>
                                                     <td th:text="${topo.toStringLocation()}"></td>
                                                     <td>
@@ -139,7 +145,7 @@
                                         </div>
                                     </div>
                                     <div class="table-responsive text-nowrap ncol-md-12">
-                                        <h2>Les demandes et locations de vos topos:</h2>
+                                        <h2>Les demandes de location de mes topos:</h2>
                                         <div th:if="${user.topos.size()}>0">
                                             <table class="table table-striped" >
                                                 <thead>

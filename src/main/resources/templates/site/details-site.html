@@ -17,8 +17,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="photo col-lg-4">
-                    <div class="fond" th:each="image : ${site.images}">
-                        <img th:src="${'data:image/jpg;base64,'+ image.getImageBase64()}" alt="#" />
+                    <div class="fond" th:if="${site.image}!=null">
+                        <img th:src="${'data:image/jpg;base64,'+ site.image.getImageBase64()}" alt="#" />
                     </div>
                 </div>
                 <div class="jumbotron col-lg-6">

@@ -92,11 +92,16 @@ public class topoController {
         return "topo/add-edit-topo";
     }
 
-    /* controller pour creer un topo dans la base de données */
+    /* controller pour creer ou modifier un topo dans la base de données */
     @RequestMapping(path = "/createTopoOrUpdateTopo", method = RequestMethod.POST)
     public String createOrUpdateVoie(Topo topo, Principal principal) throws RecordNotFoundException {
         User userConnecte = userService.getUserByMail(principal.getName());
-        topoService.createOrUpdateTopo(topo,userConnecte);
+
+        if (topo.getIdTopo()==null){
+            topoService.CreateTopo(topo,userConnecte);
+        }else{
+            topoService.UpdateTopo(topo);
+        }
         return "redirect:/topos";
     }
 
@@ -126,7 +131,7 @@ public class topoController {
         User newUser = userService.getUserByMail(principal.getName());
         Topo topoTrouve=topoService.getTopoById(id);
         topoTrouve.setLocation(true);
-        topoService.createOrUpdateTopo(topoTrouve,newUser);
+        topoService.UpdateTopo(topoTrouve);
         model.addAttribute("user", newUser);
         model.addAttribute("topo", topoTrouve);
         return "user/espacePersonnel";
@@ -140,7 +145,7 @@ public class topoController {
         topoTrouve.setLocation(false);
         topoTrouve.setDisponible(false);
         logger.info("retour de l'id du topoTrouve "+topoTrouve.getReservation());
-        topoService.createOrUpdateTopo(topoTrouve,newUser);
+        topoService.UpdateTopo(topoTrouve);
         model.addAttribute("topo", topoTrouve);
         model.addAttribute("user", newUser);
         return "user/espacePersonnel";

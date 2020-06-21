@@ -21,13 +21,20 @@
         </h3>
         <div class="form">
             <div class="col-md-12">
-                <form th:action="@{/sites/createSite}" th:object="${site}" method="post">
+                <form th:action="@{/sites/createSite}" th:object="${site}" enctype="multipart/form-data" method="post">
                     <div class="row">
                         <div class="form-group col-xs-12 col-sm-6 col-md-3">
                             <label for="nomSite" class="col-form-label">Nom Site</label>
                             <input type="text" th:field="*{nomSite}" class="form-control"
                                    id="nomSite" placeholder="nom Site" />
                         </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-6" >
+                            <label for="imageSite" class="col-form-label">Image du Site</label>
+                            <input type= "hidden"  th:field="*{image}" id="imageSite">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="250000" />
+                            <input type="file" name="file" size=50  />
+                        </div>
+
                         <div class="form-group col-xs-12 col-sm-6 col-md-3">
                             <label for="lieu" class="col-form-label">Lieu</label>
                             <input type="text" th:field="*{lieu}" class="form-control"
@@ -38,14 +45,19 @@
                             <input type="text" th:field="*{descriptif}" class="form-control"
                                    id="descriptif" placeholder="descriptif Site" />
                         </div>
-                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
                             <label for="topo" class="col-form-label">Topo</label>
                             <select th:field="*{topo}" class="form-control" id="topo">
                                 <option th:each="topo : ${topos}" th:value="${topo.idTopo}" th:text="${topo.nomTopo}">
                                 </option>
                             </select>
                         </div>
-                    </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                            <label for="topo" class="col-form-label">Secteurs</label><br />
+                            <div th:each="secteur: ${secteurs}">
+                                <input  type="checkbox" th:field="*{secteurs}" th:value="${secteur.idSecteur}" th:name="${secteur.nomSecteur}" id="tonSecteur" /> <label for="tonSecteur" th:text="${secteur.nomSecteur}"></label><br />
+                            </div>
+                        </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <input type="submit" class="btn btn-primary" value=" Enregistrer ">

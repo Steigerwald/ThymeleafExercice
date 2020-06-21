@@ -49,7 +49,14 @@
                                                     <tbody>
                                                     <tr th:each="site : ${sites}">
                                                         <div th:switch="${user.role.nomRole}">
-                                                            <td th:text="${site.nomSite}"></td>
+                                                            <div th:case="'ROLE_ADMIN'">
+                                                                <td> <a th:text="${site.nomSite}" th:href="@{/sites/details/{nom} (nom=${site.idSite})}" ></a> </td>
+                                                            </div>
+                                                            <div th:case="'ROLE_USER'">
+                                                                <td th:text="${site.nomSite}"></td>
+                                                            </div>
+                                                        </div>
+                                                        <div th:switch="${user.role.nomRole}">
                                                             <td th:text="${site.lieu}"></td>
                                                             <td th:text="${site.toStringPublic()}"></td>
                                                             <td th:text="${site.topo.nomTopo}"></td>

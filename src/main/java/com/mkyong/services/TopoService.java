@@ -43,17 +43,9 @@ public class TopoService {
         }
     }
 
-    /*Methode pour creer ou modifier une entité topo*/
-    public Topo createOrUpdateTopo(Topo entity, User user) throws RecordNotFoundException {
-        Date today = new Date();
-        logger.info(" avec date aujourd'hui il est :"+ today);
-        if(entity.getIdTopo()  == null) {
-            entity.setDateParution(today);
-            entity.setOwner(user);
-            entity = topoRepository.save(entity);
-            logger.info(" retour de l'entité de createOrUpdateTopo car l'Id n'existe pas");
-            return entity;
-        } else {
+    /*Methode pour modifier une entité topo*/
+    public Topo UpdateTopo(Topo entity) throws RecordNotFoundException {
+
             Topo topoAModifier = getTopoById(entity.getIdTopo());
             if(topoAModifier!=null) {
                 logger.info(" l'entité topo à modifier a été trouvée et modifiée");
@@ -66,8 +58,19 @@ public class TopoService {
             } else {
                 throw new RecordNotFoundException("No user record exist for given id and to modify it");
             }
-        }
     }
+
+    /*Methode pour creer une entité topo*/
+    public Topo CreateTopo(Topo entity, User user) throws RecordNotFoundException {
+        Date today = new Date();
+        logger.info(" avec date aujourd'hui il est :"+ today);
+            entity.setDateParution(today);
+            entity.setOwner(user);
+            entity = topoRepository.save(entity);
+            logger.info(" retour de l'entité de createOrUpdateTopo car l'Id n'existe pas");
+            return entity;
+    }
+
 
     /*Methode pour annuler un topo par id dans la base de données*/
     public void deleteTopoById(Long id) throws RecordNotFoundException {

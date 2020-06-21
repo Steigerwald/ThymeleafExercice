@@ -10,9 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -82,10 +85,8 @@ public class ImageService {
             }
             if ((entity.getSite()!=null)&&(entity!=null)){
                 Site siteConcerne =entity.getSite();
-                Collection listeSiteImages = siteConcerne.getImages();
-                listeSiteImages.add(entity);
-                siteConcerne.setImages(listeSiteImages);
-                siteService.createOrUpdateSite(siteConcerne, user);
+                siteConcerne.setImage(siteConcerne.getImage());
+                siteService.UpdateSite(siteConcerne);
             }
             logger.info(" retour de l'entité de stockerImage car cette image n'existe pas et donc elle ");
             return entity;
@@ -93,5 +94,18 @@ public class ImageService {
             logger.info(" retour de la nouvelle entité Image de stockerImage qui n'a pas été sauvegardée car l'image est existante");
             return entity;
         }
+    }
+
+    public Image recupererImageFile(MultipartFile file) throws IOException {
+        Image image = new Image();
+        image.setImage(file.getBytes());
+        image.setTaille(file.getSize()/1000);
+        String [] Type = file.getContentType().split("/");
+        logger.info(" valeur de Type[1]= "+Type[1]);
+        image.setMimeType(Type[1]);
+        String [] Nom= (file.getOriginalFilename()).split("\\.");
+        logger.info(" valeur de Nom[0]= "+Nom[0]);
+        image.setNomImage(Nom[0]);
+        return image;
     }
 }
