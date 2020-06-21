@@ -81,7 +81,7 @@ public class ImageService {
             if ((entity.getTopo()!=null)&&(entity!=null)){
                 Topo topoConcerne =entity.getTopo();
                 topoConcerne.setImage(entity);
-                topoService.createOrUpdateTopo(topoConcerne, user);
+                topoService.UpdateTopo(topoConcerne);
             }
             if ((entity.getSite()!=null)&&(entity!=null)){
                 Site siteConcerne =entity.getSite();

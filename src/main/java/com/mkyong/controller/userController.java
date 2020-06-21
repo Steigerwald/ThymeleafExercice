@@ -1,6 +1,7 @@
 package com.mkyong.controller;
 
 import com.mkyong.entity.Site;
+import com.mkyong.entity.Topo;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.CustomUserDetailsService;
@@ -70,13 +71,13 @@ public class userController {
 
     /* controller pour l'edition du User par Id */
     @RequestMapping(path = "admin/users/edit/{id}",method = RequestMethod.GET)
-    public String editEntityById(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
+    public String editUserById(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
         logger.info(" valeur de l'id de user"+id);
         if (id!=0) {
             User entity = userService.getUserById(id);
             logger.info(" valeur de l'user de edit " + entity.getNomUser());
             logger.info(" on est passe par la avant l'appel de la page user/list-users de url /admin/home");
-            model.addAttribute("user", entity);
+            model.addAttribute("userUpdate", entity);
             List<Site> listSites = siteService.getAllSites();
             model.addAttribute("sites",listSites);
             model.addAttribute("titreFormUser","Editer un user");
@@ -146,12 +147,12 @@ public class userController {
 
     /* controller pour enregistrer les données de User dans la base de données */
     @RequestMapping(path = "admin/users/updateUser", method = RequestMethod.POST)
-    public String createOrUpdateUser(User user) throws RecordNotFoundException {
-        logger.info(" valeur de l'id de edit de creatUser "+ user.getIdUser());
-        User userAModofier=userService.getUserById(user.getIdUser());
-        user.setMotDePasseUser(userAModofier.getMotDePasseUser());
-        logger.info(" valeur de l'user de edit de creatUser "+ user.getMotDePasseUser());
-        userService.updateUser(user);
+    public String createOrUpdateUser(User userUpdate) throws RecordNotFoundException {
+        logger.info(" valeur de l'id de edit de creatUser "+ userUpdate.getIdUser());
+        User userAModofier=userService.getUserById(userUpdate.getIdUser());
+        userUpdate.setMotDePasseUser(userAModofier.getMotDePasseUser());
+        logger.info(" valeur de l'user de edit de creatUser "+ userUpdate.getMotDePasseUser());
+        userService.updateUser(userUpdate);
         return "redirect:/admin/users";
     }
 

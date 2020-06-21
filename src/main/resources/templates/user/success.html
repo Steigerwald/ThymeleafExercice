@@ -12,10 +12,11 @@
 <div th:insert="~{baniere :: fragment }"></div>
 <main>
     <h2>
-        <span th:text="'Bravo ! ' + ${user.nomUser}+' '+${user.prenomUser}+' est bien enregistré'" ></span>
+        <span th:text="'Bravo !  ' ${user.prenomUser}+'  '+ ${user.nomUser}" ></span>
         </Br>
+        <span th:text="' Vous êtes bien enregistré dans notre liste de membres du site '" ></span>
         </Br>
-    </h2><span th:text="'maintenant vous pouvez vous connecter'" ></span>
+    </h2><span th:text="'maintenant vous pouvez vous connecter avec votre identifiant et votre mot de passe '" ></span>
 </main>
 <Footer class="pagination">
     <nav aria-label="pagination">
