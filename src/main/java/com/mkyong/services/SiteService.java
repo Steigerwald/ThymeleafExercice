@@ -102,17 +102,18 @@ public class SiteService {
 
     /*Methode pour modifier un site dans la base de données*/
     public Site UpdateSite(Site entity) throws RecordNotFoundException {
-
             Site siteAModifier = getSiteById(entity.getIdSite());
             if(siteAModifier!=null) {
                 logger.info(" l'entité site à modifier a été trouvée et modifiée");
-                entity.setOfficiel(siteAModifier.getOfficiel());
-                entity.setCommentaires(siteAModifier.getCommentaires());
-                entity.setImage(siteAModifier.getImage());
-                entity.setSecteurs(siteAModifier.getSecteurs());
-                entity = siteRepository.save(entity);
+               siteAModifier.setNomSite(entity.getNomSite());
+               siteAModifier.setLieu(entity.getLieu());
+               siteAModifier.setDescriptif(entity.getDescriptif());
+               siteAModifier.setTopo(entity.getTopo());
+               siteAModifier.setSecteurs(entity.getSecteurs());
+               Site autreSite=new Site();
+               autreSite=siteRepository.save(siteAModifier);
                 logger.info(" retour de la nouvelle entité site de createOrUpdateSite qui a été sauvegardée et le site est existant");
-                return entity;
+                return autreSite;
             } else {
                 throw new RecordNotFoundException("No user record exist for given id and to modify it");
             }

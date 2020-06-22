@@ -21,7 +21,7 @@
         </h3>
         <div class="form">
             <div class="col-md-12">
-                <form th:action="@{/topos/createTopoOrUpdateTopo}" th:object="${topo}" method="post">
+                <form th:action="@{/topos/createTopoOrUpdateTopo}" th:object="${topo}" enctype="multipart/form-data" method="post">
                     <div class="row">
                         <div class="form-group col-xs-12 col-sm-6 col-md-3">
                             <label for="nomTopo" class="col-form-label">Nom Topo</label>
@@ -40,11 +40,18 @@
                             <option th:value="false" th:text="libre"></option>
                         </select>
                         </div>
-                        <!--<div class="form-group col-md-2">
-                            <label for="dateParution" class="col-form-label">Date Parution</label>
-                            <input type="text" th:field="*{dateParution}" th:value="${today}" class="form-control"
-                                   id="dateParution"/>
-                        </div>-->
+                        <div class="form-group col-xs-12 col-sm-6 col-md-5" th:if="${titreFormTopo}=='Ajouter un topo'" >
+                            <label for="carte" class="col-form-label">Carte du topo</label><br />
+                            <input type= "hidden"  th:field="*{image}" id="carte">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="250000" />
+                            <input type="file" name="file" size=50  />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                            <label for="site" class="col-form-label">Sites</label><br />
+                            <div th:each="site: ${sites}">
+                                <input  type="checkbox" th:field="*{sites}" th:value="${site.idSite}" th:name="${site.nomSite}" id="site" /> <label for="site" th:text="${site.nomSite}"></label><br />
+                            </div>
+                        </div>
                         <div class="form-group col-xs-12 col-sm-6 col-md-2">
                             <label for="location" class="col-form-label">Location</label>
                             <select th:field="*{location}" class="form-control" id="location" placeholder="Location">

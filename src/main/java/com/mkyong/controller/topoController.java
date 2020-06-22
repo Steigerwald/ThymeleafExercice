@@ -11,7 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
@@ -57,14 +60,11 @@ public class topoController {
     /* controller pour l'edition d'un topo par Id */
     @RequestMapping(path = "/edit/{id}",method = RequestMethod.GET)
     public String editEntityById(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
-        Date today = new Date();
         if (id!=0) {
             Topo entity = topoService.getTopoById(id);
             model.addAttribute("topo", entity);
-            model.addAttribute("today", today);
         } else {
             model.addAttribute("topo", new Topo());
-            model.addAttribute("today", today);
         }
         List<User> listUsers = userService.getAllUsers();
         model.addAttribute("users",listUsers);
@@ -80,8 +80,9 @@ public class topoController {
     @RequestMapping(path = "/addTopo",method = RequestMethod.GET)
     public String addEntityById(Model model, Principal principal) {
         Date today = new Date();
-        model.addAttribute("today", today);
-        model.addAttribute("topo", new Topo());
+        Topo topo = new Topo();
+        topo.setDateParution(today);
+        model.addAttribute("topo", topo);
         model.addAttribute("titreFormTopo","Ajouter un topo");
         List<User> listUsers = userService.getAllUsers();
         model.addAttribute("users",listUsers);
@@ -94,12 +95,29 @@ public class topoController {
 
     /* controller pour creer ou modifier un topo dans la base de données */
     @RequestMapping(path = "/createTopoOrUpdateTopo", method = RequestMethod.POST)
-    public String createOrUpdateVoie(Topo topo, Principal principal) throws RecordNotFoundException {
-        User userConnecte = userService.getUserByMail(principal.getName());
+    public String createOrUpdateVoie(@RequestParam("file") MultipartFile fileImage,Topo topo, Principal principal) throws RecordNotFoundException, IOException {
+        logger.info(" le nom du topo est: "+topo.getNomTopo());
+        logger.info(" la description du topo est: "+topo.getDescription());
 
+        User userConnecte = userService.getUserByMail(principal.getName());
+        Image imageTopo=imageService.recupererImageFile(fileImage);
+        logger.info(" la valeur de l'Id de topo : "+topo.getIdTopo());
         if (topo.getIdTopo()==null){
+            logger.info(" le nom du fichier image de topo est: "+fileImage.getName());
+            logger.info(" la valeur d'octet du fichier image de topo est: "+fileImage.getBytes());
+            logger.info(" le type du fichier image de topo est: "+fileImage.getContentType());
+            logger.info(" la taille du fichier image de topo est: "+fileImage.getSize());
+            logger.info(" Nom original du fichier image de topo est: "+fileImage.getOriginalFilename());
+            imageTopo.setTopo(topo);
+            topo.setImage(imageTopo);
+            Date today = new Date();
+            logger.info(" avec date aujourd'hui il est :"+ today);
+            topo.setDateParution(today);
             topoService.CreateTopo(topo,userConnecte);
+            imageService.stockerImage(imageTopo, userConnecte);
         }else{
+            imageTopo.setTopo(topo);
+            topo.setImage(imageTopo);
             topoService.UpdateTopo(topo);
         }
         return "redirect:/topos";

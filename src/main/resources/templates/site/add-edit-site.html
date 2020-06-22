@@ -28,13 +28,6 @@
                             <input type="text" th:field="*{nomSite}" class="form-control"
                                    id="nomSite" placeholder="nom Site" />
                         </div>
-                        <div class="form-group col-xs-12 col-sm-6 col-md-6" >
-                            <label for="imageSite" class="col-form-label">Image du Site</label>
-                            <input type= "hidden"  th:field="*{image}" id="imageSite">
-                            <input type="hidden" name="MAX_FILE_SIZE" value="250000" />
-                            <input type="file" name="file" size=50  />
-                        </div>
-
                         <div class="form-group col-xs-12 col-sm-6 col-md-3">
                             <label for="lieu" class="col-form-label">Lieu</label>
                             <input type="text" th:field="*{lieu}" class="form-control"
@@ -45,7 +38,13 @@
                             <input type="text" th:field="*{descriptif}" class="form-control"
                                    id="descriptif" placeholder="descriptif Site" />
                         </div>
-                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4" th:if="${titreFormSite}=='Ajouter un site'">
+                            <label for="imageSite" class="col-form-label">Image du Site</label><br />
+                            <input type= "hidden"  th:field="*{image}" id="imageSite">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="250000" />
+                            <input type="file" name="file" size=50  />
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
                             <label for="topo" class="col-form-label">Topo</label>
                             <select th:field="*{topo}" class="form-control" id="topo">
                                 <option th:each="topo : ${topos}" th:value="${topo.idTopo}" th:text="${topo.nomTopo}">

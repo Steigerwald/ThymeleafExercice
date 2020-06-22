@@ -101,6 +101,8 @@ public class siteController {
         }
         List<Topo> listTopos = topoService.getAllTopos();
         model.addAttribute("topos",listTopos);
+        List<Secteur> listSecteurs=secteurService.getAllSecteurs();
+        model.addAttribute("secteurs",listSecteurs);
         List<User> listUsers = userService.getAllUsers();
         model.addAttribute("users",listUsers);
         User userConnecte = userService.getUserByMail(principal.getName());
