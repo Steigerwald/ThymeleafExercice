@@ -87,7 +87,9 @@ public class imageController {
     /* controller pour effacer une image dans la base de données */
     @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
+
         imageEntityService.deleteImageById(id);
+
         return "redirect:/admin/images";
     }
 

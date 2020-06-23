@@ -1,7 +1,6 @@
 package com.mkyong.services;
 
-import com.mkyong.entity.Role;
-import com.mkyong.entity.User;
+import com.mkyong.entity.*;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.RoleRepository;
 import com.mkyong.repository.UserRepository;
@@ -26,6 +25,19 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private TopoService topoService;
+
+    @Autowired
+    private SiteService siteService;
+
+    @Autowired
+    private ReservationTopoService reservationTopoService;
+
+    @Autowired
+    private CommentaireService commentaireService;
+
 
 
     Logger logger = (Logger) LoggerFactory.getLogger(UserService.class);
@@ -77,7 +89,12 @@ public class UserService {
         Optional<User> userAModifier = userRepository.findByIdUser(user.getIdUser());
         if(userAModifier.isPresent())
         { logger.info(" l'entité user à modifier a été trouvée et modifiée");
-            userRepository.save(user);
+        User newUser=userAModifier.get();
+        newUser.setNomUser(user.getNomUser());
+        newUser.setPrenomUser(user.getPrenomUser());
+        newUser.setMailUser(user.getMailUser());
+        newUser.setRole(user.getRole());
+        userRepository.save(newUser);
         } else {
             throw new RecordNotFoundException("No user record exist for given id and to modify it");
         }
@@ -88,6 +105,37 @@ public class UserService {
         Optional<User> userAEffacer = userRepository.findByIdUser(id);
         if(userAEffacer.isPresent())
         { logger.info(" l'entité user à effacer a été trouvée et est effacée");
+        User userTrouve =userAEffacer.get();
+
+            // suppression des topos associés au user supprimé
+            for(int i=0;i<(userTrouve.getTopos()).size();i++){
+                List<Topo> listeTopos=new ArrayList<Topo>();
+                listeTopos.addAll(userTrouve.getTopos());
+                Topo topo=listeTopos.get(i);
+                topoService.deleteTopoById(topo.getIdTopo());
+            }
+            // suppression des sites associés au user supprimé
+            for(int i=0;i<(userTrouve.getSites()).size();i++){
+                List<Site> listeSites=new ArrayList<Site>();
+                listeSites.addAll(userTrouve.getSites());
+                Site site=listeSites.get(i);
+                siteService.deleteSiteById(site.getIdSite());
+            }
+            // suppression des reservations associés au user supprimé
+            for(int i=0;i<(userTrouve.getReservations()).size();i++){
+                List<Reservation> listeReservations=new ArrayList<Reservation>();
+                listeReservations.addAll(userTrouve.getReservations());
+                Reservation reservation=listeReservations.get(i);
+                reservationTopoService.deleteReservationTopoById(reservation.getIdReservation());
+            }
+
+            // suppression des commentaires associés au user supprimé
+            for(int i=0;i<(userTrouve.getCommentaires()).size();i++){
+                List<Commentaire> listeCommentaires=new ArrayList<Commentaire>();
+                listeCommentaires.addAll(userTrouve.getCommentaires());
+                Commentaire commentaire=listeCommentaires.get(i);
+                commentaireService.deleteCommentaireById(commentaire.getIdCommentaire());
+            }
         userRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("No user record exist for given id and to cancel it");

@@ -26,6 +26,8 @@ public class TopoService {
     @Autowired
     private SiteService siteService;
 
+    @Autowired
+    private ReservationTopoService reservationTopoService;
 
     @Autowired
     private ImageService imageService;
@@ -77,7 +79,6 @@ public class TopoService {
     /*Methode pour creer une entité topo*/
     public Topo CreateTopo(Topo entity, User user) throws RecordNotFoundException {
         Date today = new Date();
-
         Topo newTopo = new Topo();
         newTopo.setNomTopo(entity.getNomTopo());
         newTopo.setDescription(entity.getDescription());
@@ -88,7 +89,10 @@ public class TopoService {
         newTopo.setImage(entity.getImage());
         newTopo.setSites(entity.getSites());
 
-        logger.info(" avec date aujourd'hui il est :"+ today);
+        // enregistrement de l'image dans le topo
+        //imageService.stockerImage(newTopo.getImage(), user);
+
+       // logger.info(" les images de topo: "+ entity.getImage().getId());
 
         // enregistrement du topo dans liste des topos de user
         Collection listeTopos = user.getTopos();
@@ -98,19 +102,17 @@ public class TopoService {
         userService.updateUser(user);
 
         // enregistrement du topo dans chaque site concerné
-        for(int i=0;i<(entity.getSites()).size();i++){
+        List<Site> sitesModifies=new ArrayList<Site>();
+        for(int i=0;i<(newTopo.getSites()).size();i++){
             List<Site> listeSites=new ArrayList<Site>();
-            listeSites.addAll(entity.getSites());
+            listeSites.addAll(newTopo.getSites());
             Site site=listeSites.get(i);
             site.setTopo(entity);
-            logger.info(" les topos de site: "+ site.getTopo());
-            logger.info(" les images de topo: "+ entity.getImage().getId());
-            logger.info(" les images de site: "+ site.getImage().getId());
-            siteService.UpdateSite(site);
+            Site siteModifie=siteService.UpdateSite(site);
+            sitesModifies.add(siteModifie);
         }
+        newTopo.setSites(sitesModifies);
 
-        // enregistrement de l'image dans le topo
-        imageService.stockerImage(entity.getImage(), user);
 
         entity = topoRepository.save(newTopo);
         logger.info(" retour de l'entité de createOrUpdateTopo car l'Id n'existe pas");
@@ -122,7 +124,31 @@ public class TopoService {
     public void deleteTopoById(Long id) throws RecordNotFoundException {
         Optional<Topo> topo = topoRepository.findById(id);
         if(topo.isPresent()) {
-            topoRepository.deleteById(id);
+            Topo topoTrouve = topo.get();
+
+            // annulation des sites associés au topo supprimé
+            for(int i=0;i<(topoTrouve.getSites()).size();i++){
+                List<Site> listeSites=new ArrayList<Site>();
+                listeSites.addAll(topoTrouve.getSites());
+                Site site=listeSites.get(i);
+                site.setTopo(null);
+            }
+            // suppression de l'image du topo
+            imageService.deleteImageById(topoTrouve.getImage().getId());
+
+            // suppression de la réservation du topo
+            reservationTopoService.deleteReservationTopoById(topoTrouve.getReservation().getIdReservation());
+
+            // suppression des topos dans la liste du propriétaire
+            List<Topo> listTopos=new ArrayList<Topo>();
+            listTopos.addAll(topoTrouve.getOwner().getTopos());
+            listTopos.remove(topoTrouve);
+            topoTrouve.getOwner().setTopos(listTopos);
+            userService.updateUser(topoTrouve.getOwner());
+
+            // suppression du Topo de la base de données
+            topoRepository.deleteById(topoTrouve.getIdTopo());
+
         } else {
             throw new RecordNotFoundException("Pas de topo enregistré avec cet Id");
         }

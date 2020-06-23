@@ -39,22 +39,22 @@ public class User {
     @Size(min=4)
     private String motDePasseUser;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
     @Nullable
     private Collection<Site> sites;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner",cascade=CascadeType.ALL)
     @Nullable
     private Collection <Topo> topos;
 
     @ManyToOne
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
     @Nullable
     private Collection <Reservation> reservations;
 
-    @OneToMany (mappedBy = "user")
+    @OneToMany (mappedBy = "user",cascade=CascadeType.ALL)
     @Nullable
     private Collection<Commentaire> commentaires;
 

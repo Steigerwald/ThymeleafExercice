@@ -81,7 +81,7 @@ public class voieController {
 
     /* controller pour enregistrer les données d'une voie dans la base de données */
     @RequestMapping(path = "/createVoie", method = RequestMethod.POST)
-    public String createOrUpdateVoie(Voie voie) {
+    public String createOrUpdateVoie(Voie voie) throws RecordNotFoundException {
         voieService.createOrUpdateVoie(voie);
         return "redirect:/voies";
     }

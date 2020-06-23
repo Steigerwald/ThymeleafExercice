@@ -69,6 +69,13 @@ public class ImageService {
         Optional<Image> image = repositoryImage.findById(id);
         if (image.isPresent()) {
             logger.info(" l'entité image a été trouvée et est effacée");
+            Image ImageTrouve =image.get();
+            if (ImageTrouve.getSite()!=null){
+                ImageTrouve.getSite().setImage(null);
+            }
+            if (ImageTrouve.getTopo()!=null){
+                ImageTrouve.getTopo().setImage(null);
+            }
             repositoryImage.deleteById(id);
         } else {
             throw new RecordNotFoundException("Pas d'image enregistrée avec cet Id");
@@ -78,16 +85,6 @@ public class ImageService {
     public Image stockerImage(Image entity, User user) throws RecordNotFoundException {
         if (entity.getId() == null) {
             entity = repositoryImage.save(entity);
-            if ((entity.getTopo()!=null)&&(entity!=null)){
-                Topo topoConcerne =entity.getTopo();
-                topoConcerne.setImage(entity);
-                topoService.UpdateTopo(topoConcerne);
-            }
-            if ((entity.getSite()!=null)&&(entity!=null)){
-                Site siteConcerne =entity.getSite();
-                siteConcerne.setImage(siteConcerne.getImage());
-                siteService.UpdateSite(siteConcerne);
-            }
             logger.info(" retour de l'entité de stockerImage car cette image n'existe pas et donc elle ");
             return entity;
         } else {

@@ -45,22 +45,23 @@ public class VoieService {
     }
 
     /*Methode pour creer ou modifier une entité voie dans la base de données*/
-    public Voie createOrUpdateVoie(Voie entity) {
+    public Voie createOrUpdateVoie(Voie entity) throws RecordNotFoundException {
         if(entity.getIdVoie()  == null) {
             entity = voieRepository.save(entity);
+
             logger.info(" retour de l'entité de createOrUpdateVoie car l'Id n'existe pas");
             return entity;
         }
         else {
-                Voie newVoie = new Voie();
-                newVoie.setIdVoie(entity.getIdVoie());
-                newVoie.setNumeroVoie(entity.getNumeroVoie());
-                newVoie.setCotation(entity.getCotation());
-                newVoie.setNombreLongueurs(entity.getNombreLongueurs());
-                newVoie.setNombrePoints(entity.getNombrePoints());
-                newVoie = voieRepository.save(newVoie);
-                logger.info(" retour de la nouvelle entité voie de createOrUpdateVoie qui a été sauvegardée et la voie est existante");
-                return newVoie;
+            Voie newVoie = getVoieById(entity.getIdVoie());
+            newVoie.setNumeroVoie(entity.getNumeroVoie());
+            newVoie.setCotation(entity.getCotation());
+            newVoie.setNombreLongueurs(entity.getNombreLongueurs());
+            newVoie.setNombrePoints(entity.getNombrePoints());
+            newVoie.setSecteur(entity.getSecteur());
+            newVoie = voieRepository.save(newVoie);
+            logger.info(" retour de la nouvelle entité voie de createOrUpdateVoie qui a été sauvegardée et la voie est existante");
+            return newVoie;
         }
     }
 

@@ -42,7 +42,7 @@ public class Topo {
     @Nullable
     private Reservation reservation;
 
-    @OneToOne (mappedBy = "topo")
+    @OneToOne (mappedBy = "topo",cascade=CascadeType.ALL)
     private Image image;
 
     @ManyToOne

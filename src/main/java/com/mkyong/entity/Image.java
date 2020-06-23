@@ -1,16 +1,8 @@
 package com.mkyong.entity;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.springframework.lang.Nullable;
-import sun.misc.BASE64Decoder;
-
-import javax.imageio.ImageIO;
 import javax.persistence.*;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
 

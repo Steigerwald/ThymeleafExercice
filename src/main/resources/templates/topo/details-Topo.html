@@ -59,10 +59,10 @@
                 <aside class="col-lg-6" id="Carte">
                     <div th:if="${topo.getImage()!=null}">
                         <h2>Carte topographique région</h2>
-                        <img th:src="${'data:image/jpg;base64,'+ topo.getImage().getImageBase64()}" alt="" />
+                        <img th:src="${'data:image/jpg;base64,'+ topo.image.getImageBase64()}" alt="" />
                     </div>
                     <div th:unless="${topo.getImage()!=null}">
-                        <h2>Pas de carte topographique de disponoible</h2>
+                        <h2>Pas de carte topographique de disponible</h2>
                     </div>
                 </aside>
                 <section class="col-lg-6" id="descriptif">

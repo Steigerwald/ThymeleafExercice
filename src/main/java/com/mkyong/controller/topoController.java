@@ -103,21 +103,16 @@ public class topoController {
         Image imageTopo=imageService.recupererImageFile(fileImage);
         logger.info(" la valeur de l'Id de topo : "+topo.getIdTopo());
         if (topo.getIdTopo()==null){
-            logger.info(" le nom du fichier image de topo est: "+fileImage.getName());
-            logger.info(" la valeur d'octet du fichier image de topo est: "+fileImage.getBytes());
-            logger.info(" le type du fichier image de topo est: "+fileImage.getContentType());
-            logger.info(" la taille du fichier image de topo est: "+fileImage.getSize());
-            logger.info(" Nom original du fichier image de topo est: "+fileImage.getOriginalFilename());
-            imageTopo.setTopo(topo);
-            topo.setImage(imageTopo);
             Date today = new Date();
             logger.info(" avec date aujourd'hui il est :"+ today);
             topo.setDateParution(today);
-            topoService.CreateTopo(topo,userConnecte);
-            imageService.stockerImage(imageTopo, userConnecte);
-        }else{
             imageTopo.setTopo(topo);
             topo.setImage(imageTopo);
+            imageService.stockerImage(imageTopo, userConnecte);
+            logger.info(" l'image de topo est  "+topo.getImage());
+            topoService.CreateTopo(topo,userConnecte);
+
+        }else {
             topoService.UpdateTopo(topo);
         }
         return "redirect:/topos";

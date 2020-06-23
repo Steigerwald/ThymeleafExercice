@@ -1,5 +1,6 @@
 package com.mkyong.services;
 
+import com.mkyong.entity.Commentaire;
 import com.mkyong.entity.Secteur;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.User;
@@ -27,6 +28,16 @@ public class SiteService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TopoService topoService;
+
+    @Autowired
+    private CommentaireService commentaireService;
+
+    @Autowired
+    private ImageService imageService;
+
 
 
     Logger logger = (Logger) LoggerFactory.getLogger(SiteService.class);
@@ -76,8 +87,8 @@ public class SiteService {
     public Site CreateSite(Site entity, User user) throws RecordNotFoundException {
             entity.setPublic(false);
             entity.setUser(user);
-            //enregistrement du site dans la basse de données
 
+            //enregistrement du site dans la basse de données
             logger.info(" les secteurs présents dans le site au niveau createOrUpdate= "+entity.getSecteurs());
             entity = siteRepository.save(entity);
 
@@ -89,6 +100,7 @@ public class SiteService {
                 secteur.setSite(entity);
                 secteurService.createOrUpdateSecteur(secteur);
             }
+
             // enregistrement du site dans liste des sites de user
             Collection listeSites = user.getSites();
             listeSites.add(entity);
@@ -96,7 +108,6 @@ public class SiteService {
             userService.updateUser(user);
             logger.info(" retour de l'entité de createOrUpdateSite qui a été créée car l'Id n'existe pas");
             return entity;
-
     }
 
 
@@ -110,10 +121,9 @@ public class SiteService {
                siteAModifier.setDescriptif(entity.getDescriptif());
                siteAModifier.setTopo(entity.getTopo());
                siteAModifier.setSecteurs(entity.getSecteurs());
-               Site autreSite=new Site();
-               autreSite=siteRepository.save(siteAModifier);
+               siteAModifier=siteRepository.save(siteAModifier);
                 logger.info(" retour de la nouvelle entité site de createOrUpdateSite qui a été sauvegardée et le site est existant");
-                return autreSite;
+                return siteAModifier;
             } else {
                 throw new RecordNotFoundException("No user record exist for given id and to modify it");
             }
@@ -124,7 +134,46 @@ public class SiteService {
     public void deleteSiteById(Long id) throws RecordNotFoundException {
         Optional<Site> site = siteRepository.findById(id);
         if(site.isPresent()) {
+            Site siteTrouve = site.get();
+
+            // retrait du site de la liste des Sites de User
+            List<Site> listSitesUser=new ArrayList<Site>();
+            listSitesUser.addAll( siteTrouve.getUser().getSites());
+            listSitesUser.remove(site);
+            siteTrouve.getUser().setSites(listSitesUser);
+            userService.updateUser(siteTrouve.getUser());
+
+            // retrait du site de la liste des Sites de topo
+            List<Site> listSitesTopo=new ArrayList<Site>();
+            listSitesTopo.addAll( siteTrouve.getTopo().getSites());
+            listSitesTopo.remove(site);
+            siteTrouve.getTopo().setSites(listSitesTopo);
+            topoService.UpdateTopo(siteTrouve.getTopo());
+
+
+            // annullation de chaque commentaire du site dans la base de données de commentaire
+            siteTrouve.getCommentaires();
+            for(int i=0;i<(siteTrouve.getCommentaires()).size();i++){
+                List<Commentaire> listeCommentaires=new ArrayList<Commentaire>();
+                listeCommentaires.addAll(siteTrouve.getCommentaires());
+                Commentaire commentaire =listeCommentaires.get(i);
+               commentaireService.deleteCommentaireById(commentaire.getIdCommentaire());
+            }
+
+            //annulation de la basede donnée image de l'Image du site
+            if ((siteTrouve.getImage())!=null) {
+                imageService.deleteImageById(siteTrouve.getImage().getId());
+            }
+            // annullation de chaque secteur du site dans la base de données de secteur
+
+            for(int i=0;i<(siteTrouve.getSecteurs()).size();i++){
+                List<Secteur> listeSecteurs=new ArrayList<Secteur>();
+                listeSecteurs.addAll(siteTrouve.getSecteurs());
+                Secteur secteur =listeSecteurs.get(i);
+                secteurService.deleteSecteurById(secteur.getIdSecteur());
+            }
             siteRepository.deleteById(id);
+
         } else {
             throw new RecordNotFoundException("Pas de site enregistré avec cet Id");
         }
