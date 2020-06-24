@@ -84,7 +84,7 @@ public class ReservationTopoService {
                 logger.info(" retour de l'entité de createReservationTopo "+entity.getOwner().getNomUser());
                 entity.setReservation(newReservation);
                 // je renseigne la reservation dans le user
-                Collection listeReservations = currentUser.getReservations();
+                Collection<Reservation> listeReservations = currentUser.getReservations();
                 listeReservations.add(newReservation);
                 currentUser.setReservations(listeReservations);
                 reservationTopoRepository.save(newReservation);
