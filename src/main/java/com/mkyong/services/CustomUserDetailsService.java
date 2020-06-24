@@ -43,7 +43,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 getAuthorities(user));
     }
 
-
    private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
         ArrayList<Role> listRole = new ArrayList<Role>();
         listRole.clear();

@@ -35,14 +35,14 @@ public class Topo {
     @Column(name = "LOCATION")
     private Boolean location;
 
-    @OneToMany (mappedBy = "topo", cascade=CascadeType.ALL)
+    @OneToMany (mappedBy = "topo")
     private Collection<Site> sites;
 
     @OneToOne (mappedBy= "topo")
     @Nullable
     private Reservation reservation;
 
-    @OneToOne (mappedBy = "topo",cascade=CascadeType.ALL)
+    @OneToOne (mappedBy = "topo")
     private Image image;
 
     @ManyToOne

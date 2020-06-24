@@ -96,23 +96,25 @@ public class topoController {
     /* controller pour creer ou modifier un topo dans la base de données */
     @RequestMapping(path = "/createTopoOrUpdateTopo", method = RequestMethod.POST)
     public String createOrUpdateVoie(@RequestParam("file") MultipartFile fileImage,Topo topo, Principal principal) throws RecordNotFoundException, IOException {
-        logger.info(" le nom du topo est: "+topo.getNomTopo());
-        logger.info(" la description du topo est: "+topo.getDescription());
-
         User userConnecte = userService.getUserByMail(principal.getName());
         Image imageTopo=imageService.recupererImageFile(fileImage);
         logger.info(" la valeur de l'Id de topo : "+topo.getIdTopo());
+
         if (topo.getIdTopo()==null){
-            Date today = new Date();
-            logger.info(" avec date aujourd'hui il est :"+ today);
-            topo.setDateParution(today);
-            imageTopo.setTopo(topo);
-            topo.setImage(imageTopo);
-            imageService.stockerImage(imageTopo, userConnecte);
+            if (fileImage.isEmpty()){
+                topo.setImage(null);
+            }else {
+                topo.setImage(imageTopo);
+            }
             logger.info(" l'image de topo est  "+topo.getImage());
             topoService.CreateTopo(topo,userConnecte);
 
         }else {
+            if (!(fileImage.isEmpty())){
+                topo.setImage(imageTopo);
+            }
+            Topo topoAModifier = topoService.getTopoById(topo.getIdTopo());
+            topo.setDateParution(topoAModifier.getDateParution());
             topoService.UpdateTopo(topo);
         }
         return "redirect:/topos";

@@ -58,7 +58,6 @@ public class ImageService {
         Optional<Image> image = repositoryImage.findById(id);
         if (image.isPresent()) {
             logger.info(" retour de l'image car elle est présente ");
-            logger.info(" retour de la valeur du BLOB"+image.get().getImage());
             return image.get();
         } else {
             throw new RecordNotFoundException("Pas d'image enregistrée avec cet Id");

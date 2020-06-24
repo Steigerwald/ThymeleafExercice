@@ -1,5 +1,7 @@
 package com.mkyong.entity;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,9 +26,10 @@ public class Secteur {
     private Integer hauteur;
 
     @ManyToOne
+    @Nullable
     private Site site;
 
-    @OneToMany (mappedBy = "secteur",cascade=CascadeType.ALL)
+    @OneToMany (mappedBy = "secteur")
     private Collection<Voie> voies;
 
 
@@ -72,9 +75,9 @@ public class Secteur {
     public Integer getHauteur() { return hauteur;
     }
 
+    @Nullable
     public Site getSite() { return site;
     }
-
 
     public Collection<Voie> getVoies() { return voies;
     }
@@ -82,7 +85,6 @@ public class Secteur {
 
 
     // Setters
-
 
     public void setIdSecteur(Long idSecteur) { this.idSecteur = idSecteur;
     }
@@ -96,12 +98,10 @@ public class Secteur {
     public void setHauteur(Integer hauteur) { this.hauteur = hauteur;
     }
 
-    public void setSite(Site site) { this.site = site;
+    public void setSite(@Nullable Site site) { this.site = site;
     }
-
 
     public void setVoies(Collection<Voie> voies) { this.voies = voies;
     }
-
 
 }

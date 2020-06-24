@@ -1,6 +1,7 @@
 package com.mkyong.services;
 
 import com.mkyong.entity.Commentaire;
+import com.mkyong.entity.Secteur;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.CommentaireRepository;
@@ -19,6 +20,9 @@ public class CommentaireService {
 
     @Autowired
     private CommentaireRepository commentaireRepository;
+
+    @Autowired
+    private UserService userService;
 
     Logger logger = (Logger) LoggerFactory.getLogger(CommentaireService.class);
 
@@ -72,6 +76,13 @@ public class CommentaireService {
     public void deleteCommentaireById(Long id) throws RecordNotFoundException {
         Optional<Commentaire> commentaire = commentaireRepository.findById(id);
         if(commentaire.isPresent()) {
+            Commentaire commentaireTrouve = commentaire.get();
+           User userCommentaire =commentaireTrouve.getUser();
+            if ((userCommentaire.getCommentaires())!=null) {
+                (userCommentaire.getCommentaires()).remove(commentaireTrouve);
+                userCommentaire.setCommentaires(userCommentaire.getCommentaires());
+                userService.updateUser(userCommentaire);
+            }
             commentaireRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("Pas de commentaire enregistré avec cet Id");

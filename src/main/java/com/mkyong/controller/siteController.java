@@ -128,26 +128,29 @@ public class siteController {
     }
 
     /* controller pour enregistrer les données d'un site dans la base de données */
-    @RequestMapping(path = "/createSite", method = RequestMethod.POST)
+    @RequestMapping(path = "/createSiterUpdateSite", method = RequestMethod.POST)
     public String createOrUpdateSite(@RequestParam("file") MultipartFile fileImage,Site site, Image imageSite, Principal principal) throws RecordNotFoundException, IOException {
         User userConnecte = userService.getUserByMail(principal.getName());
-        logger.info(" le nom du fichier image de createSite est: "+fileImage.getName());
-        logger.info(" la valeur d'octet du fichier est: "+fileImage.getBytes());
-        logger.info(" le type du fichier est: "+fileImage.getContentType());
-        logger.info(" la taille du fichier est: "+fileImage.getSize());
-        logger.info(" Nom original du fichier est: "+fileImage.getOriginalFilename());
-        logger.info(" secteurs de Site est: "+site.toStringSecteurs());
         imageSite=imageService.recupererImageFile(fileImage);
-        imageSite.setSite(site);
+        logger.info(" la valeur de l'Id de site : "+site.getIdSite());
 
-        site.setImage(imageSite);
-        site.setPublic(false);
-        site.setOfficiel(false);
-        site.setUser(userConnecte);
+        if (site.getIdSite()==null){
+            if (fileImage.isEmpty()){
+                site.setImage(null);
+            }else {
+                site.setImage(imageSite);
+            }
+            logger.info(" l'image de service est  "+site.getImage());
+            siteService.CreateSite(site,userConnecte);
 
-        logger.info(" user de Site est: "+site.getUser());
-        imageService.stockerImage(imageSite, userConnecte);
-        siteService.CreateSite(site, userConnecte);
+        }else {
+            if (!(fileImage.isEmpty())){
+                site.setImage(imageSite);
+            }
+            Site siteAModifier = siteService.getSiteById(site.getIdSite());
+            siteService.UpdateSite(site);
+        }
+
         return "redirect:/sites";
     }
 

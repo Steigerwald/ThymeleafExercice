@@ -108,35 +108,42 @@ public class UserService {
         User userTrouve =userAEffacer.get();
 
             // suppression des topos associés au user supprimé
-            for(int i=0;i<(userTrouve.getTopos()).size();i++){
-                List<Topo> listeTopos=new ArrayList<Topo>();
-                listeTopos.addAll(userTrouve.getTopos());
-                Topo topo=listeTopos.get(i);
-                topoService.deleteTopoById(topo.getIdTopo());
+            if (userTrouve.getTopos()!=null) {
+                for (int i = 0; i < (userTrouve.getTopos()).size(); i++) {
+                    List<Topo> listeTopos = new ArrayList<Topo>();
+                    listeTopos.addAll(userTrouve.getTopos());
+                    Topo topo = listeTopos.get(i);
+                    topoService.deleteTopoById(topo.getIdTopo());
+                }
             }
             // suppression des sites associés au user supprimé
-            for(int i=0;i<(userTrouve.getSites()).size();i++){
-                List<Site> listeSites=new ArrayList<Site>();
-                listeSites.addAll(userTrouve.getSites());
-                Site site=listeSites.get(i);
-                siteService.deleteSiteById(site.getIdSite());
+            if (userTrouve.getSites()!=null) {
+                for (int i = 0; i < (userTrouve.getSites()).size(); i++) {
+                    List<Site> listeSites = new ArrayList<Site>();
+                    listeSites.addAll(userTrouve.getSites());
+                    Site site = listeSites.get(i);
+                    siteService.deleteSiteById(site.getIdSite());
+                }
             }
             // suppression des reservations associés au user supprimé
-            for(int i=0;i<(userTrouve.getReservations()).size();i++){
-                List<Reservation> listeReservations=new ArrayList<Reservation>();
-                listeReservations.addAll(userTrouve.getReservations());
-                Reservation reservation=listeReservations.get(i);
-                reservationTopoService.deleteReservationTopoById(reservation.getIdReservation());
+            if (userTrouve.getReservations()!=null) {
+                for (int i = 0; i < (userTrouve.getReservations()).size(); i++) {
+                    List<Reservation> listeReservations = new ArrayList<Reservation>();
+                    listeReservations.addAll(userTrouve.getReservations());
+                    Reservation reservation = listeReservations.get(i);
+                    reservationTopoService.deleteReservationTopoById(reservation.getIdReservation());
+                }
             }
-
             // suppression des commentaires associés au user supprimé
-            for(int i=0;i<(userTrouve.getCommentaires()).size();i++){
-                List<Commentaire> listeCommentaires=new ArrayList<Commentaire>();
-                listeCommentaires.addAll(userTrouve.getCommentaires());
-                Commentaire commentaire=listeCommentaires.get(i);
-                commentaireService.deleteCommentaireById(commentaire.getIdCommentaire());
+            if(userTrouve.getCommentaires()!=null) {
+                for (int i = 0; i < (userTrouve.getCommentaires()).size(); i++) {
+                    List<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
+                    listeCommentaires.addAll(userTrouve.getCommentaires());
+                    Commentaire commentaire = listeCommentaires.get(i);
+                    commentaireService.deleteCommentaireById(commentaire.getIdCommentaire());
+                }
             }
-        userRepository.deleteById(id);
+            userRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("No user record exist for given id and to cancel it");
         }
