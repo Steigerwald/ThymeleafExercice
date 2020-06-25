@@ -42,35 +42,46 @@
                        </div>
                        <br>
                        <h2>Topo: </h2>
-                       <p th:text="|${site.topo.nomTopo}|+' qui est '+|${site.topo.toStringLocation()}|"></p>
+                       <div th:if="${site.topo}!=null">
+                           <p th:text="|${site.topo.nomTopo}|+' qui est '+|${site.topo.toStringLocation()}|"></p>
+                       </div>
+                       <div th:unless="${site.topo}!=null">
+                           <p>pas de topo disponible de ce site</p>
+                       </div>
                    </div>
                    <div class="card col-lg-12">
                        <h2>Les commentaires des utilisateurs : </h2>
-                       <ul th:each="commentaire : ${site.commentaires}">
-                           <div class="row" >
-                               <div class="col-lg-8">
-                                   <li th:text="${commentaire.contenu} "> </li>
-                               </div>
-                               <div class="col-lg-4">
-                                    <div class="row" id="boutonEditCancel">
-                                       <div class="boutons" th:switch="${user.role.nomRole}">
-                                           <div th:case="'ROLE_ADMIN'">
-                                               <div class="col-lg-5">
-                                                   <a th:href="@{/commentaires/edit/{id}(id=${commentaire.idCommentaire})}" class="btn btn-primary">
-                                                       <i class="fas fa-edit ml-2"></i>
-                                                   </a>
+                       <div th:if="${site.commentaires}==null">
+                           <p>pas de commentaire sur ce site</p>
+                       </div>
+                        <div th:unless="${site.commentaires}==null">
+                           <ul th:each="commentaire : ${site.commentaires}">
+                               <div class="row" >
+                                   <div class="col-lg-8">
+                                       <li th:text="${commentaire.contenu} "> </li>
+                                   </div>
+                                   <div class="col-lg-4">
+                                        <div class="row" id="boutonEditCancel">
+                                           <div class="boutons" th:switch="${user.role.nomRole}">
+                                               <div th:case="'ROLE_ADMIN'">
+                                                   <div class="col-lg-5">
+                                                       <a th:href="@{/commentaires/edit/{id}(id=${commentaire.idCommentaire})}" class="btn btn-primary">
+                                                           <i class="fas fa-edit ml-2"></i>
+                                                       </a>
+                                                  </div>
+                                                   <div class="col-lg-5">
+                                                       <form th:action="@{/commentaires/delete/{id}(id=${commentaire.idCommentaire})}" method="post">
+                                                           <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
+                                                       </form>
+                                                   </div>
                                               </div>
-                                               <div class="col-lg-5">
-                                                   <form th:action="@{/commentaires/delete/{id}(id=${commentaire.idCommentaire})}" method="post">
-                                                       <button class="btn btn-danger my-2 my-sm-0" type="submit"><span class="fas fa-trash-alt ml-2"></span></button>
-                                                   </form>
-                                               </div>
-                                          </div>
+                                           </div>
                                        </div>
                                    </div>
                                </div>
-                           </div>
-                       </ul>
+                           </ul>
+                        </div>
+
                    </div>
                    <div class="card col-lg-12">
                        <form th:action="@{/commentaires/laisserCommentaires/{id}(id=${site.idSite})}" th:object="${commentaire}" method="post" >

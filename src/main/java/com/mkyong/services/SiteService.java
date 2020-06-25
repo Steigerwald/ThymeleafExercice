@@ -86,8 +86,8 @@ public class SiteService {
         newSite.setNomSite(entity.getNomSite());
         newSite.setLieu(entity.getLieu());
         newSite.setDescriptif(entity.getDescriptif());
-        newSite.setOfficiel(false);
-        newSite.setPublic(false);
+        newSite.setOfficiel(entity.getOfficiel());
+        newSite.setPublic(entity.getPublic());
 
         newSite.setUser(user);
         // enregistrement du site dans liste des sites de user
@@ -99,6 +99,7 @@ public class SiteService {
         newSite.setTopo(null);
         newSite.setCommentaires(null);
 
+
         newSite.setImage(entity.getImage());
         if(newSite.getImage()!=null) {
             imageService.stockerImage(newSite.getImage(), user);
@@ -107,13 +108,13 @@ public class SiteService {
         newSite.setSecteurs(entity.getSecteurs());
         // enregistrement du site dans chaque secteur concerné
         if (newSite.getSecteurs()!=null) {
-            for (int i = 0; i < (newSite.getSecteurs()).size(); i++) {
-                List<Secteur> listeSecteurs = new ArrayList<Secteur>();
-                if (entity.getSecteurs() != null) {
-                    listeSecteurs.addAll(entity.getSecteurs());
-                    Secteur secteur = listeSecteurs.get(i);
-                    secteur.setSite(newSite);
-                    secteurService.createOrUpdateSecteur(secteur);
+            List<Secteur> listeSecteurs = new ArrayList<Secteur>();
+            if (entity.getSecteurs() != null){
+                listeSecteurs.addAll(entity.getSecteurs());
+                for (int i = 0; i < (newSite.getSecteurs()).size(); i++) {
+                        Secteur secteur = listeSecteurs.get(i);
+                        secteur.setSite(newSite);
+                        secteurService.createOrUpdateSecteur(secteur);
                 }
             }
         }
@@ -134,12 +135,13 @@ public class SiteService {
            siteAModifier.setLieu(entity.getLieu());
            siteAModifier.setDescriptif(entity.getDescriptif());
            siteAModifier.setSecteurs(entity.getSecteurs());
+
             // enregistrement du Site dans chaque secteur concerné
             List<Secteur> secteursModifies=new ArrayList<Secteur>();
             if (siteAModifier.getSecteurs()!=null) {
+                List<Secteur> listeSecteurs = new ArrayList<Secteur>();
+                listeSecteurs.addAll(siteAModifier.getSecteurs());
                 for (int i = 0; i < (siteAModifier.getSecteurs()).size(); i++) {
-                    List<Secteur> listeSecteurs = new ArrayList<Secteur>();
-                    listeSecteurs.addAll(siteAModifier.getSecteurs());
                     Secteur secteur = listeSecteurs.get(i);
                     secteur.setSite(siteAModifier);
                     Secteur secteurModifie = secteurService.createOrUpdateSecteur(secteur);
@@ -164,42 +166,46 @@ public class SiteService {
             Site siteTrouve = site.get();
 
             // retrait du site de la liste des Sites de User
+            User userDuSite =siteTrouve.getUser();
             List<Site> listSitesUser=new ArrayList<Site>();
-            if (siteTrouve.getUser().getSites()!=null) {
-                listSitesUser.addAll(siteTrouve.getUser().getSites());
+            if (userDuSite.getSites()!=null) {
+                listSitesUser.addAll(userDuSite.getSites());
             }
             listSitesUser.remove(siteTrouve);
-            siteTrouve.getUser().setSites(listSitesUser);
-            userService.updateUser(siteTrouve.getUser());
+            userDuSite.setSites(listSitesUser);
+            userService.updateUser(userDuSite);
+
 
             // retrait du site de la liste des Sites de topo
-            if (siteTrouve.getTopo()!=null) {
+            Topo topoDuSite =siteTrouve.getTopo();
+            if (topoDuSite!=null) {
                 List<Site> listSitesTopo = new ArrayList<Site>();
-                listSitesTopo.addAll(siteTrouve.getTopo().getSites());
+                listSitesTopo.addAll(topoDuSite.getSites());
                 listSitesTopo.remove(siteTrouve);
-                siteTrouve.getTopo().setSites(listSitesTopo);
-                topoService.UpdateTopo(siteTrouve.getTopo());
+                topoDuSite.setSites(listSitesTopo);
+                topoService.UpdateTopo(topoDuSite);
             }
 
-            // annullation de chaque commentaire du site dans la base de données de commentaire
+            // annulation de chaque commentaire du site dans la base de données de commentaire
             if (siteTrouve.getCommentaires()!=null) {
+                List<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
+                listeCommentaires.addAll(siteTrouve.getCommentaires());
                 for (int i = 0; i < (siteTrouve.getCommentaires()).size(); i++) {
-                    List<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
-                    listeCommentaires.addAll(siteTrouve.getCommentaires());
                     Commentaire commentaire = listeCommentaires.get(i);
                     commentaireService.deleteCommentaireById(commentaire.getIdCommentaire());
                 }
             }
 
-            //annulation de la basede donnée image de l'Image du site
+            //annulation de la base de donnée image de l'Image du site
             if ((siteTrouve.getImage())!=null) {
                 imageService.deleteImageById(siteTrouve.getImage().getId());
             }
-            // annullation de chaque secteur du site dans la base de données de secteur
+
+            // annulation de chaque secteur du site dans la base de données de secteur
             if (siteTrouve.getSecteurs()!=null) {
+                List<Secteur> listeSecteurs = new ArrayList<Secteur>();
+                listeSecteurs.addAll(siteTrouve.getSecteurs());
                 for (int i = 0; i < (siteTrouve.getSecteurs()).size(); i++) {
-                    List<Secteur> listeSecteurs = new ArrayList<Secteur>();
-                    listeSecteurs.addAll(siteTrouve.getSecteurs());
                     Secteur secteur = listeSecteurs.get(i);
                     secteur.setSite(null);
                 }

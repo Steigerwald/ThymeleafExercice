@@ -40,7 +40,12 @@
                                                     <td> <a th:text="${siteTrouve.nomSite}" th:href="@{/sites/details/{nom} (nom=${siteTrouve.idSite})}" ></a> </td>
                                                     <td th:text="${siteTrouve.lieu}"></td>
                                                     <td th:text="${siteTrouve.descriptif}"></td>
-                                                    <td th:text="${siteTrouve.topo.nomTopo}"></td>
+                                                    <div th:if="${siteTrouve.topo}!=null">
+                                                        <td th:text="${siteTrouve.topo.nomTopo}"></td>
+                                                    </div>
+                                                    <div th:unless="${siteTrouve.topo}!=null">
+                                                        <td>N/A</td>
+                                                    </div>
                                                     <td th:text="${siteTrouve.toStringSecteurs()}">
                                                 </tr>
                                                 </tbody>
