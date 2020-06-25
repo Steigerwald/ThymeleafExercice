@@ -103,6 +103,7 @@ public class ReservationTopoService {
                 // je modifie la réservation du topo
                 Reservation updateReservation = new Reservation();
                 updateReservation.setIdReservation(entity.getIdReservation());
+
                 updateReservation.setEtat(entity.getEtat());
                 updateReservation.setDateReservation(entity.getDateReservation());
                 updateReservation.setTopo(entity.getTopo());

@@ -45,15 +45,27 @@ public class SecteurService {
     /*Methode pour creer ou modifier un secteur de la base de données*/
     public Secteur createOrUpdateSecteur(Secteur entity) throws RecordNotFoundException {
         if(entity.getIdSecteur()  == null) {
-            entity = secteurRepository.save(entity);
+            Secteur newSecteur= new Secteur();
+            newSecteur.setNomSecteur(entity.getNomSecteur());
+            newSecteur.setDescriptifSecteur(entity.getDescriptifSecteur());
+            newSecteur.setHauteur(entity.getHauteur());
+            newSecteur.setSite(entity.getSite());
+            newSecteur.setVoies(entity.getVoies());
+
+            entity = secteurRepository.save(newSecteur);
             logger.info(" retour de l'entité qui a été créée de createOrUpdateSecteur car l'Id n'existe pas");
             return entity;
         } else {
             Secteur secteurAModifier = getSecteurById(entity.getIdSecteur());
             if(secteurAModifier!=null) {
                 logger.info(" l'entité secteur à modifier a été trouvée et modifiée");
-                entity.setVoies(secteurAModifier.getVoies());
-                entity = secteurRepository.save(entity);
+                secteurAModifier.setNomSecteur(entity.getNomSecteur());
+                secteurAModifier.setDescriptifSecteur(entity.getDescriptifSecteur());
+                secteurAModifier.setHauteur(entity.getHauteur());
+                secteurAModifier.setSite(entity.getSite());
+                secteurAModifier.setVoies(entity.getVoies());
+
+                entity = secteurRepository.save(secteurAModifier);
                 logger.info(" retour de la nouvelle entité secteur de createOrUpdateSite qui a été sauvegardée et le secteur est existant");
                 return entity;
             } else {

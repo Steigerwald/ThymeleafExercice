@@ -111,7 +111,7 @@ public class SiteService {
             List<Secteur> listeSecteurs = new ArrayList<Secteur>();
             if (entity.getSecteurs() != null){
                 listeSecteurs.addAll(entity.getSecteurs());
-                for (int i = 0; i < (newSite.getSecteurs()).size(); i++) {
+                for (int i = 0; i < listeSecteurs.size(); i++) {
                         Secteur secteur = listeSecteurs.get(i);
                         secteur.setSite(newSite);
                         secteurService.createOrUpdateSecteur(secteur);
@@ -141,7 +141,7 @@ public class SiteService {
             if (siteAModifier.getSecteurs()!=null) {
                 List<Secteur> listeSecteurs = new ArrayList<Secteur>();
                 listeSecteurs.addAll(siteAModifier.getSecteurs());
-                for (int i = 0; i < (siteAModifier.getSecteurs()).size(); i++) {
+                for (int i = 0; i < listeSecteurs.size(); i++) {
                     Secteur secteur = listeSecteurs.get(i);
                     secteur.setSite(siteAModifier);
                     Secteur secteurModifie = secteurService.createOrUpdateSecteur(secteur);
@@ -190,7 +190,7 @@ public class SiteService {
             if (siteTrouve.getCommentaires()!=null) {
                 List<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
                 listeCommentaires.addAll(siteTrouve.getCommentaires());
-                for (int i = 0; i < (siteTrouve.getCommentaires()).size(); i++) {
+                for (int i = 0; i < listeCommentaires.size(); i++) {
                     Commentaire commentaire = listeCommentaires.get(i);
                     commentaireService.deleteCommentaireById(commentaire.getIdCommentaire());
                 }
@@ -205,7 +205,7 @@ public class SiteService {
             if (siteTrouve.getSecteurs()!=null) {
                 List<Secteur> listeSecteurs = new ArrayList<Secteur>();
                 listeSecteurs.addAll(siteTrouve.getSecteurs());
-                for (int i = 0; i < (siteTrouve.getSecteurs()).size(); i++) {
+                for (int i = 0; i < listeSecteurs.size(); i++) {
                     Secteur secteur = listeSecteurs.get(i);
                     secteur.setSite(null);
                 }

@@ -68,16 +68,17 @@ public class TopoService {
 
             topoAModifier.setSites(entity.getSites());
             // enregistrement du topo dans chaque site concerné
-            //List<Site> sitesModifies=new ArrayList<Site>();
-            for(int i=0;i<(topoAModifier.getSites()).size();i++){
-                List<Site> listeSites=new ArrayList<Site>();
-                listeSites.addAll(topoAModifier.getSites());
+            List<Site> sitesModifies=new ArrayList<Site>();
+            List<Site> listeSites=new ArrayList<Site>();
+            listeSites.addAll(topoAModifier.getSites());
+            for(int i=0;i<listeSites.size();i++){
                 Site site=listeSites.get(i);
                 site.setTopo(entity);
                 Site siteModifie=siteService.UpdateSite(site);
-                //sitesModifies.add(siteModifie);
+                sitesModifies.add(siteModifie);
             }
-            //topoAModifier.setSites(sitesModifies);
+            topoAModifier.setSites(sitesModifies);
+
 
             topoAModifier.setLocation(entity.getLocation());
 
@@ -100,24 +101,32 @@ public class TopoService {
         newTopo.setDateParution(today);
         newTopo.setDisponible(true);
         newTopo.setLocation(entity.getLocation());
+
         newTopo.setReservation(null);
 
         // enregistrement de l'image dans le topo
         newTopo.setImage(entity.getImage());
-        imageService.stockerImage(newTopo.getImage(),user);
+        if (newTopo.getImage()!=null) {
+            imageService.stockerImage(newTopo.getImage(), user);
+        }
 
         newTopo.setSites(entity.getSites());
         // enregistrement du topo dans chaque site concerné
         List<Site> sitesModifies=new ArrayList<Site>();
-        for(int i=0;i<(newTopo.getSites()).size();i++){
-            List<Site> listeSites=new ArrayList<Site>();
-            listeSites.addAll(newTopo.getSites());
+        List<Site> listeSites=new ArrayList<Site>();
+        listeSites.addAll(newTopo.getSites());
+        for(int i=0;i<listeSites.size();i++){
             Site site=listeSites.get(i);
             site.setTopo(entity);
             Site siteModifie=siteService.UpdateSite(site);
             sitesModifies.add(siteModifie);
         }
         newTopo.setSites(sitesModifies);
+
+        newTopo.setImage(entity.getImage());
+        if (newTopo.getImage()!=null) {
+            imageService.stockerImage(newTopo.getImage(), user);
+        }
 
         newTopo.setOwner(user);
         // enregistrement du topo dans liste des topos de user
@@ -141,9 +150,9 @@ public class TopoService {
             Topo topoTrouve = topo.get();
 
             // annulation des sites associés au topo supprimé
-            for(int i=0;i<(topoTrouve.getSites()).size();i++){
-                List<Site> listeSites=new ArrayList<Site>();
-                listeSites.addAll(topoTrouve.getSites());
+            List<Site> listeSites=new ArrayList<Site>();
+            listeSites.addAll(topoTrouve.getSites());
+            for(int i=0;i<listeSites.size();i++){
                 Site site=listeSites.get(i);
                 site.setTopo(null);
             }
@@ -164,6 +173,12 @@ public class TopoService {
                 }
                 reservationTopoService.deleteReservationTopoById(topoTrouve.getReservation().getIdReservation());
             }
+
+            //annulation de la base de donnée image de l'Image du stopo
+            if ((topoTrouve.getImage())!=null) {
+                imageService.deleteImageById(topoTrouve.getImage().getId());
+            }
+
 
             // suppression des topos dans la liste du propriétaire
             List<Topo> listTopos=new ArrayList<Topo>();

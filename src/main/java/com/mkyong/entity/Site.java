@@ -39,7 +39,7 @@ public class Site {
     @ManyToOne
     private User user;
 
-    @ManyToOne
+    @ManyToOne (fetch=FetchType.LAZY)
     @Nullable
     private Topo topo;
 

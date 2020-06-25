@@ -38,11 +38,12 @@ public class Topo {
     @OneToMany (mappedBy = "topo",cascade=CascadeType.ALL)
     private Collection<Site> sites;
 
-    @OneToOne (mappedBy= "topo",cascade=CascadeType.ALL)
+    @OneToOne (mappedBy= "topo")
     @Nullable
     private Reservation reservation;
 
-    @OneToOne (mappedBy = "topo",cascade=CascadeType.ALL)
+    @OneToOne (mappedBy = "topo")
+    @Nullable
     private Image image;
 
     @ManyToOne
@@ -123,8 +124,8 @@ public class Topo {
 
     public User getOwner() { return owner; }
 
-    public Image getImage() { return image;
-    }
+    @Nullable
+    public Image getImage() { return image; }
 
     // Setters
 
@@ -148,6 +149,6 @@ public class Topo {
 
     public void setOwner(User owner) { this.owner = owner; }
 
-    public void setImage(Image image) { this.image = image;
+    public void setImage(@Nullable Image image) { this.image = image;
     }
 }
