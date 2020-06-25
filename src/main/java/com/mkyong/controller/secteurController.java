@@ -46,7 +46,7 @@ public class secteurController {
     @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         secteurService.deleteSecteurById(id);
-        return "redirect:/voies";
+        return "redirect:/secteurs";
     }
 
     /* controller pour l'edition d'un secteur par Id */
