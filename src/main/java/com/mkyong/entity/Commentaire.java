@@ -21,7 +21,7 @@ public class Commentaire {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCommentaire;
 
-    @ManyToOne
+    @ManyToOne (fetch=FetchType.LAZY)
     private Site site;
 
     @ManyToOne

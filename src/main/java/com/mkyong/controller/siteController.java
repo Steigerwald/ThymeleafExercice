@@ -128,7 +128,7 @@ public class siteController {
     }
 
     /* controller pour enregistrer les données d'un site dans la base de données */
-    @RequestMapping(path = "/createSiterUpdateSite", method = RequestMethod.POST)
+    @RequestMapping(path = "/createSiteOrUpdateSite", method = RequestMethod.POST)
     public String createOrUpdateSite(@RequestParam("file") MultipartFile fileImage,Site site, Image imageSite, Principal principal) throws RecordNotFoundException, IOException {
         User userConnecte = userService.getUserByMail(principal.getName());
         imageSite=imageService.recupererImageFile(fileImage);
@@ -140,6 +140,8 @@ public class siteController {
             }else {
                 site.setImage(imageSite);
             }
+            site.setOfficiel(false);
+            site.setPublic(false);
             logger.info(" l'image de service est  "+site.getImage());
             siteService.CreateSite(site,userConnecte);
 

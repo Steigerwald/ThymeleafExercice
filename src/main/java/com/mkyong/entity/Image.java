@@ -26,11 +26,11 @@ public class Image implements Serializable {
     @Lob()
     private byte[] image;
 
-    @OneToOne (cascade = {CascadeType.ALL})
+    @OneToOne (fetch=FetchType.LAZY)
     @Nullable
     private Site site;
 
-    @OneToOne (cascade = {CascadeType.ALL})
+    @OneToOne (fetch=FetchType.LAZY)
     @Nullable
     private Topo topo;
 

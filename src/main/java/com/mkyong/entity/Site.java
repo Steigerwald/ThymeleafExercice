@@ -43,15 +43,15 @@ public class Site {
     @Nullable
     private Topo topo;
 
-    @OneToMany (mappedBy = "site")
+    @OneToMany (mappedBy = "site",cascade=CascadeType.ALL)
     @Nullable
     private Collection<Commentaire> commentaires;
 
-    @OneToOne (mappedBy = "site")
+    @OneToOne (mappedBy = "site",cascade=CascadeType.ALL)
     @Nullable
     private Image image;
 
-    @OneToMany (mappedBy = "site")
+    @OneToMany (mappedBy = "site",cascade=CascadeType.ALL)
     @Nullable
     private Collection<Secteur> secteurs;
 

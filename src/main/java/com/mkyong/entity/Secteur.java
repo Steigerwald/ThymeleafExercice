@@ -25,11 +25,11 @@ public class Secteur {
     @Column(name="HAUTEUR")
     private Integer hauteur;
 
-    @ManyToOne
+    @ManyToOne (fetch=FetchType.LAZY)
     @Nullable
     private Site site;
 
-    @OneToMany (mappedBy = "secteur")
+    @OneToMany (mappedBy = "secteur",cascade=CascadeType.ALL)
     private Collection<Voie> voies;
 
 
