@@ -47,10 +47,17 @@
                                                 <tbody>
                                                     <tr th:each="topo : ${topos}">
                                                         <div th:switch="${user.role.nomRole}">
-                                                            <td th:text="${topo.nomTopo}"> </td>
+                                                            <div th:case="'ROLE_USER'">
+                                                                <td th:text="${topo.nomTopo}"> </td>
+                                                            </div>
+                                                            <div th:case="'ROLE_ADMIN'">
+                                                                <td><a th:text="${topo.nomTopo}" th:href="@{/topos/details/{nom} (nom=${topo.idTopo})}"></a></td>
+                                                            </div>
+                                                        </div>
                                                             <td th:text="${topo.toStringDateParution()}"></td>
                                                             <td th:text="${topo.toStringDisponible()}"></td>
                                                             <td th:text="${topo.toStringLocation()}"></td>
+                                                        <div th:switch="${user.role.nomRole}">
                                                             <div th:case="'ROLE_ADMIN'">
                                                                 <td>
                                                                     <a th:href="@{/topos/edit/{id}(id=${topo.idTopo})}"

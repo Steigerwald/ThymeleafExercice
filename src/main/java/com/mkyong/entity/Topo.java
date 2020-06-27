@@ -38,11 +38,11 @@ public class Topo {
     @OneToMany (mappedBy = "topo",cascade=CascadeType.ALL)
     private Collection<Site> sites;
 
-    @OneToOne (mappedBy= "topo")
+    @OneToOne (mappedBy= "topo",cascade=CascadeType.ALL)
     @Nullable
     private Reservation reservation;
 
-    @OneToOne (mappedBy = "topo")
+    @OneToOne (mappedBy = "topo",cascade=CascadeType.ALL)
     @Nullable
     private Image image;
 

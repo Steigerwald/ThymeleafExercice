@@ -1,6 +1,7 @@
 package com.mkyong.services;
 
 import com.mkyong.entity.Secteur;
+import com.mkyong.entity.Voie;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.SecteurRepository;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +18,12 @@ public class SecteurService {
 
     @Autowired
     private SecteurRepository secteurRepository;
+
+    @Autowired
+    private VoieService voieService;
+
+    @Autowired
+    private SiteService siteService;
 
     Logger logger = (Logger) LoggerFactory.getLogger(SecteurService.class);
 
@@ -51,10 +59,30 @@ public class SecteurService {
             newSecteur.setHauteur(entity.getHauteur());
             newSecteur.setSite(entity.getSite());
             newSecteur.setVoies(entity.getVoies());
+            newSecteur = secteurRepository.save(newSecteur);
 
-            entity = secteurRepository.save(newSecteur);
+            // enregistrement du secteur dans chaque voie concernée
+            if (newSecteur.getVoies()!=null) {
+                List<Voie> listeVoies = new ArrayList<Voie>();
+                if (entity.getVoies() != null){
+                    listeVoies.addAll(entity.getVoies());
+                    for (int i = 0; i < listeVoies.size(); i++) {
+                        Voie voie = listeVoies.get(i);
+                        voie.setSecteur(newSecteur);
+                        voieService.createOrUpdateVoie(voie);
+                    }
+                }
+            }
+            if (newSecteur.getSite()!=null) {
+                //rajout du secteur dans la liste des secteurs du site concerné
+                Collection<Secteur> listeSecteurs = newSecteur.getSite().getSecteurs();
+                listeSecteurs.add(newSecteur);
+                newSecteur.getSite().setSecteurs(listeSecteurs);
+                siteService.UpdateSite(newSecteur.getSite());
+            }
+
             logger.info(" retour de l'entité qui a été créée de createOrUpdateSecteur car l'Id n'existe pas");
-            return entity;
+            return newSecteur;
         } else {
             Secteur secteurAModifier = getSecteurById(entity.getIdSecteur());
             if(secteurAModifier!=null) {
@@ -64,10 +92,32 @@ public class SecteurService {
                 secteurAModifier.setHauteur(entity.getHauteur());
                 secteurAModifier.setSite(entity.getSite());
                 secteurAModifier.setVoies(entity.getVoies());
-
                 entity = secteurRepository.save(secteurAModifier);
+
+                // enregistrement du secteur dans chaque voie concernée
+                if (secteurAModifier.getVoies()!=null) {
+                    List<Voie> listeVoies = new ArrayList<Voie>();
+                    if (entity.getVoies() != null){
+                        listeVoies.addAll(entity.getVoies());
+                        for (int i = 0; i < listeVoies.size(); i++) {
+                            Voie voie = listeVoies.get(i);
+                            voie.setSecteur(secteurAModifier);
+                            voieService.createOrUpdateVoie(voie);
+                        }
+                    }
+                }
+
+                if (!(entity.getSite().equals(secteurAModifier.getSite()))) {
+                    if (secteurAModifier.getSite() != null) {
+                        //rajout du secteur dans la liste des secteurs du site concerné
+                        Collection<Secteur> listeSecteurs = secteurAModifier.getSite().getSecteurs();
+                        listeSecteurs.add(secteurAModifier);
+                        secteurAModifier.getSite().setSecteurs(listeSecteurs);
+                        siteService.UpdateSite(secteurAModifier.getSite());
+                    }
+                }
                 logger.info(" retour de la nouvelle entité secteur de createOrUpdateSite qui a été sauvegardée et le secteur est existant");
-                return entity;
+                return secteurAModifier;
             } else {
                 throw new RecordNotFoundException("No user record exist for given id and to modify it");
             }

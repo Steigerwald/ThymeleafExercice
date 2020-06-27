@@ -99,8 +99,9 @@ public class topoController {
         User userConnecte = userService.getUserByMail(principal.getName());
         Image imageTopo=imageService.recupererImageFile(fileImage);
         logger.info(" la valeur de l'Id de topo : "+topo.getIdTopo());
-
+        Date today = new Date();
         if (topo.getIdTopo()==null){
+            topo.setDateParution(today);
             if (fileImage.isEmpty()){
                 topo.setImage(null);
             }else {
@@ -123,7 +124,6 @@ public class topoController {
     /* controller pour avoir le détail du topo */
     @RequestMapping(path="/details/{id}",method = RequestMethod.GET)
     public String getDetailsTopo(Model model, Principal principal, @PathVariable("id") Long id) throws RecordNotFoundException {
-
         Topo topoTrouve=topoService.getTopoById(id);
         model.addAttribute("topo", topoTrouve);
         User userConnecte = userService.getUserByMail(principal.getName());

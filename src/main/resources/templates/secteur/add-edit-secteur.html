@@ -45,6 +45,12 @@
                                 </option>
                             </select>
                         </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
+                            <label for="taVoie" class="col-form-label">Voies</label><br />
+                            <div th:each="voie: ${Voies}">
+                                <input  type="checkbox" th:field="*{voies}" th:value="${voie.idVoie}" th:name="${voie.numeroVoie}" id="taVoie" /> <label for="taVoie" th:text="${voie.numeroVoie}"></label><br />
+                            </div>
+                        </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <input type="submit" class="btn btn-primary" value=" Enregistrer ">
                         </div>

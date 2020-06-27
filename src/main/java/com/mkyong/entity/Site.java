@@ -39,7 +39,8 @@ public class Site {
     @ManyToOne
     private User user;
 
-    @ManyToOne (fetch=FetchType.LAZY)
+    //@ManyToOne (fetch=FetchType.LAZY,cascade=CascadeType.DETACH)
+    @ManyToOne
     @Nullable
     private Topo topo;
 
@@ -52,7 +53,6 @@ public class Site {
     private Image image;
 
     @OneToMany (mappedBy = "site",cascade=CascadeType.ALL)
-    @Nullable
     private Collection<Secteur> secteurs;
 
 
@@ -144,7 +144,6 @@ public class Site {
     public Topo getTopo() { return topo;
     }
 
-    @Nullable
     public Collection<Secteur> getSecteurs() { return secteurs;
     }
 
@@ -182,7 +181,7 @@ public class Site {
     public void setTopo(@Nullable Topo topo) { this.topo = topo;
     }
 
-    public void setSecteurs(@Nullable Collection<Secteur> secteurs) { this.secteurs = secteurs;
+    public void setSecteurs(Collection<Secteur> secteurs) { this.secteurs = secteurs;
     }
 
     public void setUser(User user) { this.user = user;

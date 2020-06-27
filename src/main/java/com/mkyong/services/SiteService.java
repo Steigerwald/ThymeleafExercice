@@ -100,6 +100,7 @@ public class SiteService {
         newSite.setCommentaires(null);
 
 
+
         newSite.setImage(entity.getImage());
         if(newSite.getImage()!=null) {
             imageService.stockerImage(newSite.getImage(), user);
