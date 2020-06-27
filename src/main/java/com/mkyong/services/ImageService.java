@@ -83,7 +83,15 @@ public class ImageService {
 
     public Image stockerImage(Image entity, User user) throws RecordNotFoundException {
         if (entity.getId() == null) {
-            entity = repositoryImage.save(entity);
+            Image newImage =new Image();
+            newImage.setNomImage(entity.getNomImage());
+            newImage.setMimeType(entity.getMimeType());
+            newImage.setTaille(entity.getTaille());
+            newImage.setImage(entity.getImage());
+            logger.info(" valeur de site de entity pour vérifier Image et l'affectation dans la table id_site_id "+entity.getSite());
+            newImage.setSite(entity.getSite());
+            newImage.setTopo(entity.getTopo());
+            entity = repositoryImage.save(newImage);
             logger.info(" retour de l'entité de stockerImage car cette image n'existe pas et donc elle ");
             return entity;
         } else {

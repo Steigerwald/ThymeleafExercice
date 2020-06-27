@@ -155,7 +155,7 @@ public class SiteService {
             if (entity.getImage()!=null) {
                 siteAModifier.setImage(entity.getImage());
             }
-           siteAModifier.setSecteurs(entity.getSecteurs());
+            siteAModifier.setSecteurs(entity.getSecteurs());
            siteAModifier=siteRepository.save(siteAModifier);
 
             // 1/ enregistrement du site dans liste des sites de user
@@ -206,9 +206,13 @@ public class SiteService {
             if (siteAModifier.getImage()!=null) {
                 Image imageTrouve = imageService.getImageById(siteAModifier.getImage().getId());
                 if (imageTrouve == null) {
+                    logger.info(" l'image de siteAmodifier "+siteAModifier.getImage());
                     siteAModifier.getImage().setSite(siteAModifier);
                     siteAModifier.getImage().setTopo(null);
                     imageService.stockerImage(siteAModifier.getImage(), siteAModifier.getUser());
+                }else{
+                    imageTrouve.setSite(siteAModifier);
+                    imageTrouve.setTopo(null);
                 }
             }
 
@@ -269,6 +273,7 @@ public class SiteService {
                 }
             }
 
+            logger.info(" l'image de de site avant de lk'effacer est: "+(siteTrouve.getImage()));
             //annulation de la base de donnée image de l'Image du site
             if ((siteTrouve.getImage())!=null) {
                 imageService.deleteImageById(siteTrouve.getImage().getId());

@@ -94,7 +94,6 @@ public class User {
     public User (){
     };
 
-
     //getters
 
     public Long getIdUser() {
