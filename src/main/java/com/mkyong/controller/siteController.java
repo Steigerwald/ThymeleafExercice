@@ -143,6 +143,7 @@ public class siteController {
             site.setOfficiel(false);
             site.setPublic(false);
             logger.info(" l'image de service est  "+site.getImage());
+            logger.info(" le user à mettre dans site  "+userConnecte.getNomUser());
             siteService.CreateSite(site,userConnecte);
 
         }else {

@@ -88,26 +88,25 @@ public class SiteService {
         newSite.setDescriptif(entity.getDescriptif());
         newSite.setOfficiel(entity.getOfficiel());
         newSite.setPublic(entity.getPublic());
-
         newSite.setUser(user);
-        // enregistrement du site dans liste des sites de user
-        Collection<Site> listeSites = user.getSites();
-        listeSites.add(entity);
-        user.setSites(listeSites);
-        userService.updateUser(user);
-
+        logger.info(" le user à mettre dans Newsite  "+user.getNomUser());
+        newSite.setSecteurs(entity.getSecteurs());
+        newSite.setImage(entity.getImage());
         newSite.setTopo(null);
         newSite.setCommentaires(null);
 
+        //enregistrement du site dans la basse de données
+        entity = siteRepository.save(newSite);
+
+        // 1/ enregistrement du site dans liste des sites de user
+        Collection<Site> listeSites = user.getSites();
+        listeSites.add(entity);
+        user.setSites(listeSites);
+        logger.info(" le user à mettre dans Newsite  "+user.getNomUser());
+        userService.updateUser(user);
 
 
-        newSite.setImage(entity.getImage());
-        if(newSite.getImage()!=null) {
-            imageService.stockerImage(newSite.getImage(), user);
-        }
-
-        newSite.setSecteurs(entity.getSecteurs());
-        // enregistrement du site dans chaque secteur concerné
+        // 2/ enregistrement du site dans chaque secteur concerné
         if (newSite.getSecteurs()!=null) {
             List<Secteur> listeSecteurs = new ArrayList<Secteur>();
             if (entity.getSecteurs() != null){
@@ -120,12 +119,15 @@ public class SiteService {
             }
         }
 
-        //enregistrement du site dans la basse de données
-        entity = siteRepository.save(newSite);
+        // 3/ enregistrement de l'image
+        if(newSite.getImage()!=null) {
+            newSite.getImage().setSite(newSite);
+            newSite.getImage().setTopo(null);
+            imageService.stockerImage(newSite.getImage(), user);
+        }
         logger.info(" retour de l'entité de createSite qui a été créée car l'Id n'existe pas");
         return entity;
     }
-
 
     /*Methode pour modifier un site dans la base de données*/
     public Site UpdateSite(Site entity) throws RecordNotFoundException {
@@ -135,10 +137,82 @@ public class SiteService {
            siteAModifier.setNomSite(entity.getNomSite());
            siteAModifier.setLieu(entity.getLieu());
            siteAModifier.setDescriptif(entity.getDescriptif());
-           siteAModifier.setSecteurs(entity.getSecteurs());
+            if (entity.getOfficiel()!=null){
+                siteAModifier.setOfficiel(entity.getOfficiel());
+            }
+            if (entity.getPublic()!=null) {
+                siteAModifier.setPublic(entity.getPublic());
+            }
 
-            // enregistrement du Site dans chaque secteur concerné
-            List<Secteur> secteursModifies=new ArrayList<Secteur>();
+            if (entity.getUser()!=null) {
+                siteAModifier.setUser(entity.getUser());
+            }
+           siteAModifier.setTopo(entity.getTopo());
+
+            if (entity.getCommentaires()!=null) {
+                siteAModifier.setCommentaires(entity.getCommentaires());
+            }
+            if (entity.getImage()!=null) {
+                siteAModifier.setImage(entity.getImage());
+            }
+           siteAModifier.setSecteurs(entity.getSecteurs());
+           siteAModifier=siteRepository.save(siteAModifier);
+
+            // 1/ enregistrement du site dans liste des sites de user
+            if (siteAModifier.getUser()!=null) {
+                if (siteAModifier.getUser().getSites() != null) {
+                    Collection<Site> listeSites = siteAModifier.getUser().getSites();
+                    if (siteAModifier.getUser().getSites().contains(siteAModifier)) {
+                        siteAModifier.getUser().setSites(listeSites);
+                    } else {
+                        listeSites.add(siteAModifier);
+                        siteAModifier.getUser().setSites(listeSites);
+                    }
+                    userService.updateUser(siteAModifier.getUser());
+                } else {
+                    Collection<Site> listeSites = new ArrayList<Site>();
+                    listeSites.add(siteAModifier);
+                    siteAModifier.getUser().setSites(listeSites);
+                    userService.updateUser(siteAModifier.getUser());
+                }
+            }
+
+            // 2/ enregistrement du site dans liste des sites de topo
+            if (siteAModifier.getTopo()!=null) {
+                Collection<Site> listeSites = siteAModifier.getTopo().getSites();
+                if (siteAModifier.getTopo().getSites().contains(siteAModifier)) {
+                    siteAModifier.getTopo().setSites(listeSites);
+                }else {
+                    listeSites.add(siteAModifier);
+                    siteAModifier.getTopo().setSites(listeSites);
+                }
+                topoService.UpdateTopo(siteAModifier.getTopo());
+            }
+
+            // 3/ enregistrement du Site dans chaque commentaire concerné
+            if (siteAModifier.getCommentaires()!=null) {
+                List<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
+                if (entity.getCommentaires() != null){
+                    listeCommentaires.addAll(entity.getCommentaires());
+                    for (int i = 0; i < listeCommentaires.size(); i++) {
+                        Commentaire commentaire = listeCommentaires.get(i);
+                        commentaire.setSite(siteAModifier);
+                        commentaireService.modifyCommentaire(commentaire);
+                    }
+                }
+            }
+
+            // 4/ enregistrement du Site dans l'image avec enregistrement de l'image si elle n'est pas présente
+            if (siteAModifier.getImage()!=null) {
+                Image imageTrouve = imageService.getImageById(siteAModifier.getImage().getId());
+                if (imageTrouve == null) {
+                    siteAModifier.getImage().setSite(siteAModifier);
+                    siteAModifier.getImage().setTopo(null);
+                    imageService.stockerImage(siteAModifier.getImage(), siteAModifier.getUser());
+                }
+            }
+
+            // 5/ enregistrement du site dans chaque secteur concerné
             if (siteAModifier.getSecteurs()!=null) {
                 List<Secteur> listeSecteurs = new ArrayList<Secteur>();
                 listeSecteurs.addAll(siteAModifier.getSecteurs());
@@ -146,12 +220,8 @@ public class SiteService {
                     Secteur secteur = listeSecteurs.get(i);
                     secteur.setSite(siteAModifier);
                     Secteur secteurModifie = secteurService.createOrUpdateSecteur(secteur);
-                    secteursModifies.add(secteurModifie);
                 }
-                siteAModifier.setSecteurs(secteursModifies);
             }
-
-           siteAModifier=siteRepository.save(siteAModifier);
             logger.info(" retour de la nouvelle entité site de createOrUpdateSite qui a été sauvegardée et le site est existant");
             return siteAModifier;
         } else {
@@ -169,13 +239,15 @@ public class SiteService {
             // retrait du site de la liste des Sites de User
             User userDuSite =siteTrouve.getUser();
             List<Site> listSitesUser=new ArrayList<Site>();
-            if (userDuSite.getSites()!=null) {
-                listSitesUser.addAll(userDuSite.getSites());
-            }
-            listSitesUser.remove(siteTrouve);
-            userDuSite.setSites(listSitesUser);
-            userService.updateUser(userDuSite);
 
+            if (userDuSite.getSites()==null){
+                userDuSite.setSites(null);
+            }else{
+                listSitesUser.addAll(userDuSite.getSites());
+                listSitesUser.remove(siteTrouve);
+                userDuSite.setSites(listSitesUser);
+            }
+            userService.updateUser(userDuSite);
 
             // retrait du site de la liste des Sites de topo
             Topo topoDuSite =siteTrouve.getTopo();
