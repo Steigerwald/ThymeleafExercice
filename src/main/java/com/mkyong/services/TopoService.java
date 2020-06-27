@@ -62,37 +62,66 @@ public class TopoService {
             logger.info(" l'entité topo à modifier a été trouvée et modifiée");
             topoAModifier.setNomTopo(entity.getNomTopo());
             topoAModifier.setDescription(entity.getDescription());
-            topoAModifier.setDisponible(entity.getDisponible());
 
-            logger.info(" la date de parution est: "+ topoAModifier.toStringDateParution());
-
-            topoAModifier.setSites(entity.getSites());
-            // enregistrement du topo dans chaque site concerné
-            List<Site> sitesModifies=new ArrayList<Site>();
-            List<Site> listeSites=new ArrayList<Site>();
-            listeSites.addAll(topoAModifier.getSites());
-            for(int i=0;i<listeSites.size();i++){
-                Site site=listeSites.get(i);
-                site.setTopo(entity);
-                Site siteModifie=siteService.UpdateSite(site);
-                sitesModifies.add(siteModifie);
+            if (entity.getDateParution()!=null) {
+                topoAModifier.setDateParution(entity.getDateParution());
             }
-            topoAModifier.setSites(sitesModifies);
-
-            topoAModifier.setLocation(entity.getLocation());
-
+            logger.info(" la date de parution est: "+ topoAModifier.toStringDateParution());
+            if (entity.getDisponible()!=null) {
+                topoAModifier.setDisponible(entity.getDisponible());
+            }
+            if (entity.getLocation()!=null) {
+                topoAModifier.setLocation(entity.getLocation());
+            }
+            topoAModifier.setSites(entity.getSites());
             topoAModifier.setReservation((entity.getReservation()));
+            topoAModifier.setImage(entity.getImage());
+            if (entity.getOwner()!=null) {
+                topoAModifier.setOwner(entity.getOwner());
+            }
+            topoAModifier = topoRepository.save(topoAModifier);
 
+            // 1/ enregistrement du topo dans chaque site concerné
+            if (topoAModifier.getSites()!=null) {
+                List<Site> listeSites = new ArrayList<Site>();
+                listeSites.addAll(topoAModifier.getSites());
+                for (int i = 0; i < listeSites.size(); i++) {
+                    Site site = listeSites.get(i);
+                    site.setTopo(topoAModifier;
+                    Site siteModifie = siteService.UpdateSite(site);
+                }
+            }
+
+            ///////// A VALIDER ET A COMPLETER ///////////////////////////////////////////////////
+
+            // 2/ enregistrement du topo dans Reservation
+            if (topoAModifier.getReservation()!=null) {
+                Reservation reservationTrouve = reservationTopoService.getReservationTopoById(topoAModifier.getReservation().getIdReservation());
+                if (reservationTrouve == null) {
+                    logger.info(" la réservation de topoAModifier "+topoAModifier.getReservation());
+                    topoAModifier.getReservation().setTopo(topoAModifier);
+                   reservationTopoService.updateReservationTopo(topoAModifier.getReservation());
+
+                }else{
+                    reservationTrouve.setTopo(topoAModifier);
+                    reservationTopoService.updateReservationTopo(reservationTrouve);
+                }
+            }
+
+
+
+            // 3/ enregistrement du topo dans l'image
             if ((topoAModifier.getImage()!=null) && (entity.getImage()!=null)) {
                 if (topoAModifier.getImage().equals(entity.getImage())) {
 
                 } else {
-                    topoAModifier.setImage(entity.getImage());
                     imageService.stockerImage(topoAModifier.getImage(), topoAModifier.getOwner());
                 }
             }
 
-            topoAModifier = topoRepository.save(topoAModifier);
+            // 4/ enregistrement du topo dans User
+
+
             logger.info(" retour de la nouvelle entité topo de UpdateTopo qui a été sauvegardée et le topo est existant");
             return topoAModifier;
         } else {
