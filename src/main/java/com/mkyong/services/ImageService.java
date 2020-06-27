@@ -92,11 +92,25 @@ public class ImageService {
             newImage.setSite(entity.getSite());
             newImage.setTopo(entity.getTopo());
             entity = repositoryImage.save(newImage);
-            logger.info(" retour de l'entité de stockerImage car cette image n'existe pas et donc elle ");
+            logger.info(" retour de l'entité de stockerImage car cette image n'existe pas et donc elle a été crée ");
             return entity;
         } else {
+            Image imageAModifier =getImageById(entity.getId());
+            Image result;
+            if (imageAModifier!=null) {
+                imageAModifier.setNomImage(entity.getNomImage());
+                imageAModifier.setMimeType(entity.getMimeType());
+                imageAModifier.setTaille(entity.getTaille());
+                imageAModifier.setImage(entity.getImage());
+                logger.info(" valeur de site de imageAModifier pour vérifier Image et l'affectation dans la table id_site_id " + imageAModifier.getSite());
+                imageAModifier.setSite(entity.getSite());
+                imageAModifier.setTopo(entity.getTopo());
+                result = repositoryImage.save(imageAModifier);
+            }else{
+                result=entity;
+            }
             logger.info(" retour de la nouvelle entité Image de stockerImage qui n'a pas été sauvegardée car l'image est existante");
-            return entity;
+            return result;
         }
     }
 
