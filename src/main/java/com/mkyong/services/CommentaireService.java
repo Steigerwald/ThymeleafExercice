@@ -2,6 +2,7 @@ package com.mkyong.services;
 
 import com.mkyong.entity.Commentaire;
 import com.mkyong.entity.Secteur;
+import com.mkyong.entity.Topo;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.CommentaireRepository;
@@ -10,10 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CommentaireService {
@@ -23,6 +21,9 @@ public class CommentaireService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SiteService siteService;
 
     Logger logger = (Logger) LoggerFactory.getLogger(CommentaireService.class);
 
@@ -60,7 +61,7 @@ public class CommentaireService {
     }
 
     /* méthode pour créer le commentaire de la base de données à partir d'un commentaire et d'un utilisateur*/
-    public Commentaire createCommentaire(Commentaire entity, User currentUser) {
+    public Commentaire createCommentaire(Commentaire entity, User currentUser) throws RecordNotFoundException {
         Date today = new Date();
         Commentaire newCommentaire = new Commentaire();
         newCommentaire.setContenu(entity.getContenu());
@@ -68,6 +69,44 @@ public class CommentaireService {
         newCommentaire.setSite(entity.getSite());
         newCommentaire.setUser(currentUser);
         newCommentaire = commentaireRepository.save(newCommentaire);
+
+        // 1/ enregistrement du commentaire dans liste des commentaires de user
+        if (newCommentaire.getUser()!=null) {
+            if (newCommentaire.getUser().getCommentaires() != null) {
+                Collection<Commentaire> listeCommentaires = newCommentaire.getUser().getCommentaires();
+                if (newCommentaire.getUser().getCommentaires().contains(newCommentaire)) {
+                    newCommentaire.getUser().setCommentaires(listeCommentaires);
+                } else {
+                    listeCommentaires.add(newCommentaire);
+                    newCommentaire.getUser().setCommentaires(listeCommentaires);
+                }
+                userService.updateUser(newCommentaire.getUser());
+            } else {
+                Collection<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
+                listeCommentaires.add(newCommentaire);
+                newCommentaire.getUser().setCommentaires(listeCommentaires);
+                userService.updateUser(newCommentaire.getUser());
+            }
+        }
+
+        // 2/ enregistrement du commentaire dans liste des commentaires de site
+        if (newCommentaire.getSite()!=null) {
+            if (newCommentaire.getSite().getCommentaires() != null) {
+                Collection<Commentaire> listeCommentaires = newCommentaire.getSite().getCommentaires();
+                if (newCommentaire.getSite().getCommentaires().contains(newCommentaire)) {
+                    newCommentaire.getSite().setCommentaires(listeCommentaires);
+                } else {
+                    listeCommentaires.add(newCommentaire);
+                    newCommentaire.getSite().setCommentaires(listeCommentaires);
+                }
+                siteService.UpdateSite(newCommentaire.getSite());
+            } else {
+                Collection<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
+                listeCommentaires.add(newCommentaire);
+                newCommentaire.getSite().setCommentaires(listeCommentaires);
+                siteService.UpdateSite(newCommentaire.getSite());
+            }
+        }
         logger.info(" retour de la nouvelle entité commentaire de createOrUpdateCommentaire qui a été sauvegardée et le commentaire est existant");
         return newCommentaire;
     }

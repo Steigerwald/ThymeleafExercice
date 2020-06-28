@@ -79,17 +79,19 @@ public class ReservationTopoService {
                 newReservation.setDateReservation(today);
                 newReservation.setTopo(entity);
                 newReservation.setUser(currentUser);
-                // je renseigne la reservation dans le topo
-                entity.setDisponible(true);
-                logger.info(" retour de l'entité de createReservationTopo "+entity.getOwner().getNomUser());
-                entity.setReservation(newReservation);
-                // je renseigne la reservation dans le user
-                Collection<Reservation> listeReservations = currentUser.getReservations();
-                listeReservations.add(newReservation);
-                currentUser.setReservations(listeReservations);
                 reservationTopoRepository.save(newReservation);
-                topoRepository.save(entity);
-                userRepository.save(currentUser);
+
+                // je renseigne la reservation dans le topo
+                newReservation.getTopo().setDisponible(false);
+                newReservation.getTopo().setReservation(newReservation);
+
+                // je renseigne la reservation dans le user
+                Collection<Reservation> listeReservations = newReservation.getUser().getReservations();
+                listeReservations.add(newReservation);
+                newReservation.getUser().setReservations(listeReservations);
+
+                topoRepository.save(newReservation.getTopo());
+                userRepository.save(newReservation.getUser());
                 logger.info(" retour de l'entité de createReservationTopo car l'Id n'existe pas et donc la réservation a été créee");
             } else {
                 logger.info(" retour de l'entité reservation n'a pas été sauvegardée car la reservation est existante ou non disponible");
@@ -103,7 +105,6 @@ public class ReservationTopoService {
                 // je modifie la réservation du topo
                 Reservation updateReservation = new Reservation();
                 updateReservation.setIdReservation(entity.getIdReservation());
-
                 updateReservation.setEtat(entity.getEtat());
                 updateReservation.setDateReservation(entity.getDateReservation());
                 updateReservation.setTopo(entity.getTopo());

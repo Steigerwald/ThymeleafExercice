@@ -75,8 +75,6 @@ public class reservationTopoController {
         logger.info("retour de l'id du topo concerné de reserverReservationTopo "+id);
         Topo topoReserve = topoService.getTopoById(id);
         model.addAttribute("topo", topoReserve);
-        logger.info(" retour de l'entité: " + topoReserve);
-        logger.info(" retour du boolean: " + topoReserve.getLocation());
         User currentUser = userService.getUserByMail(principal.getName());
         reservationTopoService.createReservationTopo(topoReserve, currentUser);
         model.addAttribute("enableButton", 2);
