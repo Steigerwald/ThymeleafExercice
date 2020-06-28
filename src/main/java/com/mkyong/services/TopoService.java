@@ -87,12 +87,10 @@ public class TopoService {
                 listeSites.addAll(topoAModifier.getSites());
                 for (int i = 0; i < listeSites.size(); i++) {
                     Site site = listeSites.get(i);
-                    site.setTopo(topoAModifier;
+                    site.setTopo(topoAModifier);
                     Site siteModifie = siteService.UpdateSite(site);
                 }
             }
-
-            ///////// A VALIDER ET A COMPLETER ///////////////////////////////////////////////////
 
             // 2/ enregistrement du topo dans Reservation
             if (topoAModifier.getReservation()!=null) {
@@ -108,20 +106,38 @@ public class TopoService {
                 }
             }
 
-
-
-            // 3/ enregistrement du topo dans l'image
-            if ((topoAModifier.getImage()!=null) && (entity.getImage()!=null)) {
-                if (topoAModifier.getImage().equals(entity.getImage())) {
-
-                } else {
+            // 3/ enregistrement du Topo dans l'image avec enregistrement de l'image si elle n'est pas présente
+            if (topoAModifier.getImage()!=null) {
+                Image imageTrouve = imageService.getImageById(topoAModifier.getImage().getId());
+                if (imageTrouve == null) {
+                    logger.info(" l'image de topoAmodifier "+topoAModifier.getImage());
+                    topoAModifier.getImage().setTopo(topoAModifier);
+                    topoAModifier.getImage().setSite(null);
                     imageService.stockerImage(topoAModifier.getImage(), topoAModifier.getOwner());
+                }else{
+                    imageTrouve.setTopo(topoAModifier);
+                    imageTrouve.setSite(null);
                 }
             }
 
-            // 4/ enregistrement du topo dans User
-
-
+            // 4/ enregistrement du topo dans liste des topos de user
+            if (topoAModifier.getOwner()!=null) {
+                if (topoAModifier.getOwner().getTopos() != null) {
+                    Collection<Topo> listeTopos = topoAModifier.getOwner().getTopos();
+                    if (topoAModifier.getOwner().getTopos().contains(topoAModifier)) {
+                        topoAModifier.getOwner().setTopos(listeTopos);
+                    } else {
+                        listeTopos.add(topoAModifier);
+                        topoAModifier.getOwner().setTopos(listeTopos);
+                    }
+                    userService.updateUser(topoAModifier.getOwner());
+                } else {
+                    Collection<Topo> listeTopos = new ArrayList<Topo>();
+                    listeTopos.add(topoAModifier);
+                    topoAModifier.getOwner().setTopos(listeTopos);
+                    userService.updateUser(topoAModifier.getOwner());
+                }
+            }
             logger.info(" retour de la nouvelle entité topo de UpdateTopo qui a été sauvegardée et le topo est existant");
             return topoAModifier;
         } else {
