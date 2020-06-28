@@ -129,6 +129,11 @@ public class SiteService {
         return entity;
     }
 
+
+
+
+
+
     /*Methode pour modifier un site dans la base de données*/
     public Site UpdateSite(Site entity) throws RecordNotFoundException {
         Site siteAModifier = getSiteById(entity.getIdSite());
@@ -159,6 +164,7 @@ public class SiteService {
            siteAModifier=siteRepository.save(siteAModifier);
 
             // 1/ enregistrement du site dans liste des sites de user
+            /*
             if ((siteAModifier.getUser()!=null)&&(entity.getUser()!=null)) {
                 if (siteAModifier.getUser().getSites() != null) {
                     Collection<Site> listeSites = siteAModifier.getUser().getSites();
@@ -176,8 +182,10 @@ public class SiteService {
                     userService.updateUser(siteAModifier.getUser());
                 }
             }
+            */
 
             // 2/ enregistrement du site dans liste des sites de topo
+            /*
             if ((siteAModifier.getTopo()!=null)&&(entity.getTopo()!=null)) {
                 Collection<Site> listeSites = siteAModifier.getTopo().getSites();
                 if (siteAModifier.getTopo().getSites().contains(siteAModifier)) {
@@ -187,7 +195,7 @@ public class SiteService {
                     siteAModifier.getTopo().setSites(listeSites);
                 }
                 topoService.UpdateTopo(siteAModifier.getTopo());
-            }
+            }*/
 
             // 3/ enregistrement du Site dans chaque commentaire concerné
             if ((siteAModifier.getCommentaires()!=null)&&(entity.getCommentaires()!=null)) {
@@ -241,6 +249,7 @@ public class SiteService {
             Site siteTrouve = site.get();
 
             // retrait du site de la liste des Sites de User
+            /*
             User userDuSite =siteTrouve.getUser();
             List<Site> listSitesUser=new ArrayList<Site>();
 
@@ -252,8 +261,10 @@ public class SiteService {
                 userDuSite.setSites(listSitesUser);
             }
             userService.updateUser(userDuSite);
+            */
 
             // retrait du site de la liste des Sites de topo
+            /*
             Topo topoDuSite =siteTrouve.getTopo();
             if (topoDuSite!=null) {
                 List<Site> listSitesTopo = new ArrayList<Site>();
@@ -262,6 +273,7 @@ public class SiteService {
                 topoDuSite.setSites(listSitesTopo);
                 topoService.UpdateTopo(topoDuSite);
             }
+            */
 
             // annulation de chaque commentaire du site dans la base de données de commentaire
             if (siteTrouve.getCommentaires()!=null) {
@@ -273,7 +285,7 @@ public class SiteService {
                 }
             }
 
-            logger.info(" l'image de de site avant de lk'effacer est: "+(siteTrouve.getImage()));
+            logger.info(" l'image de de site avant de l'effacer est: "+(siteTrouve.getImage()));
             //annulation de la base de donnée image de l'Image du site
             if ((siteTrouve.getImage())!=null) {
                 imageService.deleteImageById(siteTrouve.getImage().getId());
@@ -286,10 +298,11 @@ public class SiteService {
                 for (int i = 0; i < listeSecteurs.size(); i++) {
                     Secteur secteur = listeSecteurs.get(i);
                     secteur.setSite(null);
+                    secteurService.createOrUpdateSecteur(secteur);
                 }
             }
-            siteRepository.deleteById(id);
 
+            siteRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("Pas de site enregistré avec cet Id");
         }

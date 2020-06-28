@@ -29,7 +29,7 @@ public class Secteur {
     @Nullable
     private Site site;
 
-    @OneToMany (mappedBy = "secteur",cascade=CascadeType.ALL)
+    @OneToMany (mappedBy = "secteur")
     private Collection<Voie> voies;
 
 

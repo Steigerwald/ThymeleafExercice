@@ -129,9 +129,9 @@ public class siteController {
 
     /* controller pour enregistrer les données d'un site dans la base de données */
     @RequestMapping(path = "/createSiteOrUpdateSite", method = RequestMethod.POST)
-    public String createOrUpdateSite(@RequestParam("file") MultipartFile fileImage,Site site, Image imageSite, Principal principal) throws RecordNotFoundException, IOException {
+    public String createOrUpdateSite(@RequestParam("file") MultipartFile fileImage,Site site, Principal principal) throws RecordNotFoundException, IOException {
         User userConnecte = userService.getUserByMail(principal.getName());
-        imageSite=imageService.recupererImageFile(fileImage);
+        Image imageSite=imageService.recupererImageFile(fileImage);
         logger.info(" la valeur de l'Id de site : "+site.getIdSite());
 
         if (site.getIdSite()==null){
@@ -151,7 +151,9 @@ public class siteController {
                 site.setImage(imageSite);
             }
             Site siteAModifier = siteService.getSiteById(site.getIdSite());
-            siteService.UpdateSite(site);
+            if (siteAModifier!=null) {
+                siteService.UpdateSite(site);
+            }
         }
 
         return "redirect:/sites";

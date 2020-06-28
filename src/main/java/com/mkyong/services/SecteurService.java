@@ -87,11 +87,19 @@ public class SecteurService {
             Secteur secteurAModifier = getSecteurById(entity.getIdSecteur());
             if(secteurAModifier!=null) {
                 logger.info(" l'entité secteur à modifier a été trouvée et modifiée");
-                secteurAModifier.setNomSecteur(entity.getNomSecteur());
-                secteurAModifier.setDescriptifSecteur(entity.getDescriptifSecteur());
-                secteurAModifier.setHauteur(entity.getHauteur());
+                if (entity.getNomSecteur()!=null) {
+                    secteurAModifier.setNomSecteur(entity.getNomSecteur());
+                }
+                if (entity.getDescriptifSecteur()!=null) {
+                    secteurAModifier.setDescriptifSecteur(entity.getDescriptifSecteur());
+                }
+                if (entity.getHauteur()!=null) {
+                    secteurAModifier.setHauteur(entity.getHauteur());
+                }
                 secteurAModifier.setSite(entity.getSite());
-                secteurAModifier.setVoies(entity.getVoies());
+                if (entity.getNomSecteur()!=null) {
+                    secteurAModifier.setVoies(entity.getVoies());
+                }
                 entity = secteurRepository.save(secteurAModifier);
 
                 // enregistrement du secteur dans chaque voie concernée
@@ -107,15 +115,23 @@ public class SecteurService {
                     }
                 }
 
-                if (!(entity.getSite().equals(secteurAModifier.getSite()))) {
-                    if (secteurAModifier.getSite() != null) {
-                        //rajout du secteur dans la liste des secteurs du site concerné
-                        Collection<Secteur> listeSecteurs = secteurAModifier.getSite().getSecteurs();
-                        listeSecteurs.add(secteurAModifier);
-                        secteurAModifier.getSite().setSecteurs(listeSecteurs);
-                        siteService.UpdateSite(secteurAModifier.getSite());
+                // enregistrement du secteur dans chaque site concerné
+               /*
+                if (secteurAModifier.getSite()==null){
+                    logger.info(" le secteur n'est plus utilisé pour ce site");
+                }else {
+                    if (!(entity.getSite().equals(secteurAModifier.getSite()))) {
+                        if (secteurAModifier.getSite() != null) {
+                            //rajout du secteur dans la liste des secteurs du site concerné
+                            Collection<Secteur> listeSecteurs = secteurAModifier.getSite().getSecteurs();
+                            listeSecteurs.add(secteurAModifier);
+                            secteurAModifier.getSite().setSecteurs(listeSecteurs);
+                            siteService.UpdateSite(secteurAModifier.getSite());
+                        }
                     }
                 }
+                */
+
                 logger.info(" retour de la nouvelle entité secteur de createOrUpdateSite qui a été sauvegardée et le secteur est existant");
                 return secteurAModifier;
             } else {
@@ -126,9 +142,20 @@ public class SecteurService {
 
     /*Methode pour effacer un secteur de la base de données*/
     public void deleteSecteurById(Long id) throws RecordNotFoundException {
-        Optional<Secteur> secteur = secteurRepository.findById(id);
-        if(secteur.isPresent()) {
+        Secteur secteurAEffacer =getSecteurById(id);
+
+        if(secteurAEffacer!=null) {
+            List<Voie> listeVoies = new ArrayList<Voie>();
+            if (secteurAEffacer.getVoies()!=null) {
+                    listeVoies.addAll(secteurAEffacer.getVoies());
+                    for (int i = 0; i < listeVoies.size(); i++) {
+                        Voie voie = listeVoies.get(i);
+                        voie.setSecteur(null);
+                        voieService.createOrUpdateVoie(voie);
+                    }
+            }
             secteurRepository.deleteById(id);
+
         } else {
             throw new RecordNotFoundException("Pas de secteur enregistré avec cet Id");
         }

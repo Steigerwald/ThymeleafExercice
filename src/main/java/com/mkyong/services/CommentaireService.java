@@ -115,13 +115,13 @@ public class CommentaireService {
     public void deleteCommentaireById(Long id) throws RecordNotFoundException {
         Optional<Commentaire> commentaire = commentaireRepository.findById(id);
         if(commentaire.isPresent()) {
-            Commentaire commentaireTrouve = commentaire.get();
-           User userCommentaire =commentaireTrouve.getUser();
-            if ((userCommentaire.getCommentaires())!=null) {
+           // Commentaire commentaireTrouve = commentaire.get();
+           //User userCommentaire =commentaireTrouve.getUser();
+           /* if ((userCommentaire.getCommentaires())!=null) {
                 (userCommentaire.getCommentaires()).remove(commentaireTrouve);
                 userCommentaire.setCommentaires(userCommentaire.getCommentaires());
                 userService.updateUser(userCommentaire);
-            }
+            }*/
             commentaireRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("Pas de commentaire enregistré avec cet Id");

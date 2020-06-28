@@ -74,6 +74,10 @@ table th {
     text-align: center;
 }
 
+strong{
+    color:orange !important;
+}
+
 Footer{
     display:flex;
     align-items: end;

@@ -23,22 +23,22 @@
             <div class="col-md-12">
                 <form th:action="@{/secteurs/createSecteur}" th:object="${secteur}" method="post">
                     <div class="row">
-                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
                             <label for="nomSecteur" class="col-form-label">Nom Secteur</label>
                             <input type="text" th:field="*{nomSecteur}" class="form-control"
                                    id="nomSecteur" placeholder="nom Secteur" />
                         </div>
-                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
                             <label for="descriptifSecteur" class="col-form-label">Description</label>
                             <input type="text" th:field="*{descriptifSecteur}" class="form-control"
                                    id="descriptifSecteur" placeholder="descriptif Secteur" />
                         </div>
-                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
                             <label for="hauteur" class="col-form-label">Hauteur</label>
                             <input type="text" th:field="*{hauteur}" class="form-control"
                                    id="hauteur" placeholder="hauteur" />
                         </div>
-                        <div class="form-group col-xs-12 col-sm-6 col-md-3">
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
                             <label for="site" class="col-form-label">Site</label>
                             <select th:field="*{site}" class="form-control" id="site">
                                 <option th:each="site : ${sites}" th:value="${site.idSite}" th:text="${site.nomSite}">
@@ -46,8 +46,11 @@
                             </select>
                         </div>
                         <div class="form-group col-xs-12 col-sm-6 col-md-4">
+
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-4">
                             <label for="taVoie" class="col-form-label">Voies</label><br />
-                            <div th:each="voie: ${Voies}">
+                            <div th:each="voie: ${voies}">
                                 <input  type="checkbox" th:field="*{voies}" th:value="${voie.idVoie}" th:name="${voie.numeroVoie}" id="taVoie" /> <label for="taVoie" th:text="${voie.numeroVoie}"></label><br />
                             </div>
                         </div>

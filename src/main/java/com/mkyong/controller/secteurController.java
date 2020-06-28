@@ -4,10 +4,12 @@ package com.mkyong.controller;
 import com.mkyong.entity.Secteur;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.User;
+import com.mkyong.entity.Voie;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.SecteurService;
 import com.mkyong.services.SiteService;
 import com.mkyong.services.UserService;
+import com.mkyong.services.VoieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,9 @@ public class secteurController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private VoieService voieService;
 
 
     /* Controller pour la liste des secteurs */
@@ -59,9 +64,11 @@ public class secteurController {
             model.addAttribute("secteur", new Secteur());
         }
         List<Site> listSites = siteService.getAllSites();
+        List<Voie> listVoies=voieService.getAllVoies();
         User userConnecte = userService.getUserByMail(principal.getName());
         model.addAttribute("user", userConnecte);
         model.addAttribute("sites",listSites);
+        model.addAttribute("voies",listVoies);
         model.addAttribute("titreFormSecteur","Editer un secteur");
         return "secteur/add-edit-secteur";
     }
@@ -72,9 +79,11 @@ public class secteurController {
         model.addAttribute("secteur", new Secteur());
         model.addAttribute("titreFormSecteur","Ajouter un secteur");
         List<Site> listSites = siteService.getAllSites();
+        List<Voie> listVoies=voieService.getAllVoies();
         User userConnecte = userService.getUserByMail(principal.getName());
         model.addAttribute("user", userConnecte);
         model.addAttribute("sites",listSites);
+        model.addAttribute("voies",listVoies);
         return "secteur/add-edit-secteur";
     }
 

@@ -122,6 +122,7 @@ public class TopoService {
             }
 
             // 4/ enregistrement du topo dans liste des topos de user
+            /*
             if (topoAModifier.getOwner()!=null) {
                 if (topoAModifier.getOwner().getTopos() != null) {
                     Collection<Topo> listeTopos = topoAModifier.getOwner().getTopos();
@@ -138,7 +139,8 @@ public class TopoService {
                     topoAModifier.getOwner().setTopos(listeTopos);
                     userService.updateUser(topoAModifier.getOwner());
                 }
-            }
+            }*/
+
             logger.info(" retour de la nouvelle entité topo de UpdateTopo qui a été sauvegardée et le topo est existant");
             return topoAModifier;
         } else {
@@ -163,10 +165,11 @@ public class TopoService {
         newTopo.setOwner(user);
 
         // enregistrement du topo dans la base de données
-        entity = topoRepository.save(newTopo);
+        topoRepository.save(newTopo);
+
 
         // 1/ enregistrement du topo dans chaque site concerné
-        List<Site> listeSitesTopo=new ArrayList<Site>();
+       List<Site> listeSitesTopo=new ArrayList<Site>();
         if (newTopo.getSites()!=null){
             listeSitesTopo.addAll(newTopo.getSites());
             for(int i=0;i<listeSitesTopo.size();i++) {
@@ -193,7 +196,6 @@ public class TopoService {
         logger.info(" retour de l'entité newTopo de createTopo car l'Id n'existe pas");
         return newTopo;
     }
-
 
     /*Methode pour annuler un topo par id dans la base de données*/
     public void deleteTopoById(Long id) throws RecordNotFoundException {
@@ -227,6 +229,7 @@ public class TopoService {
             }
 
             // suppression des topos dans la liste du propriétaire
+           /*
             List<Topo> listTopos=new ArrayList<Topo>();
 
             if(topoTrouve.getOwner().getTopos()!=null) {
@@ -236,6 +239,8 @@ public class TopoService {
                 ownerDuTopo.setTopos(listTopos);
                 userService.updateUser(ownerDuTopo);
             }
+            */
+
             // suppression du Topo de la base de données
             topoRepository.deleteById(topoTrouve.getIdTopo());
 

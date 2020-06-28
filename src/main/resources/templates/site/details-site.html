@@ -37,6 +37,7 @@
                       <br>
                        <h2>Descriptif du site: </h2>
                        <p th:text="${site.descriptif}"></p>
+                       <br>
                        <div th:if="${site.officiel}==true">
                            <strong th:text="|${site.nomSite}|+' est un site officiel des Amis de l\'escalade'"></strong>
                        </div>

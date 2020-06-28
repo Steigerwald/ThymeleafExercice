@@ -50,7 +50,12 @@
                                                     <td th:text="${voie.cotation}"></td>
                                                     <td th:text="${voie.nombreLongueurs}"></td>
                                                     <td th:text="${voie.nombrePoints}"></td>
-                                                    <td th:text="${voie.secteur.nomSecteur}"></td>
+                                                    <div th:if="${voie.secteur}!=null">
+                                                        <td th:text="${voie.secteur.nomSecteur}"></td>
+                                                    </div>
+                                                    <div th:unless="${voie.secteur}!=null">
+                                                        <td>N/A</td>
+                                                    </div>
                                                     <td>
                                                         <a th:href="@{/voies/edit/{id}(id=${voie.idVoie})}"
                                                            class="btn btn-primary">

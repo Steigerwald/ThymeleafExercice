@@ -76,7 +76,8 @@ public class VoieService {
             voieAModifier.setNombrePoints(entity.getNombrePoints());
             voieAModifier.setSecteur(entity.getSecteur());
             voieAModifier = voieRepository.save(voieAModifier);
-            if (!(entity.getSecteur().equals(voieAModifier.getSecteur()))) {
+           /*
+            if ((entity.getSecteur()!=null)) {
                 if (voieAModifier.getSecteur() != null) {
                     //rajout de la voie dans la liste des voies du secteur concerné
                     Collection<Voie> listeVoies = voieAModifier.getSecteur().getVoies();
@@ -84,7 +85,8 @@ public class VoieService {
                     voieAModifier.getSecteur().setVoies(listeVoies);
                     secteurService.createOrUpdateSecteur(voieAModifier.getSecteur());
                 }
-            }
+            }*/
+
             logger.info(" retour de la nouvelle entité voie de createOrUpdateVoie qui a été sauvegardée et la voie est existante");
             return voieAModifier;
         }
