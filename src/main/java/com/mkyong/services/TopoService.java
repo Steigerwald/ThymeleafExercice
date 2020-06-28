@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.acl.Owner;
 import java.util.*;
 
 @Service
@@ -88,7 +89,7 @@ public class TopoService {
                 for (int i = 0; i < listeSites.size(); i++) {
                     Site site = listeSites.get(i);
                     site.setTopo(topoAModifier);
-                    Site siteModifie = siteService.UpdateSite(site);
+                    siteService.UpdateSite(site);
                 }
             }
 
@@ -147,59 +148,50 @@ public class TopoService {
 
     /*Methode pour creer une entité topo*/
     public Topo CreateTopo(Topo entity, User user) throws RecordNotFoundException {
+
         Date today = new Date();
         Topo newTopo = new Topo();
         newTopo.setNomTopo(entity.getNomTopo());
-
         newTopo.setDescription(entity.getDescription());
         newTopo.setDateParution(today);
         logger.info(" date de parution Topo créé"+ newTopo.toStringDateParution());
         newTopo.setDisponible(true);
         newTopo.setLocation(entity.getLocation());
-
-        newTopo.setReservation(null);
-
-        // enregistrement de l'image dans le topo
-        newTopo.setImage(entity.getImage());
-        if (newTopo.getImage()!=null) {
-            imageService.stockerImage(newTopo.getImage(), user);
-        }
-
         newTopo.setSites(entity.getSites());
-        logger.info(" les sites de Topo"+ newTopo.getSites());
-
-        // enregistrement du topo dans chaque site concerné
-        List<Site> sitesModifies=new ArrayList<Site>();
-        List<Site> listeSites=new ArrayList<Site>();
-        listeSites.addAll(newTopo.getSites());
-        for(int i=0;i<listeSites.size();i++){
-            Site siteTopo=listeSites.get(i);
-            siteTopo.setTopo(entity);
-            Site siteModifie=siteService.UpdateSite(siteTopo);
-            sitesModifies.add(siteModifie);
-        }
-        logger.info(" les sites de Topo avec sitesModifies"+ sitesModifies);
-        newTopo.setSites(sitesModifies);
-
+        newTopo.setReservation(null);
         newTopo.setImage(entity.getImage());
-        logger.info(" l'image du topo"+ newTopo.getImage());
-        if (newTopo.getImage()!=null) {
-            imageService.stockerImage(newTopo.getImage(), user);
-        }
-
         newTopo.setOwner(user);
-        logger.info(" le user de topo"+ user.getNomUser());
-        // enregistrement du topo dans liste des topos de user
-        Collection<Topo> listeTopos = user.getTopos();
-        listeTopos.add(entity);
-        user.setTopos(listeTopos);
-        logger.info(" les topos de user: "+ user.getTopos());
-        userService.updateUser(user);
 
         // enregistrement du topo dans la base de données
         entity = topoRepository.save(newTopo);
-        logger.info(" retour de l'entité de createTopo car l'Id n'existe pas");
-        return entity;
+
+        // 1/ enregistrement du topo dans chaque site concerné
+        List<Site> listeSitesTopo=new ArrayList<Site>();
+        if (newTopo.getSites()!=null){
+            listeSitesTopo.addAll(newTopo.getSites());
+            for(int i=0;i<listeSitesTopo.size();i++) {
+                Site siteTopo = listeSitesTopo.get(i);
+                siteTopo.setTopo(newTopo);
+                siteService.UpdateSite(siteTopo);
+            }
+        }
+
+        // 2/ enregistrement de l'image dans le topo
+        if (newTopo.getImage()!=null) {
+            newTopo.getImage().setTopo(newTopo);
+            newTopo.getImage().setSite(null);
+            imageService.stockerImage(newTopo.getImage(), user);
+        }
+
+        // 3/ enregistrement du topo dans liste des topos de owner
+        Collection<Topo> listeToposDeOwner = newTopo.getOwner().getTopos();
+        listeToposDeOwner.add(newTopo);
+        newTopo.getOwner().setTopos(listeToposDeOwner);
+        logger.info(" les topos de owner: "+ newTopo.getOwner().getTopos());
+        userService.updateUser(newTopo.getOwner());
+
+        logger.info(" retour de l'entité newTopo de createTopo car l'Id n'existe pas");
+        return newTopo;
     }
 
 

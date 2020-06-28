@@ -159,7 +159,7 @@ public class SiteService {
            siteAModifier=siteRepository.save(siteAModifier);
 
             // 1/ enregistrement du site dans liste des sites de user
-            if (siteAModifier.getUser()!=null) {
+            if ((siteAModifier.getUser()!=null)&&(entity.getUser()!=null)) {
                 if (siteAModifier.getUser().getSites() != null) {
                     Collection<Site> listeSites = siteAModifier.getUser().getSites();
                     if (siteAModifier.getUser().getSites().contains(siteAModifier)) {
@@ -178,7 +178,7 @@ public class SiteService {
             }
 
             // 2/ enregistrement du site dans liste des sites de topo
-            if (siteAModifier.getTopo()!=null) {
+            if ((siteAModifier.getTopo()!=null)&&(entity.getTopo()!=null)) {
                 Collection<Site> listeSites = siteAModifier.getTopo().getSites();
                 if (siteAModifier.getTopo().getSites().contains(siteAModifier)) {
                     siteAModifier.getTopo().setSites(listeSites);
@@ -190,7 +190,7 @@ public class SiteService {
             }
 
             // 3/ enregistrement du Site dans chaque commentaire concerné
-            if (siteAModifier.getCommentaires()!=null) {
+            if ((siteAModifier.getCommentaires()!=null)&&(entity.getCommentaires()!=null)) {
                 List<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
                 if (entity.getCommentaires() != null){
                     listeCommentaires.addAll(entity.getCommentaires());
@@ -203,7 +203,7 @@ public class SiteService {
             }
 
             // 4/ enregistrement du Site dans l'image avec enregistrement de l'image si elle n'est pas présente
-            if (siteAModifier.getImage()!=null) {
+            if ((siteAModifier.getImage()!=null)&&(entity.getImage()!=null)) {
                 Image imageTrouve = imageService.getImageById(siteAModifier.getImage().getId());
                 if (imageTrouve == null) {
                     logger.info(" l'image de siteAmodifier "+siteAModifier.getImage());
@@ -217,7 +217,7 @@ public class SiteService {
             }
 
             // 5/ enregistrement du site dans chaque secteur concerné
-            if (siteAModifier.getSecteurs()!=null) {
+            if ((siteAModifier.getSecteurs()!=null)&&(entity.getSecteurs()!=null)) {
                 List<Secteur> listeSecteurs = new ArrayList<Secteur>();
                 listeSecteurs.addAll(siteAModifier.getSecteurs());
                 for (int i = 0; i < listeSecteurs.size(); i++) {

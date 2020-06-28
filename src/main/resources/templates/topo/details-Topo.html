@@ -39,7 +39,12 @@
                                     <td>
                                         <div th:switch="${enableButton}">
                                             <form th:action="@{/reservations/reserverTopo/{id}(id=${topo.idTopo})}" method="post">
-                                                <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="1" >Réserver</button>
+                                                <div th:if="${topo.reservation.etat}!='En attente'">
+                                                    <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="1" >Réserver</button>
+                                                </div>
+                                                <div th:unless="${topo.reservation.etat}!='En attente'">
+                                                    <p>En attente d'acceptation</p>
+                                                </div>
                                                 <h2 th:case="2" >Non disponible</h2>
                                                 <h2 th:case="3" >Non disponible</h2>
                                             </form>
