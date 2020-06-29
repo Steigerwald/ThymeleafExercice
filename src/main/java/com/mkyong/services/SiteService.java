@@ -99,14 +99,16 @@ public class SiteService {
         entity = siteRepository.save(newSite);
 
         // 1/ enregistrement du site dans liste des sites de user
+        /*
         Collection<Site> listeSites = user.getSites();
         listeSites.add(entity);
         user.setSites(listeSites);
         logger.info(" le user à mettre dans Newsite  "+user.getNomUser());
         userService.updateUser(user);
-
+        */
 
         // 2/ enregistrement du site dans chaque secteur concerné
+        /*
         if (newSite.getSecteurs()!=null) {
             List<Secteur> listeSecteurs = new ArrayList<Secteur>();
             if (entity.getSecteurs() != null){
@@ -118,19 +120,20 @@ public class SiteService {
                 }
             }
         }
+        */
 
         // 3/ enregistrement de l'image
+       /*
         if(newSite.getImage()!=null) {
             newSite.getImage().setSite(newSite);
             newSite.getImage().setTopo(null);
             imageService.stockerImage(newSite.getImage(), user);
         }
+        */
+
         logger.info(" retour de l'entité de createSite qui a été créée car l'Id n'existe pas");
         return entity;
     }
-
-
-
 
 
 
@@ -142,25 +145,13 @@ public class SiteService {
            siteAModifier.setNomSite(entity.getNomSite());
            siteAModifier.setLieu(entity.getLieu());
            siteAModifier.setDescriptif(entity.getDescriptif());
-            if (entity.getOfficiel()!=null){
-                siteAModifier.setOfficiel(entity.getOfficiel());
-            }
-            if (entity.getPublic()!=null) {
-                siteAModifier.setPublic(entity.getPublic());
-            }
-
-            if (entity.getUser()!=null) {
-                siteAModifier.setUser(entity.getUser());
-            }
+           siteAModifier.setOfficiel(entity.getOfficiel());
+           siteAModifier.setPublic(entity.getPublic());
+           siteAModifier.setUser(entity.getUser());
            siteAModifier.setTopo(entity.getTopo());
-
-            if (entity.getCommentaires()!=null) {
-                siteAModifier.setCommentaires(entity.getCommentaires());
-            }
-            if (entity.getImage()!=null) {
-                siteAModifier.setImage(entity.getImage());
-            }
-            siteAModifier.setSecteurs(entity.getSecteurs());
+           siteAModifier.setCommentaires(entity.getCommentaires());
+           siteAModifier.setImage(entity.getImage());
+           siteAModifier.setSecteurs(entity.getSecteurs());
            siteAModifier=siteRepository.save(siteAModifier);
 
             // 1/ enregistrement du site dans liste des sites de user
@@ -198,6 +189,7 @@ public class SiteService {
             }*/
 
             // 3/ enregistrement du Site dans chaque commentaire concerné
+           /*
             if ((siteAModifier.getCommentaires()!=null)&&(entity.getCommentaires()!=null)) {
                 List<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
                 if (entity.getCommentaires() != null){
@@ -208,9 +200,10 @@ public class SiteService {
                         commentaireService.modifyCommentaire(commentaire);
                     }
                 }
-            }
+            }*/
 
             // 4/ enregistrement du Site dans l'image avec enregistrement de l'image si elle n'est pas présente
+            /*
             if ((siteAModifier.getImage()!=null)&&(entity.getImage()!=null)) {
                 Image imageTrouve = imageService.getImageById(siteAModifier.getImage().getId());
                 if (imageTrouve == null) {
@@ -223,8 +216,9 @@ public class SiteService {
                     imageTrouve.setTopo(null);
                 }
             }
-
+            */
             // 5/ enregistrement du site dans chaque secteur concerné
+            /*
             if ((siteAModifier.getSecteurs()!=null)&&(entity.getSecteurs()!=null)) {
                 List<Secteur> listeSecteurs = new ArrayList<Secteur>();
                 listeSecteurs.addAll(siteAModifier.getSecteurs());
@@ -234,6 +228,7 @@ public class SiteService {
                     Secteur secteurModifie = secteurService.createOrUpdateSecteur(secteur);
                 }
             }
+             */
             logger.info(" retour de la nouvelle entité site de createOrUpdateSite qui a été sauvegardée et le site est existant");
             return siteAModifier;
         } else {
@@ -276,6 +271,7 @@ public class SiteService {
             */
 
             // annulation de chaque commentaire du site dans la base de données de commentaire
+           /*
             if (siteTrouve.getCommentaires()!=null) {
                 List<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
                 listeCommentaires.addAll(siteTrouve.getCommentaires());
@@ -285,13 +281,17 @@ public class SiteService {
                 }
             }
 
+            */
+           /*
             logger.info(" l'image de de site avant de l'effacer est: "+(siteTrouve.getImage()));
             //annulation de la base de donnée image de l'Image du site
             if ((siteTrouve.getImage())!=null) {
                 imageService.deleteImageById(siteTrouve.getImage().getId());
             }
+            */
 
             // annulation de chaque secteur du site dans la base de données de secteur
+           /*
             if (siteTrouve.getSecteurs()!=null) {
                 List<Secteur> listeSecteurs = new ArrayList<Secteur>();
                 listeSecteurs.addAll(siteTrouve.getSecteurs());
@@ -301,7 +301,7 @@ public class SiteService {
                     secteurService.createOrUpdateSecteur(secteur);
                 }
             }
-
+            */
             siteRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("Pas de site enregistré avec cet Id");

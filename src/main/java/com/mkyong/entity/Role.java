@@ -19,7 +19,7 @@ public class Role {
     @javax.validation.constraints.NotEmpty
     private String nomRole;
 
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role",cascade={CascadeType.PERSIST, CascadeType.MERGE})
     @Nullable
     private Collection<User> users;
 

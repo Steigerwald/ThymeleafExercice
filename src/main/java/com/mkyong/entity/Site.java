@@ -39,12 +39,11 @@ public class Site {
     @ManyToOne
     private User user;
 
-    //@ManyToOne (fetch=FetchType.LAZY,cascade=CascadeType.DETACH)
     @ManyToOne
     @Nullable
     private Topo topo;
 
-    @OneToMany (mappedBy = "site")
+    @OneToMany (mappedBy = "site",cascade = CascadeType.ALL)
     @Nullable
     private Collection<Commentaire> commentaires;
 
@@ -52,7 +51,7 @@ public class Site {
     @Nullable
     private Image image;
 
-    @OneToMany (mappedBy = "site")
+    @OneToMany (mappedBy = "site",cascade={CascadeType.PERSIST, CascadeType.MERGE})
     private Collection<Secteur> secteurs;
 
 
