@@ -82,6 +82,7 @@ public class TopoService {
             }
             topoAModifier = topoRepository.save(topoAModifier);
 
+            /*
             // 1/ enregistrement du topo dans chaque site concerné
             if (topoAModifier.getSites()!=null) {
                 List<Site> listeSites = new ArrayList<Site>();
@@ -122,7 +123,6 @@ public class TopoService {
             }
 
             // 4/ enregistrement du topo dans liste des topos de user
-            /*
             if (topoAModifier.getOwner()!=null) {
                 if (topoAModifier.getOwner().getTopos() != null) {
                     Collection<Topo> listeTopos = topoAModifier.getOwner().getTopos();
@@ -167,7 +167,15 @@ public class TopoService {
         // enregistrement du topo dans la base de données
         topoRepository.save(newTopo);
 
+        // 2/ enregistrement de l'image dans le topo
+        if (newTopo.getImage()!=null) {
+            newTopo.getImage().setTopo(newTopo);
+            newTopo.getImage().setSite(null);
+            imageService.stockerImage(newTopo.getImage(), user);
+        }
 
+
+        /*
         // 1/ enregistrement du topo dans chaque site concerné
        List<Site> listeSitesTopo=new ArrayList<Site>();
         if (newTopo.getSites()!=null){
@@ -179,20 +187,13 @@ public class TopoService {
             }
         }
 
-        // 2/ enregistrement de l'image dans le topo
-        if (newTopo.getImage()!=null) {
-            newTopo.getImage().setTopo(newTopo);
-            newTopo.getImage().setSite(null);
-            imageService.stockerImage(newTopo.getImage(), user);
-        }
-
         // 3/ enregistrement du topo dans liste des topos de owner
         Collection<Topo> listeToposDeOwner = newTopo.getOwner().getTopos();
         listeToposDeOwner.add(newTopo);
         newTopo.getOwner().setTopos(listeToposDeOwner);
         logger.info(" les topos de owner: "+ newTopo.getOwner().getTopos());
         userService.updateUser(newTopo.getOwner());
-
+         */
         logger.info(" retour de l'entité newTopo de createTopo car l'Id n'existe pas");
         return newTopo;
     }
@@ -202,14 +203,19 @@ public class TopoService {
         Optional<Topo> topo = topoRepository.findById(id);
         if(topo.isPresent()) {
             Topo topoTrouve = topo.get();
+            topoTrouve.setSites(null);
+            topoRepository.save(topoTrouve);
 
+           /*
             // annulation des sites associés au topo supprimé
             List<Site> listeSites=new ArrayList<Site>();
             listeSites.addAll(topoTrouve.getSites());
             for(int i=0;i<listeSites.size();i++){
                 Site site=listeSites.get(i);
                 site.setTopo(null);
+                siteService.UpdateSite(site);
             }
+
 
             // suppression de l'image du topo
             if (topoTrouve.getImage()!=null) {
@@ -229,7 +235,6 @@ public class TopoService {
             }
 
             // suppression des topos dans la liste du propriétaire
-           /*
             List<Topo> listTopos=new ArrayList<Topo>();
 
             if(topoTrouve.getOwner().getTopos()!=null) {

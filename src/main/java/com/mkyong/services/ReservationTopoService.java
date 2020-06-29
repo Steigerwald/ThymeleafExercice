@@ -81,6 +81,7 @@ public class ReservationTopoService {
                 newReservation.setUser(currentUser);
                 reservationTopoRepository.save(newReservation);
 
+                /*
                 // je renseigne la reservation dans le topo
                 newReservation.getTopo().setDisponible(false);
                 newReservation.getTopo().setReservation(newReservation);
@@ -92,6 +93,7 @@ public class ReservationTopoService {
 
                 topoRepository.save(newReservation.getTopo());
                 userRepository.save(newReservation.getUser());
+                 */
                 logger.info(" retour de l'entité de createReservationTopo car l'Id n'existe pas et donc la réservation a été créee");
             } else {
                 logger.info(" retour de l'entité reservation n'a pas été sauvegardée car la reservation est existante ou non disponible");

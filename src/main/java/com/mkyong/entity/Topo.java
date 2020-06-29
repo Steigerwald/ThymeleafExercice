@@ -35,7 +35,7 @@ public class Topo {
     @Column(name = "LOCATION")
     private Boolean location;
 
-    @OneToMany (mappedBy = "topo",cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany (mappedBy = "topo",cascade = CascadeType.ALL)
     private Collection<Site> sites;
 
     @OneToOne (mappedBy= "topo",cascade = CascadeType.ALL)

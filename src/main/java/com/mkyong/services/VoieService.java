@@ -60,13 +60,17 @@ public class VoieService {
             newVoie.setSecteur(entity.getSecteur());
             newVoie = voieRepository.save(newVoie);
 
+            /*
             //rajout de la voie dans la liste des voies du secteur concerné
             Collection<Voie> listeVoies = newVoie.getSecteur().getVoies();
             listeVoies.add(newVoie);
             newVoie.getSecteur().setVoies(listeVoies);
             secteurService.createOrUpdateSecteur(newVoie.getSecteur());
+
+            */
             logger.info(" retour de l'entité de createOrUpdateVoie car l'Id n'existe pas");
             return newVoie;
+
         }
         else {
             Voie voieAModifier = getVoieById(entity.getIdVoie());

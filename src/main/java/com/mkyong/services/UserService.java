@@ -107,6 +107,7 @@ public class UserService {
         { logger.info(" l'entité user à effacer a été trouvée et est effacée");
         User userTrouve =userAEffacer.get();
 
+            /*
             // suppression des topos associés au user supprimé
             if (userTrouve.getTopos()!=null) {
                 for (int i = 0; i < (userTrouve.getTopos()).size(); i++) {
@@ -143,6 +144,8 @@ public class UserService {
                     commentaireService.deleteCommentaireById(commentaire.getIdCommentaire());
                 }
             }
+
+             */
             userRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("No user record exist for given id and to cancel it");

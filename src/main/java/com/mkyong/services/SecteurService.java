@@ -61,6 +61,7 @@ public class SecteurService {
             newSecteur.setVoies(entity.getVoies());
             newSecteur = secteurRepository.save(newSecteur);
 
+            /*
             // enregistrement du secteur dans chaque voie concernée
             if (newSecteur.getVoies()!=null) {
                 List<Voie> listeVoies = new ArrayList<Voie>();
@@ -80,6 +81,7 @@ public class SecteurService {
                 newSecteur.getSite().setSecteurs(listeSecteurs);
                 siteService.UpdateSite(newSecteur.getSite());
             }
+             */
 
             logger.info(" retour de l'entité qui a été créée de createOrUpdateSecteur car l'Id n'existe pas");
             return newSecteur;
@@ -102,6 +104,7 @@ public class SecteurService {
                 }
                 entity = secteurRepository.save(secteurAModifier);
 
+                /*
                 // enregistrement du secteur dans chaque voie concernée
                 if (secteurAModifier.getVoies()!=null) {
                     List<Voie> listeVoies = new ArrayList<Voie>();
@@ -116,7 +119,6 @@ public class SecteurService {
                 }
 
                 // enregistrement du secteur dans chaque site concerné
-               /*
                 if (secteurAModifier.getSite()==null){
                     logger.info(" le secteur n'est plus utilisé pour ce site");
                 }else {

@@ -69,7 +69,7 @@ public class CommentaireService {
         newCommentaire.setSite(entity.getSite());
         newCommentaire.setUser(currentUser);
         newCommentaire = commentaireRepository.save(newCommentaire);
-
+        /*
         // 1/ enregistrement du commentaire dans liste des commentaires de user
         if (newCommentaire.getUser()!=null) {
             if (newCommentaire.getUser().getCommentaires() != null) {
@@ -107,6 +107,8 @@ public class CommentaireService {
                 siteService.UpdateSite(newCommentaire.getSite());
             }
         }
+
+         */
         logger.info(" retour de la nouvelle entité commentaire de createOrUpdateCommentaire qui a été sauvegardée et le commentaire est existant");
         return newCommentaire;
     }
