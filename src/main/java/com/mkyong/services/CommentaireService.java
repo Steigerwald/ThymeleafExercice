@@ -69,46 +69,6 @@ public class CommentaireService {
         newCommentaire.setSite(entity.getSite());
         newCommentaire.setUser(currentUser);
         newCommentaire = commentaireRepository.save(newCommentaire);
-        /*
-        // 1/ enregistrement du commentaire dans liste des commentaires de user
-        if (newCommentaire.getUser()!=null) {
-            if (newCommentaire.getUser().getCommentaires() != null) {
-                Collection<Commentaire> listeCommentaires = newCommentaire.getUser().getCommentaires();
-                if (newCommentaire.getUser().getCommentaires().contains(newCommentaire)) {
-                    newCommentaire.getUser().setCommentaires(listeCommentaires);
-                } else {
-                    listeCommentaires.add(newCommentaire);
-                    newCommentaire.getUser().setCommentaires(listeCommentaires);
-                }
-                userService.updateUser(newCommentaire.getUser());
-            } else {
-                Collection<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
-                listeCommentaires.add(newCommentaire);
-                newCommentaire.getUser().setCommentaires(listeCommentaires);
-                userService.updateUser(newCommentaire.getUser());
-            }
-        }
-
-        // 2/ enregistrement du commentaire dans liste des commentaires de site
-        if (newCommentaire.getSite()!=null) {
-            if (newCommentaire.getSite().getCommentaires() != null) {
-                Collection<Commentaire> listeCommentaires = newCommentaire.getSite().getCommentaires();
-                if (newCommentaire.getSite().getCommentaires().contains(newCommentaire)) {
-                    newCommentaire.getSite().setCommentaires(listeCommentaires);
-                } else {
-                    listeCommentaires.add(newCommentaire);
-                    newCommentaire.getSite().setCommentaires(listeCommentaires);
-                }
-                siteService.UpdateSite(newCommentaire.getSite());
-            } else {
-                Collection<Commentaire> listeCommentaires = new ArrayList<Commentaire>();
-                listeCommentaires.add(newCommentaire);
-                newCommentaire.getSite().setCommentaires(listeCommentaires);
-                siteService.UpdateSite(newCommentaire.getSite());
-            }
-        }
-
-         */
         logger.info(" retour de la nouvelle entité commentaire de createOrUpdateCommentaire qui a été sauvegardée et le commentaire est existant");
         return newCommentaire;
     }

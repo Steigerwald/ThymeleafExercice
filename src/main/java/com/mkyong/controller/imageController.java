@@ -79,7 +79,7 @@ public class imageController {
         logger.info(" taille de l'image après l'enregistrement "+image.getTaille());
         //BASE64Decoder decoder = new BASE64Decoder();
         //byte[] imageByte = decoder.decodeBuffer(encodedString);
-        imageEntityService.stockerImage(image,userConnecte);
+        imageEntityService.stockerImage(image);
         return "redirect:/admin/images";
     }
 

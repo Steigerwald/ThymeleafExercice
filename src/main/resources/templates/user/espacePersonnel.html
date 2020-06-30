@@ -15,7 +15,7 @@
 <body>
     <div th:insert="~{baniere :: fragment }"></div>
     <main>
-        <h1 th:text="'L\'espace de '+|${user.nomUser}| +' '+ |${user.prenomUser}|"></h1>
+        <h1 th:text="'L\'espace de '+|${user.prenomUser}| +' '+ |${user.nomUser}|"></h1>
         <div class="container col-lg-12">
             <header class="row">
             </header>
@@ -43,7 +43,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <div th:switch="${user.sites}" class="container">
-                                                        <h2 th:case="null">Vous n'avez pas de site actuellement !!</h2>
+                                                        <p th:case="null">Vous n'avez pas de site actuellement !!</p>
                                                         <div th:case="*">
                                                             <tr th:each="site : ${user.sites}">
                                                             <td> <a th:text="${site.nomSite}" th:href="@{/sites/details/{nom} (nom=${site.idSite})}" ></a> </td>
@@ -73,7 +73,7 @@
                                                     <th>Numero réservation</th>
                                                     <th>Nom du Topo</th>
                                                     <th>Propriétaire du Topo</th>
-                                                    <th>date de la réservation</th>
+                                                    <th>Etat de la réservation</th>
                                                     <th>Annulation de la réservation</th>
                                                 </tr>
                                                 </thead>
@@ -82,7 +82,7 @@
                                                         <td th:text="${reservation.idReservation}"> </td>
                                                         <td><a th:text="${reservation.topo.nomTopo}" th:href="@{/topos/details/{nom} (nom=${reservation.topo.idTopo})}"></a></td>
                                                         <td th:text="${reservation.topo.owner.nomUser}"></td>
-                                                        <td th:text="${reservation.toStringDateReservation()}"></td>
+                                                        <td th:text="${reservation.etat}"></td>
                                                         <td>
                                                             <div th:switch="${enableButton}">
                                                                 <form th:action="@{/reservations/annulerReservation/{id}(id=${reservation.idReservation})}" method="post">
@@ -97,12 +97,12 @@
                                             </table>
                                         </div>
                                         <div th:unless="${user.reservations.size()}>0">
-                                            <h3>Vous n'avez pas de réservation en cours  </h3>
+                                            <p>Vous n'avez pas de réservation en cours  </p>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="table-responsive text-nowrap ncol-md-12">
-                                        <h2>Mes topos actuellement:</h2>
+                                        <h2>Mes topos:</h2>
                                         <div th:if="${user.topos.size()}>0">
                                             <table class="table table-striped" >
                                                 <thead>
@@ -112,7 +112,6 @@
                                                     <th>Disponible pour la Location</th>
                                                     <th>Rendre disponible la location</th>
                                                     <th>Interdire la location</th>
-                                                    <!--<th>Liste des topos loués</th>-->
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -141,7 +140,7 @@
                                             </table>
                                         </div>
                                         <div th:unless="${user.topos.size()}>0">
-                                            <h3>Vous ne possédez pas de topo  </h3>
+                                            <p>Vous ne possédez pas de topo  </p>
                                         </div>
                                     </div>
                                     <div class="table-responsive text-nowrap ncol-md-12">
@@ -193,7 +192,7 @@
                                             </table>
                                         </div>
                                         <div th:unless="${user.topos.size()}>0">
-                                            <h3>Vous n'avez pas de demande ou de location de topo </h3>
+                                            <p>Vous n'avez pas de demande ou de location de topo </p>
                                         </div>
                                     </div>
                                 </div>

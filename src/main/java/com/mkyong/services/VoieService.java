@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,14 +59,6 @@ public class VoieService {
             newVoie.setSecteur(entity.getSecteur());
             newVoie = voieRepository.save(newVoie);
 
-            /*
-            //rajout de la voie dans la liste des voies du secteur concerné
-            Collection<Voie> listeVoies = newVoie.getSecteur().getVoies();
-            listeVoies.add(newVoie);
-            newVoie.getSecteur().setVoies(listeVoies);
-            secteurService.createOrUpdateSecteur(newVoie.getSecteur());
-
-            */
             logger.info(" retour de l'entité de createOrUpdateVoie car l'Id n'existe pas");
             return newVoie;
 
@@ -80,16 +71,6 @@ public class VoieService {
             voieAModifier.setNombrePoints(entity.getNombrePoints());
             voieAModifier.setSecteur(entity.getSecteur());
             voieAModifier = voieRepository.save(voieAModifier);
-           /*
-            if ((entity.getSecteur()!=null)) {
-                if (voieAModifier.getSecteur() != null) {
-                    //rajout de la voie dans la liste des voies du secteur concerné
-                    Collection<Voie> listeVoies = voieAModifier.getSecteur().getVoies();
-                    listeVoies.add(voieAModifier);
-                    voieAModifier.getSecteur().setVoies(listeVoies);
-                    secteurService.createOrUpdateSecteur(voieAModifier.getSecteur());
-                }
-            }*/
 
             logger.info(" retour de la nouvelle entité voie de createOrUpdateVoie qui a été sauvegardée et la voie est existante");
             return voieAModifier;

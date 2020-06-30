@@ -29,6 +29,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" th:switch="${user.role.nomRole}">
                                     <a class="dropdown-item" th:href="@{/topos}">Liste des topos</a>
+                                    <a class="dropdown-item" th:href="@{/topos/disponibles}">Liste des topos disponibles</a>
                                     <a class="dropdown-item" th:href="@{/sites}">Liste des sites</a>
                                     <a class="dropdown-item" th:href="@{/sites/publics}">Liste des sites publics</a>
                                     <div th:case="'ROLE_ADMIN'">

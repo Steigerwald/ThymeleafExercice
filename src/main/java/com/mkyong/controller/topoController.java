@@ -49,6 +49,21 @@ public class topoController {
         return "topo/list-topos"; //view
     }
 
+    /* Controller pour la liste des topos disponibles */
+    @RequestMapping(path = "/disponibles",method = RequestMethod.GET)
+    public String getAllToposDisponibles(Model model,Principal principal) {
+        User userConnecte = userService.getUserByMail(principal.getName());
+        List<Topo> listToposDisponibles = topoService.getAllToposDisponibles();
+        logger.info(" les topos dans listToposDisponibles: "+listToposDisponibles);
+        if (listToposDisponibles.isEmpty()){
+            listToposDisponibles=null;
+        }
+        model.addAttribute("user", userConnecte);
+        model.addAttribute("topos", listToposDisponibles);
+        return "topo/list-topos-disponibles"; //view
+    }
+
+
     /* controller pour effacer un topo de la base de données */
     @RequestMapping(path = "/delete/{id}",method = RequestMethod.POST)
     public String deleteEntityById(Model model, @PathVariable("id") Long id) throws RecordNotFoundException {

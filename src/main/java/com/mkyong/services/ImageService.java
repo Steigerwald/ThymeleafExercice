@@ -81,7 +81,7 @@ public class ImageService {
         }
     }
 
-    public Image stockerImage(Image entity, User user) throws RecordNotFoundException {
+    public Image stockerImage(Image entity) throws RecordNotFoundException {
         if (entity.getId() == null) {
             Image newImage =new Image();
             newImage.setNomImage(entity.getNomImage());

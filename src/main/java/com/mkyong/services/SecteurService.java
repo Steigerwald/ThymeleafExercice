@@ -1,6 +1,7 @@
 package com.mkyong.services;
 
 import com.mkyong.entity.Secteur;
+import com.mkyong.entity.Site;
 import com.mkyong.entity.Voie;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.repository.SecteurRepository;
@@ -61,7 +62,6 @@ public class SecteurService {
             newSecteur.setVoies(entity.getVoies());
             newSecteur = secteurRepository.save(newSecteur);
 
-            /*
             // enregistrement du secteur dans chaque voie concernée
             if (newSecteur.getVoies()!=null) {
                 List<Voie> listeVoies = new ArrayList<Voie>();
@@ -69,19 +69,22 @@ public class SecteurService {
                     listeVoies.addAll(entity.getVoies());
                     for (int i = 0; i < listeVoies.size(); i++) {
                         Voie voie = listeVoies.get(i);
+                        voie=voieService.getVoieById(voie.getIdVoie());
                         voie.setSecteur(newSecteur);
                         voieService.createOrUpdateVoie(voie);
                     }
                 }
             }
+
             if (newSecteur.getSite()!=null) {
                 //rajout du secteur dans la liste des secteurs du site concerné
                 Collection<Secteur> listeSecteurs = newSecteur.getSite().getSecteurs();
                 listeSecteurs.add(newSecteur);
-                newSecteur.getSite().setSecteurs(listeSecteurs);
-                siteService.UpdateSite(newSecteur.getSite());
+                Site siteAModifier=siteService.getSiteById(newSecteur.getSite().getIdSite());
+                siteAModifier.setSecteurs(listeSecteurs);
+                siteService.UpdateSite(siteAModifier);
             }
-             */
+
 
             logger.info(" retour de l'entité qui a été créée de createOrUpdateSecteur car l'Id n'existe pas");
             return newSecteur;
@@ -89,19 +92,11 @@ public class SecteurService {
             Secteur secteurAModifier = getSecteurById(entity.getIdSecteur());
             if(secteurAModifier!=null) {
                 logger.info(" l'entité secteur à modifier a été trouvée et modifiée");
-                if (entity.getNomSecteur()!=null) {
-                    secteurAModifier.setNomSecteur(entity.getNomSecteur());
-                }
-                if (entity.getDescriptifSecteur()!=null) {
-                    secteurAModifier.setDescriptifSecteur(entity.getDescriptifSecteur());
-                }
-                if (entity.getHauteur()!=null) {
-                    secteurAModifier.setHauteur(entity.getHauteur());
-                }
+                secteurAModifier.setNomSecteur(entity.getNomSecteur());
+                secteurAModifier.setDescriptifSecteur(entity.getDescriptifSecteur());
+                secteurAModifier.setHauteur(entity.getHauteur());
                 secteurAModifier.setSite(entity.getSite());
-                if (entity.getNomSecteur()!=null) {
-                    secteurAModifier.setVoies(entity.getVoies());
-                }
+                secteurAModifier.setVoies(entity.getVoies());
                 entity = secteurRepository.save(secteurAModifier);
 
                 /*

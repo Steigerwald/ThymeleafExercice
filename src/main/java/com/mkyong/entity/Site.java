@@ -51,7 +51,7 @@ public class Site {
     @Nullable
     private Image image;
 
-    @OneToMany (mappedBy = "site",cascade={CascadeType.PERSIST},orphanRemoval = true)
+    @OneToMany (mappedBy = "site",cascade = CascadeType.ALL)
     private Collection<Secteur> secteurs;
 
 

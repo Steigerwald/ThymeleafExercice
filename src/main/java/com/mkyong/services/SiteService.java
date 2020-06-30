@@ -108,7 +108,7 @@ public class SiteService {
         */
 
         // 2/ enregistrement du site dans chaque secteur concerné
-        /*
+
         if (newSite.getSecteurs()!=null) {
             List<Secteur> listeSecteurs = new ArrayList<Secteur>();
             if (entity.getSecteurs() != null){
@@ -120,7 +120,6 @@ public class SiteService {
                 }
             }
         }
-        */
 
         // 3/ enregistrement de l'image
        /*
@@ -150,7 +149,9 @@ public class SiteService {
            siteAModifier.setUser(entity.getUser());
            siteAModifier.setTopo(entity.getTopo());
            siteAModifier.setCommentaires(entity.getCommentaires());
+           logger.info(" l'image de entity avant set est "+entity.getImage());
            siteAModifier.setImage(entity.getImage());
+           logger.info(" l'image de siteAmodifier après set avec entity.getImage() est "+siteAModifier.getImage());
            siteAModifier.setSecteurs(entity.getSecteurs());
            siteAModifier=siteRepository.save(siteAModifier);
 
@@ -203,20 +204,21 @@ public class SiteService {
             }*/
 
             // 4/ enregistrement du Site dans l'image avec enregistrement de l'image si elle n'est pas présente
-            /*
             if ((siteAModifier.getImage()!=null)&&(entity.getImage()!=null)) {
                 Image imageTrouve = imageService.getImageById(siteAModifier.getImage().getId());
                 if (imageTrouve == null) {
                     logger.info(" l'image de siteAmodifier "+siteAModifier.getImage());
                     siteAModifier.getImage().setSite(siteAModifier);
                     siteAModifier.getImage().setTopo(null);
-                    imageService.stockerImage(siteAModifier.getImage(), siteAModifier.getUser());
+                    imageService.stockerImage(siteAModifier.getImage());
                 }else{
+                    logger.info(" on passe par image trouve different de nul est "+siteAModifier.getImage());
                     imageTrouve.setSite(siteAModifier);
                     imageTrouve.setTopo(null);
+                    imageService.stockerImage(imageTrouve);
                 }
             }
-            */
+
             // 5/ enregistrement du site dans chaque secteur concerné
             /*
             if ((siteAModifier.getSecteurs()!=null)&&(entity.getSecteurs()!=null)) {

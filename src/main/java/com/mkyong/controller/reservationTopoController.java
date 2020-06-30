@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -60,12 +61,23 @@ public class reservationTopoController {
     public String deleteReservationTopoById(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         logger.info("retour de l'id de la réservation concernée de deleteReservationTopoById "+id);
         Reservation reservationTrouvee = reservationTopoService.getReservationTopoById(id);
-        model.addAttribute("reservation", reservationTrouvee);
-        reservationTrouvee.setEtat("Annule");
-        reservationTopoService.updateReservationTopo(reservationTrouvee);
-        User newUser = userService.getUserByMail(principal.getName());
-        model.addAttribute("user", newUser);
-        model.addAttribute("enableButton", 1);
+        if(reservationTrouvee!=null) {
+            reservationTrouvee.setEtat("Annule");
+            reservationTopoService.updateReservationTopo(reservationTrouvee);
+            reservationTrouvee.getTopo().setDisponible(true);
+            reservationTrouvee.getTopo().setReservation(null);
+            topoService.UpdateTopo(reservationTrouvee.getTopo());
+            if (reservationTrouvee.getUser().getReservations()!=null) {
+                Collection<Reservation> listeReservation=(reservationTrouvee.getUser().getReservations());
+                listeReservation .remove(reservationTrouvee);
+                reservationTrouvee.getUser().setReservations(listeReservation);
+                userService.updateUser(reservationTrouvee.getUser());
+            }
+            User newUser = userService.getUserByMail(principal.getName());
+            model.addAttribute("reservation", reservationTrouvee);
+            model.addAttribute("user", newUser);
+            model.addAttribute("enableButton", 1);
+        }
         return "user/espacePersonnel";
     }
 
@@ -74,9 +86,9 @@ public class reservationTopoController {
     public String reserverReservationTopo(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         logger.info("retour de l'id du topo concerné de reserverReservationTopo "+id);
         Topo topoReserve = topoService.getTopoById(id);
-        model.addAttribute("topo", topoReserve);
         User currentUser = userService.getUserByMail(principal.getName());
         reservationTopoService.createReservationTopo(topoReserve, currentUser);
+        model.addAttribute("topo", topoReserve);
         model.addAttribute("enableButton", 2);
         return "redirect:/topos/details/{id}";
     }

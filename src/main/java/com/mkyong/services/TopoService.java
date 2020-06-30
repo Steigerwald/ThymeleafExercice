@@ -34,15 +34,29 @@ public class TopoService {
 
     /*Methode pour obtenir tous les topos de la base de données*/
     public List<Topo> getAllTopos() {
-        List<Topo> result1 =topoRepository.findAll();
-        if(result1.size() > 0) {
+        List<Topo> tousLesTopos =topoRepository.findAll();
+        if(tousLesTopos.size() > 0) {
             logger.info(" retour liste result1 si taille de result1 >0 ");
-            return result1;
+            return tousLesTopos;
         } else {
             logger.info(" retour nouvelle liste car pas d'élément dans la liste result1 ");
             return new ArrayList<Topo>();
         }
     }
+
+    /*Methode pour obtenir tous les topos disponibles de la base de données*/
+    public List<Topo> getAllToposDisponibles() {
+        List<Topo> lesToposDisponibles =topoRepository.findAllByDisponible(true);
+        if(lesToposDisponibles.size() > 0) {
+            logger.info(" retour liste result1 si taille de result1 >0 ");
+            return lesToposDisponibles;
+        } else {
+            logger.info(" retour nouvelle liste car pas d'élément dans la liste result1 ");
+            return new ArrayList<Topo>();
+        }
+    }
+
+
 
     /*Methode pour obtenir un topo par Id*/
     public Topo getTopoById(Long id) throws RecordNotFoundException {
@@ -63,23 +77,14 @@ public class TopoService {
             logger.info(" l'entité topo à modifier a été trouvée et modifiée");
             topoAModifier.setNomTopo(entity.getNomTopo());
             topoAModifier.setDescription(entity.getDescription());
-
-            if (entity.getDateParution()!=null) {
-                topoAModifier.setDateParution(entity.getDateParution());
-            }
+            topoAModifier.setDateParution(entity.getDateParution());
             logger.info(" la date de parution est: "+ topoAModifier.toStringDateParution());
-            if (entity.getDisponible()!=null) {
-                topoAModifier.setDisponible(entity.getDisponible());
-            }
-            if (entity.getLocation()!=null) {
-                topoAModifier.setLocation(entity.getLocation());
-            }
+            topoAModifier.setDisponible(entity.getDisponible());
+            topoAModifier.setLocation(entity.getLocation());
             topoAModifier.setSites(entity.getSites());
             topoAModifier.setReservation((entity.getReservation()));
             topoAModifier.setImage(entity.getImage());
-            if (entity.getOwner()!=null) {
-                topoAModifier.setOwner(entity.getOwner());
-            }
+            topoAModifier.setOwner(entity.getOwner());
             topoAModifier = topoRepository.save(topoAModifier);
 
             /*
@@ -107,7 +112,7 @@ public class TopoService {
                     reservationTopoService.updateReservationTopo(reservationTrouve);
                 }
             }
-
+                */
             // 3/ enregistrement du Topo dans l'image avec enregistrement de l'image si elle n'est pas présente
             if (topoAModifier.getImage()!=null) {
                 Image imageTrouve = imageService.getImageById(topoAModifier.getImage().getId());
@@ -115,13 +120,14 @@ public class TopoService {
                     logger.info(" l'image de topoAmodifier "+topoAModifier.getImage());
                     topoAModifier.getImage().setTopo(topoAModifier);
                     topoAModifier.getImage().setSite(null);
-                    imageService.stockerImage(topoAModifier.getImage(), topoAModifier.getOwner());
+                    imageService.stockerImage(topoAModifier.getImage());
                 }else{
                     imageTrouve.setTopo(topoAModifier);
                     imageTrouve.setSite(null);
+                    imageService.stockerImage(imageTrouve);
                 }
             }
-
+            /*
             // 4/ enregistrement du topo dans liste des topos de user
             if (topoAModifier.getOwner()!=null) {
                 if (topoAModifier.getOwner().getTopos() != null) {
@@ -171,7 +177,7 @@ public class TopoService {
         if (newTopo.getImage()!=null) {
             newTopo.getImage().setTopo(newTopo);
             newTopo.getImage().setSite(null);
-            imageService.stockerImage(newTopo.getImage(), user);
+            imageService.stockerImage(newTopo.getImage());
         }
 
 

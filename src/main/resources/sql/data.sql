@@ -65,6 +65,7 @@ INSERT INTO escalades.TBL_RESERVATION (id_reservation, etat, date_reservation,to
 (3,'acceptee','2020-05-04 02:45:30',1,1),
 (4,'refusee','2020-05-25 02:45:30',4,2);
 
+
 INSERT INTO escalades.TBL_COMMENTAIRE (id_commentaire, contenu, date_commentaire, site_id_site,user_id_user) VALUES
 (1,'Trop compliqué, pas d"eau','2020-04-29 02:45:30', 1,4),
 (2,'hyper facile, même trop','2020-05-01 02:45:30', 4,3),

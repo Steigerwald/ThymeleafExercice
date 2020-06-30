@@ -26,23 +26,28 @@
                             <table class="table table-striped" >
                                 <thead>
                                 <tr>
-                                    <th>Nom du propriétaire</th>
+                                    <th>Propriétaire</th>
                                     <th>Etat de réservation du Topo</th>
                                     <th>Réserver le Topo </th>
                                 </tr>
                                 </thead>
                                 <tr>
-                                   <td th:text="${topo.owner.nomUser}">
+                                   <td th:text="|${topo.owner.prenomUser}|+' '+|${topo.owner.nomUser}|">
                                    </td>
                                     <td th:text="${topo.toStringDisponible()}">
                                     </td>
                                     <td>
                                         <div th:switch="${enableButton}">
-                                            <form th:action="@{/reservations/reserverTopo/{id}(id=${topo.idTopo})}" method="post">
-                                                <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="1" >Réserver</button>
-                                                <p th:case="2" >En attente d'acceptation</p>
-                                                <p th:case="3" >Non disponible</p>
-                                            </form>
+                                            <div th:if="${user.idUser}==${topo.owner.idUser}">
+                                                <p>pas de réservation possible</p>
+                                            </div>
+                                            <div th:unless="${user.idUser}==${topo.owner.idUser}">
+                                                <form th:action="@{/reservations/reserverTopo/{id}(id=${topo.idTopo})}" method="post">
+                                                    <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="1" >Réserver</button>
+                                                    <p th:case="2" >En attente d'acceptation</p>
+                                                    <p th:case="3" >Non disponible</p>
+                                                </form>
+                                            </div>
                                         </div>
                                     </td>
                                 </tr>
