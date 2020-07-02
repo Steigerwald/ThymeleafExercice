@@ -1,10 +1,12 @@
 package com.mkyong.controller;
 
+import com.mkyong.entity.Reservation;
 import com.mkyong.entity.Site;
 import com.mkyong.entity.Topo;
 import com.mkyong.entity.User;
 import com.mkyong.exception.RecordNotFoundException;
 import com.mkyong.services.CustomUserDetailsService;
+import com.mkyong.services.ReservationTopoService;
 import com.mkyong.services.SiteService;
 import com.mkyong.services.UserService;
 import org.slf4j.Logger;
@@ -39,6 +41,10 @@ public class userController {
 
     @Autowired
     private SiteService siteService;
+
+    @Autowired
+    private ReservationTopoService reservationService;
+
 
     /* Controller pour la page d'entrée sans connection */
     @RequestMapping(method = RequestMethod.GET)
@@ -106,8 +112,9 @@ public class userController {
     @RequestMapping(path="user/espacePersonnel",method = RequestMethod.GET)
     public String EspacePersonnelUser(Principal principal, Model model) throws RecordNotFoundException {
         User newUser = userService.getUserByMail(principal.getName());
+        List <Reservation>listDemandesReservationTopo=reservationService.getAllDemandesReservationsTopoByUser(newUser);
         model.addAttribute("user", newUser);
-        model.addAttribute("enableButton",2);
+        model.addAttribute("listDemandesReservations",listDemandesReservationTopo);
         return "user/espacePersonnel";
     }
 

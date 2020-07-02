@@ -50,7 +50,7 @@ public class User {
     @ManyToOne
     private Role role;
 
-    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade=CascadeType.DETACH)
     @Nullable
     private Collection <Reservation> reservations;
 

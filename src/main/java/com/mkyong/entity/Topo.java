@@ -30,7 +30,7 @@ public class Topo {
     private Date dateParution;
 
     @Column(name = "DISPONIBLE")
-    private Boolean disponible;
+    private String disponible;
 
     @Column(name = "LOCATION")
     private Boolean location;
@@ -38,11 +38,11 @@ public class Topo {
     @OneToMany (mappedBy = "topo",cascade = CascadeType.ALL)
     private Collection<Site> sites;
 
-    @OneToOne (mappedBy= "topo",cascade = CascadeType.ALL)
+    @OneToMany (mappedBy= "topo",cascade = CascadeType.DETACH)
     @Nullable
-    private Reservation reservation;
+    private Collection<Reservation> reservations;
 
-    @OneToOne (mappedBy = "topo", cascade = CascadeType.ALL)
+    @OneToOne (mappedBy = "topo")
     @Nullable
     private Image image;
 
@@ -80,14 +80,6 @@ public class Topo {
         return joinedResult;
     }
 
-    public String toStringDisponible(){
-        if (disponible==true){
-            return "libre";
-        }else{
-            return "réservé";
-        }
-    }
-
     public String toStringLocation(){
         if (location==true){
             return "disponible en location";
@@ -99,7 +91,7 @@ public class Topo {
     // Constructeur
 
     public Topo() {
-        setDisponible(true);
+        setDisponible("libre");
     }
 
     // Getters
@@ -113,14 +105,15 @@ public class Topo {
 
     public Date getDateParution() { return dateParution; }
 
-    public Boolean getDisponible() { return disponible; }
+    public String getDisponible() { return disponible;
+    }
 
     public Boolean getLocation() { return location; }
 
     public Collection<Site> getSites() { return sites; }
 
     @Nullable
-    public Reservation getReservation() { return reservation; }
+    public Collection<Reservation> getReservations() { return reservations; }
 
     public User getOwner() { return owner; }
 
@@ -137,7 +130,7 @@ public class Topo {
 
     public void setDateParution(Date dateParution) { this.dateParution = dateParution; }
 
-    public void setDisponible(Boolean disponible) { this.disponible = disponible; }
+    public void setDisponible(String disponible) { this.disponible = disponible; }
 
     public void setLocation(Boolean location) { this.location = location; }
 
@@ -145,10 +138,9 @@ public class Topo {
         this.sites = sites;
     }
 
-    public void setReservation(@Nullable Reservation reservation) { this.reservation = reservation; }
+    public void setReservations(@Nullable Collection<Reservation> reservations) { this.reservations = reservations; }
 
     public void setOwner(User owner) { this.owner = owner; }
 
-    public void setImage(@Nullable Image image) { this.image = image;
-    }
+    public void setImage(@Nullable Image image) { this.image = image; }
 }

@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface TopoRepository
         extends JpaRepository<Topo, Long> {
-    List<Topo> findAllByDisponible(Boolean Disponible);
+    List<Topo> findAllByDisponible(String Disponible);
 
 }

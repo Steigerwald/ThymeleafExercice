@@ -26,10 +26,12 @@ public class Reservation {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateReservation;
 
-    @OneToOne
+    @ManyToOne
+    @Nullable
     private Topo topo;
 
     @ManyToOne
+    @Nullable
     private User user;
 
 
@@ -67,12 +69,13 @@ public class Reservation {
     public Date getDateReservation() { return dateReservation;
     }
 
+    @Nullable
     public Topo getTopo() { return topo;
     }
 
+    @Nullable
     public User getUser() { return user;
     }
-
 
     // Setters
 
@@ -86,9 +89,9 @@ public class Reservation {
     public void setDateReservation(Date dateReservation) { this.dateReservation = dateReservation;
     }
 
-    public void setTopo(Topo topo) { this.topo = topo;
+    public void setTopo(@Nullable Topo topo) { this.topo = topo;
     }
 
-    public void setUser(User user) { this.user = user;
+    public void setUser(@Nullable User user) { this.user = user;
     }
 }

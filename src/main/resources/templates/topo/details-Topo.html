@@ -27,32 +27,33 @@
                                 <thead>
                                 <tr>
                                     <th>Propriétaire</th>
-                                    <th>Etat de réservation du Topo</th>
+                                    <th>Date de Parution</th>
                                     <th>Réserver le Topo </th>
                                 </tr>
                                 </thead>
                                 <tr>
                                    <td th:text="|${topo.owner.prenomUser}|+' '+|${topo.owner.nomUser}|">
                                    </td>
-                                    <td th:text="${topo.toStringDisponible()}">
+                                    <td th:text="${topo.toStringDateParution()}">
                                     </td>
                                     <td>
-                                        <div th:switch="${enableButton}">
+                                        <div th:switch="${topo.disponible}">
                                             <div th:if="${user.idUser}==${topo.owner.idUser}">
                                                 <p>pas de réservation possible</p>
                                             </div>
                                             <div th:unless="${user.idUser}==${topo.owner.idUser}">
                                                 <form th:action="@{/reservations/reserverTopo/{id}(id=${topo.idTopo})}" method="post">
-                                                    <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="1" >Réserver</button>
-                                                    <p th:case="2" >En attente d'acceptation</p>
-                                                    <p th:case="3" >Non disponible</p>
+                                                    <button class="btn btn-success my-2 my-sm-0" type="submit" th:case="'libre'" >Réserver</button>
+                                                    <p th:case="'attente'" >En attente d'acceptation</p>
+                                                    <p th:case="'non disponible'" >Non disponible</p>
+                                                    <p th:case="'reservé'" >Réservé</p>
                                                 </form>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
                             </table>
-                            <div th:if="${topo.reservation} and ${topo.reservation.etat}=='En attente'"class="alert alert-info alert-dismissable">
+                            <div th:if="${topo.disponible}=='attente'"class="alert alert-info alert-dismissable">
                                 <p>
                                      <span>Votre réservation a été prise en compte, vous devez attendre maintenant que le propriétaire accepte votre demande</span>
                                 </p>

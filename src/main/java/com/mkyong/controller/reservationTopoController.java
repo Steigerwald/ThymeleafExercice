@@ -62,21 +62,29 @@ public class reservationTopoController {
         logger.info("retour de l'id de la réservation concernée de deleteReservationTopoById "+id);
         Reservation reservationTrouvee = reservationTopoService.getReservationTopoById(id);
         if(reservationTrouvee!=null) {
-            reservationTrouvee.setEtat("Annule");
-            reservationTopoService.updateReservationTopo(reservationTrouvee);
-            reservationTrouvee.getTopo().setDisponible(true);
-            reservationTrouvee.getTopo().setReservation(null);
-            topoService.UpdateTopo(reservationTrouvee.getTopo());
-            if (reservationTrouvee.getUser().getReservations()!=null) {
-                Collection<Reservation> listeReservation=(reservationTrouvee.getUser().getReservations());
-                listeReservation .remove(reservationTrouvee);
-                reservationTrouvee.getUser().setReservations(listeReservation);
-                userService.updateUser(reservationTrouvee.getUser());
+            reservationTrouvee.setEtat("annulee");
+            // je supprime la reservation dans le user
+            if (reservationTrouvee.getUser()!=null) {
+                Collection<Reservation> listeReservation = (reservationTrouvee.getUser().getReservations());
+                if ((reservationTrouvee.getUser().getReservations() != null) && (listeReservation != null)) {
+                    listeReservation.remove(reservationTrouvee);
+                    reservationTrouvee.getUser().setReservations(listeReservation);
+                    userService.updateUser(reservationTrouvee.getUser());
+                }
             }
+            // je supprime la reservation dans le topo
+            if (reservationTrouvee.getTopo()!=null){
+                reservationTrouvee.getTopo().setDisponible("libre");
+                if(reservationTrouvee.getTopo().getReservations()!=null) {
+                    reservationTrouvee.getTopo().getReservations().remove(reservationTrouvee);
+                    reservationTrouvee.getTopo().setReservations(reservationTrouvee.getTopo().getReservations());
+                }
+                topoService.UpdateTopo(reservationTrouvee.getTopo());
+            }
+            reservationTopoService.updateReservationTopo(reservationTrouvee);
             User newUser = userService.getUserByMail(principal.getName());
             model.addAttribute("reservation", reservationTrouvee);
             model.addAttribute("user", newUser);
-            model.addAttribute("enableButton", 1);
         }
         return "user/espacePersonnel";
     }
@@ -84,12 +92,13 @@ public class reservationTopoController {
     /*controller pour créer une réservation dans la base de données*/
     @RequestMapping(path = "/reserverTopo/{id}",method = RequestMethod.POST)
     public String reserverReservationTopo(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
-        logger.info("retour de l'id du topo concerné de reserverReservationTopo "+id);
-        Topo topoReserve = topoService.getTopoById(id);
         User currentUser = userService.getUserByMail(principal.getName());
-        reservationTopoService.createReservationTopo(topoReserve, currentUser);
-        model.addAttribute("topo", topoReserve);
-        model.addAttribute("enableButton", 2);
+        Topo topoConcerne = topoService.getTopoById(id);
+            topoConcerne.setDisponible("attente");
+            topoService.UpdateTopo(topoConcerne);
+            logger.info("retour de l'id du topo concerné de reserverReservationTopo car la réservation n'a pas été trouvée " + id);
+            reservationTopoService.createReservationTopo(topoConcerne, currentUser);
+            model.addAttribute("topo", topoConcerne);
         return "redirect:/topos/details/{id}";
     }
 
@@ -98,13 +107,25 @@ public class reservationTopoController {
     public String accepterReservationTopo(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         logger.info("retour de l'id de la reservation concernée de accepterReservationTopo "+id);
         Reservation reservationAcceptee = reservationTopoService.getReservationTopoById(id);
-        reservationAcceptee.setEtat("Acceptee");
-        reservationAcceptee.getTopo().setDisponible(false);
-        reservationAcceptee.getTopo().setReservation(reservationAcceptee);
+        reservationAcceptee.setEtat("acceptee");
+        if (reservationAcceptee.getTopo()!=null) {
+            reservationAcceptee.getTopo().setDisponible("reservé");
+            if(reservationAcceptee.getTopo().getReservations()!=null) {
+                reservationAcceptee.getTopo().getReservations().add(reservationAcceptee);
+                reservationAcceptee.getTopo().setReservations(reservationAcceptee.getTopo().getReservations());
+
+            }
+            topoService.UpdateTopo(reservationAcceptee.getTopo());
+            if (reservationAcceptee.getUser()!=null) {
+                reservationAcceptee.getUser().getReservations().add(reservationAcceptee);
+                reservationAcceptee.getUser().setReservations(reservationAcceptee.getUser().getReservations());
+                userService.updateUser(reservationAcceptee.getUser());
+            }
+        }
+        reservationTopoService.updateReservationTopo(reservationAcceptee);
         User newUser = userService.getUserByMail(principal.getName());
         model.addAttribute("user", newUser);
-        topoService.UpdateTopo(reservationAcceptee.getTopo());
-        reservationTopoService.updateReservationTopo(reservationAcceptee);
+
         return "user/espacePersonnel";
     }
 
@@ -114,15 +135,15 @@ public class reservationTopoController {
     public String refuserReservationTopo(Principal principal,Model model, @PathVariable("id") Long id) throws RecordNotFoundException {
         logger.info("retour de l'id de la reservation concernée de refuserReservationTopo "+id);
         Reservation reservationRefusee = reservationTopoService.getReservationTopoById(id);
-        reservationRefusee.getTopo().setReservation(null);
-        reservationRefusee.getTopo().setDisponible(true);
-        reservationRefusee.setEtat("Refusee");
+        reservationRefusee.setEtat("refusee");
+        if (reservationRefusee.getTopo()!=null) {
+            reservationRefusee.getTopo().setDisponible("libre");
+            topoService.UpdateTopo(reservationRefusee.getTopo());
+        }
+        reservationTopoService.updateReservationTopo(reservationRefusee);
         User newUser = userService.getUserByMail(principal.getName());
         model.addAttribute("user", newUser);
-        topoService.UpdateTopo(reservationRefusee.getTopo());
-        reservationTopoService.updateReservationTopo(reservationRefusee);
         return "user/espacePersonnel";
     }
-
 }
 

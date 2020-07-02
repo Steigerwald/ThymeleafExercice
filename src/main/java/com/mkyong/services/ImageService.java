@@ -44,7 +44,7 @@ public class ImageService {
 
 
     public List<Image> getAllImages() {
-        List<Image> listeImages = (List<Image>) repositoryImage.findAll();
+        List<Image> listeImages = repositoryImage.findAll();
         if (listeImages.size() > 0) {
             logger.info(" retour liste listeImages si taille de rde la liste >0 ");
             return listeImages;
@@ -82,8 +82,8 @@ public class ImageService {
     }
 
     public Image stockerImage(Image entity) throws RecordNotFoundException {
-        if (entity.getId() == null) {
             Image newImage =new Image();
+            newImage.setId(entity.getId());
             newImage.setNomImage(entity.getNomImage());
             newImage.setMimeType(entity.getMimeType());
             newImage.setTaille(entity.getTaille());
@@ -94,24 +94,25 @@ public class ImageService {
             entity = repositoryImage.save(newImage);
             logger.info(" retour de l'entité de stockerImage car cette image n'existe pas et donc elle a été crée ");
             return entity;
+    }
+
+
+    public Image updateImage(Image entity) throws RecordNotFoundException {
+        Image imageAModifier = getImageById(entity.getId());
+        Image result;
+        if (imageAModifier != null) {
+            imageAModifier.setNomImage(entity.getNomImage());
+            imageAModifier.setMimeType(entity.getMimeType());
+            imageAModifier.setTaille(entity.getTaille());
+            imageAModifier.setImage(entity.getImage());
+            logger.info(" valeur de site de imageAModifier pour vérifier Image et l'affectation dans la table id_site_id " + imageAModifier.getSite());
+            imageAModifier.setSite(entity.getSite());
+            imageAModifier.setTopo(entity.getTopo());
+            result = repositoryImage.save(imageAModifier);
         } else {
-            Image imageAModifier =getImageById(entity.getId());
-            Image result;
-            if (imageAModifier!=null) {
-                imageAModifier.setNomImage(entity.getNomImage());
-                imageAModifier.setMimeType(entity.getMimeType());
-                imageAModifier.setTaille(entity.getTaille());
-                imageAModifier.setImage(entity.getImage());
-                logger.info(" valeur de site de imageAModifier pour vérifier Image et l'affectation dans la table id_site_id " + imageAModifier.getSite());
-                imageAModifier.setSite(entity.getSite());
-                imageAModifier.setTopo(entity.getTopo());
-                result = repositoryImage.save(imageAModifier);
-            }else{
-                result=entity;
-            }
-            logger.info(" retour de la nouvelle entité Image de stockerImage qui n'a pas été sauvegardée car l'image est existante");
-            return result;
+            result = entity;
         }
+        return result;
     }
 
     public Image recupererImageFile(MultipartFile file) throws IOException {

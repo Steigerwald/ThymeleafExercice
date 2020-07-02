@@ -143,15 +143,6 @@ public class topoController {
         model.addAttribute("topo", topoTrouve);
         User userConnecte = userService.getUserByMail(principal.getName());
         model.addAttribute("user", userConnecte);
-        if (topoTrouve.getLocation()==true) {
-            if (topoTrouve.getDisponible()==true){
-                model.addAttribute("enableButton", 1);
-            } else {
-                model.addAttribute("enableButton", 2);
-            }
-        }   else{
-            model.addAttribute("enableButton", 3);
-        }
         return "topo/details-Topo"; //view
     }
 
@@ -173,8 +164,7 @@ public class topoController {
         User newUser = userService.getUserByMail(principal.getName());
         Topo topoTrouve=topoService.getTopoById(id);
         topoTrouve.setLocation(false);
-        topoTrouve.setDisponible(false);
-        logger.info("retour de l'id du topoTrouve "+topoTrouve.getReservation());
+        topoTrouve.setDisponible("non disponible");
         topoService.UpdateTopo(topoTrouve);
         model.addAttribute("topo", topoTrouve);
         model.addAttribute("user", newUser);

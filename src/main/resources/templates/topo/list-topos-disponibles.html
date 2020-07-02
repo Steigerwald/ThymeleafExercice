@@ -42,7 +42,7 @@
                                                         <td><a th:text="${topo.nomTopo}" th:href="@{/topos/details/{nom} (nom=${topo.idTopo})}"></a></td>
                                                         <td th:text="|${topo.owner.prenomUser}|+' '+|${topo.owner.nomUser}|"></td>
                                                         <td th:text="${topo.toStringDateParution()}"></td>
-                                                        <td th:text="${topo.toStringDisponible()}"></td>
+                                                        <td th:text="${topo.disponible}"></td>
                                                         <td th:text="${topo.toStringLocation()}"></td>
                                                     </tr>
                                                 </tbody>

@@ -215,7 +215,7 @@ public class SiteService {
                     logger.info(" on passe par image trouve different de nul est "+siteAModifier.getImage());
                     imageTrouve.setSite(siteAModifier);
                     imageTrouve.setTopo(null);
-                    imageService.stockerImage(imageTrouve);
+                    imageService.updateImage(imageTrouve);
                 }
             }
 

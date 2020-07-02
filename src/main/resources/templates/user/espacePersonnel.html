@@ -84,11 +84,12 @@
                                                         <td th:text="${reservation.topo.owner.nomUser}"></td>
                                                         <td th:text="${reservation.etat}"></td>
                                                         <td>
-                                                            <div th:switch="${enableButton}">
+                                                            <div th:switch="${reservation.etat}">
                                                                 <form th:action="@{/reservations/annulerReservation/{id}(id=${reservation.idReservation})}" method="post">
-                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="1" disabled >Annuler</button>
-                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="2" >Annuler</button>
-                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="3" disabled >Annuler</button>
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="'refusee'" disabled >Annuler</button>
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="'acceptee'" >Annuler</button>
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="'annulee'" disabled >Annuler</button>
+                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit" th:case="'attente'" >Annuler</button>
                                                                 </form>
                                                             </div>
                                                         </td>
@@ -160,33 +161,35 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr th:each="topo : ${user.topos}" th:if="${topo.reservation}!=null">
-                                                        <td th:text="${topo.reservation.idReservation}"> </td>
-                                                        <td th:text="${topo.nomTopo}"> </td>
-                                                        <td th:text="${topo.reservation.user.nomUser}"> </td>
-                                                        <td th:text="${topo.reservation.user.prenomUser}"> </td>
-                                                        <td th:text="${topo.reservation.user.mailUser}"> </td>
-                                                        <td th:text="${topo.reservation.etat}"> </td>
-                                                        <td>
-                                                            <div th:switch="${topo.reservation.etat}">
-                                                                <form th:action="@{/reservations/reservationAcceptee/{id}(id=${topo.reservation.idReservation})}" method="post">
-                                                                    <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'en attente'">Accepter</button>
-                                                                    <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'acceptee'" disabled>Accepter</button>
-                                                                    <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'refusee'">Accepter</button>
-                                                                    <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'annulee'"disabled>Accepter</button>
-                                                                </form>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div th:switch="${topo.reservation.etat}">
-                                                                <form th:action="@{/reservations/reservationRefusee/{id}(id=${topo.reservation.idReservation})}" method="post">
-                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'en attente'">Refuser</button>
-                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'acceptee'">Refuser</button>
-                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'refusee'"disabled>Refuser</button>
-                                                                    <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'annulee'"disabled>Refuser</button>
-                                                                </form>
-                                                            </div>
-                                                        </td>
+                                                    <tr th:each="reservation : ${listDemandesReservations}">
+                                                        <div th:if="${reservation}!=null or (${reservation.etat}!='refusee' or ${reservation.etat}!='annulee')">
+                                                            <td th:text="${reservation.idReservation}"> </td>
+                                                            <td th:text="${reservation.topo.nomTopo}"> </td>
+                                                            <td th:text="${reservation.user.nomUser}"> </td>
+                                                            <td th:text="${reservation.user.prenomUser}"> </td>
+                                                            <td th:text="${reservation.user.mailUser}"> </td>
+                                                            <td th:text="${reservation.etat}"> </td>
+                                                            <td>
+                                                                <div th:switch="${reservation.etat}">
+                                                                    <form th:action="@{/reservations/reservationAcceptee/{id}(id=${reservation.idReservation})}" method="post">
+                                                                        <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'attente'">Accepter</button>
+                                                                        <button class="btn btn-success my-2 my-sm-0" type="submit"th:case="'acceptee'" disabled>Accepter</button>
+                                                                        <p th:case="'refusee'">N/A</p>
+                                                                        <p th:case="'annulee'">N/A</p>
+                                                                    </form>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div th:switch="${reservation.etat}">
+                                                                    <form th:action="@{/reservations/reservationRefusee/{id}(id=${reservation.idReservation})}" method="post">
+                                                                        <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'attente'">Refuser</button>
+                                                                        <button class="btn btn-danger my-2 my-sm-0" type="submit"th:case="'acceptee'">Refuser</button>
+                                                                        <p th:case="'refusee'">N/A</p>
+                                                                        <p th:case="'annulee'">N/A</p>
+                                                                    </form>
+                                                                </div>
+                                                            </td>
+                                                        </div>
                                                     </tr>
                                                 </tbody>
                                             </table>

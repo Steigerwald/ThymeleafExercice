@@ -36,7 +36,7 @@ public class TopoService {
     public List<Topo> getAllTopos() {
         List<Topo> tousLesTopos =topoRepository.findAll();
         if(tousLesTopos.size() > 0) {
-            logger.info(" retour liste result1 si taille de result1 >0 ");
+            logger.info(" retour liste tousLesTopos si taille de result1 >0 ");
             return tousLesTopos;
         } else {
             logger.info(" retour nouvelle liste car pas d'élément dans la liste result1 ");
@@ -46,17 +46,15 @@ public class TopoService {
 
     /*Methode pour obtenir tous les topos disponibles de la base de données*/
     public List<Topo> getAllToposDisponibles() {
-        List<Topo> lesToposDisponibles =topoRepository.findAllByDisponible(true);
+        List<Topo> lesToposDisponibles =topoRepository.findAllByDisponible("libre");
         if(lesToposDisponibles.size() > 0) {
-            logger.info(" retour liste result1 si taille de result1 >0 ");
+            logger.info(" retour liste lesToposDisponibles si taille de result1 >0 ");
             return lesToposDisponibles;
         } else {
             logger.info(" retour nouvelle liste car pas d'élément dans la liste result1 ");
             return new ArrayList<Topo>();
         }
     }
-
-
 
     /*Methode pour obtenir un topo par Id*/
     public Topo getTopoById(Long id) throws RecordNotFoundException {
@@ -82,7 +80,7 @@ public class TopoService {
             topoAModifier.setDisponible(entity.getDisponible());
             topoAModifier.setLocation(entity.getLocation());
             topoAModifier.setSites(entity.getSites());
-            topoAModifier.setReservation((entity.getReservation()));
+            topoAModifier.setReservations((entity.getReservations()));
             topoAModifier.setImage(entity.getImage());
             topoAModifier.setOwner(entity.getOwner());
             topoAModifier = topoRepository.save(topoAModifier);
@@ -121,11 +119,12 @@ public class TopoService {
                     topoAModifier.getImage().setTopo(topoAModifier);
                     topoAModifier.getImage().setSite(null);
                     imageService.stockerImage(topoAModifier.getImage());
-                }else{
+                }
+                /*else{
                     imageTrouve.setTopo(topoAModifier);
                     imageTrouve.setSite(null);
-                    imageService.stockerImage(imageTrouve);
-                }
+                    imageService.updateImage(imageTrouve);
+                }*/
             }
             /*
             // 4/ enregistrement du topo dans liste des topos de user
@@ -163,10 +162,10 @@ public class TopoService {
         newTopo.setDescription(entity.getDescription());
         newTopo.setDateParution(today);
         logger.info(" date de parution Topo créé"+ newTopo.toStringDateParution());
-        newTopo.setDisponible(true);
+        newTopo.setDisponible("libre");
         newTopo.setLocation(entity.getLocation());
         newTopo.setSites(entity.getSites());
-        newTopo.setReservation(null);
+        newTopo.setReservations(null);
         newTopo.setImage(entity.getImage());
         newTopo.setOwner(user);
 
