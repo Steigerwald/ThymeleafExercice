@@ -20,9 +20,9 @@
                     <div class="container">
                         <div class="card">
                             <div class="card-body">
-                                <div th:switch="${sitesPublics}" class="container">
+                                <div th:switch="${sitesPublics.size()}" class="container">
                                     <div class="table-responsive text-nowrap ncol-md-12">
-                                        <h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
+                                        <h2 th:case="0">Pas de sites publics !!</h2>
                                         <div th:case="*">
                                             <div >
                                                 <table class="table table-striped" >

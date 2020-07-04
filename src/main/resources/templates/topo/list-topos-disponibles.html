@@ -25,7 +25,7 @@
                             <div class="card-body">
                                 <div th:switch="${topos}" class="container">
                                     <div class="table-responsive text-nowrap ncol-md-12">
-                                        <h2 th:case="null">Pas d'enregistrement trouvé !!</h2>
+                                        <h2 th:case="null">aucun topo de disponible !!!</h2>
                                         <div th:case="*">
                                             <table class="table table-striped" >
                                                 <thead th:switch="${user.role.nomRole}">

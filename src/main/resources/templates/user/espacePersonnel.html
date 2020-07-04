@@ -29,8 +29,9 @@
                                         <div>
                                             <table class="table table-striped" >
                                                 <thead>
-                                                    <div th:switch="${user.sites}">
-                                                        <div th:case="null">
+                                                    <div th:switch="${user.sites.size()}">
+                                                        <div th:case="0">
+                                                            <p>Vous n'avez pas de site actuellement !!</p>
                                                         </div>
                                                         <div th:case="*">
                                                             <h2>Mes sites </h2>
@@ -42,8 +43,8 @@
                                                     </div>
                                                 </thead>
                                                 <tbody>
-                                                    <div th:switch="${user.sites}" class="container">
-                                                        <p th:case="null">Vous n'avez pas de site actuellement !!</p>
+                                                    <div th:switch="${user.sites.size()}" class="container">
+                                                        <p th:case="0">Vous n'avez pas de site actuellement !!</p>
                                                         <div th:case="*">
                                                             <tr th:each="site : ${user.sites}">
                                                             <td> <a th:text="${site.nomSite}" th:href="@{/sites/details/{nom} (nom=${site.idSite})}" ></a> </td>
@@ -118,7 +119,7 @@
                                                 <tbody>
                                                 <tr th:each="topo : ${user.topos}">
                                                     <td><a th:text="${topo.nomTopo}" th:href="@{/topos/details/{nom} (nom=${topo.idTopo})}"></a></td>
-                                                    <td th:text="${topo.toStringDisponible()}"></td>
+                                                    <td th:text="${topo.disponible}"></td>
                                                     <td th:text="${topo.toStringLocation()}"></td>
                                                     <td>
                                                         <div th:switch="${topo.location}">
